@@ -10,7 +10,7 @@ Previous tests successfully loaded the harness, but effective tool prompts descr
 
 Each **image** is one scene and one camera view, but **may contain one or two devices** as requested. Select `single` (one Mac OR one phone), `side-by-side` (one Mac and one phone) or `depth-staggered` (one of each with real front/back separation). For a pair, both screens must remain completely visible and white; the Mac keyboard/trackpad must not be obscured.
 
-`grounded` = on mineral floor; `hover` = just above a **visible** floor, subtle detached shadow; `suspended` = **no floor or horizon at all**, no floor shadow or platform, but retain coherent half-gray *vertical* architectural depth. Avoid generic prompts that say `floating over the floor` for suspended scenes.
+High-view and bird's-eye viewpoints are discontinued. `on-block` = exactly one or two restrained orthogonal mineral plinth supports, not decorative shapes. `grounded` = directly on mineral floor; `hover` = just above a **visible** floor, subtle detached shadow; `suspended` = **no floor or horizon at all**, no floor shadow or platform, but retain coherent half-gray *vertical* architectural depth. Avoid generic prompts that say `floating over the floor` for suspended scenes.
 
 For reusable examples, copy a **single** file from `prompts/iphone17/`, `prompts/macbookpro14/` or `prompts/macbookpro14-iphone17/`. `prompts/macbookpro14-iphone17/suspended.txt` is the user-favored visual direction. `prompts/` remains optional; the four-file PRECHECK is unchanged.
 
