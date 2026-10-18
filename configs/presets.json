@@ -29,7 +29,8 @@
     {"id":"iphone-oblique-block","detail":"Single standard iPhone 17 lying flat, face-up on a table-sized (large planar top) monolithic mineral plinth. Camera deliberately elevated to 40–55 degrees above the block top and aimed across the front display; retain screen visibility, realistic device thickness and support top/side. No vertical 90-degree overhead."},
     {"id":"iphone-tilted-supported","detail":"Single standard iPhone 17 leaning back ~20 degrees from vertical on a wide single mineral block, supported by a subtle integrated raised facet of that SAME block. Camera adjusts to a modestly elevated oblique front-three-quarter viewpoint matched to the screen, all corners visible."},
     {"id":"iphone-suspended-angled","detail":"Single standard iPhone 17 unsupported in floorless gray architectural airspace, ~15-degree three-quarter yaw and ~10-degree roll while keeping all white-screen corners visible; coherent one-camera photograph, no ground shadow."},
-    {"id":"iphone-tilted-floor","detail":"Exactly one standard iPhone rests leaning with its bottom long edge touching the mineral floor and its upper rear edge leaning against an integrated architectural wall; camera shifts to a modestly raised front-three-quarter view facing white screen. Real contact at two points, no extra prop, no unsupported floating."}
+    {"id":"iphone-tilted-floor","detail":"Exactly one standard iPhone rests leaning with its bottom long edge touching the mineral floor and its upper rear edge leaning against an integrated architectural wall; camera shifts to a modestly raised front-three-quarter view facing white screen. Real contact at two points, no extra prop, no unsupported floating."},
+    {"id":"empty-stage","detail":"ONE architectural studio frame with open negative space ready for hypothetical later product placement, but with no product visible. Material planes and light are the sole subject."}
   ],
   "lighting": [
     {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
@@ -50,7 +51,8 @@
   "device_layouts": [
     {"id":"single","device_count":1,"detail":"Exactly one device, the chosen model only; one camera view and one photograph. Never invent a second phone or laptop."},
     {"id":"side-by-side","device_count":2,"detail":"Exactly one 14-inch MacBook Pro on frame-left and one standard iPhone 17 on frame-right. Screens completely visible; Mac keyboard and trackpad visible. No overlap or product duplication."},
-    {"id":"depth-staggered","device_count":2,"detail":"Exactly one open MacBook Pro slightly behind and one standard iPhone 17 in the foreground, with measurable depth offset, intact silhouettes and neither white screen nor keyboard obscured."}
+    {"id":"depth-staggered","device_count":2,"detail":"Exactly one open MacBook Pro slightly behind and one standard iPhone 17 in the foreground, with measurable depth offset, intact silhouettes and neither white screen nor keyboard obscured."},
+    {"id":"environment-only","device_count":0,"detail":"A single empty architectural studio photograph, with no products or devices. Study environmental structure, materials and light only."}
   ],
   "spatial_modes": [
     {"id":"grounded","detail":"Devices plausibly rest on a continuous matte mineral floor; delicate contact shadows; no desks, supports, furniture, plinths or props."},
@@ -71,7 +73,13 @@
     {"id":"iphone-block-flat","devices":["iphone17"],"layout_id":"single","pose_id":"flat-face-up","spatial_mode_id":"on-block","composition_id":"iphone-oblique-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-flat.txt"},
     {"id":"iphone-block-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"on-block","composition_id":"iphone-tilted-supported","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-tilted.txt"},
     {"id":"iphone-suspended","devices":["iphone17"],"layout_id":"single","pose_id":"suspended-angled","spatial_mode_id":"suspended","composition_id":"iphone-suspended-angled","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/suspended.txt"},
-    {"id":"iphone-floor-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"grounded","composition_id":"iphone-tilted-floor","environment_id":"plaster-corner","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/on-floor-tilted.txt"}
+    {"id":"iphone-floor-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"grounded","composition_id":"iphone-tilted-floor","environment_id":"plaster-corner","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/on-floor-tilted.txt"},
+    {"id":"env-microcement-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/microcement-soft.txt"},
+    {"id":"env-fiber-corner-left","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/environment/fiber-corner-left.txt"},
+    {"id":"env-wide-block-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"on-block","composition_id":"empty-stage","environment_id":"fine-concrete","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/wide-block-soft.txt"},
+    {"id":"env-smoked-glass-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/smoked-glass-soft.txt"},
+    {"id":"env-charcoal-lowkey","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/environment/charcoal-lowkey.txt"},
+    {"id":"env-suspended-vertical","devices":[],"layout_id":"environment-only","spatial_mode_id":"suspended","composition_id":"empty-stage","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/suspended-vertical.txt"}
   ],
   "retired_compositions": [
     {"id":"high-view","reason":"Discontinued by art direction, never select or generate.","replaced_by":"display-on-block"}
