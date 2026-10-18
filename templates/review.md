@@ -18,12 +18,12 @@ Status: **PASS / REJECT / UNVERIFIED**
 |---|---|---|
 | One image / one camera; exactly requested 1 or 2 devices; no collage | | |
 | Both white screens unobstructed and Mac keyboard visible (for pair) | | |
-| Floating mode matches: grounded / hover / floorless suspended | | |
+| Floating mode matches: grounded / on-block / hover / floorless suspended | | |
 | 16:9 actual aspect ratio (metadata when available) | | |
 | Device model & housing proportions | | |
 | Entire blank white screen visible | | |
 | No logo/text/UI/person/hands/watermark | | |
-| Scene camera/framing/placement/negative space matches contract | | |
+| Scene camera/framing/placement/negative space matches contract (never high-view) | | |
 | No desks, woodgrain, lifestyle sets, furniture or other props | | |
 | No freestanding blocks, stands or supports | | |
 | Selected environment/material and 0–3 architectural planes match contract | | |
