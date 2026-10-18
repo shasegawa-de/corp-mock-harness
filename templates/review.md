@@ -16,7 +16,8 @@ Status: **PASS / REJECT / UNVERIFIED**
 
 | Check | PASS / REJECT / UNVERIFIED | Evidence / correction |
 |---|---|---|
-| One image / one camera; exactly requested 1 or 2 devices; no collage | | |
+| One image / one camera; exactly requested 0 (environment-only), 1 or 2 devices; no collage | | |
+| For environment-only: zero devices, correct empty stage, material and lighting | | |
 | Both white screens unobstructed and Mac keyboard visible (for pair) | | |
 | Floating mode matches: grounded / on-block / hover / floorless suspended | | |
 | 16:9 actual aspect ratio (metadata when available) | | |
