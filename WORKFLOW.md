@@ -6,6 +6,14 @@ The **only mandatory** files are `AGENTS.md`, `STYLE.md`, `configs/devices.json`
 
 Previous tests successfully loaded the harness, but effective tool prompts described a **four-panel product collage**, even though the intended Scene Contracts required one photograph each. This is **prompt handoff drift**, not proof that the image generator ignored a correct prompt. The fix is to freeze and audit each outgoing prompt.
 
+## Supported device count and spatial modes
+
+Each **image** is one scene and one camera view, but **may contain one or two devices** as requested. Select `single` (one Mac OR one phone), `side-by-side` (one Mac and one phone) or `depth-staggered` (one of each with real front/back separation). For a pair, both screens must remain completely visible and white; the Mac keyboard/trackpad must not be obscured.
+
+`grounded` = on mineral floor; `hover` = just above a **visible** floor, subtle detached shadow; `suspended` = **no floor or horizon at all**, no floor shadow or platform, but retain coherent half-gray *vertical* architectural depth. Avoid generic prompts that say `floating over the floor` for suspended scenes.
+
+For reusable examples, copy a **single** file from `prompts/iphone17/`, `prompts/macbookpro14/` or `prompts/macbookpro14-iphone17/`. `prompts/macbookpro14-iphone17/suspended.txt` is the user-favored visual direction. `prompts/` remains optional; the four-file PRECHECK is unchanged.
+
 ## Scene Contract → exact final prompt
 
 Internally plan the full batch, but expose **only the current scene** to the image tool. Convert selected JSON IDs to concrete prose: do not send raw preset tables, alternates, previous candidate prompts or a four-scene briefing. Target a concise English prompt of approximately 80–150 words.
