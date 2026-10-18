@@ -2,6 +2,8 @@
 
 ## Unreleased — main (2026-10-19)
 
+- Retire high-view/bird's-eye composition and its former C prompt; default C now uses a near-eye-level mineral display block. Add distinct `on-block` spatial mode alongside `grounded`, `hover` and `suspended`. Permits purposeful mineral display plinths only in `on-block` (unrelated props still banned).
+- Add four new copy-ready placement prompts: iPhone on block; MacBook Pro directly on floor; MacBook Pro on block; pair on display blocks. Image examples are concept previews, not validated standalone renders.
 - Support `single`, `side-by-side`, and `depth-staggered` device layouts with exact device counts; distinguish `grounded`, `hover` and **floorless `suspended`** spatial modes in existing required files (no extra mandatory reads).
 - Add reusable MacBook Pro and MacBook Pro + iPhone prompts and record user-accepted iPhone A/B and floorless suspended pair directions; retain D, high-view C and grounded pair as candidates where appropriate. Generated image binaries are not committed.
 - Add four isolated, copy-ready standard iPhone 17 render prompts (`prompts/iphone17/a.txt` through `d.txt`) and a strict handoff regression test; keep this optional rather than adding more mandatory reading.
