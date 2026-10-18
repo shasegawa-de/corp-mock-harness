@@ -9,3 +9,5 @@ Use only for Gemini/Nano Banana-specific controls. **The mandatory four-file gat
 5. Visually assess the actual image and regenerate only failed scenes. Do not claim verified accuracy without inspection.
 
 This repository is a prompt harness, not a Nano Banana API client. Reference: https://ai.google.dev/gemini-api/docs/image-generation
+
+**Prompt integrity:** For each call, freeze one complete single-scene render prompt and inspect the actual/effective tool prompt when available. A rewritten multi-view or four-panel instruction is `PROMPT_DRIFT`: STOP the batch. If effective prompt text is not inspectable, mark `PROMPT_UNVERIFIED`. Never send the batch brief or the other three scenes to the image engine.
