@@ -16,6 +16,8 @@ High-view and bird's-eye viewpoints are discontinued as general presets. `on-blo
 
 For reusable examples, copy a **single** file from `prompts/iphone17/`, `prompts/macbookpro14/` or `prompts/macbookpro14-iphone17/`. `prompts/macbookpro14-iphone17/suspended.txt` is the user-favored visual direction. `prompts/` remains optional; the four-file PRECHECK is unchanged.
 
+**iPhone posture examples (single device):** [flat on floor](prompts/iphone17/on-floor-flat.txt), [tilted on floor](prompts/iphone17/on-floor-tilted.txt), [flat on wide mineral block](prompts/iphone17/on-block-flat.txt), [tilted on block](prompts/iphone17/on-block-tilted.txt), [floorless suspended](prompts/iphone17/suspended.txt). The selected `pose_id` in `configs/presets.json > device_pose_rules` determines how the camera must move. For two-device scenes, use `poses` keyed by each device ID rather than a single `pose_id`. Keep laptop displays raised and keyboards visible.
+
 ## Scene Contract → exact final prompt
 
 Internally plan the full batch, but expose **only the current scene** to the image tool. Convert selected JSON IDs to concrete prose: do not send raw preset tables, alternates, previous candidate prompts or a four-scene briefing. Target a concise English prompt of approximately 80–150 words.
