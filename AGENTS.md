@@ -1,5 +1,14 @@
 # Mock Generation Harness — instructions
 
+## SOURCE OF TRUTH — LIVE REPOSITORY FILES, NOT ZIP
+
+**The authoritative instructions are the individual Markdown/JSON files on the `main` branch of `shasegawa-de/corp-mock-harness`. Fetch and read those live files directly before any image generation.** This includes `AGENTS.md`, `STYLE.md`, `configs/devices.json`, `configs/presets.json`, relevant `.agents/skills/**/SKILL.md` files and the selected provider guide.
+
+- Source priority: **(1) latest individual files on `main`** via repository file reads, raw URLs, Contents API or a verified up-to-date checkout; **(2) individual files at a specific commit only if the user explicitly requests that revision**.
+- **NEVER use `dist/*.zip`, downloaded ZIP archives, uploaded archive copies or remembered excerpts as the execution source of truth.** They are versioned distribution snapshots, potentially older than `main`, and do not satisfy the mandatory read-first gate.
+- If an archive conflicts with live files, **follow the live files**. Do not unzip an archive as a shortcut for reading the required configuration or skills.
+- If the live required files cannot be fetched fully, **STOP before invoking any image-generation tool** and request access or the required individual files. Do not substitute cached or archived content.
+
 ## ⛔️ CRITICAL GATEKEEPER FOR AI — STOP BEFORE IMAGE GENERATION
 
 **Do NOT trigger image generation APIs or tools immediately upon receiving a prompt.** A user request such as “generate four iPhone mockups” is **not** permission to skip the harness preflight.
