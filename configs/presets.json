@@ -37,10 +37,10 @@
     {"id":"high-key","detail":"Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."}
   ],
   "default_scenes": [
-    {"composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox"},
-    {"composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing"},
-    {"composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox"},
-    {"composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead"}
+    {"composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox","layout_id":"single","spatial_mode_id":"grounded"},
+    {"composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","layout_id":"single","spatial_mode_id":"grounded"},
+    {"composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","layout_id":"single","spatial_mode_id":"on-block"},
+    {"composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead","layout_id":"single","spatial_mode_id":"grounded"}
   ],
   "device_layouts": [
     {"id":"single","device_count":1,"detail":"Exactly one device, the chosen model only; one camera view and one photograph. Never invent a second phone or laptop."},
