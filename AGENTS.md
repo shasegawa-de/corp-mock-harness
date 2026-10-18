@@ -1,5 +1,17 @@
 # Mock Generation Harness — instructions
 
+## ⛔️ CRITICAL GATEKEEPER FOR AI — STOP BEFORE IMAGE GENERATION
+
+**Do NOT trigger image generation APIs or tools immediately upon receiving a prompt.** A user request such as “generate four iPhone mockups” is **not** permission to skip the harness preflight.
+
+1. **MUST read and process the complete contents** of `STYLE.md`, `configs/devices.json`, and `configs/presets.json` **before the first image-generation tool call**. Also apply `AGENTS.md`, relevant `SKILL.md` instructions, and the selected provider guide. Do not assume these files have been read based on names, prior knowledge, or a partial excerpt.
+2. **MUST prepare one concrete scene plan per image first**: exact device, composition/camera, one architectural material and coherent 0–3 planes, lighting, negative constraints. For multiple images, vary at least two substantive design axes and generate independent frames, not a collage.
+3. **MUST enforce ALL hard constraints in every scene**: exactly one correctly shaped device; front display fully visible and **featureless pure white**; one independent **16:9** horizontal frame; **half-gray monochrome architectural planes**; **absolute zero unrelated props**. In particular: **NO wooden or wood-grain desks, tabletops, office/home interiors, plants, coffee mugs, books, stationery, hands, furniture, stands, pedestals, decorative blocks, logos, watermarks or UI**. Never add lifestyle objects to make the scene look “premium” or to fill negative space.
+4. **If any required source is inaccessible, unreadable, or only partially retrieved, STOP.** Do not invent missing preset information or generate a generic lifestyle/product image. Ask for access or the missing file.
+5. **ONLY AFTER steps 1–4 are satisfied may an available GPT Image or Nano Banana tool be invoked.** After generation inspect the actual image, reject violations and correct the prompt/scene; do not rationalize an unwanted desk or prop as part of the environment.
+
+**Default scene bias to suppress:** this is **architectural studio product photography**, **not** a desk setup, home office, lifestyle flat-lay or decorated workspace. Favor an empty restrained grayscale backdrop over any guessed environmental object.
+
 **Purpose:** Generate and refine independent, art-directed photorealistic device mock images using **GPT Image or Nano Banana**. This repository provides an instruction harness, not a code-based image generation service.
 
 ## Sources (priority)
