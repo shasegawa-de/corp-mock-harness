@@ -3,7 +3,8 @@
 Date / batch:
 Engine / model if known:
 Image link or file:
-Device:
+Requested device count / models:
+Layout ID / spatial mode ID:
 Scene Contract (device, composition, environment, lighting, camera, architecture):
 Frozen render prompt (exact outgoing text):
 Effective tool prompt (if exposed; otherwise unknown):
@@ -15,7 +16,9 @@ Status: **PASS / REJECT / UNVERIFIED**
 
 | Check | PASS / REJECT / UNVERIFIED | Evidence / correction |
 |---|---|---|
-| One image, one device; no collage | | |
+| One image / one camera; exactly requested 1 or 2 devices; no collage | | |
+| Both white screens unobstructed and Mac keyboard visible (for pair) | | |
+| Floating mode matches: grounded / hover / floorless suspended | | |
 | 16:9 actual aspect ratio (metadata when available) | | |
 | Device model & housing proportions | | |
 | Entire blank white screen visible | | |
