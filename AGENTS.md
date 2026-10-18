@@ -19,6 +19,8 @@ IDs must exist in the loaded JSON. For an unspecified four-image batch, use `con
 
 **Before generation verify for EVERY contract:** correct single device, fully visible featureless white front screen, one independent 16:9 frame, chosen camera/placement, half-gray 0–3 coherent architectural planes, chosen lighting, **zero wooden desks, woodgrain, furniture, lifestyle rooms, blocks/stands, plants, mugs, hands, props, logos or UI**. `STYLE.md` is the hard design standard. An incomplete or conflicting contract means **NO generation**.
 
+**Before the first image call, show a one-line PRECHECK receipt listing the four file names actually read and the selected scene IDs (e.g. `PRECHECK PASS: 4/4 files; scenes: A/B/C/D`). Do not print PASS or generate if any step failed.**
+
 ## 3. EXECUTE (one scene at a time)
 
 **One Scene Contract → one concise image prompt → one image-generation call → one standalone image.** Four images require four independent calls when supported, **not one prompt describing four scenes**, grids or collages. Pass only the selected scene's device geometry, pure-white screen, exact camera, architectural material/planes, light and short exclusions. Do **not** send all presets, other scenes or the entire harness to the image model. Use approved product reference imagery/editing if available. If the interface cannot produce independent images, say so instead of substituting a montage.
