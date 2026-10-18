@@ -1,45 +1,31 @@
-# Mock generation workflow — provider-neutral
+# Workflow — optional execution notes
 
-This is a *manual/agent-mediated image-generation harness*, not an executable image API application. An assistant or operator needs to load this repository's instructions and run the selected image tool.
+**The mandatory gate and sequence live in [AGENTS.md](AGENTS.md).** This document is optional guidance, not an extra prerequisite. Before any image call, load only the four mandatory live files named there; never load the ZIP as execution context.
 
-## Step 1: Define
-Fill `templates/request.md`. Confirm subject, provider (GPT Image or Nano Banana), number of independent outputs, expected white screen and 16:9. Default: half-gray monochrome photorealistic product photography.
-
-## Step 2: Design a plan
-Read `STYLE.md`, `configs/devices.json`, `configs/presets.json`. Apply six `SKILL.md` instructions:
-- Device = lock subject.
-- Composition = viewpoint/pose/negative space.
-- Environment = physically coherent material/spatial planes.
-- Lighting = realistic illumination/reflections/shadows.
-- Variation = create distinct signatures; compare recent history.
-- Quality Check = criteria for final inspection.
-
-Record a scene selection table with one row per **independent image**: `device | composition_id | environment_id | lighting_id | spatial note | camera note`. Four images should have noticeably different environments and camera/illumination logic.
-
-## Step 3: Compose prompt (one per image)
+## Scene Contract (one per image)
 
 ```text
-Produce exactly ONE independent landscape 16:9 photorealistic product studio photograph. No collage, grid, multi-panel, montage or contact sheet.
-
-DEVICE: [from configs/devices.json; precisely one subject; front display fully visible, blank white, correct physical proportions].
-COMPOSITION: [one independent composition preset + camera position, hero scale, negative space].
-ENVIRONMENT: [one material + 0–3 coherent architectural planes; no unrelated blocks or supports].
-LIGHTING: [one illumination preset + physical shadow/glass reflection].
-TONE: Half-gray monochrome, modern, calm, premium; photorealistic material microtexture.
-
-CONSTRAINTS: One device only, entire screen visible and white, no text/UI/logos/people/hands/watermarks/stands/decorative blocks/props; no geometrical distortion. Do not output multiple scenes in one image.
+device_id: [valid key from configs/devices.json]
+composition_id: [valid id from configs/presets.json]
+environment_id: [valid id from configs/presets.json]
+lighting_id: [valid id from configs/presets.json]
+camera/framing: [angle, height, orientation, size, negative space]
+architecture: [material and 0–3 coherent planes]
+exclusions: [no desks, props, stands, logos or UI]
 ```
 
-Avoid over-specifying multiple conflicting perspectives or material types.
+For an unqualified four-image request, use `default_scenes` from `configs/presets.json`, adapted to the selected device. Four scenes require four independent tool invocations, not one request containing four scenes.
 
-## Step 4: Generate
-Choose `providers/gpt-image.md` or `providers/nano-banana.md`; pass the per-image prompt and approved references into the corresponding product's image feature. Request landscape 16:9 using whichever setting the current UI exposes. **Do not assume access to a tool or claim that generation occurred unless an image was returned.** Prompt and tool controls are separate.
+## Prompt per image
 
-## Step 5: Review
-Inspect each image at normal and enlarged scale with `templates/review.md`. Hard failures => reject; aesthetic mismatches => revise. For exact dimensions, inspect image metadata when possible. Model text output isn't proof of visual correctness.
+```text
+ONE photorealistic 16:9 landscape image, not a collage.
+[Exact single device, correct housing and fully visible pure-white display].
+[Chosen camera, orientation, framing and negative space].
+[Specific monochrome architectural environment/material/planes].
+[Specific soft studio lighting].
+No wood desk, furniture, lifestyle setting, decorative blocks, stands,
+plants, mugs, hands, extra device, text, logos, UI or watermark.
+```
 
-## Step 6: Log and iterate
-Keep a concise record of provider, model (if known), ratio, selected preset IDs, prompt, output location, QA result, and corrective change using `history/README.md` as guidance. Do not upload proprietary imagery without approval. Unrecorded history means best-effort, not guaranteed deduplication.
-
-## Model-independent constraints
-Do not silently substitute the wrong iPhone generation or Pro body; maintain one subject; no decorative stands or marble-by-default. If exact product shape/UI masking is a hard requirement, request reference imagery or use external perspective-aware compositing after generation.
+**Only pass that scene's concrete instructions**, not every preset or the whole harness. Review the actual output against `STYLE.md`; reject wrong device, screen, viewpoint, environment, props or layout. Revise only failed scenes. Exact dimensions and history persistence must be verified rather than presumed.
