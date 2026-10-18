@@ -27,12 +27,12 @@
 
 ## 床置き・ブロック置き（新規）
 
-- **床置き：** [MacBook Proを鉱物系の床へ直接設置](prompts/macbookpro14/on-floor.txt)／[iPhoneを床に寝かせる](prompts/iphone17/on-floor-flat.txt)。テーブルや机は使わない。
+- **床置き：** [MacBook Proを鉱物系の床へ直接設置](prompts/macbookpro14/on-floor.txt)／[iPhoneを床に寝かせる](prompts/iphone17/on-floor-flat.txt)／[壁に沿って傾ける](prompts/iphone17/on-floor-tilted.txt)。テーブルや机は使わない。
 - **ブロック置き：** iPhoneの[立て置き](prompts/iphone17/on-block.txt)／[大きなブロックに寝かせる](prompts/iphone17/on-block-flat.txt)／[傾けて支える](prompts/iphone17/on-block-tilted.txt)、[MacBook Pro単体](prompts/macbookpro14/on-block.txt)、[Mac＋iPhoneの2台構成](prompts/macbookpro14-iphone17/on-blocks.txt)。
 - ブロックは**端末を支える直方体の鉱物系展示台のみ**。iPhoneを寝かせるときは**天板がテーブル程度に広い一体のコンクリート塊**を使い、小さな台座は使わない。傾けるときは背面が支えられた自然な姿勢にする。Macは常に開いた状態とし、寝かせない。
 - iPhone単体の[床なし空中浮遊](prompts/iphone17/suspended.txt)も追加。`grounded` / `on-block` / `hover` / `suspended` を切り替えて生成する。
 
-新規のブロック構図はプロンプト収録済みですが、生成品質は未検証。詳細は[プロンプト一覧](prompts/README.md)を参照。
+新規のiPhone構図5本（床に寝かせる／床で傾ける／広いブロックに寝かせる／ブロックで傾ける／空中浮遊）はプロンプト収録済みですが、再現性・筐体精度は未検証。詳細は[プロンプト一覧](prompts/README.md)を参照。
 
 ## 生成指示が書き換わる場合のテスト
 
