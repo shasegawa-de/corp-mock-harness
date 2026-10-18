@@ -16,6 +16,12 @@
 
 未指定なら標準iPhone 17・4枚・16:9。**1枚につき端末1台、画面は無地の純白、構図と建築的ハーフグレー背景を維持し、デスク・木目・小道具は描かない。** 4枚なら4つの別シーンを計画し、4回の独立生成で実行。詳細なルールと不合格条件は [AGENTS.md](AGENTS.md) と [STYLE.md](STYLE.md) が正本です。
 
+## 生成指示が書き換わる場合のテスト
+
+画像生成ツールが指定した1構図を勝手に複数構図へ変えてしまう場合は、[単独プロンプトテスト](prompts/README.md)を利用してください。標準iPhone 17の[A](prompts/iphone17/a.txt)・[B](prompts/iphone17/b.txt)・[C](prompts/iphone17/c.txt)・[D](prompts/iphone17/d.txt)をそれぞれ独立した完成テキストとして保存しています。
+
+まず**AのRawテキストだけ**をコピーし、新しい画像生成チャットで**その1本だけ**入力します。GitHubのURLや「4枚生成」の依頼を同じメッセージに追加しません。これで会話文脈による混線を切り分けられますが、画像生成ツール内部のプロンプト書き換えを完全には防げません。詳細は[テスト手順](prompts/README.md)を参照してください。
+
 ## ファイル構成
 
 - **必須4ファイル：** [AGENTS.md](AGENTS.md)（実行制御）、[STYLE.md](STYLE.md)（デザイン制約）、[devices.json](configs/devices.json)（筐体）、[presets.json](configs/presets.json)（構図・背景・照明、標準4案）。
