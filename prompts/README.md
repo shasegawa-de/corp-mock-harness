@@ -1,6 +1,21 @@
 # Single-scene prompt fixtures — optional strict handoff test
 
-These `prompts/iphone17/*.txt` files are **four independent, complete render prompts** derived from the live `main` presets. They are *smoke-test fixtures*, not replacements for the mandatory `AGENTS.md`, `STYLE.md` and configuration files.
+The prompt files under `prompts/` are **independent, complete render prompts** derived from the live `main` presets. They are *smoke-test fixtures*, not replacements for the mandatory `AGENTS.md`, `STYLE.md` and configuration files.
+
+## Available device configurations and references
+
+**One image = one camera/scene, not necessarily one device.** Select `layout_id` and `spatial_mode_id` from live `configs/presets.json` (after the normal four-file preflight).
+
+| Category | Fixed single-scene prompt | Review status |
+|---|---|---|
+| iPhone frontal A | [iphone17/a.txt](iphone17/a.txt) | Visual accepted |
+| iPhone left three-quarter B | [iphone17/b.txt](iphone17/b.txt) | Visual accepted, material/light refinements |
+| iPhone asymmetrical glass D | [iphone17/d.txt](iphone17/d.txt) | Experimental; lighting failure |
+| MacBook Pro floating, NO FLOOR | [macbookpro14/suspended.txt](macbookpro14/suspended.txt) | Visual candidate |
+| MacBook Pro + iPhone floating, NO FLOOR | [macbookpro14-iphone17/suspended.txt](macbookpro14-iphone17/suspended.txt) | **User-approved art direction** |
+| MacBook Pro + iPhone, grounded | [macbookpro14-iphone17/side-by-side.txt](macbookpro14-iphone17/side-by-side.txt) | Feasible candidate |
+
+**`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
 ## Purpose
 
@@ -11,7 +26,7 @@ A previous test loaded the harness correctly but the **effective image-tool prom
 1. Open [A prompt](iphone17/a.txt), select **Raw**, and copy **only the complete text**, without a four-scene batch request or repository link.
 2. Start a **new, otherwise empty image-generation conversation** with GPT Image or Nano Banana. Paste the text as the **entire user message** and generate **one** image. A fresh chat minimizes contamination from a previous four-scene brief; it does not guarantee the model or tool will preserve the text verbatim.
 3. If the app exposes an effective/revised prompt, compare it to the pasted prompt. Record `MATCH`, `PROMPT_DRIFT`, or `PROMPT_UNVERIFIED`. Do not infer `MATCH` from a plausible image alone.
-4. Evaluate the actual image: **one standalone frame, correct standard iPhone 17, pure-white front screen, exact camera/position, selected architectural material/planes, specified light, no props**. Record `PASS / REJECT / UNVERIFIED`.
+4. Evaluate the actual image: **one standalone frame, exact requested device count/models, pure-white screens, exact camera/position, selected spatial mode and architectural material/planes, specified light, no props**. Record `PASS / REJECT / UNVERIFIED`.
 5. **Only after A passes**, repeat with [B](iphone17/b.txt), [C](iphone17/c.txt), and [D](iphone17/d.txt), each as a *separate new conversation or standalone input*. Never paste multiple prompts into one generation request.
 
 ## Interpretation
