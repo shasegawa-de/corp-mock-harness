@@ -47,6 +47,10 @@
     {
       "id": "dark-fiber-cement",
       "detail": "Half-gray and charcoal fiber cement planar intersection, fibrous texture visible only in light, no freestanding solids."
+    },
+    {
+      "id": "suspended-mineral-planes",
+      "detail": "Floorless gray architectural airspace. Two simple integrated VERTICAL matte microcement or fiber-cement planes with gentle tonal separation and discreet joints; no floor, no horizontal horizon or ground-shadow. Soft architectural depth with no supports or props."
     }
   ],
   "compositions": [
@@ -229,7 +233,7 @@
       "layout_id": "single",
       "spatial_mode_id": "suspended",
       "composition_id": "three-quarter-left",
-      "environment_id": "graphite-gradient",
+      "environment_id": "suspended-mineral-planes",
       "lighting_id": "broad-softbox",
       "reference_prompt": "prompts/macbookpro14/suspended.txt",
       "review_status": "visual-candidate",
@@ -244,7 +248,7 @@
       "layout_id": "side-by-side",
       "spatial_mode_id": "suspended",
       "composition_id": "three-quarter-left",
-      "environment_id": "graphite-gradient",
+      "environment_id": "suspended-mineral-planes",
       "lighting_id": "broad-softbox",
       "reference_prompt": "prompts/macbookpro14-iphone17/suspended.txt",
       "review_status": "user-approved-direction",
