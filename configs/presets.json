@@ -1,0 +1,38 @@
+{
+  "environments": [
+    {"id":"microcement-seamless","detail":"A continuous matte microcement floor and backdrop, nearly invisible corner line, organic granular mineral surface. No marble."},
+    {"id":"fiber-cement-panels","detail":"Two flat fiber-cement panels forming one crisp architectural seam, low contrast fibers, pale half-gray. No freestanding blocks."},
+    {"id":"diatomaceous-plaster","detail":"Matte gray diatomaceous-earth plaster wall with delicate trowel texture and mineral floor, two intersecting planes only."},
+    {"id":"board-formed-concrete","detail":"Dark gray cast-in-place board-formed concrete wall, subtle straight formwork seams, matte gray floor."},
+    {"id":"slate-layer","detail":"Charcoal slate with restrained linear layered grain, one simple plane meeting a pale gray floor."},
+    {"id":"brushed-steel","detail":"Quiet brushed stainless steel wall, subtle horizontal grain, neutral matte gray floor, no decorative hardware."},
+    {"id":"smoked-glass","detail":"Smoked gray glass partition integrated into the background, subtle translucent reflection, gray seamless floor, no extra props."},
+    {"id":"plaster-corner","detail":"Pale gray polished plaster corner with a sharp right-angle intersection and non-reflective warm-neutral gray floor."},
+    {"id":"graphite-gradient","detail":"Near-seamless graphite cyclorama with extremely subtle tonal falloff and matte gray floor, no additional geometry."},
+    {"id":"fine-concrete","detail":"Finely sandblasted light concrete wall with discreet porosity and faint horizontal joint, matte gray floor."},
+    {"id":"mineral-white","detail":"Off-white mineral rendered wall and fog-gray floor with minute imperfections, two planes only."},
+    {"id":"dark-fiber-cement","detail":"Half-gray and charcoal fiber cement planar intersection, fibrous texture visible only in light, no freestanding solids."}
+  ],
+  "compositions": [
+    {"id":"frontal-centered","detail":"Camera square-on at the screen, symmetric centered hero, eye level. Leave generous horizontal negative space."},
+    {"id":"three-quarter-left","detail":"Three-quarter view from viewer's left, device gently rotated 12 to 18 degrees around the vertical axis; all screen corners visible."},
+    {"id":"three-quarter-right","detail":"Three-quarter view from viewer's right, gentle 12 to 18 degree yaw; entire white screen clearly visible."},
+    {"id":"low-view","detail":"Lower camera height with modest upward perspective, device remains undistorted and screen readable, centered in canvas."},
+    {"id":"high-view","detail":"Slightly elevated camera angle looking downward, screen unobstructed, device clearly separated from backdrop."},
+    {"id":"subtle-tilt-left","detail":"Device floating in mid-air with a restrained 10 degree counter-clockwise roll, front display facing viewer."},
+    {"id":"subtle-tilt-right","detail":"Device floating in mid-air with a restrained 10 degree clockwise roll, front display facing viewer."},
+    {"id":"asymmetric-negative-space","detail":"Device slightly left of visual center (within central 40%), generous intentional negative space on right, front display completely visible."},
+    {"id":"near-floor-hover","detail":"Device hovers subtly above the floor without stands, camera near floor height, a single soft contact shadow below."},
+    {"id":"graphic-planes","detail":"Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."}
+  ],
+  "lighting": [
+    {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
+    {"id":"left-grazing","detail":"Low-angle soft grazing light from frame-left reveals mineral surface texture, controlled gentle shadow."},
+    {"id":"right-grazing","detail":"Soft raking light from frame-right illuminates textured architecture and produces faint cast shadow."},
+    {"id":"soft-overhead","detail":"Large diffused overhead source, restrained tonal gradients, no harsh or theatrical light beams."},
+    {"id":"top-left-daylight","detail":"Soft top-left daylight through invisible high window, mild diagonal light transition rather than repeated hard beams."},
+    {"id":"top-right-daylight","detail":"Soft top-right daylight with broad gentle penumbra and diffused highlights on device glass."},
+    {"id":"low-key","detail":"Soft low-key studio lighting on charcoal background, sufficient light to keep product contours readable."},
+    {"id":"high-key","detail":"Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."}
+  ]
+}
