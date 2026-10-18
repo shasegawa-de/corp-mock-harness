@@ -12,7 +12,10 @@
     {"id":"fine-concrete","detail":"Finely sandblasted light concrete wall with discreet porosity and faint horizontal joint, matte gray floor."},
     {"id":"mineral-white","detail":"Off-white mineral rendered wall and fog-gray floor with minute imperfections, two planes only."},
     {"id":"dark-fiber-cement","detail":"Half-gray and charcoal fiber cement planar intersection, fibrous texture visible only in light, no freestanding solids."},
-    {"id":"suspended-mineral-planes","detail":"Floorless gray architectural airspace. Two simple integrated VERTICAL matte microcement or fiber-cement planes with gentle tonal separation and discreet joints; no floor, no horizontal horizon or ground-shadow. Soft architectural depth with no supports or props."}
+    {"id":"suspended-mineral-planes","detail":"Floorless gray architectural airspace. Two simple integrated VERTICAL matte microcement or fiber-cement planes with gentle tonal separation and discreet joints; no floor, no horizontal horizon or ground-shadow. Soft architectural depth with no supports or props."},
+    {"id":"carrara-marble-wall-floor","detail":"Honed pale white/light-gray Carrara marble wall slabs connected to a matching mineral marble floor at architectural scale; delicate fine gray veins, subtle joints and satin low-reflection finish. Restrained half-gray palette, not bold dramatic veining or a material macro crop."},
+    {"id":"graphite-marble-wall-floor","detail":"Honed charcoal-to-graphite marble wall with sparse fine pale-gray natural veining and continuous slightly lighter matte graphite floor. Restrained low-key studio reflections and a real wall-floor connection; no harsh mirror polish."},
+    {"id":"carrara-marble-wide-block","detail":"Exactly one large wide table-sized solid monolithic honed pale Carrara marble plinth with subtle believable gray veins continuous across top and sides, in a half-gray mineral wall/floor studio. It is a functional product exhibition support, not a desk or several decorative cubes."}
   ],
   "compositions": [
     {"id":"frontal-centered","detail":"Camera square-on at the screen, symmetric centered hero, eye level. Leave generous horizontal negative space."},
@@ -80,7 +83,8 @@
     {"id":"env-wide-block-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"on-block","composition_id":"empty-stage","environment_id":"fine-concrete","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/wide-block-soft.txt"},
     {"id":"env-smoked-glass-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/smoked-glass-soft.txt"},
     {"id":"env-charcoal-lowkey","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/environment/charcoal-lowkey.txt"},
-    {"id":"env-suspended-vertical","devices":[],"layout_id":"environment-only","spatial_mode_id":"suspended","composition_id":"empty-stage","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/suspended-vertical.txt"}
+    {"id":"env-suspended-vertical","devices":[],"layout_id":"environment-only","spatial_mode_id":"suspended","composition_id":"empty-stage","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/suspended-vertical.txt"},
+    {"id":"env-carrara-marble-block","devices":[],"layout_id":"environment-only","spatial_mode_id":"on-block","composition_id":"empty-stage","environment_id":"carrara-marble-wide-block","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/carrara-marble-display-block.txt"}
   ],
   "retired_compositions": [
     {"id":"high-view","reason":"Discontinued by art direction, never select or generate.","replaced_by":"display-on-block"}
@@ -121,6 +125,8 @@
     {"id":"surface-smoked-glass-mineral","surface_type":"vertical-wall-and-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/architectural-surfaces/smoked-glass-and-mineral.txt"},
     {"id":"surface-charcoal-wall-floor","surface_type":"wall-floor-corner","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/architectural-surfaces/charcoal-wall-floor.txt"},
     {"id":"surface-microcement-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"microcement-seamless","lighting_id":"left-grazing","reference_prompt":"prompts/architectural-surfaces/microcement-floor-plane.txt"},
-    {"id":"surface-sandblasted-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"fine-concrete","lighting_id":"right-grazing","reference_prompt":"prompts/architectural-surfaces/sandblasted-concrete-floor.txt"}
+    {"id":"surface-sandblasted-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"fine-concrete","lighting_id":"right-grazing","reference_prompt":"prompts/architectural-surfaces/sandblasted-concrete-floor.txt"},
+    {"id":"surface-carrara-marble","surface_type":"wall-floor-junction","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"carrara-marble-wall-floor","lighting_id":"broad-softbox","reference_prompt":"prompts/architectural-surfaces/carrara-marble-wall-floor.txt"},
+    {"id":"surface-graphite-marble","surface_type":"wall-floor-corner","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"graphite-marble-wall-floor","lighting_id":"low-key","reference_prompt":"prompts/architectural-surfaces/graphite-marble-wall-floor.txt"}
   ]
 }
