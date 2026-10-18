@@ -17,6 +17,19 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
+## Architectural wall and floor surface studies (6 scenes, no devices)
+
+These are **architectural planes and flooring in use**, not macro swatches or isolated textures. They are separately indexed in `configs/presets.json > surface_studies` with `layout_id=environment-only` and `devices=[]`. The HTML catalog includes visual references; some floor images are crops from earlier scenes, not independent generations of these new exact prompts.
+
+| Type | Complete prompt |
+|---|---|
+| Wall + floor junction / microcement | [microcement-wall-floor](architectural-surfaces/microcement-wall-floor.txt) |
+| Wall panels / fiber cement | [fiber-cement-wall-panels](architectural-surfaces/fiber-cement-wall-panels.txt) |
+| Glass wall + mineral wall + floor | [smoked-glass-and-mineral](architectural-surfaces/smoked-glass-and-mineral.txt) |
+| Charcoal corner + floor | [charcoal-wall-floor](architectural-surfaces/charcoal-wall-floor.txt) |
+| Broad microcement floor (~85% frame) | [microcement-floor-plane](architectural-surfaces/microcement-floor-plane.txt) |
+| Broad sandblasted concrete floor (~85% frame) | [sandblasted-concrete-floor](architectural-surfaces/sandblasted-concrete-floor.txt) |
+
 ## Empty-stage environment & lighting references
 
 These six prompts render **ZERO devices**: architectural background, material and lighting only. The preview crops in the HTML gallery are **concept-board reference images, not standalone verified renders**.
