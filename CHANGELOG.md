@@ -2,6 +2,7 @@
 
 ## Unreleased — main (2026-10-19)
 
+- Add six device-free background architecture and lighting reference prompts under `prompts/environment/`; support `environment-only` 0-device layouts alongside normal single/pair photos. Concept-board previews are not final standalone output validation.
 - Add iPhone 17 pose-aware single scenes: face-up flat on mineral floor, physically supported tilt on floor, face-up flat on broad table-sized concrete block, integrated-support tilt on block, and floorless solo suspension. Final prompts are complete single-scene text fixtures; image quality remains unverified.
 - Add pose-specific camera rules: elevated 40–55-degree **oblique** view reveals a flat phone screen; generic high-view/90-degree bird's-eye remains retired. MacBook Pro remains OPEN with screen raised, never fully flat/closed. Keep current four-file live GitHub preflight.
 - Retire high-view/bird's-eye composition and its former C prompt; default C now uses a near-eye-level mineral display block. Add distinct `on-block` spatial mode alongside `grounded`, `hover` and `suspended`. Permits purposeful mineral display plinths only in `on-block` (unrelated props still banned).
