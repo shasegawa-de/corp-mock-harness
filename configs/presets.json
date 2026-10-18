@@ -19,12 +19,12 @@
     {"id":"three-quarter-left","detail":"Three-quarter view from viewer's left, device gently rotated 12 to 18 degrees around the vertical axis; all screen corners visible."},
     {"id":"three-quarter-right","detail":"Three-quarter view from viewer's right, gentle 12 to 18 degree yaw; entire white screen clearly visible."},
     {"id":"low-view","detail":"Lower camera height with modest upward perspective, device remains undistorted and screen readable, centered in canvas."},
-    {"id":"high-view","detail":"Slightly elevated camera angle looking downward, screen unobstructed, device clearly separated from backdrop."},
     {"id":"subtle-tilt-left","detail":"Device floating in mid-air with a restrained 10 degree counter-clockwise roll, front display facing viewer."},
     {"id":"subtle-tilt-right","detail":"Device floating in mid-air with a restrained 10 degree clockwise roll, front display facing viewer."},
     {"id":"asymmetric-negative-space","detail":"Device slightly left of visual center (within central 40%), generous intentional negative space on right, front display completely visible."},
     {"id":"near-floor-hover","detail":"Device hovers subtly above the floor without stands, camera near floor height, a single soft contact shadow below."},
-    {"id":"graphic-planes","detail":"Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."}
+    {"id":"graphic-planes","detail":"Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."},
+    {"id":"display-on-block","detail":"Near eye-level product photography with a single rectilinear mineral display block or integrated platform as the intentional support. Screen and correct device geometry fully visible; do not aim the camera downward or create a top-down view."}
   ],
   "lighting": [
     {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
@@ -39,7 +39,7 @@
   "default_scenes": [
     {"composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox"},
     {"composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing"},
-    {"composition_id":"high-view","environment_id":"dark-fiber-cement","lighting_id":"top-right-daylight"},
+    {"composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox"},
     {"composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead"}
   ],
   "device_layouts": [
@@ -50,13 +50,20 @@
   "spatial_modes": [
     {"id":"grounded","detail":"Devices plausibly rest on a continuous matte mineral floor; delicate contact shadows; no desks, supports, furniture, plinths or props."},
     {"id":"hover","detail":"Devices hover just above a visible mineral floor. A faint, localized separated shadow indicates small elevation. Floor remains visible; never use this mode for suspended or floorless requests."},
-    {"id":"suspended","detail":"Devices float weightlessly in mid-air within the crop. NO visible floor, floor-wall junction, horizon, ground contact, ground reflection or cast shadow on the floor. Background depth comes from quiet vertical architectural planes, graded half-gray tones and controlled reflections on the products; no props or supporting structures."}
+    {"id":"suspended","detail":"Devices float weightlessly in mid-air within the crop. NO visible floor, floor-wall junction, horizon, ground contact, ground reflection or cast shadow on the floor. Background depth comes from quiet vertical architectural planes, graded half-gray tones and controlled reflections on the products; no props or supporting structures."},
+    {"id":"on-block","detail":"Device(s) physically rest on one or two simple orthogonal matte gray mineral display blocks/plinths. Blocks are intentional product supports and are exempt from the blanket unrelated-props ban ONLY in this mode. No desks, woodgrain, furniture, decorative stack, suspended device or extra objects. Camera at device eye level or slightly below, never bird's-eye."}
   ],
   "showcase_presets": [
     {"id":"iphone-front-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/a.txt"},
     {"id":"iphone-angled-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/iphone17/b.txt"},
     {"id":"iphone-smoked-glass-experiment","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/d.txt"},
     {"id":"mac-suspended-reference","devices":["macbookpro14"],"layout_id":"single","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14/suspended.txt"},
-    {"id":"pair-suspended-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/suspended.txt"}
+    {"id":"pair-suspended-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/suspended.txt"},
+    {"id":"iphone-block-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block.txt"},
+    {"id":"mac-floor-reference","devices":["macbookpro14"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"soft-overhead","reference_prompt":"prompts/macbookpro14/on-floor.txt"},
+    {"id":"pair-block-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/on-blocks.txt"}
+  ],
+  "retired_compositions": [
+    {"id":"high-view","reason":"Discontinued by art direction, never select or generate.","replaced_by":"display-on-block"}
   ]
 }
