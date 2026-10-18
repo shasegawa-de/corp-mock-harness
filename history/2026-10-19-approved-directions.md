@@ -37,7 +37,7 @@ This is a **human review record of selected directions**, not a machine-verifiab
 - MacBook Pro only, suspended: [`prompts/macbookpro14/suspended.txt`](../prompts/macbookpro14/suspended.txt) — visual candidate, test device count: exactly one laptop.
 - MacBook Pro + iPhone, grounded side-by-side: [`prompts/macbookpro14-iphone17/side-by-side.txt`](../prompts/macbookpro14-iphone17/side-by-side.txt) — arrangement was visually feasible, not a user-approved master.
 - `hover` mode (floor visible): valid exploration category, but previous examples felt too grounded; **do not substitute it for `suspended`**.
-- C iPhone high-view: retained as exploration only; previous output had weak camera elevation, overly coarse surface and excessive shadows.
+- Previous C iPhone high-view: **retired**; not an active preset or candidate. Replaced by eye-level architectural block placement. The old experiment remains in commit history only.
 
 ## Next QA protocol
 
