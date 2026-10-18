@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — main (2026-10-19)
+
+- Reduce the mandatory AI context to four live GitHub files: `AGENTS.md`, `STYLE.md`, `configs/devices.json`, `configs/presets.json`. Never use the ZIP as the execution source.
+- Introduce explicit PRECHECK and per-image Scene Contracts; select four curated default scenes to avoid premature composition/background guessing.
+- Keep one image tool call per standalone image; reject camera, architecture, lighting and device deviations from the actual image.
+- Make SKILL/WORKFLOW/provider documents optional, removing redundant mandatory file-reading instructions.
+- The `dist/corp-mock-harness-v0.2.0.zip` artifact remains a prior release snapshot, not updated with these changes.
+
 ## v0.2.0 — 2026-10-18
 
 - Switch to a provider-neutral skills-first architecture without Python runtime or image API client.
