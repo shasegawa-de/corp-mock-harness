@@ -2,6 +2,8 @@
 
 ## Unreleased — main (2026-10-19)
 
+- Support `single`, `side-by-side`, and `depth-staggered` device layouts with exact device counts; distinguish `grounded`, `hover` and **floorless `suspended`** spatial modes in existing required files (no extra mandatory reads).
+- Add reusable MacBook Pro and MacBook Pro + iPhone prompts and record user-accepted iPhone A/B and floorless suspended pair directions; retain D, high-view C and grounded pair as candidates where appropriate. Generated image binaries are not committed.
 - Add four isolated, copy-ready standard iPhone 17 render prompts (`prompts/iphone17/a.txt` through `d.txt`) and a strict handoff regression test; keep this optional rather than adding more mandatory reading.
 - Distinguish orchestration prompt drift from image-model fidelity by testing one prompt in a fresh image chat, then separately checking effective prompt and rendered image.
 - Add frozen single-scene render prompts, outgoing/effective prompt auditing and fail-fast `PROMPT_DRIFT` detection; diagnose prior 4/4 collages as prompt handoff drift, not proof of generator noncompliance.
