@@ -1,5 +1,14 @@
 # Corp Mock Harness
 
+## 📌 SOURCE OF TRUTH — GitHubの個別ファイルを最優先
+
+**AIはZIPではなく、`shasegawa-de/corp-mock-harness` の `main` ブランチにある最新の個別ファイル（Markdown / JSON）を直接読むこと。** READMEは入口、`AGENTS.md` は実行規約の正本。`STYLE.md`、`configs/devices.json`、`configs/presets.json`、各`SKILL.md`、プロバイダー定義も、すべて**リポジトリの実ファイル**から取得する。
+
+- 優先順位：**① `main` の生ファイル（GitHub上の個別ファイル、Raw、GitHub Contents API、同期済み作業ツリー）→ ② ユーザーが明示的に指定したコミットの個別ファイル**。指定がなければ常に`main`を使う。
+- `dist/*.zip`は**配布・保管用の時点スナップショット**であり、AIの実行時参照元・最新仕様・読み込みの代替に**使用しない**。過去にアップロードされたZIPやチャット内の古い引用も、現行`main`より優先しない。
+- ZIPと個別ファイルに差分がある場合は、**必ず現行の個別ファイルを採用**する。ZIPを開いて内容を読み込むことで「必読ファイルを読んだ」とみなしてはならない。
+- 必須ファイルをGitHubから取得できない場合は**生成を停止**し、アクセス権限または必要な生ファイルの提供を求める。推測やZIPで補完しない。
+
 ## ⛔️ CRITICAL GATEKEEPER FOR AI — 必読・生成開始前の停止ゲート
 
 **画像生成ツールを先に呼び出さないこと。** ユーザーが「モックを4枚生成して」と指示しても、**生成前に** [STYLE.md](STYLE.md)、[configs/devices.json](configs/devices.json)、[configs/presets.json](configs/presets.json) を**全文読み込み・解釈**し、[AGENTS.md](AGENTS.md) の強制ゲートと6スキルを適用する。未読・一部取得・アクセス不可の場合は**画像生成を中止**し、必要なファイルの提供を求める。
@@ -8,7 +17,7 @@
 
 **必要な文書の読み込み → シーン計画 → 禁止条件の照合 → 画像生成 → 実画像のQA**の順を厳守する。詳細な実行規約は [AGENTS.md](AGENTS.md) が正本。
 
-**最新版：v0.2.0** — [配布用ZIP](dist/corp-mock-harness-v0.2.0.zip) ／ [変更履歴](CHANGELOG.md) ／ [VERSION](VERSION)
+**実行時の正本：このリポジトリの `main` ブランチ** ／ [配布用ZIP（v0.2.0時点のアーカイブ・実行時参照には使用しない）](dist/corp-mock-harness-v0.2.0.zip) ／ [変更履歴](CHANGELOG.md) ／ [VERSION](VERSION)
 
 **GPT Image / Nano Banana で利用する、商品モック画像のアートディレクション・ハーネス。**
 
