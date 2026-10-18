@@ -1,0 +1,16 @@
+{
+  "iphone17": {
+    "label": "Apple iPhone 17 (standard model, NOT Pro)",
+    "physical_mm": {"height": 149.6, "width": 71.5, "depth": 7.95},
+    "source": "https://www.apple.com/jp/iphone-17/specs/",
+    "description": "Exactly one standard iPhone 17, 6.3-inch display, correct 149.6:71.5 body ratio, precise flat aluminum side frame, rounded display corners, small centered Dynamic Island. The display is pure featureless white. Face of screen clearly visible, thin black bezel. Black finish preferred; no logo, no brand wordmark. Do not substitute iPhone Pro or add three rear cameras.",
+    "negative": "No second phone, no Pro triple-camera body, no exaggerated edge thickness, no stretched screen, no distorted corner radii, no text or user interface, no logos, no hands, no people."
+  },
+  "macbookpro14": {
+    "label": "Apple MacBook Pro 14-inch",
+    "physical_mm": {"width": 312.6, "depth": 221.2, "closed_height": 15.5},
+    "source": "https://www.apple.com/jp/macbook-pro/specs/",
+    "description": "Exactly one 14-inch MacBook Pro open laptop, realistic 312.6:221.2 footprint proportions, accurate thin rigid aluminum unibody, space black or silver finish, centered camera notch at the upper display edge, precisely proportioned black keyboard with a large trackpad. The entire active display is pure white with no UI. Show its screen and base simultaneously; no logo or wordmark.",
+    "negative": "No second laptop, no oversized 16-inch proportions, no detached keyboard, no incorrect keyboard layout, no screensaver or icons, no logos, no hands, no people."
+  }
+}
