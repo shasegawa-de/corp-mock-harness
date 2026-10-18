@@ -5,6 +5,11 @@ Engine / model if known:
 Image link or file:
 Device:
 Scene Contract (device, composition, environment, lighting, camera, architecture):
+Frozen render prompt (exact outgoing text):
+Effective tool prompt (if exposed; otherwise unknown):
+Prompt fidelity: **MATCH / PROMPT_DRIFT / PROMPT_UNVERIFIED**
+If PROMPT_DRIFT: **STOP the entire batch; fix prompt handoff before further calls.**
+
 Requested ratio / observed pixels:
 Status: **PASS / REJECT / UNVERIFIED**
 
