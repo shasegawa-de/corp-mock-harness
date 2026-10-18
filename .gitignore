@@ -1,0 +1,14 @@
+# Generated or locally downloaded visual assets
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.psd
+*.fig
+.DS_Store
+.env
+.env.*
+!.env.example
+# Local private reference assets and exports
+assets/private/
+exports/
