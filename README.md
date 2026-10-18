@@ -30,6 +30,8 @@
 背景構造体・建材・光を単独で比較する場合は、**`environment-only`（端末0台）**を使います。製品用の1台／2台構図とは別カテゴリです。[環境専用プロンプト6本](prompts/environment/)：シームレスなマイクロセメント、繊維セメントの角、広い展示ブロック、スモークガラス、ダークな低照度空間、床のない空中浮遊用背景。すべて建築的ハーフグレー、デスク・木目・小道具なし。[プロンプト索引](prompts/README.md)。
 
 ## 建築面・床面の作例（端末なし）
+**大理石も対応素材に追加**：[白系大理石の壁・床](prompts/architectural-surfaces/carrara-marble-wall-floor.txt)、[チャコール系大理石の壁・床](prompts/architectural-surfaces/graphite-marble-wall-floor.txt)、[テーブル大の大理石展示ブロック](prompts/environment/carrara-marble-display-block.txt)。いずれも細い自然な石目と控えめな光沢で統一します。
+
 
 マテリアルの接写やスウォッチではなく、**仕上げが実際の建築面・床面に適用された状態**を単独で比較します。[壁面・壁床の接合・床面主体の6プロンプト](prompts/architectural-surfaces/)：マイクロセメントの壁と床、繊維セメントの壁面、スモークガラスと石材の建築面、チャコールの壁・床、広いマイクロセメント床、サンドブラストコンクリート床。端末0台、1枚1構図。床面重視は面積の約85%を床として扱い、カメラを低い斜め方向へ向けます。
 
