@@ -8,3 +8,5 @@ Use only if GPT Image-specific controls are needed. **AGENTS.md is authoritative
 4. Inspect the actual output; reject camera, environment, screen or hardware deviations and re-generate only the failed scene. Request 16:9 controls when available and verify dimensions where possible.
 
 No image API client or automatic storage is provided. Reference: https://platform.openai.com/docs/guides/image-generation
+
+**Prompt integrity:** Freeze a single-scene final render prompt before calling the tool. If the interface exposes the effective/generated tool prompt, compare it to the frozen text. If it changes to an affirmative multi-view or four-panel instruction, classify `PROMPT_DRIFT` and STOP the batch; do not infer that the image model ignored a correct prompt. If tool-side prompt rewriting is invisible, mark `PROMPT_UNVERIFIED` and use an explicit-prompt-capable interface when exact control is needed. Do not leak the batch instruction or the other planned scenes into the per-image prompt.
