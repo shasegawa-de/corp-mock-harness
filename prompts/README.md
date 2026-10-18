@@ -17,6 +17,19 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
+## Empty-stage environment & lighting references
+
+These six prompts render **ZERO devices**: architectural background, material and lighting only. The preview crops in the HTML gallery are **concept-board reference images, not standalone verified renders**.
+
+- [Seamless microcement + frontal softbox](environment/microcement-soft.txt)
+- [Fiber-cement corner + left grazing light](environment/fiber-corner-left.txt)
+- [Table-sized mineral display block + overhead diffused light](environment/wide-block-soft.txt)
+- [Smoked-glass partition + diffused soft light](environment/smoked-glass-soft.txt)
+- [Charcoal fiber-cement corner + low-key lighting](environment/charcoal-lowkey.txt)
+- [Floorless vertical mineral planes + broad diffusion](environment/suspended-vertical.txt)
+
+Use `layout_id=environment-only`, `devices=[]`, `composition_id=empty-stage`. Select the material/light/spatial mode from `configs/presets.json`. This is a distinct reusable visual library, not a set of product mockups.
+
 ## iPhone posture variants — five complete single-scene prompts
 
 The iPhone alone may be **face-up flat, leaning with credible physical support, upright, or fully suspended**. Camera framing tracks the pose. The old generic `high-view` preset is still retired: a flat face-up iPhone specifically needs a **40–55° oblique elevated camera** to keep its screen visible, never a 90° overhead flat lay. MacBook Pro does NOT support a flat device pose: it stays open, with raised display.
