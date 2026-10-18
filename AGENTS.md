@@ -21,13 +21,21 @@ IDs must exist in the loaded JSON. For an unspecified four-image batch, use `con
 
 **Before the first image call, show a one-line PRECHECK receipt listing the four file names actually read and the selected scene IDs (e.g. `PRECHECK PASS: 4/4 files; scenes: A/B/C/D`). Do not print PASS or generate if any step failed.**
 
-## 3. EXECUTE (one scene at a time)
+## 3. RENDER-PROMPT LOCK — prevent prompt drift
 
-**One Scene Contract → one concise image prompt → one image-generation call → one standalone image.** Four images require four independent calls when supported, **not one prompt describing four scenes**, grids or collages. Pass only the selected scene's device geometry, pure-white screen, exact camera, architectural material/planes, light and short exclusions. Do **not** send all presets, other scenes or the entire harness to the image model. Use approved product reference imagery/editing if available. If the interface cannot produce independent images, say so instead of substituting a montage.
+**A Scene Contract is NOT the image tool prompt.** For each selected scene, create exactly ONE **final render prompt** (about 80–150 English words) containing ONLY that scene's device, exact framing/camera, architectural material/planes, lighting and exclusions. **Freeze that text before the tool call.**
 
-## 4. VISUAL QA (after each output)
+Start the prompt with: **"ONE standalone photorealistic product photograph. ONE camera view. ONE device. Horizontal 16:9."** Describe the selected camera angle and setting positively and concretely. Do **not** put a batch size, other scenes, alternative angles or words describing an affirmative multi-panel layout into the image tool input. Do not give the model the entire harness or scene table.
 
-Inspect the **actual render**. Reject wrong device or screen, collage, ratio (when measurable), camera/framing, material/architectural background, unrelated props, or lighting. Correct **only failed scenes**; mark uninspectable criteria `UNVERIFIED`, not `PASS`. No automatic image storage or CAD-level accuracy is claimed.
+**OUTGOING PROMPT AUDIT (hard gate):** Compare the actual image-tool input, if inspectable, with the frozen prompt. Reject BEFORE dispatch if it adds or substitutes an instruction for a four-panel showcase, 2×2 grid, contact sheet, multiple views or a different scene. If the tool internally rewrites prompts or does not expose the effective prompt, **do not claim prompt integrity was verified**; use the exact frozen text through an explicit-prompt-capable interface when available. For an inference-only image tool, keep the immediate handoff strictly about this ONE scene and check any returned effective prompt. A mismatched effective prompt is `PROMPT_DRIFT`: **STOP the batch immediately** and correct the handoff/provider before generating other images.
+
+**One Scene Contract → one locked prompt → one image-tool call → one standalone image.** Continue to the next scene ONLY when the previous image and available prompt audit have been evaluated. If the interface cannot perform separate outputs, explain the limitation, never substitute a composite.
+
+## 4. OUTPUT QA — two independent checks
+
+**Prompt QA:** record `MATCH / DRIFT / UNVERIFIED` for frozen prompt versus actual effective tool prompt (when exposed). `DRIFT` is a **pipeline failure**; stop the batch. Never claim a prompt was faithfully transferred based only on the Scene Contract.
+
+**Visual QA:** inspect the actual image. Reject an incorrect device/screen, extra views, wrong aspect ratio (when measurable), camera/framing, architectural planes/material, lighting or any desk/prop. Regenerate only the failed scene **after prompt QA passes**. Mark uninspectable items `UNVERIFIED`; do not claim a visual `PASS` from the prompt alone.
 
 ## OPTIONAL ONLY
 
