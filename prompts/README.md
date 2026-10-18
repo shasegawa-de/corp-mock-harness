@@ -17,7 +17,15 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
-## Architectural wall and floor surface studies (6 scenes, no devices)
+## Architectural wall and floor surface studies## Marble — architectural surface and block references
+
+- [Honed pale Carrara marble wall and floor](architectural-surfaces/carrara-marble-wall-floor.txt)
+- [Honed graphite marble wall and floor](architectural-surfaces/graphite-marble-wall-floor.txt)
+- [Broad, table-sized honed Carrara marble display block](environment/carrara-marble-display-block.txt)
+
+All are independent empty architectural scenes with restrained natural veining and no device.
+
+ (6 scenes, no devices)
 
 These are **architectural planes and flooring in use**, not macro swatches or isolated textures. They are separately indexed in `configs/presets.json > surface_studies` with `layout_id=environment-only` and `devices=[]`. The HTML catalog includes visual references; some floor images are crops from earlier scenes, not independent generations of these new exact prompts.
 
