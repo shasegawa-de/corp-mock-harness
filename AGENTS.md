@@ -1,38 +1,32 @@
-# Corp Mock Harness — execution contract
+# Corp Mock Harness — mandatory execution contract
 
-**Purpose:** Produce independent, photorealistic device mock images with GPT Image or Nano Banana. This is an instruction harness, not an image API or executable service.
+**STOP: no image-generation call before PRECHECK passes.** This is a GPT Image / Nano Banana instruction harness, not an image API service.
 
-## 0. HARD GATE — read before any image generation
+## 1. PRECHECK (mandatory; no shortcuts)
 
-**Do not call any image tool until this gate passes.** Fetch and read these **four individual files in full** from the current `main` branch of `shasegawa-de/corp-mock-harness`:
+Read these **FOUR complete, individual files** from the live GitHub `main` branch of `shasegawa-de/corp-mock-harness`:
+`AGENTS.md`, `STYLE.md`, `configs/devices.json`, `configs/presets.json`.
 
-1. `AGENTS.md` (this execution contract)
-2. `STYLE.md` (all visual invariants and rejection criteria)
-3. `configs/devices.json` (exact device identity)
-4. `configs/presets.json` (allowed scene options and default scenes)
+**If any file is missing, truncated, inaccessible, or its JSON is invalid: STOP and request access / the individual file.** Never use `dist/*.zip`, old chat excerpts, memory or guessed presets as substitutes. Use a pinned commit only if explicitly requested. Do not claim to have read a file without fetching it.
 
-Use live GitHub files (raw/Contents API or verified current checkout), **never `dist/*.zip`, cached excerpts or an old chat**. Use a pinned commit only if explicitly requested. If any required file is missing, truncated, or its JSON cannot be parsed, **STOP and ask for the individual file/access**. Do not guess, substitute ZIP contents, or generate a generic product photo.
+## 2. SCENE CONTRACT (before first image call)
 
-## 1. PLAN — one Scene Contract per output
+Default to `iphone17`, 4 separate images, 16:9; use GPT Image unless the user requests Nano Banana or another supported engine. Build **one complete Scene Contract per image**:
 
-Default: `iphone17`, **4 independent images**, **16:9**, available GPT Image (or requested Nano Banana). User-specified options take precedence unless they violate an explicitly retained hard constraint.
+`device_id | composition_id | environment_id | lighting_id | camera angle/framing/negative space | architectural planes/material | exclusions`
 
-For each image, select valid `device_id`, `composition_id`, `environment_id`, `lighting_id` from the loaded JSON; add **camera angle, subject placement/negative space, 0–3 coherent architectural planes/material, light direction**, and **exclusions**. Use `default_scenes` when available for an unspecified four-image batch; otherwise choose valid distinct combinations.
+IDs must exist in the loaded JSON. For an unspecified four-image batch, use `configs/presets.json > default_scenes`. Different images must vary on **at least two substantive axes** (composition, architectural geometry/material, lighting), not just texture or crop.
 
-Make each scene visually different on **at least two axes** (composition, spatial geometry/material, lighting). Do not invent preset IDs. Resolve unclear choices before calling the generator.
+**Before generation verify for EVERY contract:** correct single device, fully visible featureless white front screen, one independent 16:9 frame, chosen camera/placement, half-gray 0–3 coherent architectural planes, chosen lighting, **zero wooden desks, woodgrain, furniture, lifestyle rooms, blocks/stands, plants, mugs, hands, props, logos or UI**. `STYLE.md` is the hard design standard. An incomplete or conflicting contract means **NO generation**.
 
-**Preflight PASS only if all four files were actually read AND every scene has a complete contract matching `STYLE.md`.** Check device/body, entire featureless pure-white front screen, exactly one device, 16:9 frame, restrained half-gray architecture and **zero desks/woodgrain, furniture, plants, mugs, hands, props, pedestals, logos or UI**. If a condition fails, fix the plan first. Never claim a pass without completing these checks.
+## 3. EXECUTE (one scene at a time)
 
-## 2. GENERATE — isolate the scenes
+**One Scene Contract → one concise image prompt → one image-generation call → one standalone image.** Four images require four independent calls when supported, **not one prompt describing four scenes**, grids or collages. Pass only the selected scene's device geometry, pure-white screen, exact camera, architectural material/planes, light and short exclusions. Do **not** send all presets, other scenes or the entire harness to the image model. Use approved product reference imagery/editing if available. If the interface cannot produce independent images, say so instead of substituting a montage.
 
-**One scene = one image-generation call = one standalone image.** For four images, make **four separate calls**, where the interface permits; **never** send all four scenes to one image prompt or request a 2×2 grid/contact sheet. If independent calls are unavailable, explain the limitation rather than substituting a collage.
+## 4. VISUAL QA (after each output)
 
-Compose a **concise, complete prompt per scene** from its contract: exact device geometry + fully visible white screen; specific camera/framing; specific architectural material and planes; lighting; a short explicit prohibition of wood desks, lifestyle objects, supports, extra devices, text/UI. Pass only that scene's instructions to the image tool. Do not send the entire harness, other scenes or competing options. Use an approved device reference image/edit mode if available for geometry fidelity.
+Inspect the **actual render**. Reject wrong device or screen, collage, ratio (when measurable), camera/framing, material/architectural background, unrelated props, or lighting. Correct **only failed scenes**; mark uninspectable criteria `UNVERIFIED`, not `PASS`. No automatic image storage or CAD-level accuracy is claimed.
 
-## 3. VERIFY — reject failures, not just bad prompts
+## OPTIONAL ONLY
 
-Inspect **each rendered image**, not merely the prompt. A wrong device, non-white/obscured display, composite/multiple devices, wrong framing or camera, non-16:9 ratio (when verifiable), lifestyle/desk background, unrelated props/supports or incoherent architectural planes is a **hard reject**. Revise and regenerate **only the failed scene**. Record `PASS / REJECT / UNVERIFIED`; never claim visual compliance if the image cannot be inspected or exact dimensions cannot be verified.
-
-## Optional references — NOT part of the mandatory gate
-
-`.agents/skills/**/SKILL.md`, `WORKFLOW.md`, `providers/*.md`, `templates/` and `history/` are **on-demand only** for special design decisions, provider controls or logging. Reading all six skills or the workflow is **not required** for ordinary generation. They cannot override this contract or `STYLE.md`. No API client, automatic history persistence or guaranteed pixel-perfect rendering is included.
+Six `.agents/skills/**/SKILL.md` files, `WORKFLOW.md`, `providers/*.md`, `templates/` and `history/` are **on-demand references, never mandatory preflight**. They may add detail but cannot override the four-file gate or `STYLE.md`.
