@@ -24,7 +24,11 @@
     {"id":"asymmetric-negative-space","detail":"Device slightly left of visual center (within central 40%), generous intentional negative space on right, front display completely visible."},
     {"id":"near-floor-hover","detail":"Device hovers subtly above the floor without stands, camera near floor height, a single soft contact shadow below."},
     {"id":"graphic-planes","detail":"Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."},
-    {"id":"display-on-block","detail":"Near eye-level product photography with a single rectilinear mineral display block or integrated platform as the intentional support. Screen and correct device geometry fully visible; do not aim the camera downward or create a top-down view."}
+    {"id":"display-on-block","detail":"Near eye-level product photography with a single rectilinear mineral display block or integrated platform as the intentional support. Screen and correct device geometry fully visible; do not aim the camera downward or create a top-down view."},
+    {"id":"iphone-oblique-floor","detail":"Single standard iPhone 17 lying flat, face-up on mineral floor. Elevated OBLIQUE camera 40–50 degrees above supporting plane, offset from device lower edge; entire white screen visible. The face must NOT become an invisible sliver. This is an intentional screen-visibility exception to the retired general high-view composition, never a 90-degree bird's-eye view."},
+    {"id":"iphone-oblique-block","detail":"Single standard iPhone 17 lying flat, face-up on a table-sized (large planar top) monolithic mineral plinth. Camera deliberately elevated to 40–55 degrees above the block top and aimed across the front display; retain screen visibility, realistic device thickness and support top/side. No vertical 90-degree overhead."},
+    {"id":"iphone-tilted-supported","detail":"Single standard iPhone 17 leaning back ~20 degrees from vertical on a wide single mineral block, supported by a subtle integrated raised facet of that SAME block. Camera adjusts to a modestly elevated oblique front-three-quarter viewpoint matched to the screen, all corners visible."},
+    {"id":"iphone-suspended-angled","detail":"Single standard iPhone 17 unsupported in floorless gray architectural airspace, ~15-degree three-quarter yaw and ~10-degree roll while keeping all white-screen corners visible; coherent one-camera photograph, no ground shadow."}
   ],
   "lighting": [
     {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
@@ -51,7 +55,7 @@
     {"id":"grounded","detail":"Devices plausibly rest on a continuous matte mineral floor; delicate contact shadows; no desks, supports, furniture, plinths or props."},
     {"id":"hover","detail":"Devices hover just above a visible mineral floor. A faint, localized separated shadow indicates small elevation. Floor remains visible; never use this mode for suspended or floorless requests."},
     {"id":"suspended","detail":"Devices float weightlessly in mid-air within the crop. NO visible floor, floor-wall junction, horizon, ground contact, ground reflection or cast shadow on the floor. Background depth comes from quiet vertical architectural planes, graded half-gray tones and controlled reflections on the products; no props or supporting structures."},
-    {"id":"on-block","detail":"Device(s) physically rest on one or two simple orthogonal matte gray mineral display blocks/plinths. Blocks are intentional product supports and are exempt from the blanket unrelated-props ban ONLY in this mode. No desks, woodgrain, furniture, decorative stack, suspended device or extra objects. Camera at device eye level or slightly below, never bird's-eye."}
+    {"id":"on-block","detail":"Device rests on one or two intentional solid monolithic matte gray mineral display plinths, never decorative blocks. For iPhone `flat-face-up`, plinth top is TABLE-SIZED: broad continuous horizontal surface extending generously around the entire phone (~80–140 cm across), visually a simple large concrete slab/volume, but NOT a legged table or wooden desk. For `tilted-supported`, allow a subtle integrated backrest facet as part of same block; require physically credible support and contact shadows. No furniture, decor, props or unrelated blocks."}
   ],
   "showcase_presets": [
     {"id":"iphone-front-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/a.txt"},
@@ -61,9 +65,43 @@
     {"id":"pair-suspended-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/suspended.txt"},
     {"id":"iphone-block-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block.txt"},
     {"id":"mac-floor-reference","devices":["macbookpro14"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"soft-overhead","reference_prompt":"prompts/macbookpro14/on-floor.txt"},
-    {"id":"pair-block-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/on-blocks.txt"}
+    {"id":"pair-block-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/on-blocks.txt"},
+    {"id":"iphone-floor-flat","devices":["iphone17"],"layout_id":"single","pose_id":"flat-face-up","spatial_mode_id":"grounded","composition_id":"iphone-oblique-floor","environment_id":"microcement-seamless","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/on-floor-flat.txt"},
+    {"id":"iphone-block-flat","devices":["iphone17"],"layout_id":"single","pose_id":"flat-face-up","spatial_mode_id":"on-block","composition_id":"iphone-oblique-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-flat.txt"},
+    {"id":"iphone-block-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"on-block","composition_id":"iphone-tilted-supported","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-tilted.txt"},
+    {"id":"iphone-suspended","devices":["iphone17"],"layout_id":"single","pose_id":"suspended-angled","spatial_mode_id":"suspended","composition_id":"iphone-suspended-angled","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/suspended.txt"}
   ],
   "retired_compositions": [
     {"id":"high-view","reason":"Discontinued by art direction, never select or generate.","replaced_by":"display-on-block"}
-  ]
+  ],
+  "device_pose_rules": {
+    "iphone17": [
+      {
+        "id": "upright",
+        "detail": "Upright vertical body; if grounded or on-block, credible base-edge contact. Camera near frontal eye level or modest three-quarter. Screen always fully visible."
+      },
+      {
+        "id": "flat-face-up",
+        "detail": "Body lies flat with back on horizontal surface, white screen facing upward. Camera MUST move to an oblique elevated 40–55-degree viewpoint relative to surface to show all four screen corners. No direct overhead 90-degree flat lay and no eye-level side view."
+      },
+      {
+        "id": "tilted-supported",
+        "detail": "Phone leans back ~15–30 degrees from upright, visibly stabilized by a coherent built-in mineral backrest or support plane; screen fully visible with camera adapted to tilt. Do NOT depict unsupported impossible balance."
+      },
+      {
+        "id": "suspended-angled",
+        "detail": "Phone is truly unsupported with restrained yaw/roll in a floorless scene, camera aims at white front display; no floor, horizon, wire or ground shadow."
+      }
+    ],
+    "macbookpro14": [
+      {
+        "id": "open-display",
+        "detail": "Laptop always OPEN with rigid screen raised to show entirely pure-white active display, keyboard and trackpad. Base may rest horizontally on floor/plinth while the screen is raised. Never lay the whole MacBook flat, close the lid, or show screen face-up on a surface."
+      },
+      {
+        "id": "open-suspended",
+        "detail": "Entire OPEN laptop floats, display raised at realistic hinge angle, keyboard and trackpad visible, both parts a single rigid articulated device; never closed or laid flat."
+      }
+    ]
+  }
 }
