@@ -17,6 +17,17 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
+## Ground placement and intentional display plinths
+
+**The high-view (bird's-eye) composition is retired.** No new image should use it. The former iPhone C concept is archived in Git history only; current default C is an eye-level block display.
+
+- [iPhone on mineral block](iphone17/on-block.txt)
+- [MacBook Pro directly on mineral floor](macbookpro14/on-floor.txt)
+- [MacBook Pro on block](macbookpro14/on-block.txt)
+- [Mac + iPhone on separate integrated mineral display blocks](macbookpro14-iphone17/on-blocks.txt)
+
+Use `grounded` for actual floor contact and `on-block` for a restrained rectilinear concrete/fiber-cement platform supporting a product. This is the **only** plinth exception to the no-irrelevant-props rule. These new images are **proposed scenes / unverified** until independently rendered and reviewed. Do not confuse cropped exploration boards with validated standalone renders.
+
 ## Purpose
 
 A previous test loaded the harness correctly but the **effective image-tool prompt** described a collage. That is an instruction-handoff error. The purpose of these files is to distinguish **prompt handoff drift** from **image model compliance** while preserving specific camera, architecture, lighting and device requirements.
