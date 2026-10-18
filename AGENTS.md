@@ -12,9 +12,9 @@ Default: one standard `iphone17`, four independent 16:9 images. Use `default_sce
 
 For each scene select valid `devices[]`, `layout_id`, `spatial_mode_id`, `composition_id`, `environment_id`, `lighting_id` plus precise camera, positions, scale, 0–3 architectural planes and exclusions. `showcase_presets` are preferred example directions, not compulsory compositions; user instructions override a preset when coherent with hard constraints. Keep screen(s) entirely visible and featureless pure white. For a two-device scene show the Mac screen, keyboard/trackpad and phone screen without obstruction.
 
-Spatial modes: `grounded` = contact on mineral floor; `hover` = low above **visible** floor with faint separated shadow; `suspended` = **weightless, no floor, floor-wall seam, horizon, ground shadow or platform**. A `suspended` mode overrides floor references in an environment detail; prefer `suspended-mineral-planes`. Preserve quiet half-gray architectural depth. Never add desks, plants, mugs, hands, furniture, stands, supports, extra devices, logos or UI.
+Spatial modes: `grounded` = device rests directly on matte mineral floor; `on-block` = device rests on one or two simple rectilinear mineral presentation blocks (allowed functional supports, NOT decorative clutter); `hover` = low above **visible** floor with faint separated shadow; `suspended` = **weightless, no floor, floor-wall seam, horizon, ground shadow or platform**. A `suspended` mode overrides floor references in an environment detail; prefer `suspended-mineral-planes`. Preserve quiet half-gray architectural depth. Never add desks, plants, mugs, hands, furniture, stands, supports, extra devices, logos or UI.
 
-**PRECHECK PASS** only after all four files, preset IDs, correct device count, coherent spatial mode and non-conflicting Scene Contract are verified. Identify selected IDs briefly before any generation.
+**PRECHECK PASS** only after all four files, preset IDs, correct device count, coherent spatial mode, no high-view camera and non-conflicting Scene Contract are verified. Identify selected IDs briefly before any generation.
 
 ## 3. RENDER-PROMPT LOCK
 
@@ -26,7 +26,7 @@ If the effective tool prompt is inspectable, compare it with the frozen text. If
 
 ## 4. QA — prompt and image separately
 
-Prompt fidelity: `MATCH / PROMPT_DRIFT / PROMPT_UNVERIFIED`. Inspect actual output: one camera frame, **exactly N requested devices and no others**, correct device geometry, fully white visible screens, specified layout/depth, correct spatial mode (especially no floor for suspended), camera, material/architectural planes, light, no props and ~16:9 (pixel verify if available). Hard failure → revise only that scene; prompt drift → repair input route. Mark unseen or unverifiable properties `UNVERIFIED`, never `PASS`.
+Prompt fidelity: `MATCH / PROMPT_DRIFT / PROMPT_UNVERIFIED`. Inspect actual output: one camera frame, **exactly N requested devices and no others**, correct device geometry, fully white visible screens, specified layout/depth, correct spatial mode (direct floor contact for grounded, an actual mineral support for on-block, and NO floor for suspended), camera, material/architectural planes, light, no props and ~16:9 (pixel verify if available). Hard failure → revise only that scene; prompt drift → repair input route. Mark unseen or unverifiable properties `UNVERIFIED`, never `PASS`.
 
 ## OPTIONAL ONLY
 
