@@ -38,7 +38,7 @@ A previous test loaded the harness correctly but the **effective image-tool prom
 2. Start a **new, otherwise empty image-generation conversation** with GPT Image or Nano Banana. Paste the text as the **entire user message** and generate **one** image. A fresh chat minimizes contamination from a previous four-scene brief; it does not guarantee the model or tool will preserve the text verbatim.
 3. If the app exposes an effective/revised prompt, compare it to the pasted prompt. Record `MATCH`, `PROMPT_DRIFT`, or `PROMPT_UNVERIFIED`. Do not infer `MATCH` from a plausible image alone.
 4. Evaluate the actual image: **one standalone frame, exact requested device count/models, pure-white screens, exact camera/position, selected spatial mode and architectural material/planes, specified light, no props**. Record `PASS / REJECT / UNVERIFIED`.
-5. **Only after A passes**, repeat with [B](iphone17/b.txt), [C](iphone17/c.txt), and [D](iphone17/d.txt), each as a *separate new conversation or standalone input*. Never paste multiple prompts into one generation request.
+5. **Only after A passes**, repeat with [B](iphone17/b.txt), [the block-placement replacement for C](iphone17/on-block.txt), and [D](iphone17/d.txt), each as a *separate new conversation or standalone input*. Never paste multiple prompts into one generation request.
 
 ## Interpretation
 
@@ -55,5 +55,5 @@ Direct text entry is a **diagnostic workaround**, not a guaranteed controllable 
 |---|---|---|---|
 | [a.txt](iphone17/a.txt) | frontal-centered | microcement-seamless | broad-softbox |
 | [b.txt](iphone17/b.txt) | three-quarter-left | fiber-cement-panels | left-grazing |
-| [c.txt](iphone17/c.txt) | high-view | dark-fiber-cement | top-right-daylight |
+| [on-block.txt](iphone17/on-block.txt) | display-on-block | fine-concrete | broad-softbox |
 | [d.txt](iphone17/d.txt) | asymmetric-negative-space | smoked-glass | soft-overhead |
