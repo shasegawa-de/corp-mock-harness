@@ -1,20 +1,23 @@
 # STYLE — mandatory visual contract
 
-Photorealistic premium architectural studio product imagery. This is NOT a desk, office, home or lifestyle scene.
+Premium, photorealistic architectural product imagery; restrained half-gray monochrome. Never a desk setup, decorated workspace or lifestyle interior.
 
-## HARD RULES — every image
+## HARD RULES — every photograph
 
-- **Device:** Exactly ONE standard iPhone 17 or 14-inch MacBook Pro as defined in `configs/devices.json`. Correct chassis, camera, bezel, keyboard and proportions; never substitute a Pro phone. Prefer approved device reference imagery when available.
-- **Screen:** Entire front display unobscured, featureless pure white. No graphics, UI, text or screen reflections that obscure white.
-- **Composition:** ONE standalone horizontal 16:9 scene, never a collage or grid. Respect the chosen `composition_id`: camera position and angle, pose, framing, device scale and negative space. No wrong angle, exaggerated perspective or cropping.
-- **Environment:** Respect `environment_id`. Half-gray monochrome, matte mineral/industrial texture; coherent 0–3 architectural planes (cyclorama, wall/floor, simple corner or integrated partition). No arbitrary shapes or unsupported blocks.
-- **Exclude ALL unrelated objects:** No wooden or woodgrain desk, table, office or home interior, props, plants, mugs, books, furniture, hands, people, stands, pedestals, signage, brand logos, watermarks or UI. Empty space must stay empty.
-- **Lighting:** Respect `lighting_id`; soft believable studio light, restrained reflections and natural shadows; no theatrical beams or colored light.
+- **Device count:** Exactly the devices requested by `layout_id` in `configs/presets.json`. `single`: exactly one iPhone 17 OR one MacBook Pro 14. `side-by-side` / `depth-staggered`: exactly ONE of EACH; never duplicate, omit or substitute. No 2×2 collage, split scene, contact sheet or multiple camera angles.
+- **Geometry and screen:** Faithful device silhouette/proportions, MacBook hinge, keyboard/trackpad and screen; standard iPhone 17 (NOT Pro), bezel and centered Dynamic Island. **Every requested display completely visible and featureless pure white**, with no UI, text or prominent reflections. Do not obscure either screen or Mac keyboard in a pair.
+- **Composition:** ONE standalone landscape **16:9** photograph with one coherent camera and scene. Respect `composition_id` plus `layout_id` for camera elevation/yaw, product size, relative placement, spacing, depth/occlusion and intentional negative space. No arbitrary crop or severe distortion.
+- **Background:** Quiet grayscale industrial/mineral architecture, with 0–3 physically coherent architectural planes; minimal fiber-cement, microcement, plaster, slate, steel or integrated smoked glass. Spatial mode overrides generic floor cues.
+- **Spatial modes:** `grounded`: continuous mineral floor and natural contact shadow. `hover`: visible floor, slight elevation, delicate detached shadow. `suspended`: devices visibly unsupported in a **floorless image**. NO visible floor, horizon, wall-floor seam, podium, ground shadow, large cast shadow below devices or bottom-heavy platform. Use subtle vertical wall planes, tonal depth and light on the devices; never invent a floor just to establish scale.
+- **Exclusions:** NO wood/woodgrain, desk, tabletop, furniture, hands/people, plants, coffee mugs, books, stationery, signage, stands, supports, plinths, decorative blocks, logos, watermarks, unrelated objects or extra devices. Empty space stays empty.
+- **Lighting:** Natural soft studio/daylight with restrained metallic and glass reflections, coherent gentle shadows; avoid theatrical directional beams unless specifically selected.
 
-## VARIATION
+## VARIATION and QA
 
-For each batch, vary at least two substantial axes across composition/camera, architectural layout/material and lighting. Distinct preset IDs alone are insufficient: ensure the scene structure really changes. Do not fall back to the same wall + diagonal light composition for every image.
+Across candidates vary at least two material axes (layout/camera, architecture/material, lighting or spatial mode). Do not confuse a novel spatial arrangement with a collage.
 
-## QA — HARD REJECT
+**Hard reject**: wrong device number/models, cropped/colored/overlaid screen, incorrect layout or occlusion, floor in `suspended`, missing shadow cue in `hover`, wrong specified architecture/light, wood desk, unrelated props, or multiple independent views. Evaluate actual images separately from prompt integrity. CAD-perfect body geometry and pixel-perfect white are unverified without reference/measurement.
 
-Wrong hardware; non-white/hidden screen; collage; wrong camera/framing; incorrect material or number of architectural planes; wood desks, props or stands; inconsistent lighting or visibly incorrect aspect ratio. Reject and regenerate the failed image, regardless of aesthetic quality. Do not claim exact pixel ratio or product precision without checking the output. Image models may require approved reference photos or later compositing for high geometric fidelity.
+## VISUAL REFERENCE STATUS
+
+Successful directions have copy-ready prompts in `prompts/` and optional metadata in `configs/presets.json > showcase_presets`. `user-approved-direction` means the art direction was liked, **not** proof of exact device geometry or perfect prompt handoff.
