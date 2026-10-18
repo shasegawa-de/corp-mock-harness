@@ -1,26 +1,20 @@
-# Art direction — Corp Mock Harness
+# STYLE — mandatory visual contract
 
-Photorealistic, premium product photography, restrained and modern. Default subject: one iPhone 17 or one 14-inch MacBook Pro with entirely visible, featureless white screen.
+Photorealistic premium architectural studio product imagery. This is NOT a desk, office, home or lifestyle scene.
 
-## Fixed
-- **Separate 16:9 horizontal image per candidate**. No 2×2, 3×3, montage, split image, contact sheet or multi-device composition.
-- Half-gray monochrome palette: white, light gray, medium gray, graphite, black. Prefer matte mineral textures over marble and polished stone.
-- Use 0–3 architectural planes that belong to a plausible spatial structure: seamless floor + wall, two intersecting walls or one integrated glass/concrete partition.
-- No unrelated blocks, pedestals, support columns, stands, furniture, plants, props, hands, people, logos, text, watermarks or UI content.
-- The screen must be visible in full and as white as the generator can render it; natural reflection must not obscure it.
-- Physically plausible soft studio lighting, reflections on glass/metal, soft shadows, controlled perspective; no unnatural curves in architecture.
-- Device is dominant without exhausting the available negative space. Avoid stretching or perspective distortion.
-- Do **not** reproduce the same gray wall + diagonal beam + floor framing as the default for every variation.
+## HARD RULES — every image
 
-## Priority of decisions
-1. Device identity, shape and plausible dimensions.
-2. Visible blank white screen.
-3. Exactly one device and one 16:9 composition.
-4. Monochrome, material restraint and absence of decorative props.
-5. Novelty and aesthetic exploration.
+- **Device:** Exactly ONE standard iPhone 17 or 14-inch MacBook Pro as defined in `configs/devices.json`. Correct chassis, camera, bezel, keyboard and proportions; never substitute a Pro phone. Prefer approved device reference imagery when available.
+- **Screen:** Entire front display unobscured, featureless pure white. No graphics, UI, text or screen reflections that obscure white.
+- **Composition:** ONE standalone horizontal 16:9 scene, never a collage or grid. Respect the chosen `composition_id`: camera position and angle, pose, framing, device scale and negative space. No wrong angle, exaggerated perspective or cropping.
+- **Environment:** Respect `environment_id`. Half-gray monochrome, matte mineral/industrial texture; coherent 0–3 architectural planes (cyclorama, wall/floor, simple corner or integrated partition). No arbitrary shapes or unsupported blocks.
+- **Exclude ALL unrelated objects:** No wooden or woodgrain desk, table, office or home interior, props, plants, mugs, books, furniture, hands, people, stands, pedestals, signage, brand logos, watermarks or UI. Empty space must stay empty.
+- **Lighting:** Respect `lighting_id`; soft believable studio light, restrained reflections and natural shadows; no theatrical beams or colored light.
 
-## Variation
-Change the **scene structure**, **camera** and/or **illumination**, not only the wall texture. For each new proposal compare recent accepted/rejected images in `history/`. Four images means four independently art-directed frames, not a four-panel composite.
+## VARIATION
 
-## Limitations
-Image generators may hallucinate camera modules, buttons, bezels, ports or perspective and cannot guarantee pixel-perfect white. For high-fidelity UI replacement, combine approved reference product photography or accurate 3D source with perspective-aware screen compositing and manual verification.
+For each batch, vary at least two substantial axes across composition/camera, architectural layout/material and lighting. Distinct preset IDs alone are insufficient: ensure the scene structure really changes. Do not fall back to the same wall + diagonal light composition for every image.
+
+## QA — HARD REJECT
+
+Wrong hardware; non-white/hidden screen; collage; wrong camera/framing; incorrect material or number of architectural planes; wood desks, props or stands; inconsistent lighting or visibly incorrect aspect ratio. Reject and regenerate the failed image, regardless of aesthetic quality. Do not claim exact pixel ratio or product precision without checking the output. Image models may require approved reference photos or later compositing for high geometric fidelity.
