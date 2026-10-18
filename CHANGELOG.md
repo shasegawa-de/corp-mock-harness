@@ -2,6 +2,8 @@
 
 ## Unreleased — main (2026-10-19)
 
+- Add frozen single-scene render prompts, outgoing/effective prompt auditing and fail-fast `PROMPT_DRIFT` detection; diagnose prior 4/4 collages as prompt handoff drift, not proof of generator noncompliance.
+- Add one-scene regression case under `history/` and separate prompt integrity from visual QA in `templates/review.md`.
 - Reduce the mandatory AI context to four live GitHub files: `AGENTS.md`, `STYLE.md`, `configs/devices.json`, `configs/presets.json`. Never use the ZIP as the execution source.
 - Introduce explicit PRECHECK and per-image Scene Contracts; select four curated default scenes to avoid premature composition/background guessing.
 - Keep one image tool call per standalone image; reject camera, architecture, lighting and device deviations from the actual image.
