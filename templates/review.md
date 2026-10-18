@@ -4,7 +4,7 @@ Date / batch:
 Engine / model if known:
 Image link or file:
 Device:
-Preset signature (environment, composition, lighting):
+Scene Contract (device, composition, environment, lighting, camera, architecture):
 Requested ratio / observed pixels:
 Status: **PASS / REJECT / UNVERIFIED**
 
@@ -15,9 +15,11 @@ Status: **PASS / REJECT / UNVERIFIED**
 | Device model & housing proportions | | |
 | Entire blank white screen visible | | |
 | No logo/text/UI/person/hands/watermark | | |
-| No freestanding blocks, stands, unrelated props | | |
-| Coherent 0–3-plane grayscale background | | |
-| Physically credible reflections, light, shadows | | |
+| Scene camera/framing/placement/negative space matches contract | | |
+| No desks, woodgrain, lifestyle sets, furniture or other props | | |
+| No freestanding blocks, stands or supports | | |
+| Selected environment/material and 0–3 architectural planes match contract | | |
+| Selected lighting direction, plausible reflections and shadows | | |
 | Genuinely novel composition vs recent images | | |
 
 Revision instruction (if failed):
