@@ -14,7 +14,7 @@
 
 **重要：『4枚生成』はAIへのバッチ依頼であり、画像生成ツールに送る指示ではありません。** AIは各案について1つの最終プロンプトを確定し、送信前に検査します。ツールに渡った指示が4分割・複数視点へ変わっていたら、その場で停止します。ツール側のプロンプトを書き換え・非公開により検証できない場合は未検証と明記します。[詳細](AGENTS.md)／[単独画像プロンプト例](WORKFLOW.md)。
 
-未指定なら標準iPhone 17・4枚・16:9。**俯瞰・真上からの撮影は廃止**。標準4案のCは、目線に近いカメラで撮るブロック上の展示構図に置き換えました。**1画像は1構図、端末は依頼どおりの1台または2台。すべての画面を無地の純白にし、構図と建築的ハーフグレー背景を維持。デスク・木目・小道具は禁止。** 4枚なら4つの別シーンを計画し、4回の独立生成で実行。詳細なルールと不合格条件は [AGENTS.md](AGENTS.md) と [STYLE.md](STYLE.md) が正本です。
+未指定なら標準iPhone 17・4枚・16:9。**一般的な俯瞰構図・真上90°からの撮影は廃止**。ただし、iPhoneを寝かせる場合に限り、白画面全体を見せるためカメラを斜め上40〜55°へ移動させます。標準4案のCは、目線に近いカメラで撮るブロック上の展示構図に置き換えました。**1画像は1構図、端末は依頼どおりの1台または2台。すべての画面を無地の純白にし、構図と建築的ハーフグレー背景を維持。デスク・木目・小道具は禁止。** 4枚なら4つの別シーンを計画し、4回の独立生成で実行。詳細なルールと不合格条件は [AGENTS.md](AGENTS.md) と [STYLE.md](STYLE.md) が正本です。
 
 ## 採用する撮影スタイル・端末構成
 
@@ -27,16 +27,16 @@
 
 ## 床置き・ブロック置き（新規）
 
-- **床置き：** [MacBook Proを鉱物系の床へ直接設置](prompts/macbookpro14/on-floor.txt)。テーブルや机は使わない。
-- **ブロック置き：** [iPhone単体](prompts/iphone17/on-block.txt)、[MacBook Pro単体](prompts/macbookpro14/on-block.txt)、[Mac＋iPhoneの2台構成](prompts/macbookpro14-iphone17/on-blocks.txt)。
-- ブロックは**端末を支える直方体の鉱物系展示台のみ**。装飾用の積み木・机・家具とは区別。俯瞰は使用しない。
-- `grounded` / `on-block` / `hover` / `suspended` を切り替えて生成する。
+- **床置き：** [MacBook Proを鉱物系の床へ直接設置](prompts/macbookpro14/on-floor.txt)／[iPhoneを床に寝かせる](prompts/iphone17/on-floor-flat.txt)。テーブルや机は使わない。
+- **ブロック置き：** iPhoneの[立て置き](prompts/iphone17/on-block.txt)／[大きなブロックに寝かせる](prompts/iphone17/on-block-flat.txt)／[傾けて支える](prompts/iphone17/on-block-tilted.txt)、[MacBook Pro単体](prompts/macbookpro14/on-block.txt)、[Mac＋iPhoneの2台構成](prompts/macbookpro14-iphone17/on-blocks.txt)。
+- ブロックは**端末を支える直方体の鉱物系展示台のみ**。iPhoneを寝かせるときは**天板がテーブル程度に広い一体のコンクリート塊**を使い、小さな台座は使わない。傾けるときは背面が支えられた自然な姿勢にする。Macは常に開いた状態とし、寝かせない。
+- iPhone単体の[床なし空中浮遊](prompts/iphone17/suspended.txt)も追加。`grounded` / `on-block` / `hover` / `suspended` を切り替えて生成する。
 
 新規のブロック構図はプロンプト収録済みですが、生成品質は未検証。詳細は[プロンプト一覧](prompts/README.md)を参照。
 
 ## 生成指示が書き換わる場合のテスト
 
-画像生成ツールが指定した1構図を勝手に複数構図へ変えてしまう場合は、[単独プロンプトテスト](prompts/README.md)を利用してください。標準iPhone 17の[A](prompts/iphone17/a.txt)・[B](prompts/iphone17/b.txt)・[C](prompts/iphone17/c.txt)・[D](prompts/iphone17/d.txt)をそれぞれ独立した完成テキストとして保存しています。
+画像生成ツールが指定した1構図を勝手に複数構図へ変えてしまう場合は、[単独プロンプトテスト](prompts/README.md)を利用してください。標準iPhone 17の[A](prompts/iphone17/a.txt)・[B](prompts/iphone17/b.txt)・[C（ブロック置き）](prompts/iphone17/on-block.txt)・[D](prompts/iphone17/d.txt)をそれぞれ独立した完成テキストとして保存しています。
 
 まず**AのRawテキストだけ**をコピーし、新しい画像生成チャットで**その1本だけ**入力します。GitHubのURLや「4枚生成」の依頼を同じメッセージに追加しません。これで会話文脈による混線を切り分けられますが、画像生成ツール内部のプロンプト書き換えを完全には防げません。詳細は[テスト手順](prompts/README.md)を参照してください。
 
