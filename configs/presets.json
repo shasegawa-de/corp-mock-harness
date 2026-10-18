@@ -34,5 +34,27 @@
     {"id":"top-right-daylight","detail":"Soft top-right daylight with broad gentle penumbra and diffused highlights on device glass."},
     {"id":"low-key","detail":"Soft low-key studio lighting on charcoal background, sufficient light to keep product contours readable."},
     {"id":"high-key","detail":"Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."}
+  ],
+  "default_scenes": [
+    {
+      "composition_id": "frontal-centered",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "broad-softbox"
+    },
+    {
+      "composition_id": "three-quarter-left",
+      "environment_id": "fiber-cement-panels",
+      "lighting_id": "left-grazing"
+    },
+    {
+      "composition_id": "high-view",
+      "environment_id": "dark-fiber-cement",
+      "lighting_id": "top-right-daylight"
+    },
+    {
+      "composition_id": "asymmetric-negative-space",
+      "environment_id": "smoked-glass",
+      "lighting_id": "soft-overhead"
+    }
   ]
 }
