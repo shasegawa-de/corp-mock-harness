@@ -2,6 +2,8 @@
 
 ## Unreleased — main (2026-10-19)
 
+- Add four isolated, copy-ready standard iPhone 17 render prompts (`prompts/iphone17/a.txt` through `d.txt`) and a strict handoff regression test; keep this optional rather than adding more mandatory reading.
+- Distinguish orchestration prompt drift from image-model fidelity by testing one prompt in a fresh image chat, then separately checking effective prompt and rendered image.
 - Add frozen single-scene render prompts, outgoing/effective prompt auditing and fail-fast `PROMPT_DRIFT` detection; diagnose prior 4/4 collages as prompt handoff drift, not proof of generator noncompliance.
 - Add one-scene regression case under `history/` and separate prompt integrity from visual QA in `templates/review.md`.
 - Reduce the mandatory AI context to four live GitHub files: `AGENTS.md`, `STYLE.md`, `configs/devices.json`, `configs/presets.json`. Never use the ZIP as the execution source.
