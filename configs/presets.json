@@ -30,7 +30,8 @@
     {"id":"iphone-tilted-supported","detail":"Single standard iPhone 17 leaning back ~20 degrees from vertical on a wide single mineral block, supported by a subtle integrated raised facet of that SAME block. Camera adjusts to a modestly elevated oblique front-three-quarter viewpoint matched to the screen, all corners visible."},
     {"id":"iphone-suspended-angled","detail":"Single standard iPhone 17 unsupported in floorless gray architectural airspace, ~15-degree three-quarter yaw and ~10-degree roll while keeping all white-screen corners visible; coherent one-camera photograph, no ground shadow."},
     {"id":"iphone-tilted-floor","detail":"Exactly one standard iPhone rests leaning with its bottom long edge touching the mineral floor and its upper rear edge leaning against an integrated architectural wall; camera shifts to a modestly raised front-three-quarter view facing white screen. Real contact at two points, no extra prop, no unsupported floating."},
-    {"id":"empty-stage","detail":"ONE architectural studio frame with open negative space ready for hypothetical later product placement, but with no product visible. Material planes and light are the sole subject."}
+    {"id":"empty-stage","detail":"ONE architectural studio frame with open negative space ready for hypothetical later product placement, but with no product visible. Material planes and light are the sole subject."},
+    {"id":"floor-plane-emphasis","detail":"EMPTY architecture, no devices, wide horizontal mineral FLOOR dominates roughly 80–85 percent of landscape frame; low oblique camera looking across the finished floor, distant wall only a narrow top strip; not an overhead flat lay or macro texture swatch."}
   ],
   "lighting": [
     {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
@@ -113,5 +114,13 @@
         "detail": "Entire OPEN laptop floats, display raised at realistic hinge angle, keyboard and trackpad visible, both parts a single rigid articulated device; never closed or laid flat."
       }
     ]
-  }
+  },
+  "surface_studies": [
+    {"id":"surface-microcement-wall-floor","surface_type":"wall-floor-junction","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/architectural-surfaces/microcement-wall-floor.txt"},
+    {"id":"surface-fiber-cement-wall","surface_type":"vertical-wall","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/architectural-surfaces/fiber-cement-wall-panels.txt"},
+    {"id":"surface-smoked-glass-mineral","surface_type":"vertical-wall-and-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/architectural-surfaces/smoked-glass-and-mineral.txt"},
+    {"id":"surface-charcoal-wall-floor","surface_type":"wall-floor-corner","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/architectural-surfaces/charcoal-wall-floor.txt"},
+    {"id":"surface-microcement-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"microcement-seamless","lighting_id":"left-grazing","reference_prompt":"prompts/architectural-surfaces/microcement-floor-plane.txt"},
+    {"id":"surface-sandblasted-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"fine-concrete","lighting_id":"right-grazing","reference_prompt":"prompts/architectural-surfaces/sandblasted-concrete-floor.txt"}
+  ]
 }
