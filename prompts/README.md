@@ -17,6 +17,20 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
+## iPhone posture variants — five complete single-scene prompts
+
+The iPhone alone may be **face-up flat, leaning with credible physical support, upright, or fully suspended**. Camera framing tracks the pose. The old generic `high-view` preset is still retired: a flat face-up iPhone specifically needs a **40–55° oblique elevated camera** to keep its screen visible, never a 90° overhead flat lay. MacBook Pro does NOT support a flat device pose: it stays open, with raised display.
+
+| Reference prompt | Physical pose | Surface / camera |
+|---|---|---|
+| [on-floor-flat.txt](iphone17/on-floor-flat.txt) | Flat, white screen face up | Matte mineral floor, oblique raised camera |
+| [on-floor-tilted.txt](iphone17/on-floor-tilted.txt) | Leaning, physically supported by wall | Mineral floor + joined architectural wall, camera aligned to screen |
+| [on-block-flat.txt](iphone17/on-block-flat.txt) | Flat face-up | ONE broad table-sized solid mineral block (not desk furniture); oblique raised camera |
+| [on-block-tilted.txt](iphone17/on-block-tilted.txt) | Leaning against integral block facet | ONE broad mineral block, camera aligned to screen |
+| [suspended.txt](iphone17/suspended.txt) | Unsupported, gently rotated | Floorless architectural airspace; no contact/cast ground shadow |
+
+These five are **new reference prompts, not yet validated production-quality image outputs**; preserve the previous approved A/B compositions independently. Flat iPhone-specific camera elevation is an intentional exception, not a revival of generic high-view.
+
 ## Ground placement and intentional display plinths
 
 **The high-view (bird's-eye) composition is retired.** No new image should use it. The former iPhone C concept is archived in Git history only; current default C is an eye-level block display.
