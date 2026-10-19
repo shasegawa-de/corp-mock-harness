@@ -4,6 +4,12 @@
 
 > **AIへの最優先指示：画像生成をすぐに開始しないこと。** GitHub `main`の生ファイル [AGENTS.md](AGENTS.md)、[STYLE.md](STYLE.md)、[configs/devices.json](configs/devices.json)、[configs/presets.json](configs/presets.json) を**4つとも全文読み込んでから**、AGENTS.mdのゲート・シーン設計・生成・QAを順に実行してください。取得できなければ生成せず確認を求めてください。**ZIPや記憶による代用は禁止です。**
 
+## プロンプト＆作例カタログ（HTML）
+
+[**Prompt & Visual Catalog**](catalog/index.html) — iPhone 17、MacBook Pro、2台構成、建築背景・床面・大理石のプロンプトと生成例を比較するHTMLカタログ。対象カテゴリ／配置／素材／評価で複合絞り込み、画像拡大、プロンプト全文表示・コピーに対応。
+
+GitHubのコード画面はHTMLをそのままレンダリングしません。閲覧する際は[**HTMLファイルをダウンロード**](https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/catalog/index.html)してブラウザで開いてください。画像の多くは埋め込み済みですが、一部の高画質画像はオンライン参照です。正本は `main/catalog/index.html`。
+
 ## 使い方
 
 通常はリポジトリURLと端末・枚数を伝えるだけです。
