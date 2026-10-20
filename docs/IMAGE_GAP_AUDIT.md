@@ -141,3 +141,14 @@ An asset activation hook was added to `catalog-next/app.mjs`. Once the **origina
 - **GitHub original PNG publication: PENDING.** It is held in the ChatGPT file Library and has not been pushed as a binary to `main`. Do not claim that visual approval automatically updated the catalog.
 - vNext activation hook: `catalog-next/app.mjs` switches only the TX2 card to `assets/architectural-surfaces/fiber-cement-wall-gptimage.png` after that exact path serves a 1672×941 image. Until then the existing TX2 provisional preview and metadata remain; original `catalog/index.html` is unchanged.
 - Next (last of four priority scenes): `prompts/architectural-surfaces/carrara-marble-wall-floor.txt`.
+
+## 2026-10-21 — MR1 Carrara marble approved; four priority images complete
+
+- The user explicitly **approved** Carrara marble MR1 after reviewing the independently generated GPT Image.
+- Original ChatGPT Library file: `file_000000006c148209949be46f32b1ab66` (`白大理石の静謐なミニマル空間.png`), PNG, **1672 × 940 pixels**, **1,903,585 bytes**, SHA-256 `d3435428cf2af65b783ad280cea9d01a4af0f71cf561f12ff70e58bd745073a1`.
+- Target **MR1** — `prompts/architectural-surfaces/carrara-marble-wall-floor.txt`. Visual QA: **PASS by user approval** — zero devices/props; white and light-gray honed marble slabs; fine gray veins; wall/floor junction near lower third; soft broad illumination, satin highlights, restrained reflections; a single near-16:9 scene.
+- **Prompt fidelity remains UNVERIFIED**, because the GPT Image internal effective request was not independently captured. Approval does not imply material SKU or model fidelity was verified.
+- The four high-priority architectural images **MR2, TX1, TX2, MR1 are all visually approved**. No more image generation is required for this initial four-scene batch.
+- **GitHub PNG publication is separately PENDING for all four**. Do not misrepresent the existing reference previews as approved images until the originals are published.
+- A single normalized target folder is established: `assets/architectural-surfaces/`. The four original assets must be uploaded as `graphite-marble-gptimage.png`, `microcement-wall-floor-gptimage.png`, `fiber-cement-wall-gptimage.png`, `carrara-marble-wall-floor-gptimage.png`. See `assets/architectural-surfaces/approved-manifest.json` for sizes, dimensions and SHA-256. A single ZIP bundle of the **original bytes** is prepared in the project ChatGPT conversation for manual GitHub browser upload; GitHub must receive the individual PNGs, not the ZIP. The vNext catalog only switches each matching card to the approved original after the correct-dimension file is actually served.
+- `tests/approved-assets.test.mjs` checks manifest schema and validates byte-length, PNG dimensions and SHA-256 when a corresponding original binary is present on the GitHub build runner, and fails the deployment if mismatched. `catalog/index.html` is unchanged.

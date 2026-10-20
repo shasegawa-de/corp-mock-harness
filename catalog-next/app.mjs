@@ -30,6 +30,7 @@ try{
   initApprovedMR2();
   initApprovedTX1();
   initApprovedTX2();
+  initApprovedMR1();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
     const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';
@@ -69,7 +70,7 @@ function initApprovedMR2(){
   const card=cards.find(item=>item.dataset.id==='MR2');
   const image=card?.querySelector('.image-wrap img');
   if(!image)return;
-  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/marble/graphite-marble-gptimage.png';
+  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/graphite-marble-gptimage.png';
   const candidate=new Image();
   candidate.addEventListener('load',()=>{
     if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
@@ -121,6 +122,27 @@ function initApprovedTX2(){
     img.alt='TX2：採用済みGPT Image。2枚の淡灰色繊維セメントパネルと縦目地、端末なし';
     const qa=card.querySelector('.qa');
     if(qa)qa.textContent='画像QA：繊維セメント2面、縦目地、微細な素材感と照明についてユーザー承認済み（GPT Image、1672×941）。生成時の原文プロンプト一致は未検証。';
+    const quality=card.querySelector('.quality');
+    if(quality)quality.textContent='画像採用・GPT Image';
+  });
+  candidate.src=url;
+}
+
+// User-approved MR1 white Carrara marble, activated only after original PNG
+// is available from GitHub. Never relabel an unverified fallback preview.
+function initApprovedMR1(){
+  const card=cards.find(item=>item.dataset.id==='MR1');
+  const img=card?.querySelector('.image-wrap img');
+  if(!img)return;
+  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/carrara-marble-wall-floor-gptimage.png';
+  const candidate=new Image();
+  candidate.addEventListener('load',()=>{
+    if(candidate.naturalWidth!==1672||candidate.naturalHeight!==940)return;
+    img.dataset.onlineImage=url;
+    img.src=url;
+    img.alt='MR1：採用済みGPT Image。白〜淡灰色Carrara大理石の壁と床、端末なし';
+    const qa=card.querySelector('.qa');
+    if(qa)qa.textContent='画像QA：白系Carrara大理石、自然な石目、壁床の接合と照明についてユーザー承認済み（GPT Image、1672×940）。生成時の原文プロンプト一致は未検証。';
     const quality=card.querySelector('.quality');
     if(quality)quality.textContent='画像採用・GPT Image';
   });

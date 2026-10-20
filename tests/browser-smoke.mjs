@@ -42,6 +42,10 @@ try{
   assert.equal(await tx1.count(),1,'Microcement TX1 card must remain in the catalog');
   assert.ok((await tx1.locator('img').getAttribute('alt'))?.length>10,'TX1 must preserve its original preview until the approved binary is uploaded');
 
+  const mr1=page.locator('#gallery-view article.item[data-id="MR1"]');
+  assert.equal(await mr1.count(),1,'Carrara MR1 card must remain in the catalog');
+  assert.ok((await mr1.locator('img').getAttribute('alt'))?.includes('大理石'),'MR1 must retain the provisional marble preview before the approved binary is available');
+
   const mr2=page.locator('#gallery-view article.item[data-id="MR2"]');
   assert.equal(await mr2.count(),1);
   assert.ok((await mr2.locator('img').getAttribute('alt'))?.includes('大理石'),'MR2 must have a valid fallback preview before approved PNG becomes available');

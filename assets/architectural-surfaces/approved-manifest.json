@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "review_status": "VISUALLY_APPROVED_BY_USER",
+  "prompt_fidelity": "UNVERIFIED",
+  "images": [
+    {
+      "id": "MR2",
+      "path": "assets/architectural-surfaces/graphite-marble-gptimage.png",
+      "sha256": "d1028bf94f15b01e8b00d467aa8db29b06f92644d8de3fa41d60f9bdffb09a0d",
+      "width": 1672,
+      "height": 941,
+      "size_bytes": 2395927,
+      "reference_prompt": "prompts/architectural-surfaces/graphite-marble-wall-floor.txt"
+    },
+    {
+      "id": "TX1",
+      "path": "assets/architectural-surfaces/microcement-wall-floor-gptimage.png",
+      "sha256": "91b68998912158fff8399e2d6a255a5651215b7422e9597c22ffced0e4d03c87",
+      "width": 1672,
+      "height": 941,
+      "size_bytes": 2257537,
+      "reference_prompt": "prompts/architectural-surfaces/microcement-wall-floor.txt"
+    },
+    {
+      "id": "TX2",
+      "path": "assets/architectural-surfaces/fiber-cement-wall-gptimage.png",
+      "sha256": "ae65db18ac7f9de706a485e24397f92bf879f3ae4667b8fc5919b626dc4324e0",
+      "width": 1672,
+      "height": 941,
+      "size_bytes": 2724213,
+      "reference_prompt": "prompts/architectural-surfaces/fiber-cement-wall-panels.txt"
+    },
+    {
+      "id": "MR1",
+      "path": "assets/architectural-surfaces/carrara-marble-wall-floor-gptimage.png",
+      "sha256": "d3435428cf2af65b783ad280cea9d01a4af0f71cf561f12ff70e58bd745073a1",
+      "width": 1672,
+      "height": 940,
+      "size_bytes": 1903585,
+      "reference_prompt": "prompts/architectural-surfaces/carrara-marble-wall-floor.txt"
+    }
+  ]
+}
