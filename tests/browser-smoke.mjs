@@ -100,7 +100,27 @@ try{
     background:getComputedStyle(el).backgroundColor
   }));
   assert.equal(separator.borderRight,'1px','A vertical line separates the two regions');
-  assert.notEqual(separator.background,'rgba(0, 0, 0, 0)','Filter area needs its own background');
+  assert.equal(separator.background,'rgb(255, 255, 255)','Desktop filter region must remain pure white');
+  const originalTags=await drawer.evaluate(panel=>{
+    const idle=panel.querySelector('[data-filter-axis="subject"] button[data-value]:not([data-value=""])');
+    const selected=panel.querySelector('[data-filter-axis="subject"] button[data-value=""]');
+    const label=panel.querySelector('.tag-label');
+    const options=panel.querySelector('.tag-options');
+    const cs=getComputedStyle(idle),on=getComputedStyle(selected);
+    return {
+      fontSize:cs.fontSize,padding:cs.padding,borderRadius:cs.borderRadius,minWidth:cs.minWidth,
+      background:cs.backgroundColor,color:cs.color,
+      labelFontSize:getComputedStyle(label).fontSize,
+      tagGap:getComputedStyle(options).gap,
+      selectedBackground:on.backgroundColor,selectedColor:on.color
+    };
+  });
+  assert.deepEqual(originalTags,{
+    fontSize:'11px',padding:'6px 10px',borderRadius:'5px',minWidth:'64px',
+    background:'rgb(241, 243, 243)',color:'rgb(70, 81, 85)',
+    labelFontSize:'12px',tagGap:'6px',
+    selectedBackground:'rgb(32, 38, 42)',selectedColor:'rgb(255, 255, 255)'
+  },'Restore the original tag visual design without sidebar-only overrides');
   await page.evaluate(()=>window.scrollTo(0,700));
   await page.waitForTimeout(100);
   const fixed=await page.locator('.catalog-sidebar').boundingBox();
