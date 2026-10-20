@@ -69,8 +69,17 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   assert.ok(styles.includes('body>header{padding-top:18px;padding-bottom:20px}'));
   assert.ok(styles.includes('#gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}'));
   assert.ok(styles.includes('.catalog-content article.item details{display:none!important}'));
+  assert.match(styles,/#gallery-view \.image-wrap::after\{content:none!important\}/,'Zoom overlay removed');
+  assert.match(styles,/#gallery-view article\.item\{cursor:pointer\}/,'Entire card is interactive');
+  assert.match(next,/カードを選ぶとプロンプトを確認・コピーできます。/);
+  assert.doesNotMatch(next,/画像の拡大・/);
   assert.ok(app.includes('inlinePrompt.remove();'));
-  assert.ok(app.includes("button.textContent='プロンプト確認'"));
+  assert.ok(app.includes("card.setAttribute('role','button')"));
+  assert.ok(app.includes("card.addEventListener('click'"));
+  assert.ok(app.includes("card.addEventListener('keydown'"));
+  assert.ok(app.includes("imageButton.replaceWith(imageWrap)"));
+  assert.ok(app.includes("$('preview')?.remove()"));
+  assert.ok(!app.includes("button.textContent='プロンプト確認'"),'Gallery CTA is replaced by whole-card interaction');
   assert.ok(app.includes("tableButton.textContent='プロンプト確認'"));
   assert.ok(app.includes('visiblePrompt=unchanged?originalPrompt:result.prompt'));
   assert.ok(app.includes('navigator.clipboard.writeText(visiblePrompt)'));
