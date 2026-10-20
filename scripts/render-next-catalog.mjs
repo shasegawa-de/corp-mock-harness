@@ -1,4 +1,4 @@
-// Only the explicitly requested header/filter changes are applied to the base.
+// Only the explicitly requested catalog chrome changes are applied to the base.
 export function catalogChrome(catalog){
   const header=catalog.match(/<header>[\s\S]*?<\/header>/)?.[0];
   const eyebrow=header?.match(/<div class="eyebrow">[\s\S]*?<\/div>/)?.[0];
@@ -11,7 +11,8 @@ export function catalogChrome(catalog){
   const facets=toolbar.match(/<div class="filter-field"><label for="placement-filter">[\s\S]*?<div class="reset-field">[\s\S]*?<\/div>/)?.[0];
   if(!eyebrow||!title||!repository||start<0||end<0||!categories||!facets)throw Error('Catalog header/filter structure changed');
   const replacement=`<div class="toolbar toolbar-next" aria-label="作品の絞り込み"><div class="toolbar-detail"><div class="toolbar-label">絞り込み</div><div class="filter-field category-field"><span id="category-label">対象カテゴリ</span>${categories}</div><div class="facet-fields">${facets}</div></div></div>\n`;
-  return catalog.replace(toolbar,replacement).replace(header,`<header><div class="header-row"><div>${eyebrow}${title}</div>${repository}</div></header>`);
+  return catalog.replace(toolbar,replacement).replace(header,`<header><div class="header-row"><div>${eyebrow}${title}</div>${repository}</div></header>`)
+    .replace(/<div class="footer">[\s\S]*?<\/div>/,'');
 }
 
 // Cards, images, table, shared styles and the existing scripts are reused.
