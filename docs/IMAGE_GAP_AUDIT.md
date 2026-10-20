@@ -86,3 +86,21 @@ The image tool did not expose a reliable effective frozen prompt in generation m
 - Generation ID: `1d2c237a-0b0a-409f-a2ea-e2f209ebf64f`.
 - Returned image again showed essentially the same left-lit corner and a thick right-hand projecting rectangular slab. **IMAGE_QA REJECT; PROMPT_UNVERIFIED**. No approved image, no catalog change.
 - Six attempts across different surface targets did not resolve composition carryover. Stop uncontrolled repeated regeneration and preserve only the review evidence, not the rejected assets.
+
+
+## 2026-10-21 — Chat GPT Image resumed: six material-control failures
+
+User requested to continue using the **in-chat GPT Image generator**, without Firefly and without the separate API execution path. Re-read all four mandatory harness files from live `main` at `acdb5b9d77e897a671eab1a68401c031f2358b69` and parsed both JSON files. Checked all four environment-only scene contracts and source fixtures. Generated one frame at a time, requiring zero devices and 16:9. None is approved.
+
+| Target scene | Gen ID | Observed output; reason for rejection |
+| --- | --- | --- |
+| Microcement wall/floor | `ad692e82-ae8a-48d1-bce5-163856cb01ae` | Empty wall/floor at near-16:9, but warm plaster, strong diagonal lighting and right-side recess instead of the intended seamless cool microcement, soft broad illumination |
+| Fiber-cement wall panels | `df9495d7-e6f0-4feb-a42e-40a925813396` | Plaster-like continuous wall, no clear construction joint near center-right, too much floor and strong diagonal sun |
+| Carrara marble wall/floor | `5236267e-99f4-4a09-b814-3dd48ba93c68` | Plaster room without Carrara veining, external window and visible foliage |
+| Graphite marble wall/floor | `b3599b5c-a30c-46a9-8041-8c12bada704d` | Pale plaster room rather than dark graphite marble, large window and greenery |
+| Graphite targeted retry | `75ee0326-1c70-4b0b-b44a-8c42ea7695a8` | Light-gray generic room with window and greenery, no dark marble or low-key lighting |
+| Graphite retry after additional scene instruction | `e8c76f6b-7a2b-4bda-b359-bf5681edc125` | Warm pale plaster, outdoor foliage and strong light, no graphite or marble veins |
+
+**QA:** 6 REJECT, 0 PASS, 0 registered images. No changes to 30 canonical cards or vNext gallery assets. The in-chat generator did not provide a verifiably exact prompt submission; its returned scene descriptions repeatedly diverged from the fixture targets. Prompt transport remains **PROMPT_UNVERIFIED**, and material fidelity **REJECT**. Do not infer that the images satisfy their fixtures just because they have the expected zero-device count and near-16:9 output.
+
+The separate explicit-request GPT Image API path exists but was not executed, respecting the user's choice to stay in Chat. Repeating the same in-chat image-generation route has not established reliable material/geometry compliance. The next GPT Image-only path worth testing is a **new isolated image-generation conversation** containing exactly one raw fixture prompt and no previous generated image history. Human approval is still required before promoting images to a catalog card.
