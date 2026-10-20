@@ -12,7 +12,9 @@
 
 [**Prompt & Visual Catalog**](catalog/index.html) — iPhone 17、MacBook Pro、2台構成、建築背景・床面・大理石のプロンプトと生成例を比較するHTMLカタログ。対象カテゴリ／配置／素材／評価で複合絞り込み、画像拡大、プロンプト全文表示・コピーに対応。
 
-GitHubのコード画面はHTMLをそのままレンダリングしません。閲覧する際は[**HTMLファイルをダウンロード**](https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/catalog/index.html)してブラウザで開いてください。画像の多くは埋め込み済みですが、一部の高画質画像はオンライン参照です。正本は `main/catalog/index.html`。
+[**公開カタログを開く（GitHub Pages）**](https://shasegawa-de.github.io/corp-mock-harness/) — `main/catalog/index.html`をそのまま配信します。mainの`catalog/`・`assets/`・公開ワークフローの更新時にGitHub Actionsで自動再公開します。
+
+GitHubのコード画面はHTMLをそのままレンダリングしません。ローカルで閲覧する場合は[**HTMLファイルをダウンロード**](https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/catalog/index.html)してブラウザで開いてください。画像の多くは埋め込み済みですが、一部の高画質画像はオンライン参照です。正本は引き続き `main/catalog/index.html`。
 
 ## 使い方
 

@@ -115,7 +115,7 @@
 
 ## 8. HTMLカタログの設計方針と未完了タスク
 
-正本：**[catalog/index.html](../catalog/index.html)**（main、約4MB級の比較的大きなHTML）。画像と完成プロンプト、コピー、画像拡大、一覧表示が主目的。GitHubのコードビューはHTMLをレンダリングしないため、ブラウザでの表示には実ファイルを開く。
+正本：**[catalog/index.html](../catalog/index.html)**（main、約4MB級の比較的大きなHTML）。画像と完成プロンプト、コピー、画像拡大、一覧表示が主目的。[GitHub Pagesの公開カタログ](https://shasegawa-de.github.io/corp-mock-harness/)で閲覧できる。公開処理は[.github/workflows/pages.yml](../.github/workflows/pages.yml)で管理し、mainの`catalog/`・`assets/`・同ワークフローの更新時に`catalog/`をそのまま自動配信する。カタログの正本は移動・複製しない。GitHubのコードビューはHTMLをレンダリングしないため、ローカル閲覧ではHTMLをダウンロードして開く。
 
 ### UI設計で決まったこと
 
