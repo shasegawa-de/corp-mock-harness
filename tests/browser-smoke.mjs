@@ -36,8 +36,16 @@ try{
   assert.equal(createdButtons,30, 'Each original card requires a prompt confirmation button');
   await page.waitForFunction(()=>['MR1','MR2','TX1','TX2'].every(id=>{
     const card=document.querySelector('#gallery-view article.item[data-id="'+id+'"]');
-    return card?.querySelector('.quality')?.textContent.includes('画像採用・GPT Image')&&card.querySelector('img')?.complete&&card.querySelector('img')?.naturalWidth===1672;
-  }),{timeout:15000});
+    return card?.querySelector('.quality')?.textContent.includes('画像採用・GPT Image')&&card.querySelector('img')?.dataset.onlineImage?.includes('/assets/architectural-surfaces/');
+  }),null,{timeout:20000});
+  for(const id of ['MR1','MR2','TX1','TX2']){
+    const img=page.locator('#gallery-view article.item[data-id="'+id+'"] img');
+    await img.evaluate(node=>{node.loading='eager';});
+    await page.waitForFunction(id=>{
+      const img=document.querySelector('#gallery-view article.item[data-id="'+id+'"] img');
+      return img?.complete&&img?.naturalWidth===1672;
+    },id,{timeout:15000});
+  }
   console.log('APPROVED_ASSETS_VISIBLE',JSON.stringify(await page.locator('#gallery-view article.item .quality').allTextContents()));
   const tx2=page.locator('#gallery-view article.item[data-id="TX2"]');
   assert.equal(await tx2.count(),1,'Fiber-cement TX2 card must remain in the catalog');

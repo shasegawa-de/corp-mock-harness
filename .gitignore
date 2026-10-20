@@ -1,5 +1,11 @@
 # Generated or locally downloaded visual assets
 *.png
+
+# Explicitly reviewed originals: permit only these four PNG assets.
+!assets/architectural-surfaces/graphite-marble-gptimage.png
+!assets/architectural-surfaces/microcement-wall-floor-gptimage.png
+!assets/architectural-surfaces/fiber-cement-wall-gptimage.png
+!assets/architectural-surfaces/carrara-marble-wall-floor-gptimage.png
 *.jpg
 *.jpeg
 *.webp
