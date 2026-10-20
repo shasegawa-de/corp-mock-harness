@@ -78,3 +78,11 @@ Per user instruction, Firefly was **not** used. All five attempts in this iterat
 The image tool did not expose a reliable effective frozen prompt in generation metadata (`prompt` field empty), and its generated English scene descriptions repeatedly included a rectangular slab/partition in conflict with the requested plain architecture. Prompt fidelity is **PROMPT_UNVERIFIED**, with strong **apparent scene carryover** across calls. Do not claim an exact `MATCH`, and do not call these images accepted. No image was added to GitHub, approved or registered to the HTML catalog. The existing 30 gallery cards remain unchanged.
 
 **Blocker:** The currently exposed GPT Image control does not guarantee verbatim prompting, and repeated calls in this same conversation kept virtually the same architectural arrangement despite changing the target material. More identical calls would spend generations without resolving the control error. Complete the work only after obtaining a reliable GPT Image prompt path (for example a fresh, isolated GPT Image conversation with a single explicit fixture and zero prior image context, or a GPT Image API with a directly supplied prompt); then re-run visual QA and register independently. This is an environment/control issue, not evidence that GPT Image cannot generate architectural scenes.
+
+### Sixth GPT Image retry — same structural scene despite a new isolated request
+
+- New mandatory four-file read and JSON precheck: `main` at `2c7bda38a931836b6c2c69a1c658f66dc7de5aa4`.
+- Target: `surface-microcement-wall-floor`, original 16:9 no-device fixture, broad diffused illumination, no block.
+- Generation ID: `1d2c237a-0b0a-409f-a2ea-e2f209ebf64f`.
+- Returned image again showed essentially the same left-lit corner and a thick right-hand projecting rectangular slab. **IMAGE_QA REJECT; PROMPT_UNVERIFIED**. No approved image, no catalog change.
+- Six attempts across different surface targets did not resolve composition carryover. Stop uncontrolled repeated regeneration and preserve only the review evidence, not the rejected assets.
