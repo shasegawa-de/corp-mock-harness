@@ -1,6 +1,16 @@
 // The canonical catalog owns filtering; tags adapt its existing controls.
 export function initTagFilters(){
   const toolbar=document.querySelector('.toolbar-next');
+  const drawer=document.getElementById('filter-drawer');
+  const opener=document.getElementById('open-filters');
+  const dismiss=document.getElementById('close-filters');
+  const apply=document.getElementById('show-filters');
+  if(!toolbar||!drawer||!opener||!dismiss||!apply)throw Error('vNext filter drawer controls are missing');
+  opener.addEventListener('click',()=>{drawer.showModal();document.body.classList.add('filter-drawer-open');});
+  dismiss.addEventListener('click',()=>drawer.close());
+  apply.addEventListener('click',()=>drawer.close());
+  drawer.addEventListener('close',()=>{document.body.classList.remove('filter-drawer-open');opener.focus();});
+  drawer.addEventListener('click',event=>{if(event.target!==drawer)return;const bounds=drawer.getBoundingClientRect();if(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)drawer.close();});
   const groups=[...toolbar.querySelectorAll('[role="radiogroup"]')];
   const selectors=[...toolbar.querySelectorAll('select')];
   for(const group of groups){
@@ -32,6 +42,8 @@ export function initTagFilters(){
   toolbar.querySelector('#reset-filters').addEventListener('click',update);
   new MutationObserver(update).observe(document.getElementById('count'),{childList:true});
   function update(){
+    const count=document.getElementById('count')?.textContent?.trim();
+    apply.textContent=count?`${count}を表示`:'結果を表示';
     for(const group of groups){
       const select=document.getElementById(group.dataset.tagSelect);
       for(const button of group.querySelectorAll('button')){

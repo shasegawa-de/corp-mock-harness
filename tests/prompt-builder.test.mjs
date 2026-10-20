@@ -29,7 +29,10 @@ test('header has only the requested labels/link and category lives inside the fi
   assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
   assert.match(next,/<div class="toolbar toolbar-next" aria-label="作品の絞り込み">/);
-  assert.match(next,/<h2 class="filter-heading">絞り込み<\/h2>/);
+  assert.match(next,/<dialog id="filter-drawer" class="filter-drawer" aria-labelledby="filter-heading">/);
+  assert.match(next,/<h2 id="filter-heading">絞り込み<\/h2>/);
+  assert.match(next,/id="open-filters"/);
+  assert.match(next,/id="show-filters"/);
   assert.doesNotMatch(next,/<details class="toolbar toolbar-next"|<summary class="filter-toggle"|id="filter-selection"/);
   assert.equal((next.match(/role="radiogroup"/g)??[]).length,4);
   for(const id of ['placement-filter','material-filter','quality-filter'])assert.match(next,new RegExp('<select hidden id="'+id+'"'));
@@ -68,10 +71,23 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   for(const article of articles)assert.ok(article.includes('<pre'),'Original prompt markup must exist for each modal');
 });
 
+test('vNext filter dialog reuses all four original filter groups',()=>{
+  const next=renderNextCatalog(catalog,editor);
+  const drawer=next.split('<dialog id="filter-drawer"')[1]?.split('</dialog>')[0];
+  assert.ok(drawer);
+  for(const id of ['placement-filter','material-filter','quality-filter','reset-filters'])assert.ok(drawer.includes(`id="${id}"`));
+  assert.equal((drawer.match(/role="radiogroup"/g)??[]).length,4);
+  const filters=readFileSync(new URL('../catalog-next/filters.mjs',import.meta.url),'utf8');
+  assert.match(filters,/drawer\.showModal\(\)/);
+  assert.match(filters,/drawer\.close\(\)/);
+  assert.match(filters,/document\.getElementById\('count'\)/);
+});
+
 test('vNext motion respects reduced-motion preference',()=>{
   const css=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
   assert.ok(css.includes('@starting-style'));
   assert.ok(css.includes('.composer[open]'));
+  assert.ok(css.includes('.filter-drawer[open]'));
   assert.ok(css.includes('catalog-card-appear'));
   assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
 });
