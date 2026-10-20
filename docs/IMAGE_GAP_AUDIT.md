@@ -53,3 +53,12 @@ These are candidates, **not generated assets or approved cards**. Before each ne
 3. Full prompt fidelity is only MATCH when effective tool prompt is inspectable. If hidden, PROMPT_UNVERIFIED.
 4. Existing 30 cards, accepted directions, original `catalog/index.html`, and metadata remain unchanged until their replacements have passed QA.
 5. Do not multiply arbitrary combinations as cards without a distinct visual purpose and documented quality threshold.
+
+## 2026-10-21 — First generation attempt, STOPPED: prompt drift
+
+- Attempted source scene: `surface-microcement-wall-floor`; fixture: `prompts/architectural-surfaces/microcement-wall-floor.txt`.
+- Mandatory four live files re-read completely and JSON validated on `main` at `47fa2acd18fa195fb13b0992b2e4535b4810d6de`. Requested scene: `devices=[]`, `layout_id=environment-only`, `spatial_mode_id=grounded`, `composition_id=empty-stage`, `environment_id=microcement-seamless`, `lighting_id=broad-softbox`.
+- Image-generation provider reported effective scene description: "Minimalist studio product shot of a modern black smartphone standing slightly tilted on a textured gray concrete floor, shown in three-quarter view against geometric architectural planes and a rectangular ledge." The remainder of the returned description describes a pure-white phone display.
+- **PROMPT_DRIFT**: an unintended smartphone was added despite the required zero-device scene. **IMAGE_QA: REJECT**. The image is **NOT approved** and **NOT cataloged**. This is independent of photographic aesthetics or image resolution.
+- Tool generation ID: `2ef1b40f-854b-49cc-894e-dbe34fac7b92`. The response did not provide a usable verbatim prompt-lock interface for enforcing the frozen prompt.
+- Per `AGENTS.md`, stop the remainder of this batch when device count changes in the effective tool prompt. Reattempt only using a route that guarantees a single effective prompt containing **NO products or devices**, followed by independent prompt-fidelity and image QA. Do not silently replace the rejected image or mark it PASS.
