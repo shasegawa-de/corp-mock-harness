@@ -1,0 +1,15 @@
+import {cpSync,mkdirSync,readFileSync,writeFileSync,rmSync} from 'node:fs';
+import {resolve,join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {validateCatalog} from '../catalog-next/engine.mjs';
+const root=resolve(import.meta.dirname,'..'),out=join(root,'_site');
+validateCatalog(JSON.parse(readFileSync(join(root,'configs/presets.json'),'utf8')),JSON.parse(readFileSync(join(root,'configs/devices.json'),'utf8')));
+rmSync(out,{recursive:true,force:true});mkdirSync(out,{recursive:true});
+cpSync(join(root,'catalog'),out,{recursive:true});
+cpSync(join(root,'catalog-next'),join(out,'next'),{recursive:true});
+const data=join(out,'next/data');mkdirSync(data,{recursive:true});
+for(const path of ['AGENTS.md','STYLE.md','configs/devices.json','configs/presets.json'])cpSync(join(root,path),join(data,path.split('/').at(-1)));
+const commit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+writeFileSync(join(data,'source.json'),JSON.stringify({commit})+'\n');
+writeFileSync(join(out,'.nojekyll'),'');
+console.log('Built existing catalog unchanged at / and Prompt Builder at /next/');

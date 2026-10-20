@@ -12,3 +12,4 @@
 # Local private reference assets and exports
 assets/private/
 exports/
+_site/

@@ -18,6 +18,14 @@ GitHubのコード画面はHTMLをそのままレンダリングしません。�
 
 ## 使い方
 
+### 次期版：条件からプロンプトを組み立てる
+
+[**Prompt Builder（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/next/) — 端末・並び方・姿勢・配置・構図・建築面・素材・照明を選び、1シーンの英文プロンプトを組み立てます。既存作例からの条件読込、プロンプト全文コピー、TXT保存、条件JSON表示に対応。
+
+現行カタログと`catalog/index.html`はそのまま保持します。次期版のソースは`catalog-next/`。公開時に必須4ファイルを同梱しますが、画像生成時に最新mainを確認する契約は変えません。**組立プロンプトは新しい候補であり、既存の完成プロンプトや画像の採用・QA状態を継承しません。** [実装と検証範囲](docs/PROMPT_BUILDER.md)。
+
+### 画像生成を依頼する
+
 通常はリポジトリURLと端末・枚数を伝えるだけです。
 
 > https://github.com/shasegawa-de/corp-mock-harness のREADMEに従い、iPhone 17のモック画像を4枚、**独立して1枚ずつ**生成して。
