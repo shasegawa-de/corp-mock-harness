@@ -2,6 +2,10 @@
 <dialog id="composer" class="composer" aria-labelledby="composer-title">
   <div class="composer-heading composer-header"><h2 id="composer-title">プロンプト確認</h2><button id="composer-close" class="reset-filters" type="button">閉じる</button></div>
   <div id="composer-content" class="composer-content">
+  <div class="composer-heading"><h4 id="prompt-heading">登録済みのプロンプト</h4><span id="word-count" class="muted"></span></div>
+  <pre id="composer-prompt" tabindex="0" aria-label="英文プロンプト"></pre>
+  <div class="prompt-actions"><button id="composer-copy" class="copy" type="button">全文をコピー</button><a id="composer-source" target="_blank" rel="noopener noreferrer">GitHubの元プロンプト ↗</a><span id="copy-status" class="muted" role="status" aria-live="polite"></span></div>
+  <div class="composer-heading"><h4>条件</h4></div>
   <form id="composer-form" class="composer-fields">
     <div class="filter-field"><label for="subject">対象</label><select id="subject"></select></div>
     <div class="filter-field" id="layout-field"><label for="layout">並び方</label><select id="layout"></select></div>
@@ -19,8 +23,5 @@
     <div id="example-images"></div>
     <p id="example-note" class="composer-note" hidden>既存作例です。変更後のプロンプトとの一致は未検証です。</p>
   </section>
-  <div class="composer-heading"><h4 id="prompt-heading">登録済みのプロンプト</h4><span id="word-count" class="muted"></span></div>
-  <pre id="composer-prompt" tabindex="0" aria-label="英文プロンプト"></pre>
-  <div class="prompt-actions"><button id="composer-copy" class="copy" type="button">全文をコピー</button><a id="composer-source" target="_blank" rel="noopener noreferrer">GitHubの元プロンプト ↗</a><span id="copy-status" class="muted" role="status" aria-live="polite"></span></div>
   </div>
 </dialog>
