@@ -33,12 +33,16 @@ try{
   const headingTypography=await page.locator('header h1').evaluate(el=>({
     font:getComputedStyle(el).fontFamily,
     weight:getComputedStyle(el).fontWeight,
+    spacing:getComputedStyle(el).letterSpacing,
+    size:getComputedStyle(el).fontSize,
     bodyFont:getComputedStyle(document.body).fontFamily,
     content:el.textContent.trim()
   }));
   assert.equal(headingTypography.content,'PROMPT & VISUAL CATALOG');
   assert.match(headingTypography.font,/Outfit/i,'The vNext headline uses Google Fonts Outfit');
   assert.equal(headingTypography.weight,'700');
+  assert.ok(Math.abs(parseFloat(headingTypography.spacing)-parseFloat(headingTypography.size)*0.03)<0.05,
+    'Only the main title has 0.03em positive letter spacing');
   assert.doesNotMatch(headingTypography.bodyFont,/Outfit/i,'Body typography is unchanged');
   const sectionHeading=await page.locator('.toolbar-bottom h2').evaluate(el=>({
     font:getComputedStyle(el).fontFamily,weight:getComputedStyle(el).fontWeight
