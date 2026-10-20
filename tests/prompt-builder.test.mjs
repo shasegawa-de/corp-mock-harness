@@ -47,18 +47,20 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   const next=renderNextCatalog(catalog,editor);
   const styles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
   const app=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
-  const intro=catalog.match(/<p class="intro">[\\s\\S]*?<\\/p>/)?.[0];
-  assert.ok(intro,'Original guidance paragraph exists');
-  assert.match(next,/<footer class="catalog-notes"><p class="intro">/);
-  assert.doesNotMatch(next.split('<footer class="catalog-notes">')[0],/<p class="intro">/);
-  assert.match(styles,/body>header\\{padding-top:18px;padding-bottom:20px\\}/);
-  assert.match(styles,/\\.catalog-content \\.section-heading\\{display:none!important\\}/);
-  assert.match(styles,/\\.catalog-content article.item details\\{display:none!important\\}/);
-  assert.match(app,/inlinePrompt\\.remove\\(\\)/);
-  assert.match(app,/button\\.textContent='プロンプト確認'/);
-  assert.match(app,/tableButton\\.textContent='プロンプト確認'/);
-  assert.match(app,/unchanged\\?originalPrompt:result\\.prompt/);
-  assert.match(app,/navigator\\.clipboard\\.writeText\\(visiblePrompt\\)/);
+  assert.ok(catalog.includes('<p class="intro">'),'Original guidance exists');
+  assert.ok(next.includes('<footer class="catalog-notes"><p class="intro">'));
+  assert.ok(!next.split('<footer class="catalog-notes">')[0].includes('<p class="intro">'));
+  assert.ok(styles.includes('body>header{padding-top:18px;padding-bottom:20px}'));
+  assert.ok(styles.includes('.catalog-content .section-heading{display:none!important}'));
+  assert.ok(styles.includes('.catalog-content article.item details{display:none!important}'));
+  assert.ok(app.includes('inlinePrompt.remove();'));
+  assert.ok(app.includes("button.textContent='プロンプト確認'"));
+  assert.ok(app.includes("tableButton.textContent='プロンプト確認'"));
+  assert.ok(app.includes('visiblePrompt=unchanged?originalPrompt:result.prompt'));
+  assert.ok(app.includes('navigator.clipboard.writeText(visiblePrompt)'));
+  const articles=[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(m=>m[0]);
+  assert.equal(articles.length,30);
+  for(const article of articles)assert.ok(article.includes('<pre'),'Original prompt markup must exist for each modal');
 });
 
 test('output examples require an exact match on every selected condition',()=>{

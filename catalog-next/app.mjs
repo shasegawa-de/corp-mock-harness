@@ -79,7 +79,7 @@ function render(){
   visiblePrompt=unchanged?originalPrompt:result.prompt;
   $('prompt-heading').textContent=unchanged?'登録済みのプロンプト':'条件変更後のプロンプト（未検証）';
   $('composer-prompt').textContent=visiblePrompt;
-  $('word-count').textContent=`${visiblePrompt.trim().split(/\\s+/).length} words`;
+  $('word-count').textContent=`${visiblePrompt.trim().split(/\s+/).length} words`;
   $('copy-status').textContent='';
   const matches=matchingExamples(state,examples);
   $('example-empty').hidden=matches.length>0;
