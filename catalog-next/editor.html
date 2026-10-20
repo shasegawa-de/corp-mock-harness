@@ -1,6 +1,7 @@
 <p id="composer-error" class="intro" role="status" hidden></p>
-<section id="composer" class="composer" aria-label="プロンプトの条件変更" hidden>
-  <div class="composer-heading"><h4>条件を変更</h4><button id="composer-close" class="reset-filters" type="button">閉じる</button></div>
+<dialog id="composer" class="composer" aria-labelledby="composer-title">
+  <div class="composer-heading composer-header"><h2 id="composer-title">条件を変更</h2><button id="composer-close" class="reset-filters" type="button">閉じる</button></div>
+  <div id="composer-content" class="composer-content">
   <form id="composer-form" class="composer-fields">
     <div class="filter-field"><label for="subject">対象</label><select id="subject"></select></div>
     <div class="filter-field" id="layout-field"><label for="layout">並び方</label><select id="layout"></select></div>
@@ -12,8 +13,14 @@
     <div class="filter-field"><label for="lighting">照明</label><select id="lighting"></select></div>
   </form>
   <div id="adjustments" class="composer-note" role="status" aria-live="polite"></div>
+  <section class="composer-examples" aria-label="条件に一致する出力例">
+    <h3>出力例</h3>
+    <p id="example-empty" class="composer-note">該当する出力例はありません。</p>
+    <div id="example-images"></div>
+    <p id="example-note" class="composer-note" hidden>既存作例です。変更後のプロンプトとの一致は未検証です。</p>
+  </section>
   <div class="composer-heading"><h4>変更後のプロンプト</h4><span id="word-count" class="muted"></span></div>
   <pre id="composer-prompt" tabindex="0" aria-label="変更後の英文プロンプト"></pre>
   <div class="prompt-actions"><button id="composer-copy" class="copy" type="button">全文をコピー</button><span id="copy-status" class="muted" role="status" aria-live="polite"></span></div>
-  <p class="composer-note">画像は元の作例です。変更後の条件では未生成・未検証です。</p>
-</section>
+  </div>
+</dialog>

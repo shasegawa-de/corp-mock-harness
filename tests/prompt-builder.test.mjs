@@ -2,23 +2,45 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {defaults,choices,normalize,assemble,fromPreset,validateCatalog} from '../catalog-next/engine.mjs';
-import {exampleConditions} from '../catalog-next/examples.mjs';
-import {renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
+import {exampleConditions,matchingExamples} from '../catalog-next/examples.mjs';
+import {catalogChrome,renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
 const presets=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url)));
 const devices=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url)));
 const scene=input=>normalize({...defaults,...input},presets).state;
 const catalog=readFileSync(new URL('../catalog/index.html',import.meta.url),'utf8');
 const editor=readFileSync(new URL('../catalog-next/editor.html',import.meta.url),'utf8');
 
-test('next version retains the exact original catalog, images, gallery, table and shared styling',()=>{
+test('next version preserves original cards, images, table and styling with the requested chrome changes',()=>{
   const next=renderNextCatalog(catalog,editor);
   const restored=next.replace(/<!-- composer-assets:start -->[\s\S]*?<!-- composer-assets:end -->/,'')
     .replace(/<!-- composer-editor:start -->[\s\S]*?<!-- composer-editor:end -->/,'');
-  assert.equal(restored,catalog);
+  assert.equal(restored,catalogChrome(catalog));
+  assert.deepEqual([...next.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]),[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]));
+  assert.equal(next.match(/<table\b[\s\S]*?<\/table>/)[0],catalog.match(/<table\b[\s\S]*?<\/table>/)[0]);
   assert.equal((next.match(/<article class="item"/g)??[]).length,30);
   assert.match(next,/id="gallery-view"/);assert.match(next,/id="table-view"/);
   assert.equal(next.match(/<style>([\s\S]*?)<\/style>/)[1],catalog.match(/<style>([\s\S]*?)<\/style>/)[1]);
   assert.doesNotMatch(next,/TXTで保存|プロンプトの内訳|選択条件のJSON|id="download"|id="contract"/);
+});
+
+test('header has only the requested labels/link and category lives inside the filter group',()=>{
+  const next=renderNextCatalog(catalog,editor);
+  const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
+  assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>Prompt &amp; Visual Catalog<\/h1>/);
+  assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
+  assert.match(next,/<div class="toolbar-detail"><div class="toolbar-label">絞り込み<\/div><div class="filter-field category-field"><span id="category-label">対象カテゴリ<\/span><nav class="filters"/);
+  assert.doesNotMatch(next,/class="toolbar-main"/);
+  assert.match(next,/<dialog id="composer"[^>]*aria-labelledby="composer-title"/);
+  assert.match(next,/id="example-images"/);
+});
+
+test('output examples require an exact match on every selected condition',()=>{
+  const initial=scene({});
+  const examples=[{id:'A',state:initial},{id:'B',state:scene({composition:'three-quarter-left',environment:'fiber-cement-panels',lighting:'left-grazing'})}];
+  assert.deepEqual(matchingExamples(initial,examples).map(x=>x.id),['A']);
+  for(const [axis,value]of Object.entries({subject:'macbookpro14',layout:'depth-staggered',spatial:'hover',pose:'flat-face-up',surface:'horizontal-floor',composition:'three-quarter-right',environment:'fine-concrete',lighting:'low-key'})){
+    assert.deepEqual(matchingExamples({...initial,[axis]:value},examples),[],axis);
+  }
 });
 
 test('a deployed revision cannot reuse stale editor scripts or imported modules',()=>{

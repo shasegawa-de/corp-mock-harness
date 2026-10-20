@@ -1,5 +1,9 @@
 import {fromPreset} from './engine.mjs';
 
+const axes=['subject','layout','spatial','pose','surface','composition','environment','lighting'];
+export function combinationKey(state){return JSON.stringify(axes.map(key=>state[key]??null));}
+export function matchingExamples(state,examples){return examples.filter(example=>combinationKey(example.state)===combinationKey(state));}
+
 // Prefer the harness metadata; only the two fixtures not indexed by presets
 // use their existing catalog settings. Never invent new device combinations.
 export function exampleConditions(meta,presets){

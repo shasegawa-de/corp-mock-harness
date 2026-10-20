@@ -1,17 +1,32 @@
-/* Only the added editor is styled here. Shared catalog styles are unchanged. */
+/* Shared catalog colors, type and cards are retained. */
 .compose-entry{margin:0 0 14px;justify-content:flex-start}
-.cards:has(.composer:not([hidden])){align-items:start}
-.composer{border-top:1px solid #edf0f0;padding:16px 0;margin-bottom:14px}
-.composer[hidden],.composer [hidden]{display:none!important}
+.toolbar-next .toolbar-detail{border-top:0;margin-top:0;padding-top:0}
+.toolbar-next .category-field{flex:1 1 calc(100% - 102px);gap:12px;min-width:0}
+.toolbar-next .category-field>span{color:#68767a;font-size:11px;font-weight:700;white-space:nowrap}
+.toolbar-next .category-field .filters{min-width:0}
+.facet-fields{display:flex;flex:1 1 100%;gap:12px 16px;align-items:center;flex-wrap:wrap;padding-left:102px}
+body.composer-open{overflow:hidden}
+.composer{position:fixed;inset:0 0 0 auto;margin:0;width:min(600px,100vw);max-width:none;height:100dvh;max-height:none;border:0;border-left:1px solid var(--line);padding:0;background:var(--panel);color:var(--ink);box-shadow:-12px 0 40px #0002;display:flex;flex-direction:column}
+.composer:not([open]),.composer [hidden]{display:none!important}
+.composer::backdrop{background:#101415c9}
 .composer-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 14px}
-.composer-heading h4{font-size:12px;font-weight:650;margin:0;color:var(--ink)}
+.composer-heading h2{font-size:16px;font-weight:650;margin:0}
+.composer-heading h4,.composer-examples h3{font-size:12px;font-weight:650;margin:0}
+.composer-header{flex:0 0 auto;border-bottom:1px solid var(--line);padding:18px 24px;margin:0}
+.composer-content{overflow:auto;flex:1;min-height:0;padding:22px 24px}
 .composer-heading .reset-filters{min-height:30px;padding:6px 10px}
 .composer-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px;margin:0 0 16px}
 .composer .filter-field{display:block;min-width:0}
 .composer .filter-field label{display:block;margin-bottom:6px}
 .composer .filter-field select{width:100%;max-width:none;min-width:0;font:inherit;font-size:11px}
-.composer pre{margin:0 0 12px}
-.composer .composer-note{font-size:11px;line-height:1.8;color:var(--muted);min-height:0;margin:12px 0 16px}
+.composer pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:250px;overflow:auto;padding:14px;border-radius:8px;font-size:11px;line-height:1.7;background:#f4f6f6;color:#323b3e;margin:0 0 12px}
+.composer-note{font-size:11px;line-height:1.8;color:var(--muted);margin:10px 0 16px}
 .composer-note:empty{display:none}
 .composer .prompt-actions{flex-wrap:wrap}
-@media(max-width:520px){.composer-fields{grid-template-columns:1fr}.composer .filter-field{display:block}}
+.composer-examples{border-top:1px solid #edf0f0;border-bottom:1px solid #edf0f0;margin:18px 0;padding:16px 0}
+.composer-example{margin:14px 0 0}
+.composer-example img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#d5d9da}
+.composer-example figcaption{font-size:11px;color:var(--ink);margin-top:8px}
+.composer-example .composer-note{margin:6px 0 12px}
+@media(max-width:860px){.toolbar-next .category-field{flex:1 1 100%;width:100%}.facet-fields{padding-left:0}}
+@media(max-width:520px){.toolbar-next .category-field{flex-direction:column;align-items:stretch}.toolbar-next .category-field .filters{width:100%}.facet-fields{width:100%;gap:9px}.composer-fields{grid-template-columns:1fr}.composer .filter-field{display:block}.composer-header{padding:16px 18px}.composer-content{padding:18px}}
