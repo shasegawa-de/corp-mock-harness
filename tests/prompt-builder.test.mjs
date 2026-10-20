@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {defaults,choices,normalize,assemble,fromPreset,validateCatalog} from '../catalog-next/engine.mjs';
 import {exampleConditions} from '../catalog-next/examples.mjs';
-import {renderNextCatalog} from '../scripts/render-next-catalog.mjs';
+import {renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
 const presets=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url)));
 const devices=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url)));
 const scene=input=>normalize({...defaults,...input},presets).state;
@@ -19,6 +19,18 @@ test('next version retains the exact original catalog, images, gallery, table an
   assert.match(next,/id="gallery-view"/);assert.match(next,/id="table-view"/);
   assert.equal(next.match(/<style>([\s\S]*?)<\/style>/)[1],catalog.match(/<style>([\s\S]*?)<\/style>/)[1]);
   assert.doesNotMatch(next,/TXTで保存|プロンプトの内訳|選択条件のJSON|id="download"|id="contract"/);
+});
+
+test('a deployed revision cannot reuse stale editor scripts or imported modules',()=>{
+  const next=renderNextCatalog(catalog,editor,'revision-123');
+  assert.match(next,/src="\.\/app\.mjs\?v=revision-123"/);
+  assert.match(next,/href="\.\/style\.css\?v=revision-123"/);
+  for(const file of ['app.mjs','examples.mjs']){
+    const source=readFileSync(new URL(`../catalog-next/${file}`,import.meta.url),'utf8');
+    const versioned=versionLocalImports(source,'revision-123');
+    assert.match(versioned,/from '\.\/engine\.mjs\?v=revision-123'/);
+    assert.doesNotMatch(versioned,/from ['"]\.\/[^'"]+\.mjs['"]/);
+  }
 });
 
 test('all 30 original examples can open their matching editable conditions',()=>{
