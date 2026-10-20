@@ -62,3 +62,19 @@ These are candidates, **not generated assets or approved cards**. Before each ne
 - **PROMPT_DRIFT**: an unintended smartphone was added despite the required zero-device scene. **IMAGE_QA: REJECT**. The image is **NOT approved** and **NOT cataloged**. This is independent of photographic aesthetics or image resolution.
 - Tool generation ID: `2ef1b40f-854b-49cc-894e-dbe34fac7b92`. The response did not provide a usable verbatim prompt-lock interface for enforcing the frozen prompt.
 - Per `AGENTS.md`, stop the remainder of this batch when device count changes in the effective tool prompt. Reattempt only using a route that guarantees a single effective prompt containing **NO products or devices**, followed by independent prompt-fidelity and image QA. Do not silently replace the rejected image or mark it PASS.
+
+## 2026-10-21 — GPT Image retry loop and repeat failure (five renders)
+
+Per user instruction, Firefly was **not** used. All five attempts in this iteration used the ChatGPT GPT Image tool, one image per invocation. Before initial generation, the four mandatory live `main` files were read and JSON validated. The scene fixtures and IDs were checked again before trying Carrara.
+
+| Attempt | Intended reference | Visual result and blocking issue | Image QA | Generation ID |
+| --- | --- | --- | --- | --- |
+| 1 | Microcement wall/floor | Zero devices and 16:9, but coarse stone-like surfaces, strong diagonal light, extra right-hand slab | REJECT | `59ce4cc7-3e99-4d0a-abbf-493d7a9f3fa2` |
+| 2 | Microcement revision | Large right-hand veined slab and strong diagonal light persisted | REJECT | `0eabcf11-7523-4ab4-9fd7-07b6bd5e34f9` |
+| 3 | Microcement simplification | Same recessed architectural corner and right-hand partition persisted | REJECT | `97d492a9-b492-4fcd-ae46-8d0aa4787211` |
+| 4 | Attempted correction of prior microcement render | Same right-hand slab and coarse texture persisted | REJECT | `6fa167ab-7d12-4a67-8d54-30e41c747014` |
+| 5 | Carrara marble wall/floor | Repeated gray concrete composition instead of Carrara marble; requested material not present | REJECT | `eb4be426-e37b-4a96-a5c7-51bd5c4c5799` |
+
+The image tool did not expose a reliable effective frozen prompt in generation metadata (`prompt` field empty), and its generated English scene descriptions repeatedly included a rectangular slab/partition in conflict with the requested plain architecture. Prompt fidelity is **PROMPT_UNVERIFIED**, with strong **apparent scene carryover** across calls. Do not claim an exact `MATCH`, and do not call these images accepted. No image was added to GitHub, approved or registered to the HTML catalog. The existing 30 gallery cards remain unchanged.
+
+**Blocker:** The currently exposed GPT Image control does not guarantee verbatim prompting, and repeated calls in this same conversation kept virtually the same architectural arrangement despite changing the target material. More identical calls would spend generations without resolving the control error. Complete the work only after obtaining a reliable GPT Image prompt path (for example a fresh, isolated GPT Image conversation with a single explicit fixture and zero prior image context, or a GPT Image API with a directly supplied prompt); then re-run visual QA and register independently. This is an environment/control issue, not evidence that GPT Image cannot generate architectural scenes.
