@@ -154,6 +154,8 @@ try{
   for(const axis of ['subject','layout','spatial','pose','surface','composition','environment','lighting','quality']){
     assert.ok(await drawer.locator(`[data-filter-axis="${axis}"] [role="radio"]`).count()>1,axis+' tags should exist');
   }
+  const cameraGroup=drawer.locator('[data-filter-axis="composition"]');
+  assert.equal(await cameraGroup.locator('button').count(),7,'Camera filter initially offers six editor-compatible choices plus All');
   await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17'}).click();
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
@@ -165,6 +167,12 @@ try{
   assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),blockVisible,'Table and gallery must share the same selected set');
   await drawer.locator('[data-filter-axis="pose"] [data-value="flat-face-up"]').click();
   assert.ok((await page.locator('#gallery-view article.item:visible').count())>0,'Pose must match existing card');
+  assert.deepEqual(await cameraGroup.locator('button').evaluateAll(buttons=>buttons.map(b=>b.dataset.value)),
+    ['','iphone-oblique-block'],'Flat iPhone on block should offer the one camera choice allowed in editor');
+  await cameraGroup.locator('[data-value="iphone-oblique-block"]').click();
+  assert.ok((await page.locator('#gallery-view article.item:visible').count())>0,
+    'Contextual camera filter must match a registered catalog card');
+  await cameraGroup.locator('[data-value=""]').click();
   await drawer.locator('[data-filter-axis="environment"] [data-value="carrara-marble-wall-floor"]').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),0,'Unrepresented combinations must return zero results');
   assert.equal(await drawer.locator('#show-filters').innerText(),'0件を表示');
@@ -178,6 +186,7 @@ try{
   assert.ok(firstHeading.includes('プロンプト'),'Prompt must appear before condition fields');
   await page.locator('#composer-close').click();
   await clear.click();
+  assert.equal(await cameraGroup.locator('button').count(),7,'Clear restores six default camera choices');
   assert.equal(await clear.isDisabled(),true,'Clear returns to disabled after reset');
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   assert.equal(await page.locator('#count').innerText(),'30 / 30');
