@@ -11,6 +11,7 @@ on:
       - 'AGENTS.md'
       - 'STYLE.md'
       - 'scripts/build-pages.mjs'
+      - 'scripts/render-next-catalog.mjs'
       - 'tests/prompt-builder.test.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:

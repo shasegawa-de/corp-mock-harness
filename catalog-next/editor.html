@@ -1,0 +1,19 @@
+<p id="composer-error" class="intro" role="status" hidden></p>
+<section id="composer" class="composer" aria-label="プロンプトの条件変更" hidden>
+  <div class="composer-heading"><h4>条件を変更</h4><button id="composer-close" class="reset-filters" type="button">閉じる</button></div>
+  <form id="composer-form" class="composer-fields">
+    <div class="filter-field"><label for="subject">対象</label><select id="subject"></select></div>
+    <div class="filter-field" id="layout-field"><label for="layout">並び方</label><select id="layout"></select></div>
+    <div class="filter-field"><label for="spatial">配置</label><select id="spatial"></select></div>
+    <div class="filter-field" id="pose-field"><label for="pose">姿勢</label><select id="pose"></select></div>
+    <div class="filter-field" id="surface-field"><label for="surface">建築面</label><select id="surface"></select></div>
+    <div class="filter-field"><label for="composition">構図・カメラ</label><select id="composition"></select></div>
+    <div class="filter-field"><label for="environment">素材</label><select id="environment"></select></div>
+    <div class="filter-field"><label for="lighting">照明</label><select id="lighting"></select></div>
+  </form>
+  <div id="adjustments" class="composer-note" role="status" aria-live="polite"></div>
+  <div class="composer-heading"><h4>変更後のプロンプト</h4><span id="word-count" class="muted"></span></div>
+  <pre id="composer-prompt" tabindex="0" aria-label="変更後の英文プロンプト"></pre>
+  <div class="prompt-actions"><button id="composer-copy" class="copy" type="button">全文をコピー</button><span id="copy-status" class="muted" role="status" aria-live="polite"></span></div>
+  <p class="composer-note">画像は元の作例です。変更後の条件では未生成・未検証です。</p>
+</section>

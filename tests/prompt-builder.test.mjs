@@ -2,9 +2,39 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {defaults,choices,normalize,assemble,fromPreset,validateCatalog} from '../catalog-next/engine.mjs';
+import {exampleConditions} from '../catalog-next/examples.mjs';
+import {renderNextCatalog} from '../scripts/render-next-catalog.mjs';
 const presets=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url)));
 const devices=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url)));
 const scene=input=>normalize({...defaults,...input},presets).state;
+const catalog=readFileSync(new URL('../catalog/index.html',import.meta.url),'utf8');
+const editor=readFileSync(new URL('../catalog-next/editor.html',import.meta.url),'utf8');
+
+test('next version retains the exact original catalog, images, gallery, table and shared styling',()=>{
+  const next=renderNextCatalog(catalog,editor);
+  const restored=next.replace(/<!-- composer-assets:start -->[\s\S]*?<!-- composer-assets:end -->/,'')
+    .replace(/<!-- composer-editor:start -->[\s\S]*?<!-- composer-editor:end -->/,'');
+  assert.equal(restored,catalog);
+  assert.equal((next.match(/<article class="item"/g)??[]).length,30);
+  assert.match(next,/id="gallery-view"/);assert.match(next,/id="table-view"/);
+  assert.equal(next.match(/<style>([\s\S]*?)<\/style>/)[1],catalog.match(/<style>([\s\S]*?)<\/style>/)[1]);
+  assert.doesNotMatch(next,/TXTで保存|プロンプトの内訳|選択条件のJSON|id="download"|id="contract"/);
+});
+
+test('all 30 original examples can open their matching editable conditions',()=>{
+  const examples=[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)];
+  assert.equal(examples.length,30);
+  for(const [article]of examples){
+    const reference=article.match(/href="https:\/\/github\.com\/shasegawa-de\/corp-mock-harness\/blob\/main\/(prompts\/[^\"]+)"/)[1];
+    const values=[...article.matchAll(/<dd>(.*?)<\/dd>/g)].map(x=>x[1]);
+    const meta={reference,device:article.match(/data-device="([^"]+)"/)[1],spatial:article.match(/data-mode="([^"]+)"/)[1],composition:values[0],environment:values[1],lighting:values[2]};
+    const normalized=normalize({...defaults,...exampleConditions(meta,presets)},presets);
+    assert.deepEqual(normalized.changes,[],reference);
+    const output=assemble(normalized.state,presets,devices);assert.ok(output.prompt);
+    assert.equal(output.contract.devices.length,{iphone:1,mac:1,pair:2,environment:0}[meta.device]);
+  }
+  assert.throws(()=>exampleConditions({reference:'prompts/unknown.txt'},presets),/作例の条件がありません/);
+});
 
 test('device dimensions follow config; generated prompt is exactly one scene',()=>{
   const output=assemble(defaults,presets,devices);
