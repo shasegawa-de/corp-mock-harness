@@ -68,6 +68,14 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   for(const article of articles)assert.ok(article.includes('<pre'),'Original prompt markup must exist for each modal');
 });
 
+test('vNext motion respects reduced-motion preference',()=>{
+  const css=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
+  assert.ok(css.includes('@starting-style'));
+  assert.ok(css.includes('.composer[open]'));
+  assert.ok(css.includes('catalog-card-appear'));
+  assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
+});
+
 test('output examples require an exact match on every selected condition',()=>{
   const initial=scene({});
   const examples=[{id:'A',state:initial},{id:'B',state:scene({composition:'three-quarter-left',environment:'fiber-cement-panels',lighting:'left-grazing'})}];

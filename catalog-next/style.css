@@ -52,3 +52,28 @@ body.composer-open{overflow:hidden}
 .composer-example figcaption{font-size:11px;color:var(--ink);margin-top:8px}
 .composer-example .composer-note{margin:6px 0 12px}
 @media(max-width:520px){.composer-fields{grid-template-columns:1fr}.composer .filter-field{display:block}.composer-header{padding:16px 18px}.composer-content{padding:18px}}
+
+/* Motion: panel entrance/exit, filter affordances and newly shown cards. */
+@media(prefers-reduced-motion:no-preference){
+  .composer[open]{
+    transform:translateX(0);
+    opacity:1;
+    transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 200ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete;
+  }
+  .composer:not([open]){transform:translateX(28px);opacity:0}
+  .composer::backdrop{
+    background:#101415c9;
+    transition:background 240ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete;
+  }
+  .composer:not([open])::backdrop{background:#10141500}
+  @starting-style{
+    .composer[open]{transform:translateX(28px);opacity:0}
+    .composer[open]::backdrop{background:#10141500}
+  }
+  .toolbar-next .filter{transition:background-color 160ms ease,color 160ms ease,border-color 160ms ease}
+  #gallery-view article.item{animation:catalog-card-appear 220ms ease-out both}
+  @keyframes catalog-card-appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(prefers-reduced-motion:reduce){
+  .composer,.composer::backdrop,.toolbar-next .filter,#gallery-view article.item{animation:none!important;transition:none!important}
+}
