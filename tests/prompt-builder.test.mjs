@@ -32,6 +32,9 @@ test('header has only the requested labels/link and category lives inside the fi
   assert.match(next,/<div class="toolbar toolbar-next" aria-label="作品の絞り込み">/);
   assert.match(next,/<dialog id="filter-drawer" class="filter-drawer" aria-labelledby="filter-heading">/);
   assert.match(next,/<h2 id="filter-heading">絞り込み<\/h2>/);
+  assert.match(next,/<h2 id="filter-heading">絞り込み<\/h2><div class="filter-header-actions"><button id="close-filters"[^>]*>閉じる<\/button><button id="reset-filters"[^>]*>クリア<\/button><\/div>/);
+  assert.equal((next.match(/id="reset-filters"/g)??[]).length,1);
+  assert.doesNotMatch(next,/class="tag-actions"/);
   assert.match(next,/id="open-filters"/);
   assert.match(next,/id="show-filters"/);
   assert.doesNotMatch(next,/<details class="toolbar toolbar-next"|<summary class="filter-toggle"|id="filter-selection"/);
