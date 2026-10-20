@@ -1,9 +1,22 @@
-import {choices,defaults,labels} from './engine.mjs';
+import {choices,defaults,labels,normalize} from './engine.mjs';
 
 // These IDs and labels share the prompt editor's authoritative configurations.
 // Every facet also offers "すべて": searching existing examples must not
 // silently normalize user choices into a different scene.
 export const filterAxes=['subject','layout','spatial','pose','surface','composition','environment','lighting'];
+
+// Share the composition/camera options with the prompt editor's right-side panel.
+// An unset search facet uses the editor's default for the *option list only*;
+// it never silently restricts matching gallery cards.
+export function compositionFilterOptions(selected,presets){
+  const context={...defaults,
+    subject:selected.subject||defaults.subject,
+    spatial:selected.spatial||defaults.spatial,
+    pose:selected.pose||defaults.pose,
+    surface:selected.surface||defaults.surface
+  };
+  return choices(normalize(context,presets).state,presets).composition;
+}
 export function filterOptions(presets,qualityOptions=[]){
   const unique=ids=>[...new Set(ids)];
   return {
@@ -12,7 +25,7 @@ export function filterOptions(presets,qualityOptions=[]){
     spatial:presets.spatial_modes.map(x=>x.id),
     pose:unique([...presets.device_pose_rules.iphone17,...presets.device_pose_rules.macbookpro14].map(x=>x.id)),
     surface:choices({...defaults,subject:'environment',spatial:'grounded'},presets).surface,
-    composition:presets.compositions.map(x=>x.id),
+    composition:compositionFilterOptions({},presets),
     environment:presets.environments.map(x=>x.id),
     lighting:presets.lighting.map(x=>x.id),
     quality:qualityOptions
@@ -41,6 +54,23 @@ export function initTagFilters({examples,presets}){
   const tableRows=new Map([...document.querySelectorAll('.table tbody tr')].map(row=>[row.querySelector('[data-jump]')?.dataset.jump,row]));
   const titleFor=(axis,id)=>axis==='quality'?qualityOptions.find(option=>option.value===id)?.textContent??id:labels[id]??id;
   let matched=examples.length;
+  const compositionGroup=groups.find(group=>group.dataset.filterAxis==='composition');
+  let compositionSignature='';
+  const syncCompositionOptions=()=>{
+    const ids=['',...compositionFilterOptions(selected,presets)];
+    const signature=ids.join('|');
+    if(compositionSignature===signature)return;
+    compositionSignature=signature;
+    if(selected.composition&&!ids.includes(selected.composition))selected.composition='';
+    compositionGroup.replaceChildren(...ids.map(id=>{
+      const button=document.createElement('button');
+      button.className='filter';button.type='button';button.dataset.value=id;
+      button.textContent=id?labels[id]??id:'すべて';
+      button.setAttribute('role','radio');
+      button.addEventListener('click',()=>{selected.composition=id;filter();});
+      return button;
+    }));
+  };
 
   const updateActive=()=>{
     for(const group of groups){
@@ -55,6 +85,7 @@ export function initTagFilters({examples,presets}){
   };
 
   const filter=()=>{
+    syncCompositionOptions();
     // The original script remains responsible for quality ratings, view
     // switching, table links and lightbox. Clear only our extra visibility
     // restrictions before consulting its current quality result.
@@ -86,7 +117,7 @@ export function initTagFilters({examples,presets}){
   };
   for(const group of groups){
     const axis=group.dataset.filterAxis, ids=['',...values[axis]];
-    group.replaceChildren(...ids.map(id=>{
+    if(axis!=='composition')group.replaceChildren(...ids.map(id=>{
       const button=document.createElement('button');
       button.className='filter';button.type='button';button.dataset.value=id;
       button.textContent=id?titleFor(axis,id):'すべて';
