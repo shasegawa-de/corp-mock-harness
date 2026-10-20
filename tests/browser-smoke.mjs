@@ -34,6 +34,10 @@ try{
   const composerError=await page.locator('#composer-error').textContent();
   console.log('MODAL_INIT',JSON.stringify({createdButtons,composerError,errors}));
   assert.equal(createdButtons,30, 'Each original card requires a prompt confirmation button');
+  const tx2=page.locator('#gallery-view article.item[data-id="TX2"]');
+  assert.equal(await tx2.count(),1,'Fiber-cement TX2 card must remain in the catalog');
+  assert.ok((await tx2.locator('img').getAttribute('alt'))?.includes('繊維セメント'),'TX2 must retain a meaningful provisional image before binary publication');
+
   const tx1=page.locator('#gallery-view article.item[data-id="TX1"]');
   assert.equal(await tx1.count(),1,'Microcement TX1 card must remain in the catalog');
   assert.ok((await tx1.locator('img').getAttribute('alt'))?.length>10,'TX1 must preserve its original preview until the approved binary is uploaded');

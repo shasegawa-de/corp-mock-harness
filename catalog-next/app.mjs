@@ -29,6 +29,7 @@ try{
   initTagFilters({examples,presets});
   initApprovedMR2();
   initApprovedTX1();
+  initApprovedTX2();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
     const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';
@@ -99,6 +100,27 @@ function initApprovedTX1(){
     image.alt='TX1：採用済みGPT Image。マイクロセメントの壁と床、端末なし';
     const qa=card.querySelector('.qa');
     if(qa)qa.textContent='画像QA：壁と床、マイクロセメントの質感、照明についてユーザー承認済み（GPT Image、1672×941）。生成時の原文プロンプト一致は未検証。';
+    const quality=card.querySelector('.quality');
+    if(quality)quality.textContent='画像採用・GPT Image';
+  });
+  candidate.src=url;
+}
+
+// User-approved GPT Image for fiber-cement TX2, activated only when the exact
+// original PNG is available on GitHub (do not mark a fallback as approved).
+function initApprovedTX2(){
+  const card=cards.find(item=>item.dataset.id==='TX2');
+  const img=card?.querySelector('.image-wrap img');
+  if(!img)return;
+  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/fiber-cement-wall-gptimage.png';
+  const candidate=new Image();
+  candidate.addEventListener('load',()=>{
+    if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
+    img.dataset.onlineImage=url;
+    img.src=url;
+    img.alt='TX2：採用済みGPT Image。2枚の淡灰色繊維セメントパネルと縦目地、端末なし';
+    const qa=card.querySelector('.qa');
+    if(qa)qa.textContent='画像QA：繊維セメント2面、縦目地、微細な素材感と照明についてユーザー承認済み（GPT Image、1672×941）。生成時の原文プロンプト一致は未検証。';
     const quality=card.querySelector('.quality');
     if(quality)quality.textContent='画像採用・GPT Image';
   });

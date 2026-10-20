@@ -129,3 +129,15 @@ An asset activation hook was added to `catalog-next/app.mjs`. Once the **origina
 - The original PNG exists in the ChatGPT Library, but GitHub **binary publication remains pending**; do not imply that visual approval automatically published this image.
 - vNext activation rule: When `assets/architectural-surfaces/microcement-wall-floor-gptimage.png` is actually served from GitHub `main` with the expected 1672×941 dimensions, the TX1 gallery preview is replaced and tagged user-approved. Before then the existing provisional preview and status remain unchanged. Original `catalog/index.html` and remaining 29 cards are untouched.
 - Next independent scene to generate: **fiber-cement wall panels** (`prompts/architectural-surfaces/fiber-cement-wall-panels.txt`), then **Carrara marble wall-floor**.
+
+
+## 2026-10-21 — TX2 fiber-cement panels approved (external chat)
+
+- The user generated one independent GPT Image in another ChatGPT conversation and explicitly **approved** it after visual QA in the project chat.
+- Original: ChatGPT Library file `file_0000000042448209896f96c95bc32880` (`ミニマルなコンクリート壁と床.png`), PNG, **1672 × 941 px**, **2,724,213 bytes**. (Filename is provider-generated; target specification is fiber-cement.)
+- Target catalog: **TX2 — 壁面｜繊維セメントパネルと縦目地**. Prompt source: `prompts/architectural-surfaces/fiber-cement-wall-panels.txt`.
+- Visual QA: **APPROVED / PASS** — standalone nearly 16:9 scene; zero devices or props; two large pale-gray fiber-cement-like vertical panels separated by a narrow straight construction joint near center-right; a slim band of mineral floor; restrained scattered fiber/grain texture; left-side grazing highlights. Some surface texture resembles mineral stone, so specific real-world product material identity is not verified.
+- The generator's submitted/effective prompt is unavailable from this conversation. **Prompt fidelity remains UNVERIFIED.** User approval is of the visual design.
+- **GitHub original PNG publication: PENDING.** It is held in the ChatGPT file Library and has not been pushed as a binary to `main`. Do not claim that visual approval automatically updated the catalog.
+- vNext activation hook: `catalog-next/app.mjs` switches only the TX2 card to `assets/architectural-surfaces/fiber-cement-wall-gptimage.png` after that exact path serves a 1672×941 image. Until then the existing TX2 provisional preview and metadata remain; original `catalog/index.html` is unchanged.
+- Next (last of four priority scenes): `prompts/architectural-surfaces/carrara-marble-wall-floor.txt`.
