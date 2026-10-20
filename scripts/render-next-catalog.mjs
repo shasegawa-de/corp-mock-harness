@@ -20,11 +20,24 @@ export function catalogChrome(catalog){
     .replace('</main>',`</main><footer class="catalog-notes">${footerCopy}</footer>`);
 }
 
+// All original cards are retained, but their old category wrappers are discarded in vNext.
+export function flattenCatalogCards(catalog){
+  const open='<div id="gallery-view">';
+  const start=catalog.indexOf(open);
+  const end=catalog.indexOf('<div class="nothing" id="nothing">',start);
+  if(start<0||end<0)throw Error('Catalog gallery structure changed');
+  const source=catalog.slice(start+open.length,end);
+  const cards=[...source.matchAll(/<article class="item"[\\s\\S]*?<\\/article>/g)].map(match=>match[0]);
+  if(cards.length===0)throw Error('No gallery cards found');
+  if(new Set(cards.map(card=>card.match(/data-id="([^"]+)"/)?.[1])).size!==cards.length)throw Error('Duplicate card ID');
+  return catalog.slice(0,start)+open+cards.join('')+'</div>'+catalog.slice(end);
+}
+
 // Cards, images, table, shared styles and the existing scripts are reused.
 export function renderNextCatalog(catalog,editor,version='local'){
   if(!catalog.includes('</head>')||!catalog.includes('</main>'))throw Error('Catalog insertion points are missing');
   const revision=encodeURIComponent(version);
-  return catalogChrome(catalog).replace('</head>',`<!-- composer-assets:start --><link rel="stylesheet" href="./style.css?v=${revision}"><script type="module" src="./app.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
+  return flattenCatalogCards(catalogChrome(catalog)).replace('</head>',`<!-- composer-assets:start --><link rel="stylesheet" href="./style.css?v=${revision}"><script type="module" src="./app.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
     .replace('</main>',`<!-- composer-editor:start -->${editor}<!-- composer-editor:end --></main>`);
 }
 
