@@ -30,6 +30,16 @@ try{
   await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===30);
   await page.waitForTimeout(250);
+  const headingTypography=await page.locator('header h1').evaluate(el=>({
+    font:getComputedStyle(el).fontFamily,
+    weight:getComputedStyle(el).fontWeight,
+    bodyFont:getComputedStyle(document.body).fontFamily,
+    content:el.textContent.trim()
+  }));
+  assert.equal(headingTypography.content,'PROMPT & VISUAL CATALOG');
+  assert.match(headingTypography.font,/brandon-grotesque/i,'The vNext headline uses Brandon Grotesque');
+  assert.equal(headingTypography.weight,'700');
+  assert.doesNotMatch(headingTypography.bodyFont,/brandon-grotesque/i,'Body typography is unchanged');
   const createdButtons=await page.locator('.compose-entry button').count();
   const composerError=await page.locator('#composer-error').textContent();
   console.log('MODAL_INIT',JSON.stringify({createdButtons,composerError,errors}));
