@@ -27,7 +27,7 @@ export function flattenCatalogCards(catalog){
   const end=catalog.indexOf('<div class="nothing" id="nothing">',start);
   if(start<0||end<0)throw Error('Catalog gallery structure changed');
   const source=catalog.slice(start+open.length,end);
-  const cards=[...source.matchAll(/<article class="item"[\\s\\S]*?<\\/article>/g)].map(match=>match[0]);
+  const cards=[...source.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(match=>match[0]);
   if(cards.length===0)throw Error('No gallery cards found');
   if(new Set(cards.map(card=>card.match(/data-id="([^"]+)"/)?.[1])).size!==cards.length)throw Error('Duplicate card ID');
   return catalog.slice(0,start)+open+cards.join('')+'</div>'+catalog.slice(end);

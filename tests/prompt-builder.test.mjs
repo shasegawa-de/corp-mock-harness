@@ -14,7 +14,7 @@ test('next version preserves original cards, images, table and styling with the 
   const next=renderNextCatalog(catalog,editor);
   const restored=next.replace(/<!-- composer-assets:start -->[\s\S]*?<!-- composer-assets:end -->/,'')
     .replace(/<!-- composer-editor:start -->[\s\S]*?<!-- composer-editor:end -->/,'');
-  assert.equal(restored,catalogChrome(catalog));
+  assert.equal(restored,flattenCatalogCards(catalogChrome(catalog)));
   assert.deepEqual([...next.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]),[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]));
   assert.equal(next.match(/<table\b[\s\S]*?<\/table>/)[0],catalog.match(/<table\b[\s\S]*?<\/table>/)[0]);
   assert.equal((next.match(/<article class="item"/g)??[]).length,30);
