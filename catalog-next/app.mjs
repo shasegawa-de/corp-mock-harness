@@ -1,7 +1,6 @@
 import {labels,defaults,validateCatalog,choices,normalize,assemble} from './engine.mjs';
 import {exampleConditions,matchingExamples} from './examples.mjs';
 import {initTagFilters} from './filters.mjs';
-initTagFilters();
 const $=id=>document.getElementById(id);
 const editor=$('composer');
 const fieldLabels={subject:'対象',layout:'並び方',spatial:'配置',pose:'姿勢',surface:'建築面',composition:'構図',environment:'背景・素材',lighting:'照明'};
@@ -27,6 +26,7 @@ try{
     inlinePrompt.remove();
     return {card,input,state:normalized.state,originalPrompt,sourceUrl:sourceLink.href};
   });
+  initTagFilters({examples,presets});
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
     const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';

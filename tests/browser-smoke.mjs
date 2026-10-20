@@ -37,14 +37,23 @@ try{
   await page.locator('#open-filters').click();
   assert.equal(await page.locator('#filter-drawer').evaluate(el=>el.open),true);
   const drawer=page.locator('#filter-drawer');
-  assert.equal(await drawer.locator('[role="radiogroup"]').count(),4);
-  await drawer.getByRole('radio',{name:'iPhone 17'}).click();
+  assert.equal(await drawer.locator('[role="radiogroup"]').count(),9);
+  for(const axis of ['subject','layout','spatial','pose','surface','composition','environment','lighting','quality']){
+    assert.ok(await drawer.locator(`[data-filter-axis="${axis}"] [role="radio"]`).count()>1,axis+' tags should exist');
+  }
+  await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17'}).click();
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.equal(categoryVisible,9,'iPhone 17 filter must show nine standalone cards');
-  await drawer.getByRole('radio',{name:'ブロック上'}).click();
+  await drawer.locator('[data-filter-axis="spatial"]').getByRole('radio',{name:'ブロック上'}).click();
   const blockVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.ok(blockVisible>0&&blockVisible<categoryVisible,'Placement must reduce the individual card set');
+  await drawer.locator('[data-filter-axis="pose"] [data-value="flat-face-up"]').click();
+  assert.ok((await page.locator('#gallery-view article.item:visible').count())>0,'Pose must match existing card');
+  await drawer.locator('[data-filter-axis="environment"] [data-value="carrara-marble-wall-floor"]').click();
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),0,'Unrepresented combinations must return zero results');
+  assert.equal(await drawer.locator('#show-filters').innerText(),'0件を表示');
+  await drawer.locator('[data-filter-axis="environment"] [data-value=""]').click();
   await drawer.locator('#show-filters').click();
   assert.equal(await drawer.evaluate(el=>el.open),false);
   assert.equal(await page.evaluate(()=>document.activeElement?.id),'open-filters');
@@ -57,6 +66,7 @@ try{
   await page.locator('#open-filters').click();
   await drawer.locator('#reset-filters').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
+  assert.equal(await page.locator('#count').innerText(),'30 / 30');
   await drawer.locator('#close-filters').click();
   await page.setViewportSize({width:390,height:844});
   await page.locator('#open-filters').click();

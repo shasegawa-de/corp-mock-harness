@@ -100,3 +100,13 @@ body.filter-drawer-open{overflow:hidden}
   @starting-style{.filter-drawer[open]{transform:translateX(36px);opacity:0}.filter-drawer[open]::backdrop{background:#10141500}}
 }
 @media(prefers-reduced-motion:reduce){.filter-drawer,.filter-drawer::backdrop{animation:none!important;transition:none!important}}
+
+/* Advanced catalog facets: eight prompt axes plus the original QA rating. */
+.legacy-filters[hidden]{display:none!important}
+.catalog-content article.item[data-next-hidden="true"],.catalog-content .table tbody tr[data-next-hidden="true"]{display:none!important}
+.filter-drawer .tag-panel{padding-top:0}
+.filter-drawer .tag-row{padding:16px 0}
+.filter-drawer .tag-row:first-child{border-top:0}
+.filter-drawer .tag-actions{position:sticky;bottom:0;background:var(--panel);padding:14px 0;z-index:1}
+.toolbar-next .tag-options .filter[aria-checked="true"]{background:var(--accent);color:#fff}
+.toolbar-next .tag-options .filter:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

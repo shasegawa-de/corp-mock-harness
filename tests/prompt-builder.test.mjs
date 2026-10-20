@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {defaults,choices,normalize,assemble,fromPreset,validateCatalog} from '../catalog-next/engine.mjs';
 import {exampleConditions,matchingExamples} from '../catalog-next/examples.mjs';
+import {filterAxes,filterOptions,matchesTags} from '../catalog-next/filters.mjs';
 import {catalogChrome,flattenCatalogCards,renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
 const presets=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url)));
 const devices=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url)));
@@ -34,7 +35,8 @@ test('header has only the requested labels/link and category lives inside the fi
   assert.match(next,/id="open-filters"/);
   assert.match(next,/id="show-filters"/);
   assert.doesNotMatch(next,/<details class="toolbar toolbar-next"|<summary class="filter-toggle"|id="filter-selection"/);
-  assert.equal((next.match(/role="radiogroup"/g)??[]).length,4);
+  assert.equal((next.match(/role="radiogroup"/g)??[]).length,9);
+  for(const axis of [...filterAxes,'quality'])assert.match(next,new RegExp('data-filter-axis="'+axis+'"'));
   for(const id of ['placement-filter','material-filter','quality-filter'])assert.match(next,new RegExp('<select hidden id="'+id+'"'));
   const styles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
   assert.doesNotMatch(styles,/\.filter-toggle|\.filter-selection|\.toolbar-next\[open\]/);
@@ -76,11 +78,25 @@ test('vNext filter dialog reuses all four original filter groups',()=>{
   const drawer=next.split('<dialog id="filter-drawer"')[1]?.split('</dialog>')[0];
   assert.ok(drawer);
   for(const id of ['placement-filter','material-filter','quality-filter','reset-filters'])assert.ok(drawer.includes(`id="${id}"`));
-  assert.equal((drawer.match(/role="radiogroup"/g)??[]).length,4);
+  assert.equal((drawer.match(/role="radiogroup"/g)??[]).length,9);
   const filters=readFileSync(new URL('../catalog-next/filters.mjs',import.meta.url),'utf8');
   assert.match(filters,/drawer\.showModal\(\)/);
   assert.match(filters,/drawer\.close\(\)/);
   assert.match(filters,/document\.getElementById\('count'\)/);
+});
+
+test('catalog tags provide the eight original editor choice sets and extra quality',()=>{
+  const options=filterOptions(presets,['pass','caution']);
+  assert.deepEqual(Object.keys(options),[...filterAxes,'quality']);
+  assert.deepEqual(options.environment,presets.environments.map(x=>x.id));
+  assert.deepEqual(options.composition,presets.compositions.map(x=>x.id));
+  assert.deepEqual(options.lighting,presets.lighting.map(x=>x.id));
+  assert.deepEqual(options.layout,presets.device_layouts.map(x=>x.id));
+  assert.ok(options.surface.includes('horizontal-floor'));
+  assert.ok(options.pose.includes('flat-face-up'));
+  assert.equal(matchesTags({subject:'iphone17',environment:'fiber-cement-panels'}, {subject:'iphone17',environment:'fiber-cement-panels'}),true);
+  assert.equal(matchesTags({subject:'iphone17',environment:'fiber-cement-panels'}, {subject:'iphone17',environment:'smoked-glass'}),false);
+  assert.equal(matchesTags({subject:'iphone17'}, {subject:'',environment:''}),true);
 });
 
 test('vNext motion respects reduced-motion preference',()=>{
