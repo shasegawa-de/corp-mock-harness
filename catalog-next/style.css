@@ -125,3 +125,8 @@ body.filter-drawer-open{overflow:hidden}
 .filter-drawer-header,.filter-drawer-footer{flex:0 0 auto}
 .filter-drawer .toolbar-next{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain}
 .filter-drawer .tag-actions{position:static;padding:16px 0}
+
+/* The gallery card opens its prompt modal; image zoom is not offered. */
+#gallery-view article.item{cursor:pointer}
+#gallery-view article.item:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#gallery-view .image-wrap::after{content:none!important}
