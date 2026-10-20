@@ -1,6 +1,13 @@
 /* Shared catalog colors, type and cards are retained. */
 body>header{padding-top:18px;padding-bottom:20px}
-header h1{font-size:clamp(24px,2.4vw,32px);font-family:'brandon-grotesque',Arial,sans-serif;font-weight:700}
+header h1{font-size:clamp(24px,2.4vw,32px)}
+/* Latin lettering in the catalog title, section headings and card titles.
+   Outfit has no Japanese glyphs; the existing system/Japanese stack remains
+   the fallback for Japanese text in mixed-language headings. */
+header .eyebrow,header h1,.toolbar-bottom h2,.card-body h3{
+  font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;
+  font-weight:700;
+}
 /* A unified card grid without category/group wrapper sections. */
 #gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 #gallery-view[hidden]{display:none!important}
