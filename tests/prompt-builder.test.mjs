@@ -29,6 +29,11 @@ test('header has only the requested labels/link and category lives inside the fi
   const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
   assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
+  assert.match(next,/href="https:\/\/use\.typekit\.net\/bgk4vzi\.css"/,'Adobe Fonts web kit is loaded only in vNext');
+  const titleStyles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
+  assert.match(titleStyles,/header h1\{[^}]*font-family:'brandon-grotesque',Arial,sans-serif;[^}]*font-weight:700/);
+  assert.doesNotMatch(titleStyles,/body\{[^}]*brandon-grotesque/,'The web font is scoped to the title only');
+
   assert.match(next,/<div class="toolbar toolbar-next" aria-label="作品の絞り込み">/);
   assert.match(next,/<dialog id="filter-drawer" class="filter-drawer" aria-labelledby="filter-heading">/);
   assert.match(next,/<h2 id="filter-heading">絞り込み<\/h2>/);
