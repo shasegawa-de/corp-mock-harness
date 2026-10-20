@@ -9,12 +9,15 @@ export function catalogChrome(catalog){
   const toolbar=catalog.slice(start,end);
   const categories=toolbar.match(/<nav class="filters"[\s\S]*?<\/nav>/)?.[0];
   const facets=toolbar.match(/<div class="filter-field"><label for="placement-filter">[\s\S]*?<div class="reset-field">[\s\S]*?<\/div>/)?.[0];
-  if(!eyebrow||!title||!repository||start<0||end<0||!categories||!facets)throw Error('Catalog header/filter structure changed');
+  const intro=catalog.match(/<p class="intro">[\s\S]*?<\/p>/)?.[0];
+  if(!eyebrow||!title||!repository||!intro||start<0||end<0||!categories||!facets)throw Error('Catalog header/filter structure changed');
   const facetRows=[...facets.matchAll(/<label for="([^"]+)">([^<]+)<\/label>(<select[\s\S]*?<\/select>)/g)].map(([,id,label,select])=>`<div class="tag-row"><span id="${id}-label" class="tag-label">${label}</span><div class="tag-options" data-tag-select="${id}" role="radiogroup" aria-labelledby="${id}-label"></div>${select.replace('<select','<select hidden')}</div>`).join('');
   if(!facetRows)throw Error('Catalog facets are missing');
   const replacement=`<div class="toolbar toolbar-next" aria-label="作品の絞り込み"><h2 class="filter-heading">絞り込み</h2><div class="tag-panel"><div class="tag-row"><span id="category-label" class="tag-label">対象</span>${categories.replace('class="filters"','class="filters tag-options" role="radiogroup"')}</div>${facetRows}<div class="tag-actions"><button class="reset-filters" id="reset-filters" type="button">クリア</button></div></div></div>\n`;
+  const footerCopy=intro.replace('画像の拡大・検索・プロンプト全文コピーに対応。','画像の拡大・プロンプトの確認・コピーに対応。');
   return catalog.replace('<main>','<main class="catalog-layout">').replace(toolbar,`<aside class="catalog-sidebar" aria-label="絞り込み">${replacement}</aside><div class="catalog-content">`).replace('</main>','</div></main>').replace(header,`<header><div class="header-row"><div>${eyebrow}${title}</div>${repository}</div></header>`)
-    .replace(/<div class="footer">[\s\S]*?<\/div>/,'');
+    .replace(intro,'').replace(/<div class="footer">[\s\S]*?<\/div>/,'')
+    .replace('</main>',`</main><footer class="catalog-notes">${footerCopy}</footer>`);
 }
 
 // Cards, images, table, shared styles and the existing scripts are reused.

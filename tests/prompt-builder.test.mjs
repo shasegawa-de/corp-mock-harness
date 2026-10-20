@@ -38,6 +38,27 @@ test('header has only the requested labels/link and category lives inside the fi
   assert.doesNotMatch(next,/class="toolbar-main"/);
   assert.match(next,/<dialog id="composer"[^>]*aria-labelledby="composer-title"/);
   assert.match(next,/id="example-images"/);
+  assert.match(next,/<h2 id="composer-title">プロンプト確認<\/h2>/);
+  assert.match(next,/id="prompt-heading"/);
+  assert.match(next,/id="composer-source"/);
+});
+
+test('vNext hides category headings, relocates guidance to footer and uses modal-only prompts',()=>{
+  const next=renderNextCatalog(catalog,editor);
+  const styles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
+  const app=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
+  const intro=catalog.match(/<p class="intro">[\\s\\S]*?<\\/p>/)?.[0];
+  assert.ok(intro,'Original guidance paragraph exists');
+  assert.match(next,/<footer class="catalog-notes"><p class="intro">/);
+  assert.doesNotMatch(next.split('<footer class="catalog-notes">')[0],/<p class="intro">/);
+  assert.match(styles,/body>header\\{padding-top:18px;padding-bottom:20px\\}/);
+  assert.match(styles,/\\.catalog-content \\.section-heading\\{display:none!important\\}/);
+  assert.match(styles,/\\.catalog-content article.item details\\{display:none!important\\}/);
+  assert.match(app,/inlinePrompt\\.remove\\(\\)/);
+  assert.match(app,/button\\.textContent='プロンプト確認'/);
+  assert.match(app,/tableButton\\.textContent='プロンプト確認'/);
+  assert.match(app,/unchanged\\?originalPrompt:result\\.prompt/);
+  assert.match(app,/navigator\\.clipboard\\.writeText\\(visiblePrompt\\)/);
 });
 
 test('output examples require an exact match on every selected condition',()=>{
