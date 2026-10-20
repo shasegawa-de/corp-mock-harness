@@ -12,8 +12,9 @@ const server=createServer((request,response)=>{
     if(name.endsWith('/'))name+='index.html';
     const path=resolve(root,'.'+name);
     if(!path.startsWith(root+sep))throw Error('Unexpected path');
+    const bytes=readFileSync(path);
     response.writeHead(200,{'Content-Type':mime[extname(path)]??'application/octet-stream'});
-    response.end(readFileSync(path));
+    response.end(bytes);
   }catch(error){response.writeHead(404);response.end(String(error));}
 });
 await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
