@@ -76,10 +76,35 @@ try{
   const sidebar=await page.locator('.catalog-sidebar').boundingBox();
   const content=await page.locator('.catalog-content').boundingBox();
   assert.ok(sidebar&&content&&sidebar.x+sidebar.width<=content.x,'Filter must be left of the gallery');
+  assert.ok(Math.abs(sidebar.x)<=1,'Filter area should meet viewport left edge');
+  const layout=await page.locator('main.catalog-layout').evaluate(el=>({
+    left:el.getBoundingClientRect().left,
+    paddingLeft:getComputedStyle(el).paddingLeft,
+    gap:getComputedStyle(el).columnGap
+  }));
+  assert.ok(Math.abs(layout.left)<=1&&layout.paddingLeft==='0px'&&layout.gap==='0px',
+    'Desktop main should have no left inset or gap before the filter area');
+  const visual=await page.locator('.catalog-sidebar .filter-drawer').evaluate(el=>({
+    border:getComputedStyle(el).borderLeftWidth,
+    rightBorder:getComputedStyle(el).borderRightWidth,
+    radius:getComputedStyle(el).borderTopLeftRadius,
+    shadow:getComputedStyle(el).boxShadow,
+    background:getComputedStyle(el).backgroundColor
+  }));
+  assert.equal(visual.border,'0px','Filter is an area, not a bordered card');
+  assert.equal(visual.rightBorder,'0px','Only the region separator should have a border');
+  assert.equal(visual.radius,'0px','Filter area has no rounded corners');
+  assert.equal(visual.shadow,'none','Filter area has no floating-card shadow');
+  const separator=await page.locator('.catalog-sidebar').evaluate(el=>({
+    borderRight:getComputedStyle(el).borderRightWidth,
+    background:getComputedStyle(el).backgroundColor
+  }));
+  assert.equal(separator.borderRight,'1px','A vertical line separates the two regions');
+  assert.notEqual(separator.background,'rgba(0, 0, 0, 0)','Filter area needs its own background');
   await page.evaluate(()=>window.scrollTo(0,700));
   await page.waitForTimeout(100);
   const fixed=await page.locator('.catalog-sidebar').boundingBox();
-  assert.ok(fixed&&Math.abs(fixed.y-16)<5,'Left sidebar stays sticky on scroll');
+  assert.ok(fixed&&Math.abs(fixed.y)<5,'Full-height left filter region stays sticky at viewport top');
   await page.evaluate(()=>window.scrollTo(0,0));
   assert.equal(await drawer.locator('[role="radiogroup"]').count(),9);
   for(const axis of ['subject','layout','spatial','pose','surface','composition','environment','lighting','quality']){
@@ -133,5 +158,5 @@ try{
   await page.waitForFunction(()=>document.getElementById('filter-drawer')?.open);
   assert.equal(await drawer.evaluate(el=>el.matches(':modal')),false);
   assert.deepEqual(errors,[],'No unhandled page errors');
-  console.log('PASS: 30 cards; sticky left sidebar; nine filter facets; mobile modal; resize; composer; approved image assets.');
+  console.log('PASS: 30 cards; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
 }finally{await browser.close();server.close();}
