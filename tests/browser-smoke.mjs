@@ -29,6 +29,11 @@ page.on('pageerror',error=>errors.push(error.message));
 try{
   await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===30);
+  await page.waitForTimeout(250);
+  const createdButtons=await page.locator('.compose-entry button').count();
+  const composerError=await page.locator('#composer-error').textContent();
+  console.log('MODAL_INIT',JSON.stringify({createdButtons,composerError,errors}));
+  assert.equal(createdButtons,30, 'Each original card requires a prompt confirmation button');
   await page.locator('#open-filters').click();
   assert.equal(await page.locator('#filter-drawer').evaluate(el=>el.open),true);
   const drawer=page.locator('#filter-drawer');
