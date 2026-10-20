@@ -48,7 +48,7 @@ try{
   await drawer.locator('#show-filters').click();
   assert.equal(await drawer.evaluate(el=>el.open),false);
   assert.equal(await page.evaluate(()=>document.activeElement?.id),'open-filters');
-  await page.locator('#gallery-view article.item:visible').first().getByRole('button',{name:/プロンプト確認/}).click();
+  await page.locator('#gallery-view article.item:visible').first().getByRole('button',{name:/プロンプトを確認/}).click();
   await page.locator('#composer-prompt').waitFor({state:'visible'});
   assert.ok((await page.locator('#composer-prompt').textContent()).trim().length>70);
   const firstHeading=await page.locator('#composer-content > .composer-heading').first().innerText();
