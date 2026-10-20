@@ -28,7 +28,11 @@ test('header has only the requested labels/link and category lives inside the fi
   const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
   assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
-  assert.match(next,/<div class="toolbar-detail"><div class="toolbar-label">絞り込み<\/div><div class="filter-field category-field"><span id="category-label">対象<\/span><nav class="filters"/);
+  assert.match(next,/<details class="toolbar toolbar-next" open/);
+  assert.match(next,/<summary class="filter-toggle">/);
+  assert.equal((next.match(/role="radiogroup"/g)??[]).length,4);
+  for(const id of ['placement-filter','material-filter','quality-filter'])assert.match(next,new RegExp('<select hidden id="'+id+'"'));
+  assert.match(next,/id="filter-selection"/);
   assert.doesNotMatch(next,/class="toolbar-main"/);
   assert.match(next,/<dialog id="composer"[^>]*aria-labelledby="composer-title"/);
   assert.match(next,/id="example-images"/);
@@ -47,6 +51,7 @@ test('a deployed revision cannot reuse stale editor scripts or imported modules'
   const next=renderNextCatalog(catalog,editor,'revision-123');
   assert.match(next,/src="\.\/app\.mjs\?v=revision-123"/);
   assert.match(next,/href="\.\/style\.css\?v=revision-123"/);
+  assert.match(versionLocalImports(readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8'),'revision-123'),/from '\.\/filters\.mjs\?v=revision-123'/);
   for(const file of ['app.mjs','examples.mjs']){
     const source=readFileSync(new URL(`../catalog-next/${file}`,import.meta.url),'utf8');
     const versioned=versionLocalImports(source,'revision-123');

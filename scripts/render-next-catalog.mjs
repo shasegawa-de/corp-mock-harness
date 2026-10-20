@@ -10,7 +10,9 @@ export function catalogChrome(catalog){
   const categories=toolbar.match(/<nav class="filters"[\s\S]*?<\/nav>/)?.[0];
   const facets=toolbar.match(/<div class="filter-field"><label for="placement-filter">[\s\S]*?<div class="reset-field">[\s\S]*?<\/div>/)?.[0];
   if(!eyebrow||!title||!repository||start<0||end<0||!categories||!facets)throw Error('Catalog header/filter structure changed');
-  const replacement=`<div class="toolbar toolbar-next" aria-label="作品の絞り込み"><div class="toolbar-detail"><div class="toolbar-label">絞り込み</div><div class="filter-field category-field"><span id="category-label">対象</span>${categories.replace('対象カテゴリ','対象')}</div><div class="facet-fields">${facets}</div></div></div>\n`;
+  const facetRows=[...facets.matchAll(/<label for="([^"]+)">([^<]+)<\/label>(<select[\s\S]*?<\/select>)/g)].map(([,id,label,select])=>`<div class="tag-row"><span id="${id}-label" class="tag-label">${label}</span><div class="tag-options" data-tag-select="${id}" role="radiogroup" aria-labelledby="${id}-label"></div>${select.replace('<select','<select hidden')}</div>`).join('');
+  if(!facetRows)throw Error('Catalog facets are missing');
+  const replacement=`<details class="toolbar toolbar-next" open aria-label="作品の絞り込み"><summary class="filter-toggle"><span>絞り込み</span><span id="filter-selection" class="filter-selection" hidden></span></summary><div class="tag-panel"><div class="tag-row"><span id="category-label" class="tag-label">対象</span>${categories.replace('class="filters"','class="filters tag-options" role="radiogroup"')}</div>${facetRows}<div class="tag-actions"><button class="reset-filters" id="reset-filters" type="button">クリア</button></div></div></details>\n`;
   return catalog.replace(toolbar,replacement).replace(header,`<header><div class="header-row"><div>${eyebrow}${title}</div>${repository}</div></header>`)
     .replace(/<div class="footer">[\s\S]*?<\/div>/,'');
 }
