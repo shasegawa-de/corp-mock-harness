@@ -66,6 +66,13 @@ try{
   await page.waitForFunction(()=>document.getElementById('filter-drawer')?.open);
   assert.equal(await page.locator('#open-filters').isVisible(),false);
   assert.equal(await drawer.evaluate(el=>el.matches(':modal')),false,'Desktop left sidebar is non-modal');
+  const heading=await drawer.locator('#filter-heading').boundingBox();
+  const clear=drawer.locator('.filter-drawer-header #reset-filters');
+  const clearBox=await clear.boundingBox();
+  const headerBox=await drawer.locator('.filter-drawer-header').boundingBox();
+  assert.ok(heading&&clearBox&&headerBox&&clearBox.x>heading.x+heading.width,'Clear is right of the filter title');
+  assert.ok(clearBox.x+clearBox.width<=headerBox.x+headerBox.width+1,'Clear aligns within header right edge');
+  assert.equal(await clear.isDisabled(),true,'Clear is disabled before any selection');
   const sidebar=await page.locator('.catalog-sidebar').boundingBox();
   const content=await page.locator('.catalog-content').boundingBox();
   assert.ok(sidebar&&content&&sidebar.x+sidebar.width<=content.x,'Filter must be left of the gallery');
@@ -82,6 +89,7 @@ try{
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.equal(categoryVisible,9,'iPhone 17 filter must show nine standalone cards');
+  assert.equal(await clear.isEnabled(),true,'Clear becomes available after a selection');
   await drawer.locator('[data-filter-axis="spatial"]').getByRole('radio',{name:'ブロック上'}).click();
   const blockVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.ok(blockVisible>0&&blockVisible<categoryVisible,'Placement must reduce the individual card set');
@@ -100,7 +108,8 @@ try{
   const firstHeading=await page.locator('#composer-content > .composer-heading').first().innerText();
   assert.ok(firstHeading.includes('プロンプト'),'Prompt must appear before condition fields');
   await page.locator('#composer-close').click();
-  await drawer.locator('#reset-filters').click();
+  await clear.click();
+  assert.equal(await clear.isDisabled(),true,'Clear returns to disabled after reset');
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   assert.equal(await page.locator('#count').innerText(),'30 / 30');
   assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),30);
@@ -113,6 +122,9 @@ try{
   assert.equal(await page.locator('#open-filters').isVisible(),true);
   await page.locator('#open-filters').click();
   assert.equal(await drawer.evaluate(el=>el.matches(':modal')),true);
+  const mobileHeading=await drawer.locator('#filter-heading').boundingBox();
+  const mobileClear=await clear.boundingBox();
+  assert.ok(mobileHeading&&mobileClear&&mobileClear.x>mobileHeading.x+mobileHeading.width,'Mobile clear remains to the right of title');
   const width=await drawer.evaluate(el=>el.getBoundingClientRect().width);
   assert.ok(width>=380&&width<=390,'Drawer should occupy the mobile viewport');
   await page.keyboard.press('Escape');
