@@ -27,6 +27,7 @@ try{
     return {card,input,state:normalized.state,originalPrompt,sourceUrl:sourceLink.href};
   });
   initTagFilters({examples,presets});
+  initApprovedMR2();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
     const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';
@@ -57,6 +58,29 @@ try{
     catch{const selection=window.getSelection(),range=document.createRange();range.selectNodeContents($('composer-prompt'));selection.removeAllRanges();selection.addRange(range);$('copy-status').textContent='選択した本文を手動でコピーしてください。';}
   });
 }catch(error){$('composer-error').hidden=false;$('composer-error').textContent=`条件変更を読み込めません。${error.message}`;console.error(error);}
+
+
+// Adopt the user-approved MR2 GPT Image original only after GitHub serves it.
+// Fail closed on 404: until the binary is published, retain the canonical
+// provisional preview and do not falsely claim that it is approved imagery.
+function initApprovedMR2(){
+  const card=cards.find(item=>item.dataset.id==='MR2');
+  const image=card?.querySelector('.image-wrap img');
+  if(!image)return;
+  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/marble/graphite-marble-gptimage.png';
+  const candidate=new Image();
+  candidate.addEventListener('load',()=>{
+    if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
+    image.dataset.onlineImage=url;
+    image.src=url;
+    image.alt='MR2：承認済みGPT Image。暗色グラファイト大理石の壁と床、端末なし';
+    const qa=card.querySelector('.qa');
+    if(qa)qa.textContent='画像QA：構図・素材・照明についてユーザー承認済み（GPT Image、1672×941）。原文プロンプトとの厳密な一致は未検証。';
+    const quality=card.querySelector('.quality');
+    if(quality)quality.textContent='画像採用・GPT Image';
+  });
+  candidate.src=url;
+}
 
 function openEditor(input,button,sourcePrompt,sourceUrl){
   activeButton?.setAttribute('aria-expanded','false');activeButton=button;activeButton.setAttribute('aria-expanded','true');

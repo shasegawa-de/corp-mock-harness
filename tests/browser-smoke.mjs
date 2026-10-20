@@ -34,6 +34,9 @@ try{
   const composerError=await page.locator('#composer-error').textContent();
   console.log('MODAL_INIT',JSON.stringify({createdButtons,composerError,errors}));
   assert.equal(createdButtons,30, 'Each original card requires a prompt confirmation button');
+  const mr2=page.locator('#gallery-view article.item[data-id="MR2"]');
+  assert.equal(await mr2.count(),1);
+  assert.ok((await mr2.locator('img').getAttribute('alt'))?.includes('大理石'),'MR2 must have a valid fallback preview before approved PNG becomes available');
   await page.locator('#open-filters').click();
   assert.equal(await page.locator('#filter-drawer').evaluate(el=>el.open),true);
   const drawer=page.locator('#filter-drawer');
