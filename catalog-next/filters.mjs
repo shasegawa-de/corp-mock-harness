@@ -32,16 +32,13 @@ export function initTagFilters(){
   toolbar.querySelector('#reset-filters').addEventListener('click',update);
   new MutationObserver(update).observe(document.getElementById('count'),{childList:true});
   function update(){
-    const selections=[];
     for(const group of groups){
       const select=document.getElementById(group.dataset.tagSelect);
       for(const button of group.querySelectorAll('button')){
         const active=select?button.dataset.value===select.value:button.classList.contains('active');
         button.classList.toggle('active',active);button.setAttribute('aria-checked',String(active));button.removeAttribute('aria-pressed');button.tabIndex=active?0:-1;
-        if(active&&(button.dataset.value??button.dataset.filter)!=='all')selections.push(button.textContent.trim());
       }
     }
-    const summary=toolbar.querySelector('#filter-selection');summary.textContent=selections.join(' / ');summary.hidden=selections.length===0;
   }
   update();
 }

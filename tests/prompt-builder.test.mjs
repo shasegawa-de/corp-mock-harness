@@ -28,11 +28,13 @@ test('header has only the requested labels/link and category lives inside the fi
   const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
   assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
-  assert.match(next,/<details class="toolbar toolbar-next" open/);
-  assert.match(next,/<summary class="filter-toggle">/);
+  assert.match(next,/<div class="toolbar toolbar-next" aria-label="作品の絞り込み">/);
+  assert.match(next,/<h2 class="filter-heading">絞り込み<\/h2>/);
+  assert.doesNotMatch(next,/<details class="toolbar toolbar-next"|<summary class="filter-toggle"|id="filter-selection"/);
   assert.equal((next.match(/role="radiogroup"/g)??[]).length,4);
   for(const id of ['placement-filter','material-filter','quality-filter'])assert.match(next,new RegExp('<select hidden id="'+id+'"'));
-  assert.match(next,/id="filter-selection"/);
+  const styles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
+  assert.doesNotMatch(styles,/\.filter-toggle|\.filter-selection|\.toolbar-next\[open\]/);
   assert.doesNotMatch(next,/class="toolbar-main"/);
   assert.match(next,/<dialog id="composer"[^>]*aria-labelledby="composer-title"/);
   assert.match(next,/id="example-images"/);
