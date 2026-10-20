@@ -29,10 +29,13 @@ test('header has only the requested labels/link and category lives inside the fi
   const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
   assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
-  assert.match(next,/href="https:\/\/use\.typekit\.net\/bgk4vzi\.css"/,'Adobe Fonts web kit is loaded only in vNext');
+  assert.match(next,/fonts\.googleapis\.com\/css2\?family=Outfit:wght@700&amp;display=swap/,'Load Outfit 700 via Google Fonts');
+  assert.doesNotMatch(next,/use\.typekit\.net|bgk4vzi/,'Remove the Adobe Fonts web kit');
   const titleStyles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
-  assert.match(titleStyles,/header h1\{[^}]*font-family:'brandon-grotesque',Arial,sans-serif;[^}]*font-weight:700/);
-  assert.doesNotMatch(titleStyles,/body\{[^}]*brandon-grotesque/,'The web font is scoped to the title only');
+  assert.match(titleStyles,/header \.eyebrow,header h1,\.toolbar-bottom h2,\.card-body h3\{/);
+  assert.match(titleStyles,/font-family:'Outfit',-apple-system[^;]*;\s*font-weight:700/);
+  assert.doesNotMatch(titleStyles,/brandon-grotesque/,'Old Brandon Grotesque references are removed');
+  assert.doesNotMatch(titleStyles,/body\{[^}]*Outfit/,'Body typography is unchanged');
 
   assert.match(next,/<div class="toolbar toolbar-next" aria-label="作品の絞り込み">/);
   assert.match(next,/<dialog id="filter-drawer" class="filter-drawer" aria-labelledby="filter-heading">/);
