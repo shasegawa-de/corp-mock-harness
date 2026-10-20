@@ -48,11 +48,13 @@ try{
   await drawer.locator('[data-filter-axis="spatial"]').getByRole('radio',{name:'ブロック上'}).click();
   const blockVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.ok(blockVisible>0&&blockVisible<categoryVisible,'Placement must reduce the individual card set');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),blockVisible,'Table and gallery must share the same selected set');
   await drawer.locator('[data-filter-axis="pose"] [data-value="flat-face-up"]').click();
   assert.ok((await page.locator('#gallery-view article.item:visible').count())>0,'Pose must match existing card');
   await drawer.locator('[data-filter-axis="environment"] [data-value="carrara-marble-wall-floor"]').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),0,'Unrepresented combinations must return zero results');
   assert.equal(await drawer.locator('#show-filters').innerText(),'0件を表示');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),0,'Empty combinations must also hide table rows');
   await drawer.locator('[data-filter-axis="environment"] [data-value=""]').click();
   await drawer.locator('#show-filters').click();
   assert.equal(await drawer.evaluate(el=>el.open),false);
@@ -67,6 +69,11 @@ try{
   await drawer.locator('#reset-filters').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   assert.equal(await page.locator('#count').innerText(),'30 / 30');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),30);
+  await drawer.locator('[data-filter-axis="quality"] button[data-value]:not([data-value=""])').first().click();
+  assert.notEqual(await page.locator('#quality-filter').inputValue(),await page.locator('#quality-filter option').first().getAttribute('value'),'Quality facet must drive the existing catalog filter');
+  await drawer.locator('#reset-filters').click();
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   await drawer.locator('#close-filters').click();
   await page.setViewportSize({width:390,height:844});
   await page.locator('#open-filters').click();
