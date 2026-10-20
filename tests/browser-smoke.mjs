@@ -34,7 +34,7 @@ try{
   const drawer=page.locator('#filter-drawer');
   assert.equal(await drawer.locator('[role="radiogroup"]').count(),4);
   await drawer.getByRole('radio',{name:'iPhone 17'}).click();
-  await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item:not([hidden])').length<30);
+  await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.equal(categoryVisible,9,'iPhone 17 filter must show nine standalone cards');
   await drawer.getByRole('radio',{name:'ブロック上'}).click();
