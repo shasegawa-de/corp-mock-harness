@@ -28,6 +28,7 @@ try{
   });
   initTagFilters({examples,presets});
   initApprovedMR2();
+  initApprovedTX1();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
     const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';
@@ -76,6 +77,28 @@ function initApprovedMR2(){
     image.alt='MR2：承認済みGPT Image。暗色グラファイト大理石の壁と床、端末なし';
     const qa=card.querySelector('.qa');
     if(qa)qa.textContent='画像QA：構図・素材・照明についてユーザー承認済み（GPT Image、1672×941）。原文プロンプトとの厳密な一致は未検証。';
+    const quality=card.querySelector('.quality');
+    if(quality)quality.textContent='画像採用・GPT Image';
+  });
+  candidate.src=url;
+}
+
+
+// Adopt user-approved microcement TX1 only after its actual PNG is on main.
+// Do not replace the provisional preview or label it approved before upload.
+function initApprovedTX1(){
+  const card=cards.find(item=>item.dataset.id==='TX1');
+  const image=card?.querySelector('.image-wrap img');
+  if(!image)return;
+  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/microcement-wall-floor-gptimage.png';
+  const candidate=new Image();
+  candidate.addEventListener('load',()=>{
+    if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
+    image.dataset.onlineImage=url;
+    image.src=url;
+    image.alt='TX1：採用済みGPT Image。マイクロセメントの壁と床、端末なし';
+    const qa=card.querySelector('.qa');
+    if(qa)qa.textContent='画像QA：壁と床、マイクロセメントの質感、照明についてユーザー承認済み（GPT Image、1672×941）。生成時の原文プロンプト一致は未検証。';
     const quality=card.querySelector('.quality');
     if(quality)quality.textContent='画像採用・GPT Image';
   });

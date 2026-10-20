@@ -119,3 +119,13 @@ The separate explicit-request GPT Image API path exists but was not executed, re
 ### MR2 automatic image switch (vNext only)
 
 An asset activation hook was added to `catalog-next/app.mjs`. Once the **original approved** file is published at `assets/marble/graphite-marble-gptimage.png` on GitHub main, the vNext MR2 card switches to that PNG and displays explicit user-approved visual-QA wording; the expected dimensions are verified as 1672×941 before activation. Until GitHub serves that exact file, the existing provisional MR2 preview remains displayed and is not misrepresented as the approved PNG. This does **not** change the original catalog or mark prompt transport as verified.
+
+## 2026-10-21 — TX1 microcement user-approved (external chat)
+
+- The user generated an independent GPT Image in a separate ChatGPT conversation. Original Library asset: `file_000000000e188209ab15b737c3d4aac7` (`淡いグレーのミニマル空間.png`, PNG; **1672×941 px**, 2,257,537 bytes).
+- Reference: `prompts/architectural-surfaces/microcement-wall-floor.txt`. Catalog card **TX1**. The user explicitly **approved** this image after QA in the project chat.
+- Visual QA: **PASS by user approval** — one broad half-gray microcement wall meeting a coherent mineral floor; restrained trowel variation; wall/floor seam at approximately lower third; broad left light; no devices, podiums, furniture or freestanding props; standalone near-16:9 scene.
+- Prompt-fidelity remains **UNVERIFIED**, because the separate generator's internal effective prompt was not independently accessible.
+- The original PNG exists in the ChatGPT Library, but GitHub **binary publication remains pending**; do not imply that visual approval automatically published this image.
+- vNext activation rule: When `assets/architectural-surfaces/microcement-wall-floor-gptimage.png` is actually served from GitHub `main` with the expected 1672×941 dimensions, the TX1 gallery preview is replaced and tagged user-approved. Before then the existing provisional preview and status remain unchanged. Original `catalog/index.html` and remaining 29 cards are untouched.
+- Next independent scene to generate: **fiber-cement wall panels** (`prompts/architectural-surfaces/fiber-cement-wall-panels.txt`), then **Carrara marble wall-floor**.
