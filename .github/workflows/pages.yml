@@ -48,6 +48,11 @@ jobs:
           node-version: '22'
       - name: Check prompt combinations
         run: node --test tests/prompt-builder.test.mjs tests/gpt-image-transport.test.mjs
+      - name: Dry-run all four locked GPT Image prompts without API calls
+        run: |
+          for SCENE in surface-microcement-wall-floor surface-fiber-cement-wall surface-carrara-marble surface-graphite-marble; do
+            node scripts/generate-gpt-image.mjs --scene="$SCENE" --dry-run
+          done
       - name: Prepare both catalog versions
         run: node scripts/build-pages.mjs
       - name: Install headless browser smoke dependency
