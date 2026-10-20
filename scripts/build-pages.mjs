@@ -13,6 +13,14 @@ writeFileSync(join(out,'next/index.html'),renderNextCatalog(readFileSync(join(ro
 for(const file of ['app.mjs','examples.mjs']){
   const path=join(out,'next',file);writeFileSync(path,versionLocalImports(readFileSync(path,'utf8'),commit));
 }
+// Publish only the verified standalone PNGs, never the uploaded ZIP.
+// The archive is expanded and checked against its SHA-256 manifest by CI.
+const approved=JSON.parse(readFileSync(join(root,'assets/architectural-surfaces/approved-manifest.json'),'utf8'));
+for(const record of approved.images){
+  const destination=join(out,record.path);
+  mkdirSync(resolve(destination,'..'),{recursive:true});
+  cpSync(join(root,record.path),destination);
+}
 const data=join(out,'next/data');mkdirSync(data,{recursive:true});
 for(const path of ['AGENTS.md','STYLE.md','configs/devices.json','configs/presets.json'])cpSync(join(root,path),join(data,path.split('/').at(-1)));
 writeFileSync(join(data,'source.json'),JSON.stringify({commit})+'\n');

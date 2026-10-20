@@ -34,21 +34,26 @@ try{
   const composerError=await page.locator('#composer-error').textContent();
   console.log('MODAL_INIT',JSON.stringify({createdButtons,composerError,errors}));
   assert.equal(createdButtons,30, 'Each original card requires a prompt confirmation button');
+  await page.waitForFunction(()=>['MR1','MR2','TX1','TX2'].every(id=>{
+    const card=document.querySelector('#gallery-view article.item[data-id="'+id+'"]');
+    return card?.querySelector('.quality')?.textContent.includes('画像採用・GPT Image')&&card.querySelector('img')?.complete&&card.querySelector('img')?.naturalWidth===1672;
+  }),{timeout:15000});
+  console.log('APPROVED_ASSETS_VISIBLE',JSON.stringify(await page.locator('#gallery-view article.item .quality').allTextContents()));
   const tx2=page.locator('#gallery-view article.item[data-id="TX2"]');
   assert.equal(await tx2.count(),1,'Fiber-cement TX2 card must remain in the catalog');
-  assert.ok((await tx2.locator('img').getAttribute('alt'))?.includes('繊維セメント'),'TX2 must retain a meaningful provisional image before binary publication');
+  assert.ok((await tx2.locator('img').getAttribute('alt'))?.includes('繊維セメント'),'TX2 approved image must be accessible');
 
   const tx1=page.locator('#gallery-view article.item[data-id="TX1"]');
   assert.equal(await tx1.count(),1,'Microcement TX1 card must remain in the catalog');
-  assert.ok((await tx1.locator('img').getAttribute('alt'))?.length>10,'TX1 must preserve its original preview until the approved binary is uploaded');
+  assert.ok((await tx1.locator('img').getAttribute('alt'))?.length>10,'TX1 approved image must be accessible');
 
   const mr1=page.locator('#gallery-view article.item[data-id="MR1"]');
   assert.equal(await mr1.count(),1,'Carrara MR1 card must remain in the catalog');
-  assert.ok((await mr1.locator('img').getAttribute('alt'))?.includes('大理石'),'MR1 must retain the provisional marble preview before the approved binary is available');
+  assert.ok((await mr1.locator('img').getAttribute('alt'))?.includes('大理石'),'MR1 approved image must be accessible');
 
   const mr2=page.locator('#gallery-view article.item[data-id="MR2"]');
   assert.equal(await mr2.count(),1);
-  assert.ok((await mr2.locator('img').getAttribute('alt'))?.includes('大理石'),'MR2 must have a valid fallback preview before approved PNG becomes available');
+  assert.ok((await mr2.locator('img').getAttribute('alt'))?.includes('大理石'),'MR2 approved image must be accessible');
   await page.locator('#open-filters').click();
   assert.equal(await page.locator('#filter-drawer').evaluate(el=>el.open),true);
   const drawer=page.locator('#filter-drawer');

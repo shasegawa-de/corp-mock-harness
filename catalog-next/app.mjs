@@ -70,7 +70,7 @@ function initApprovedMR2(){
   const card=cards.find(item=>item.dataset.id==='MR2');
   const image=card?.querySelector('.image-wrap img');
   if(!image)return;
-  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/graphite-marble-gptimage.png';
+  const url=new URL('../assets/architectural-surfaces/graphite-marble-gptimage.png',import.meta.url).href;
   const candidate=new Image();
   candidate.addEventListener('load',()=>{
     if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
@@ -92,7 +92,7 @@ function initApprovedTX1(){
   const card=cards.find(item=>item.dataset.id==='TX1');
   const image=card?.querySelector('.image-wrap img');
   if(!image)return;
-  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/microcement-wall-floor-gptimage.png';
+  const url=new URL('../assets/architectural-surfaces/microcement-wall-floor-gptimage.png',import.meta.url).href;
   const candidate=new Image();
   candidate.addEventListener('load',()=>{
     if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
@@ -113,7 +113,7 @@ function initApprovedTX2(){
   const card=cards.find(item=>item.dataset.id==='TX2');
   const img=card?.querySelector('.image-wrap img');
   if(!img)return;
-  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/fiber-cement-wall-gptimage.png';
+  const url=new URL('../assets/architectural-surfaces/fiber-cement-wall-gptimage.png',import.meta.url).href;
   const candidate=new Image();
   candidate.addEventListener('load',()=>{
     if(candidate.naturalWidth!==1672||candidate.naturalHeight!==941)return;
@@ -134,7 +134,7 @@ function initApprovedMR1(){
   const card=cards.find(item=>item.dataset.id==='MR1');
   const img=card?.querySelector('.image-wrap img');
   if(!img)return;
-  const url='https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/assets/architectural-surfaces/carrara-marble-wall-floor-gptimage.png';
+  const url=new URL('../assets/architectural-surfaces/carrara-marble-wall-floor-gptimage.png',import.meta.url).href;
   const candidate=new Image();
   candidate.addEventListener('load',()=>{
     if(candidate.naturalWidth!==1672||candidate.naturalHeight!==940)return;
