@@ -1,5 +1,6 @@
 /* Only the added editor is styled here. Shared catalog styles are unchanged. */
 .compose-entry{margin:0 0 14px;justify-content:flex-start}
+.cards:has(.composer:not([hidden])){align-items:start}
 .composer{border-top:1px solid #edf0f0;padding:16px 0;margin-bottom:14px}
 .composer[hidden],.composer [hidden]{display:none!important}
 .composer-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 14px}
