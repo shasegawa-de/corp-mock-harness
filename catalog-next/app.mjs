@@ -49,7 +49,7 @@ try {
   $('loading').hidden=true;$('builder').hidden=false;render();
 }catch(error){$('loading').hidden=false;$('builder').hidden=true;$('loading').textContent=`読み込みを停止しました。${error.message}。再読み込みして確認してください。`;console.error(error);}
 
-function resetPresetNote(){$('preset-note').textContent='作例の条件を読み込んで、変更できます。';}
+function resetPresetNote(){$('preset-note').textContent='';}
 function change(key,value){state[key]=value;$('preset').value='';resetPresetNote();render();}
 function render(){
   const normalized=normalize(state,presets);state=normalized.state;

@@ -6,6 +6,7 @@
 - 現行：https://shasegawa-de.github.io/corp-mock-harness/ （正本：`catalog/index.html`、内容変更なし）。
 - 次期：https://shasegawa-de.github.io/corp-mock-harness/next/ （ソース：`catalog-next/`）。
 - 画像生成・外部AIへの送信は行わない。条件から単一シーンの英文をブラウザ内で組み立てる。
+- UI文言は操作名・条件・検証状態に必要なものだけにする。依頼のないキャッチコピー、装飾的な英語見出し、重複説明は追加しない（ユーザー指示、2026-10-20）。
 
 ## 条件と依存関係
 

@@ -5,11 +5,11 @@
 <body>
 <header><a class="brand" href="../"><span class="brand-mark">M</span><span>CORP MOCK HARNESS</span></a><nav><a href="../">現行カタログ ↗</a><a href="https://github.com/shasegawa-de/corp-mock-harness">GitHub ↗</a></nav></header>
 <main>
-<div class="intro"><div><p class="eyebrow">PROMPT BUILDER <span>vNext / 試作版</span></p><h1>条件から、1枚のプロンプトへ。</h1><p class="lead">端末、構図、建築素材と光を選択。条件に合わせて英文プロンプトを組み立てます。</p></div><div class="format">ONE SCENE<br><b>16:9</b></div></div>
+<div class="intro"><h1>プロンプト作成（次期版）</h1></div>
 <p id="loading" role="status">ハーネスを読み込んでいます…</p>
 <div id="builder" class="workspace" hidden>
-<section class="conditions" aria-labelledby="conditions-title"><div class="panel-heading"><h2 id="conditions-title">条件を選ぶ</h2><button id="reset" class="text-button" type="button">リセット</button></div>
-<label class="preset-label" for="preset">既存作例から始める</label><select id="preset"><option value="">カスタム設定</option></select><p class="hint" id="preset-note">作例の条件を読み込んで、変更できます。</p>
+<section class="conditions" aria-labelledby="conditions-title"><div class="panel-heading"><h2 id="conditions-title">条件</h2><button id="reset" class="text-button" type="button">リセット</button></div>
+<label class="preset-label" for="preset">作例の条件を読み込む</label><select id="preset"><option value="">カスタム設定</option></select><p class="hint" id="preset-note"></p>
 <form id="conditions-form">
 <fieldset><legend><span>01</span>対象</legend><div class="subjects" id="subjects"></div></fieldset>
 <div class="fields">
@@ -24,15 +24,15 @@
 <div id="adjustments" class="adjustments" role="status" aria-live="polite"></div>
 <p class="hint rule-hint">端末の姿勢と配置に合わせ、選べる構図が変わります。Macは常に開いた状態です。</p>
 </section>
-<section class="result" aria-labelledby="result-title"><div class="output-panel"><div class="panel-heading"><div><p class="eyebrow">COMPOSED PROMPT</p><h2 id="result-title">組み立てたプロンプト</h2></div><span class="status">未生成・要QA</span></div>
+<section class="result" aria-labelledby="result-title"><div class="output-panel"><div class="panel-heading"><h2 id="result-title">プロンプト</h2><span class="status">未生成・要QA</span></div>
 <div class="summary" id="summary" aria-label="選択中の条件"></div>
-<div class="prompt-top"><span>ENGLISH · ONE SCENE</span><span id="word-count"></span></div>
+<div class="prompt-top"><span>英語 / 16:9 / 1シーン</span><span id="word-count"></span></div>
 <pre id="prompt" tabindex="0" aria-label="英文プロンプト"></pre>
-<div class="actions"><button class="primary" id="copy" type="button">プロンプトをコピー <span>↗</span></button><button class="secondary" id="download" type="button">TXTで保存 ↓</button></div><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+<div class="actions"><button class="primary" id="copy" type="button">プロンプトをコピー</button><button class="secondary" id="download" type="button">TXTで保存</button></div><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
 <div class="output-note"><b>画像はまだ生成していません。</b><p>この条件の掛け合わせは、採用済み画像や検証済みプロンプトを意味しません。生成時はGitHub mainの必須4ファイルを読み、1枚ずつ実画像と実効プロンプトを確認してください。</p></div>
 </div>
 <details class="breakdown"><summary>プロンプトの内訳 <span>条件ごとの反映内容</span></summary><div id="fragments"></div></details>
 <details class="breakdown"><summary>選択条件のJSON <span>Scene Contract</span></summary><pre id="contract"></pre></details>
 </section></div>
-<footer><p>現行カタログはそのまま保持しています。条件の組み立てはブラウザ内で行います。</p><p id="source-info"></p><div class="source-links"><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/AGENTS.md">実行ルール ↗</a><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/STYLE.md">品質基準 ↗</a><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/templates/review.md">QA項目 ↗</a></div></footer>
+<footer><p id="source-info"></p><div class="source-links"><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/AGENTS.md">実行ルール ↗</a><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/STYLE.md">品質基準 ↗</a><a href="https://github.com/shasegawa-de/corp-mock-harness/blob/main/templates/review.md">QA項目 ↗</a></div></footer>
 </main></body></html>
