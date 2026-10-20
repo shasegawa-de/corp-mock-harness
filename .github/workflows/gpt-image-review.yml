@@ -1,0 +1,58 @@
+name: GPT Image — prompt-locked manual generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      scene:
+        description: "A single, empty architectural scene"
+        required: true
+        type: choice
+        options:
+          - surface-microcement-wall-floor
+          - surface-fiber-cement-wall
+          - surface-carrara-marble
+          - surface-graphite-marble
+      execute:
+        description: "Generate ONE paid image (false is free dry-run)"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  image-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v6
+      - name: Confirm live main
+        run: |
+          test "$GITHUB_REF" = "refs/heads/main"
+          git fetch origin main --depth=1
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Unit tests
+        run: node --test tests/gpt-image-transport.test.mjs
+      - name: Precheck, dry run, and SHA256 lock
+        env:
+          SCENE: ${{ inputs.scene }}
+        run: node scripts/generate-gpt-image.mjs --scene="$SCENE" --dry-run
+      - name: Generate exactly one unapproved GPT Image
+        if: ${{ inputs.execute }}
+        env:
+          SCENE: ${{ inputs.scene }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/generate-gpt-image.mjs --scene="$SCENE" --execute --output="$RUNNER_TEMP/image-review"
+      - name: Save image and QA record for human review
+        if: ${{ inputs.execute }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gpt-image-${{ inputs.scene }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/image-review/
+          if-no-files-found: error
+          retention-days: 14

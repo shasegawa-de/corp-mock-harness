@@ -36,6 +36,10 @@ If the effective tool prompt is inspectable, compare it with the frozen text. If
 
 Prompt fidelity: `MATCH / PROMPT_DRIFT / PROMPT_UNVERIFIED`. Inspect actual output: one camera frame, **exactly N requested devices and no others**, correct device geometry and white screens **only when a device is requested**; for environment-only check absence of devices and correct architectural planes, materials, lighting and negative space; otherwise verify pose and pose-adapted viewpoint (oblique for a flat iPhone; open display for every Mac), physically credible support, specified layout/depth, correct spatial mode (direct floor contact for grounded, an actual mineral support for on-block, and NO floor for suspended), camera, material/architectural planes, light, no props and ~16:9 (pixel verify if available). Hard failure → revise only that scene; prompt drift → repair input route. Mark unseen or unverifiable properties `UNVERIFIED`, never `PASS`.
 
+## GPT Image exact-request transport (optional)
+
+For repeated tool-prompt drift, use `scripts/generate-gpt-image.mjs` through manual GitHub Actions (`.github/workflows/gpt-image-review.yml`). It reads the four mandatory files and a single raw fixture, submits that exact prompt as a one-image GPT Image API request, records SHA-256, and stores output for independent QA without automatic catalog approval. It requires an `OPENAI_API_KEY` GitHub Actions secret and separate API billing. The ChatGPT image-generation tool itself remains unchanged. See `docs/GPT_IMAGE_TRANSPORT.md`.
+
 ## OPTIONAL ONLY
 
 `.agents/skills/**/SKILL.md`, `WORKFLOW.md`, `providers/*.md`, `templates/`, `history/` and `prompts/` are **on-demand**, not extra mandatory reads. No automatic image persistence or geometry guarantee.

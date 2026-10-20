@@ -14,6 +14,9 @@ on:
       - 'scripts/render-next-catalog.mjs'
       - 'tests/prompt-builder.test.mjs'
       - 'tests/browser-smoke.mjs'
+      - 'scripts/gpt-image-transport.mjs'
+      - 'scripts/generate-gpt-image.mjs'
+      - 'tests/gpt-image-transport.test.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -44,7 +47,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check prompt combinations
-        run: node --test tests/prompt-builder.test.mjs
+        run: node --test tests/prompt-builder.test.mjs tests/gpt-image-transport.test.mjs
       - name: Prepare both catalog versions
         run: node scripts/build-pages.mjs
       - name: Install headless browser smoke dependency
