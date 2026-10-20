@@ -32,21 +32,41 @@ try{
   initApprovedTX2();
   initApprovedMR1();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
-    const actions=document.createElement('div');actions.className='prompt-actions compose-entry';
-    const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='プロンプト確認';
-    button.setAttribute('aria-expanded','false');button.setAttribute('aria-controls','composer');button.setAttribute('aria-haspopup','dialog');
-    button.setAttribute('aria-label',`${card.querySelector('h3').textContent}のプロンプトを確認`);
-    actions.append(button);card.querySelector('.qa').after(actions);
-    button.addEventListener('click',()=>openEditor(input,button,originalPrompt,sourceUrl));
+    // Replace the canonical image-preview button to discard its legacy
+    // lightbox handler. The card itself is the single gallery entry point.
+    const imageButton=card.querySelector('button.image-wrap[data-image]');
+    if(!imageButton)throw Error(`画像操作要素がありません: ${card.dataset.id}`);
+    const imageWrap=document.createElement('div');imageWrap.className='image-wrap';
+    imageWrap.append(...imageButton.childNodes);
+    imageButton.replaceWith(imageWrap);
+    card.tabIndex=0;
+    card.setAttribute('role','button');
+    card.setAttribute('aria-label',`${card.querySelector('h3').textContent}のプロンプトを確認`);
+    card.setAttribute('aria-haspopup','dialog');
+    card.setAttribute('aria-controls','composer');
+    card.setAttribute('aria-expanded','false');
+    const openCard=()=>openEditor(input,card,originalPrompt,sourceUrl);
+    card.addEventListener('click',event=>{
+      // Keep any future nested links or controls independently operable.
+      if(event.target.closest('a,button,input,select,textarea,[contenteditable="true"]'))return;
+      openCard();
+    });
+    card.addEventListener('keydown',event=>{
+      if(event.target!==card||!['Enter',' '].includes(event.key))return;
+      event.preventDefault();
+      openCard();
+    });
     const row=[...document.querySelectorAll('.table tbody tr')].find(el=>el.querySelector('[data-jump]')?.dataset.jump===card.dataset.id);
     if(row){
       const tableButton=document.createElement('button');tableButton.type='button';tableButton.textContent='プロンプト確認';
-      tableButton.setAttribute('aria-label',button.getAttribute('aria-label'));
+      tableButton.setAttribute('aria-label',card.getAttribute('aria-label'));
       tableButton.setAttribute('aria-controls','composer');tableButton.setAttribute('aria-haspopup','dialog');tableButton.setAttribute('aria-expanded','false');
       row.lastElementChild.append(' ',tableButton);
       tableButton.addEventListener('click',()=>openEditor(input,tableButton,originalPrompt,sourceUrl));
     }
   }
+  // Remove the unused legacy image-enlargement dialog from vNext only.
+  $('preview')?.remove();
   for(const key of Object.keys(fieldLabels))$(key).addEventListener('change',event=>{state[key]=event.target.value;render();});
   $('composer-form').addEventListener('submit',event=>event.preventDefault());
   $('composer-close').addEventListener('click',()=>editor.close());
