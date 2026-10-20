@@ -26,7 +26,9 @@ header h1{font-size:clamp(24px,2.4vw,32px)}
 .toolbar-next .filter:hover{background:#e4e9e9}
 .toolbar-next .filter.active{background:var(--accent);color:#fff}
 .tag-actions{display:flex;justify-content:flex-end;border-top:1px solid var(--line);padding-top:14px}
-.tag-actions .reset-filters:disabled{opacity:.4;cursor:default}
+.filter-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-left:auto}
+.filter-drawer-header #reset-filters{min-height:30px;padding:6px 10px;font-size:11px}
+.filter-drawer-header #reset-filters:disabled{opacity:.4;cursor:default}
 @media(max-width:900px){.tag-row{grid-template-columns:72px minmax(0,1fr);gap:14px}.tag-label{padding-top:6px}}
 @media(max-width:600px){.tag-panel{padding:0 16px 14px}.tag-row{grid-template-columns:1fr;gap:8px;padding:12px 0}.tag-label{padding:0}.toolbar-next .tag-options{display:flex}.toolbar-next .filter{flex:0 1 auto;min-width:0;padding:6px 10px}}
 @media(pointer:coarse){.toolbar-next .filter,.tag-actions .reset-filters{min-height:44px}}
