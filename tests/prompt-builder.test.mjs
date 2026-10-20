@@ -60,7 +60,7 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   assert.ok(app.includes('navigator.clipboard.writeText(visiblePrompt)'));
   const gallery=next.split('<div id="gallery-view">')[1].split('<div class="nothing"')[0];
   assert.equal((gallery.match(/<article class="item"/g)??[]).length,30);
-  assert.equal((gallery.match(/<section\\b|class="group-sub"|class="cards"|class="section-heading"/g)??[]).length,0);
+  assert.equal((gallery.match(/<section\b|class="group-sub"|class="cards"|class="section-heading"/g)??[]).length,0);
   assert.ok(gallery.includes('data-id="A"')&&gallery.includes('data-id="MR2"'));
   assert.ok(!gallery.includes('group-sub'));
   const articles=[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(m=>m[0]);
