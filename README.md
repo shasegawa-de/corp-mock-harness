@@ -4,6 +4,10 @@
 
 > **AIへの最優先指示：画像生成をすぐに開始しないこと。** GitHub `main`の生ファイル [AGENTS.md](AGENTS.md)、[STYLE.md](STYLE.md)、[configs/devices.json](configs/devices.json)、[configs/presets.json](configs/presets.json) を**4つとも全文読み込んでから**、AGENTS.mdのゲート・シーン設計・生成・QAを順に実行してください。取得できなければ生成せず確認を求めてください。**ZIPや記憶による代用は禁止です。**
 
+## 新しいチャット・Codexへの引き継ぎ
+
+[**PROJECT_CONTEXT.md — 設計思想・採用基準・失敗事例・未完了タスク**](docs/PROJECT_CONTEXT.md) に、長期開発の重要な判断と作業状況をまとめています。新しいチャットやCodexでは、まず本READMEとPROJECT_CONTEXTを読み、具体的な実装・画像生成では最新の正本を参照してください。**画像生成の必須読込4ファイルは変更ありません。**
+
 ## プロンプト＆作例カタログ（HTML）
 
 [**Prompt & Visual Catalog**](catalog/index.html) — iPhone 17、MacBook Pro、2台構成、建築背景・床面・大理石のプロンプトと生成例を比較するHTMLカタログ。対象カテゴリ／配置／素材／評価で複合絞り込み、画像拡大、プロンプト全文表示・コピーに対応。
