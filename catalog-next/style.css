@@ -1,10 +1,14 @@
 /* Shared catalog colors, type and cards are retained. */
 .compose-entry{margin:0 0 14px;justify-content:flex-start}
-.toolbar-next .toolbar-detail{border-top:0;margin-top:0;padding-top:0}
-.toolbar-next .category-field{flex:1 1 calc(100% - 102px);gap:12px;min-width:0}
+.toolbar-next .toolbar-detail{display:grid;gap:16px;border-top:0;margin-top:0;padding-top:0}
+.toolbar-next .toolbar-label{font-size:12px}
+.toolbar-next .filter-field{display:flex;flex-direction:column;align-items:stretch;gap:8px;min-width:0}
+.toolbar-next .category-field{width:100%}
 .toolbar-next .category-field>span{color:#68767a;font-size:11px;font-weight:700;white-space:nowrap}
 .toolbar-next .category-field .filters{min-width:0}
-.facet-fields{display:flex;flex:1 1 100%;gap:12px 16px;align-items:center;flex-wrap:wrap;padding-left:102px}
+.facet-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:16px;align-items:end}
+.toolbar-next .filter-field select{width:100%;max-width:none}
+.toolbar-next .reset-field{margin:0}
 body.composer-open{overflow:hidden}
 .composer{position:fixed;inset:0 0 0 auto;margin:0;width:min(600px,100vw);max-width:none;height:100dvh;max-height:none;border:0;border-left:1px solid var(--line);padding:0;background:var(--panel);color:var(--ink);box-shadow:-12px 0 40px #0002;display:flex;flex-direction:column}
 .composer:not([open]),.composer [hidden]{display:none!important}
@@ -28,5 +32,4 @@ body.composer-open{overflow:hidden}
 .composer-example img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#d5d9da}
 .composer-example figcaption{font-size:11px;color:var(--ink);margin-top:8px}
 .composer-example .composer-note{margin:6px 0 12px}
-@media(max-width:860px){.toolbar-next .category-field{flex:1 1 100%;width:100%}.facet-fields{padding-left:0}}
-@media(max-width:520px){.toolbar-next .category-field{flex-direction:column;align-items:stretch}.toolbar-next .category-field .filters{width:100%}.facet-fields{width:100%;gap:9px}.composer-fields{grid-template-columns:1fr}.composer .filter-field{display:block}.composer-header{padding:16px 18px}.composer-content{padding:18px}}
+@media(max-width:520px){.toolbar-next .category-field .filters{width:100%}.facet-fields{grid-template-columns:1fr;gap:12px}.toolbar-next .reset-field{justify-self:end;width:auto}.composer-fields{grid-template-columns:1fr}.composer .filter-field{display:block}.composer-header{padding:16px 18px}.composer-content{padding:18px}}

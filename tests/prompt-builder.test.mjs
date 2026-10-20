@@ -26,9 +26,9 @@ test('next version preserves original cards, images, table and styling with the 
 test('header has only the requested labels/link and category lives inside the filter group',()=>{
   const next=renderNextCatalog(catalog,editor);
   const header=next.match(/<header>[\s\S]*?<\/header>/)[0];
-  assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>Prompt &amp; Visual Catalog<\/h1>/);
+  assert.match(header,/CORP MOCK HARNESS \/ DESIGN REFERENCE/);assert.match(header,/<h1>PROMPT &amp; VISUAL CATALOG<\/h1>/);
   assert.match(header,/GitHub Repository ↗/);assert.doesNotMatch(header,/<p>|class="metrics"|class="metric"/);
-  assert.match(next,/<div class="toolbar-detail"><div class="toolbar-label">絞り込み<\/div><div class="filter-field category-field"><span id="category-label">対象カテゴリ<\/span><nav class="filters"/);
+  assert.match(next,/<div class="toolbar-detail"><div class="toolbar-label">絞り込み<\/div><div class="filter-field category-field"><span id="category-label">対象<\/span><nav class="filters"/);
   assert.doesNotMatch(next,/class="toolbar-main"/);
   assert.match(next,/<dialog id="composer"[^>]*aria-labelledby="composer-title"/);
   assert.match(next,/id="example-images"/);
