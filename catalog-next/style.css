@@ -1,6 +1,6 @@
 /* Shared catalog colors, type and cards are retained. */
 body>header{padding-top:18px;padding-bottom:20px}
-header h1{font-size:clamp(24px,2.4vw,32px)}
+header h1{font-size:clamp(24px,2.4vw,32px);font-family:'brandon-grotesque',Arial,sans-serif;font-weight:700}
 /* A unified card grid without category/group wrapper sections. */
 #gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 #gallery-view[hidden]{display:none!important}
