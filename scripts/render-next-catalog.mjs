@@ -41,7 +41,7 @@ export function flattenCatalogCards(catalog){
 export function renderNextCatalog(catalog,editor,version='local'){
   if(!catalog.includes('</head>')||!catalog.includes('</main>'))throw Error('Catalog insertion points are missing');
   const revision=encodeURIComponent(version);
-  return flattenCatalogCards(catalogChrome(catalog)).replace('</head>',`<!-- composer-assets:start --><link rel="stylesheet" href="./style.css?v=${revision}"><link rel="stylesheet" href="./left-sidebar.css?v=${revision}"><script type="module" src="./app.mjs?v=${revision}"></script><script type="module" src="./sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
+  return flattenCatalogCards(catalogChrome(catalog)).replace('</head>',`<!-- composer-assets:start --><link rel="stylesheet" href="https://use.typekit.net/bgk4vzi.css"><link rel="stylesheet" href="./style.css?v=${revision}"><link rel="stylesheet" href="./left-sidebar.css?v=${revision}"><script type="module" src="./app.mjs?v=${revision}"></script><script type="module" src="./sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
     .replace('</main>',`<!-- composer-editor:start -->${editor}<!-- composer-editor:end --></main>`);
 }
 
