@@ -1,6 +1,7 @@
 /* Shared catalog colors, type and cards are retained. */
 body>header{padding-top:10px;padding-bottom:12px}
-header h1{font-size:clamp(21px,2vw,26px);line-height:1.15;letter-spacing:0.03em;margin:5px 0 0}
+header h1{font-size:clamp(18px,1.6vw,21px);line-height:1.15;letter-spacing:0.03em;margin:5px 0 0}
+body>header .header-row{align-items:center}
 /* Latin lettering in the catalog title, section headings and card titles.
    Outfit has no Japanese glyphs; the existing system/Japanese stack remains
    the fallback for Japanese text in mixed-language headings. */
@@ -13,8 +14,6 @@ header .eyebrow,header h1,.toolbar-bottom h2,.card-body h3{
 #gallery-view[hidden]{display:none!important}
 @media(max-width:860px){#gallery-view{grid-template-columns:1fr;gap:12px}}
 .catalog-content article.item details{display:none!important}
-.catalog-notes{margin:32px 30px 0;padding:18px 0 28px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
-.catalog-notes .intro{margin:0;padding:0;border:0;background:none;font:inherit;color:inherit;line-height:1.8}
 .compose-entry{margin:0 0 14px;justify-content:flex-start}
 .catalog-layout{display:block}
 .catalog-sidebar{display:flex;justify-content:flex-end;margin-bottom:18px}
