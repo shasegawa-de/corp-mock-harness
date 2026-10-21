@@ -18,10 +18,8 @@ export function catalogChrome(catalog){
   const dimensions=[['subject','対象'],['layout','並び方'],['spatial','配置'],['pose','姿勢'],['surface','建築面'],['composition','構図・カメラ'],['environment','素材'],['lighting','照明'],['quality','評価']];
   const tagRows=dimensions.map(([axis,title])=>`<div class="tag-row" data-filter-row="${axis}"><span id="facet-${axis}-label" class="tag-label">${title}</span><div class="tag-options" data-filter-axis="${axis}" role="radiogroup" aria-labelledby="facet-${axis}-label"></div></div>`).join('');
   const replacement=`<div class="toolbar toolbar-next" aria-label="作品の絞り込み"><div class="legacy-filters" hidden aria-hidden="true">${categories}${legacySelects}</div><div class="tag-panel">${tagRows}</div></div>\n`;
-  const footerCopy=intro.replace('画像の拡大・検索・プロンプト全文コピーに対応。','カードを選ぶとプロンプトを確認・コピーできます。');
   return catalog.replace('<main>','<main class="catalog-layout">').replace(toolbar,`<aside class="catalog-sidebar" aria-label="絞り込み"><button id="open-filters" class="filter-open" type="button" aria-haspopup="dialog" aria-controls="filter-drawer">絞り込み <span aria-hidden="true">☷</span></button><dialog id="filter-drawer" class="filter-drawer" aria-labelledby="filter-heading"><div class="filter-drawer-header"><h2 id="filter-heading">絞り込み</h2><div class="filter-header-actions"><button id="close-filters" type="button" class="reset-filters">閉じる</button><button id="reset-filters" type="button" class="reset-filters">クリア</button></div></div>${replacement}<div class="filter-drawer-footer"><button type="button" id="show-filters" class="filter-apply">結果を表示</button></div></dialog></aside><div class="catalog-content">`).replace('</main>','</div></main>').replace(header,`<header><div class="header-row"><div>${eyebrow}${title}</div>${repository}</div></header>`)
-    .replace(intro,'').replace(/<div class="footer">[\s\S]*?<\/div>/,'')
-    .replace('</main>',`</main><footer class="catalog-notes">${footerCopy}</footer>`);
+    .replace(intro,'').replace(/<div class="footer">[\s\S]*?<\/div>/,'');
 }
 
 // All original cards are retained, but their old category wrappers are discarded in vNext.
