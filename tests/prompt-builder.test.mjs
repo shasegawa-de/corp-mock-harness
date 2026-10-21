@@ -34,6 +34,8 @@ test('header has only the requested labels/link and category lives inside the fi
   const titleStyles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
   assert.match(titleStyles,/header \.eyebrow,header h1,\.toolbar-bottom h2,\.card-body h3\{/);
   assert.match(titleStyles,/font-family:'Outfit',-apple-system[^;]*;\s*font-weight:700/);
+  assert.match(titleStyles,/header h1\{font-size:clamp\(18px,1\.6vw,21px\)/);
+  assert.match(titleStyles,/body>header \.header-row\{align-items:center\}/);
   assert.doesNotMatch(titleStyles,/brandon-grotesque/,'Old Brandon Grotesque references are removed');
   assert.doesNotMatch(titleStyles,/body\{[^}]*Outfit/,'Body typography is unchanged');
 
@@ -59,19 +61,19 @@ test('header has only the requested labels/link and category lives inside the fi
   assert.match(next,/id="composer-source"/);
 });
 
-test('vNext hides category headings, relocates guidance to footer and uses modal-only prompts',()=>{
+test('vNext hides category headings and explanatory footer and uses modal-only prompts',()=>{
   const next=renderNextCatalog(catalog,editor);
   const styles=readFileSync(new URL('../catalog-next/style.css',import.meta.url),'utf8');
   const app=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
   assert.ok(catalog.includes('<p class="intro">'),'Original guidance exists');
-  assert.ok(next.includes('<footer class="catalog-notes"><p class="intro">'));
-  assert.ok(!next.split('<footer class="catalog-notes">')[0].includes('<p class="intro">'));
+  assert.doesNotMatch(next,/<footer class="catalog-notes"/);
+  assert.doesNotMatch(next,/<p class="intro">/);
+  assert.doesNotMatch(next,/カードを選ぶとプロンプトを確認・コピーできます。/);
   assert.ok(styles.includes('body>header{padding-top:10px;padding-bottom:12px}'));
   assert.ok(styles.includes('#gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}'));
   assert.ok(styles.includes('.catalog-content article.item details{display:none!important}'));
   assert.match(styles,/#gallery-view \.image-wrap::after\{content:none!important\}/,'Zoom overlay removed');
   assert.match(styles,/#gallery-view article\.item\{cursor:pointer\}/,'Entire card is interactive');
-  assert.match(next,/カードを選ぶとプロンプトを確認・コピーできます。/);
   assert.doesNotMatch(next,/画像の拡大・/);
   assert.ok(app.includes('inlinePrompt.remove();'));
   assert.ok(app.includes("card.setAttribute('role','button')"));
