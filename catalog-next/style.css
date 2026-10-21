@@ -1,5 +1,6 @@
 /* Shared catalog colors, type and cards are retained. */
-body>header{padding-top:10px;padding-bottom:12px}
+body>header{padding:10px 24px 12px}
+@media(max-width:600px){body>header{padding-right:16px;padding-left:16px}}
 header h1{font-size:clamp(18px,1.6vw,21px);line-height:1.15;letter-spacing:0.03em;margin:5px 0 0}
 body>header .header-row{align-items:center}
 /* Latin lettering in the catalog title, section headings and card titles.
