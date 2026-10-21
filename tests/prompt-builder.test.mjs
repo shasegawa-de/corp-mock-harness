@@ -135,7 +135,7 @@ test('vNext motion respects reduced-motion preference',()=>{
   assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
   assert.match(css,/\.composer\[open\]\{[\s\S]*?transition:transform 420ms/);
   assert.match(css,/\.filter-drawer\[open\]\{transform:translateX\(0\);opacity:1;transition:transform 420ms/);
-  assert.match(css,/header h1\{font-size:clamp\(21px,2vw,26px\)/);
+  assert.match(css,/header h1\{font-size:clamp\(18px,1\.6vw,21px\)/);
 });
 
 test('output examples require an exact match on every selected condition',()=>{
