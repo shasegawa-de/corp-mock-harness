@@ -56,6 +56,19 @@ try{
   assert.equal(headerAlignment.alignItems,'center');
   assert.ok(headerAlignment.verticalDifference<3,
     'GitHub repository button must be vertically centered against the title group');
+  const desktopHeader=await page.locator('body > header').evaluate(header=>{
+    const left=header.querySelector('.header-row > div').getBoundingClientRect();
+    const right=header.querySelector('a.repo').getBoundingClientRect();
+    return {
+      padLeft:parseFloat(getComputedStyle(header).paddingLeft),
+      padRight:parseFloat(getComputedStyle(header).paddingRight),
+      left:left.left,rightGap:window.innerWidth-right.right
+    };
+  });
+  assert.equal(desktopHeader.padLeft,24,'Desktop header uses a 24px left gutter');
+  assert.equal(desktopHeader.padRight,24,'Desktop header uses a 24px right gutter');
+  assert.ok(Math.abs(desktopHeader.left-24)<2,'Heading sits near the left viewport edge');
+  assert.ok(Math.abs(desktopHeader.rightGap-24)<2,'GitHub link sits near the right viewport edge');
   assert.match(headingTypography.font,/Outfit/i,'The vNext headline uses Google Fonts Outfit');
   assert.equal(headingTypography.weight,'700');
   assert.ok(Math.abs(parseFloat(headingTypography.spacing)-parseFloat(headingTypography.size)*0.03)<0.05,
@@ -236,6 +249,12 @@ try{
   await drawer.locator('#reset-filters').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   await page.setViewportSize({width:390,height:844});
+  const mobileHeader=await page.locator('body > header').evaluate(header=>({
+    padLeft:parseFloat(getComputedStyle(header).paddingLeft),
+    padRight:parseFloat(getComputedStyle(header).paddingRight)
+  }));
+  assert.equal(mobileHeader.padLeft,16,'Mobile header uses a 16px left gutter');
+  assert.equal(mobileHeader.padRight,16,'Mobile header uses a 16px right gutter');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),
     'Compact title and centered GitHub button must not create horizontal overflow on mobile');
   await page.waitForFunction(()=>!document.getElementById('filter-drawer')?.open);
