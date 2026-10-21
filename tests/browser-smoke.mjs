@@ -39,6 +39,23 @@ try{
     content:el.textContent.trim()
   }));
   assert.equal(headingTypography.content,'PROMPT & VISUAL CATALOG');
+  assert.ok(parseFloat(headingTypography.size)>=18&&parseFloat(headingTypography.size)<=21,
+    'Compact headline should be 18–21px');
+  assert.equal(await page.locator('footer.catalog-notes').count(),0,
+    'Redundant bottom notes section must be absent');
+  const headerAlignment=await page.locator('header .header-row').evaluate(row=>{
+    const group=row.firstElementChild.getBoundingClientRect();
+    const github=row.querySelector('a.repo').getBoundingClientRect();
+    const header=row.getBoundingClientRect();
+    return {
+      verticalDifference:Math.abs((group.top+group.bottom)/2-(github.top+github.bottom)/2),
+      alignItems:getComputedStyle(row).alignItems,
+      height:header.height
+    };
+  });
+  assert.equal(headerAlignment.alignItems,'center');
+  assert.ok(headerAlignment.verticalDifference<3,
+    'GitHub repository button must be vertically centered against the title group');
   assert.match(headingTypography.font,/Outfit/i,'The vNext headline uses Google Fonts Outfit');
   assert.equal(headingTypography.weight,'700');
   assert.ok(Math.abs(parseFloat(headingTypography.spacing)-parseFloat(headingTypography.size)*0.03)<0.05,
@@ -219,6 +236,8 @@ try{
   await drawer.locator('#reset-filters').click();
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
   await page.setViewportSize({width:390,height:844});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),
+    'Compact title and centered GitHub button must not create horizontal overflow on mobile');
   await page.waitForFunction(()=>!document.getElementById('filter-drawer')?.open);
   assert.equal(await page.locator('#open-filters').isVisible(),true);
   await page.locator('#open-filters').click();
