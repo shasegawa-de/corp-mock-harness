@@ -69,6 +69,19 @@ try{
   assert.equal(desktopHeader.padRight,24,'Desktop header uses a 24px right gutter');
   assert.ok(Math.abs(desktopHeader.left-24)<2,'Heading sits near the left viewport edge');
   assert.ok(Math.abs(desktopHeader.rightGap-24)<2,'GitHub link sits near the right viewport edge');
+  await page.setViewportSize({width:687,height:900});
+  const tabletHeader=await page.locator('body > header').evaluate(header=>{
+    const heading=header.querySelector('.header-row > div').getBoundingClientRect();
+    const github=header.querySelector('a.repo').getBoundingClientRect();
+    return {left:heading.left,rightGap:innerWidth-github.right,
+      verticalDifference:Math.abs((heading.top+heading.bottom)/2-(github.top+github.bottom)/2),
+      overflow:document.documentElement.scrollWidth-innerWidth};
+  });
+  assert.ok(Math.abs(tabletHeader.left-24)<2,'Tablet title must remain near the left edge');
+  assert.ok(Math.abs(tabletHeader.rightGap-24)<2,'Tablet GitHub link must sit at the right edge');
+  assert.ok(tabletHeader.verticalDifference<3,'Tablet GitHub link must share the title row');
+  assert.ok(tabletHeader.overflow<=1,'Tablet header must not cause horizontal scrolling');
+  await page.setViewportSize({width:1280,height:900});
   assert.match(headingTypography.font,/Outfit/i,'The vNext headline uses Google Fonts Outfit');
   assert.equal(headingTypography.weight,'700');
   assert.ok(Math.abs(parseFloat(headingTypography.spacing)-parseFloat(headingTypography.size)*0.03)<0.05,
@@ -255,6 +268,16 @@ try{
   }));
   assert.equal(mobileHeader.padLeft,16,'Mobile header uses a 16px left gutter');
   assert.equal(mobileHeader.padRight,16,'Mobile header uses a 16px right gutter');
+  const phoneHeader=await page.locator('body > header').evaluate(header=>{
+    const heading=header.querySelector('.header-row > div').getBoundingClientRect();
+    const github=header.querySelector('a.repo').getBoundingClientRect();
+    return {left:heading.left,rightGap:innerWidth-github.right,githubBelow:github.top>=heading.bottom,
+      overflow:document.documentElement.scrollWidth-innerWidth};
+  });
+  assert.ok(Math.abs(phoneHeader.left-16)<2,'Phone title must be left aligned');
+  assert.ok(Math.abs(phoneHeader.rightGap-16)<2,'Phone GitHub link must be right aligned');
+  assert.equal(phoneHeader.githubBelow,true,'Phone GitHub link wraps below title without moving left');
+  assert.ok(phoneHeader.overflow<=1,'Phone header must not cause horizontal scrolling');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),
     'Compact title and centered GitHub button must not create horizontal overflow on mobile');
   await page.waitForFunction(()=>!document.getElementById('filter-drawer')?.open);
