@@ -3,6 +3,18 @@ body>header{padding:10px 24px 12px}
 @media(max-width:600px){body>header{padding-right:16px;padding-left:16px}}
 header h1{font-size:clamp(18px,1.6vw,21px);line-height:1.15;letter-spacing:0.03em;margin:5px 0 0}
 body>header .header-row{align-items:center}
+/* Keep the repository action at the right edge when canonical CSS stacks
+   the header on narrower screens. Let only phone-sized screens use two rows. */
+@media(max-width:900px){
+  body>header .header-row{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:12px}
+  body>header .header-row>div{flex:1 1 auto;min-width:0;text-align:left}
+  body>header .header-row>a.repo{flex:0 0 auto;align-self:center;margin-left:auto}
+}
+@media(max-width:600px){
+  body>header .header-row{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+  body>header .header-row>div{width:100%;flex:none;text-align:left}
+  body>header .header-row>a.repo{align-self:flex-end;margin:0}
+}
 /* Latin lettering in the catalog title, section headings and card titles.
    Outfit has no Japanese glyphs; the existing system/Japanese stack remains
    the fallback for Japanese text in mixed-language headings. */
