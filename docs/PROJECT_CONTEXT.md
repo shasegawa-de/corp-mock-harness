@@ -4,6 +4,8 @@
 リポジトリ：https://github.com/shasegawa-de/corp-mock-harness  
 対象：ChatGPT、Codex、デザイナーなど、新しい作業セッションの担当者
 
+> **2026-10-21 追記／vNext UIの最新判断**：本資料の「画像拡大」「右側フィルタードロワー」「過去の優先バックログ」等は当時の経緯です。**現在の採用・却下理由とレビュー目線は [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md) を優先**し、実装の最終判断はGitHub mainの現在のコードとテストに従ってください。採用済みMR1/MR2/TX1/TX2の原画像・ハッシュ・QAは [IMAGE_GAP_AUDIT.md](IMAGE_GAP_AUDIT.md) と [approved-manifest.json](../assets/architectural-surfaces/approved-manifest.json) にあります。**画像生成の必須4ファイル契約は変えません。**
+
 > **この文書は経緯・判断・残タスクを引き継ぐための補助資料。画像生成時の必須読込ファイルを増やさない。** 実行時は従来どおり GitHub main の [AGENTS.md](../AGENTS.md)、[STYLE.md](../STYLE.md)、[configs/devices.json](../configs/devices.json)、[configs/presets.json](../configs/presets.json) の **4ファイルが正本**。この文書と設定が矛盾したら最新の正本を優先し、必要ならこの文書を更新する。ZIPや古い会話の記憶を正本にしない。
 
 ## 1. プロジェクトの目的
