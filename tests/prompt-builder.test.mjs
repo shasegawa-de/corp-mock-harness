@@ -69,7 +69,8 @@ test('vNext hides category headings and explanatory footer and uses modal-only p
   assert.doesNotMatch(next,/<footer class="catalog-notes"/);
   assert.doesNotMatch(next,/<p class="intro">/);
   assert.doesNotMatch(next,/カードを選ぶとプロンプトを確認・コピーできます。/);
-  assert.ok(styles.includes('body>header{padding-top:10px;padding-bottom:12px}'));
+  assert.ok(styles.includes('body>header{padding:10px 24px 12px}'));
+  assert.ok(styles.includes('@media(max-width:600px){body>header{padding-right:16px;padding-left:16px}}'));
   assert.ok(styles.includes('#gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}'));
   assert.ok(styles.includes('.catalog-content article.item details{display:none!important}'));
   assert.match(styles,/#gallery-view \.image-wrap::after\{content:none!important\}/,'Zoom overlay removed');
