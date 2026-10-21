@@ -1,6 +1,6 @@
 /* Shared catalog colors, type and cards are retained. */
-body>header{padding-top:18px;padding-bottom:20px}
-header h1{font-size:clamp(24px,2.4vw,32px);letter-spacing:0.03em}
+body>header{padding-top:10px;padding-bottom:12px}
+header h1{font-size:clamp(21px,2vw,26px);line-height:1.15;letter-spacing:0.03em;margin:5px 0 0}
 /* Latin lettering in the catalog title, section headings and card titles.
    Outfit has no Japanese glyphs; the existing system/Japanese stack remains
    the fallback for Japanese text in mixed-language headings. */
@@ -69,12 +69,12 @@ body.composer-open{overflow:hidden}
   .composer[open]{
     transform:translateX(0);
     opacity:1;
-    transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 200ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete;
+    transition:transform 420ms cubic-bezier(.2,.8,.2,1),opacity 360ms ease,overlay 420ms allow-discrete,display 420ms allow-discrete;
   }
   .composer:not([open]){transform:translateX(28px);opacity:0}
   .composer::backdrop{
     background:#101415c9;
-    transition:background 240ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete;
+    transition:background 420ms ease,overlay 420ms allow-discrete,display 420ms allow-discrete;
   }
   .composer:not([open])::backdrop{background:#10141500}
   @starting-style{
@@ -102,9 +102,9 @@ body.filter-drawer-open{overflow:hidden}
 .filter-apply{display:block;width:100%;min-height:44px;border:0;border-radius:7px;background:var(--accent);color:#fff;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
 @media(max-width:600px){.filter-drawer-header{padding:16px 18px}.filter-drawer .tag-panel{padding:0 18px 12px}.filter-drawer-footer{padding:16px 18px 20px}}
 @media(prefers-reduced-motion:no-preference){
-  .filter-drawer[open]{transform:translateX(0);opacity:1;transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 200ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete}
+  .filter-drawer[open]{transform:translateX(0);opacity:1;transition:transform 420ms cubic-bezier(.2,.8,.2,1),opacity 360ms ease,overlay 420ms allow-discrete,display 420ms allow-discrete}
   .filter-drawer:not([open]){transform:translateX(36px);opacity:0}
-  .filter-drawer::backdrop{transition:background 240ms ease,overlay 240ms allow-discrete,display 240ms allow-discrete}
+  .filter-drawer::backdrop{transition:background 420ms ease,overlay 420ms allow-discrete,display 420ms allow-discrete}
   .filter-drawer:not([open])::backdrop{background:#10141500}
   @starting-style{.filter-drawer[open]{transform:translateX(36px);opacity:0}.filter-drawer[open]::backdrop{background:#10141500}}
 }
