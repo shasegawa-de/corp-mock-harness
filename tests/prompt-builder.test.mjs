@@ -66,7 +66,7 @@ test('vNext hides category headings, relocates guidance to footer and uses modal
   assert.ok(catalog.includes('<p class="intro">'),'Original guidance exists');
   assert.ok(next.includes('<footer class="catalog-notes"><p class="intro">'));
   assert.ok(!next.split('<footer class="catalog-notes">')[0].includes('<p class="intro">'));
-  assert.ok(styles.includes('body>header{padding-top:18px;padding-bottom:20px}'));
+  assert.ok(styles.includes('body>header{padding-top:10px;padding-bottom:12px}'));
   assert.ok(styles.includes('#gallery-view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}'));
   assert.ok(styles.includes('.catalog-content article.item details{display:none!important}'));
   assert.match(styles,/#gallery-view \.image-wrap::after\{content:none!important\}/,'Zoom overlay removed');
@@ -131,6 +131,9 @@ test('vNext motion respects reduced-motion preference',()=>{
   assert.ok(css.includes('.filter-drawer[open]'));
   assert.ok(css.includes('catalog-card-appear'));
   assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
+  assert.match(css,/\.composer\[open\]\{[\s\S]*?transition:transform 420ms/);
+  assert.match(css,/\.filter-drawer\[open\]\{transform:translateX\(0\);opacity:1;transition:transform 420ms/);
+  assert.match(css,/header h1\{font-size:clamp\(21px,2vw,26px\)/);
 });
 
 test('output examples require an exact match on every selected condition',()=>{
