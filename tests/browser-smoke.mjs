@@ -294,6 +294,32 @@ try{
   await page.setViewportSize({width:1280,height:900});
   await page.waitForFunction(()=>document.getElementById('filter-drawer')?.open);
   assert.equal(await drawer.evaluate(el=>el.matches(':modal')),false);
+  // Deployment routing: homepage is the full vNext, /next/ stays bookmarkable,
+  // and the previous canonical build remains accessible at /legacy/.
+  const homepage=await browser.newPage({viewport:{width:1280,height:900}});
+  const homeErrors=[];
+  homepage.on('pageerror',error=>homeErrors.push(error.message));
+  const homeResponse=await homepage.goto(new URL('/',url).href,{waitUntil:'domcontentloaded'});
+  assert.equal(homeResponse.status(),200);
+  await homepage.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item[role="button"]').length===30);
+  assert.equal(await homepage.locator('#composer-error').isHidden(),true,'Home page must load module-relative configuration');
+  assert.equal(await homepage.locator('header h1').innerText(),'PROMPT & VISUAL CATALOG');
+  assert.equal(await homepage.locator('#gallery-view article.item').count(),30);
+  assert.equal(await homepage.locator('.catalog-sidebar .filter-drawer').evaluate(el=>el.open),true);
+  await homepage.locator('#gallery-view article.item').first().click();
+  assert.equal(await homepage.locator('#composer').evaluate(el=>el.open),true,'Root gallery card opens the prompt editor');
+  await homepage.locator('#composer-close').click();
+  await homepage.waitForFunction(()=>['MR1','MR2','TX1','TX2'].every(id=>
+    document.querySelector(`#gallery-view article.item[data-id="${id}"] .quality`)?.textContent.includes('画像採用')
+  ));
+  assert.deepEqual(homeErrors,[],'Root version has no page errors');
+  await homepage.close();
+  const legacy=await browser.newPage();
+  const legacyResponse=await legacy.goto(new URL('/legacy/',url).href,{waitUntil:'domcontentloaded'});
+  assert.equal(legacyResponse.status(),200);
+  assert.equal(await legacy.locator('#gallery-view article.item').count(),30,'Archived catalog retains 30 cards');
+  assert.equal(await legacy.locator('#composer').count(),0,'Archived catalog remains the original, without vNext modal');
+  await legacy.close();
   assert.deepEqual(errors,[],'No unhandled page errors');
   console.log('PASS: 30 cards; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
 }finally{await browser.close();server.close();}
