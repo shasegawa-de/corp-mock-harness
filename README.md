@@ -12,19 +12,19 @@
 
 ## プロンプト＆作例カタログ（HTML）
 
-[**Prompt & Visual Catalog**](catalog/index.html) — iPhone 17、MacBook Pro、2台構成、建築背景・床面・大理石のプロンプトと生成例を比較するHTMLカタログ。対象カテゴリ／配置／素材／評価で複合絞り込み、画像拡大、プロンプト全文表示・コピーに対応。
+[**旧版カタログのHTML原本**](catalog/index.html) — iPhone 17、MacBook Pro、2台構成、建築背景・床面・大理石のプロンプトと作例30件を収録。旧版の表示は[GitHub Pages /legacy/](https://shasegawa-de.github.io/corp-mock-harness/legacy/)に保持します。
 
-[**公開カタログを開く（GitHub Pages）**](https://shasegawa-de.github.io/corp-mock-harness/) — `main/catalog/index.html`をそのまま配信します。mainの`catalog/`・`assets/`・公開ワークフローの更新時にGitHub Actionsで自動再公開します。
+[**公開カタログを開く（GitHub Pages）**](https://shasegawa-de.github.io/corp-mock-harness/) — **トップページはvNext（カード全体からプロンプトを確認・編集できる版）**です。従来の[/next/](https://shasegawa-de.github.io/corp-mock-harness/next/)も同じ版として維持します。公開時に`scripts/build-pages.mjs`が`catalog/index.html`と`catalog-next/`から両ページを生成し、旧版は`/legacy/`へ配信します。
 
-GitHubのコード画面はHTMLをそのままレンダリングしません。ローカルで閲覧する場合は[**HTMLファイルをダウンロード**](https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/catalog/index.html)してブラウザで開いてください。画像の多くは埋め込み済みですが、一部の高画質画像はオンライン参照です。正本は引き続き `main/catalog/index.html`。
+GitHubのコード画面はHTMLをそのままレンダリングしません。[**旧版HTMLのダウンロード**](https://raw.githubusercontent.com/shasegawa-de/corp-mock-harness/main/catalog/index.html)は可能ですが、**公開版のHTMLはビルドで生成**します。カード・画像の原本は`catalog/index.html`、新UIの実装は`catalog-next/`が正本です。
 
 ## 使い方
 
-### 次期版：作例の条件を変更する
+### 公開版：作例の条件を変更する
 
-[**次期カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/next/) — 30件の作例と一覧表を維持。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
+[**公開カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/) — 30件の作例と一覧表を維持。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
 
-現行カタログと`catalog/index.html`はそのまま保持し、次期版もこの正本から構成します。追加機能のソースは`catalog-next/`。公開時に必須4ファイルを同梱しますが、画像生成時に最新mainを確認する契約は変えません。**画像は元の作例です。変更後の条件による実画像は未生成・未検証です。** [実装と検証範囲](docs/PROMPT_BUILDER.md)。
+旧版を`/legacy/`に保持し、`catalog/index.html`の原本を変更せず、公開版vNextをこの原本から構成します。追加機能のソースは`catalog-next/`。公開時に必須4ファイルを同梱しますが、画像生成時に最新mainを確認する契約は変えません。**画像は元の作例です。変更後の条件による実画像は未生成・未検証です。** [実装と検証範囲](docs/PROMPT_BUILDER.md)。
 
 ### 完成プロンプトをGPT Imageへ明示送信する（任意）
 
