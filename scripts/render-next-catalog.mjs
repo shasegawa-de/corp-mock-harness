@@ -36,10 +36,10 @@ export function flattenCatalogCards(catalog){
 }
 
 // Cards, images, table, shared styles and the existing scripts are reused.
-export function renderNextCatalog(catalog,editor,version='local'){
+export function renderNextCatalog(catalog,editor,version='local',assetBase='./'){
   if(!catalog.includes('</head>')||!catalog.includes('</main>'))throw Error('Catalog insertion points are missing');
   const revision=encodeURIComponent(version);
-  return flattenCatalogCards(catalogChrome(catalog)).replace('</head>',`<!-- composer-assets:start --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap"><link rel="stylesheet" href="./style.css?v=${revision}"><link rel="stylesheet" href="./left-sidebar.css?v=${revision}"><script type="module" src="./app.mjs?v=${revision}"></script><script type="module" src="./sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
+  return flattenCatalogCards(catalogChrome(catalog)).replace('</head>',`<!-- composer-assets:start --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap"><link rel="stylesheet" href="${assetBase}style.css?v=${revision}"><link rel="stylesheet" href="${assetBase}left-sidebar.css?v=${revision}"><script type="module" src="${assetBase}app.mjs?v=${revision}"></script><script type="module" src="${assetBase}sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
     .replace('</main>',`<!-- composer-editor:start -->${editor}<!-- composer-editor:end --></main>`);
 }
 
