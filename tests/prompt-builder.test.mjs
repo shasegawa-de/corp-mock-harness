@@ -148,6 +148,17 @@ test('output examples require an exact match on every selected condition',()=>{
   }
 });
 
+test('homepage renders vNext using the same module bundle as /next/',()=>{
+  const landing=renderNextCatalog(catalog,editor,'revision-root','./next/');
+  assert.match(landing,/href="\.\/next\/style\.css\?v=revision-root"/);
+  assert.match(landing,/src="\.\/next\/app\.mjs\?v=revision-root"/);
+  assert.match(landing,/src="\.\/next\/sidebar-mode\.mjs\?v=revision-root"/);
+  assert.equal((landing.match(/<article class="item"/g)??[]).length,30);
+  assert.match(landing,/<dialog id="composer"/);
+  assert.match(readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8'),
+    /fetch\(new URL\(`\.\/data\/\$\{name\}`,import\.meta\.url\)/);
+});
+
 test('a deployed revision cannot reuse stale editor scripts or imported modules',()=>{
   const next=renderNextCatalog(catalog,editor,'revision-123');
   assert.match(next,/src="\.\/app\.mjs\?v=revision-123"/);
