@@ -9,7 +9,7 @@ let state,presets,devices,result,activeButton,examples=[],baselineState,original
 
 try{
   const contents=await Promise.all(['AGENTS.md','STYLE.md','devices.json','presets.json'].map(async name=>{
-    const response=await fetch(`./data/${name}`,{cache:'no-cache'});
+    const response=await fetch(new URL(`./data/${name}`,import.meta.url),{cache:'no-cache'});
     if(!response.ok)throw Error(`${name} (${response.status})`);
     const text=await response.text();if(!text.trim())throw Error(`${name}が空です`);return text;
   }));
