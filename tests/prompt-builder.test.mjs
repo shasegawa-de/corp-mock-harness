@@ -11,9 +11,9 @@ const scene=input=>normalize({...defaults,...input},presets).state;
 const catalog=readFileSync(new URL('../catalog/index.html',import.meta.url),'utf8');
 const editor=readFileSync(new URL('../catalog-next/editor.html',import.meta.url),'utf8');
 // TEMPORARY CATALOG SHAPE DIAGNOSTIC — remove after inspection
-const _cards=[...catalog.matchAll(/<article class="item"[\\s\\S]*?<\\/article>/g)].map(m=>m[0]);
-console.log("MAC_CARD_SAMPLES",_cards.filter(s=>s.includes('data-device="mac"')).slice(0,2).map(s=>s.replace(/(data:image\\/[^"']+|data:image\\/[^"']+)/g,'DATAIMAGE').slice(0,3300)));
-console.log("TABLE_ROW_SAMPLE",catalog.match(/<tbody>[\\s\\S]*?<tr[\\s\\S]*?<\\/tr>/)?.[0].replace(/data:image\\/[^"']+/g,'DATAIMAGE').slice(-1700));
+const _cards=[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(m=>m[0]);
+console.log("MAC_CARD_SAMPLES",_cards.filter(s=>s.includes('data-device="mac"')).slice(0,2).map(s=>s.replace(/data:image\/[^"']+/g,'DATAIMAGE').slice(0,3300)));
+console.log("TABLE_ROW_SAMPLE",catalog.match(/<tbody>[\s\S]*?<tr[\s\S]*?<\/tr>/)?.[0]?.replace(/data:image\/[^"']+/g,'DATAIMAGE').slice(-1700));
 // END TEMPORARY DIAGNOSTIC
 
 
