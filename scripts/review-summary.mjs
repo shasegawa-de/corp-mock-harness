@@ -3,7 +3,8 @@ import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {privateDirectory} from './private-pilot.mjs';
 export const FIELDS=['blind_id','hard_devices','hard_screens','hard_spatial','hard_one_view','geometry_0_2','composition_0_2','architecture_0_2','lighting_0_2','fidelity_0_2','notes'];
-const GATES=FIELDS.slice(1,5),AXES=FIELDS.slice(5,10);
+const GATES=FIELDS.slice(1,5),VISUAL_AXES=FIELDS.slice(5,9),FIDELITY='fidelity_0_2';
+const AXES=[...VISUAL_AXES,FIDELITY];
 const ARMS=['mm1-a','mm1-b','mm1-c','mm2-a','mm2-b','mm2-c'];
 function csvRows(src){
   const rows=[];let row=[],cell='',inside=false;
@@ -40,18 +41,25 @@ export function reviewSummary(root,outputDir){
     seen.add(id);
     if([...GATES,...AXES].every(key=>values[key]===''))continue;
     if(GATES.some(key=>!['PASS','FAIL'].includes(values[key])))throw Error('Incomplete hard-gate rating for '+id);
-    if(AXES.some(key=>!['0','1','2'].includes(values[key])))throw Error('Invalid quality score for '+id);
+    if(VISUAL_AXES.some(key=>!['0','1','2'].includes(values[key])))throw Error('Invalid visual quality score for '+id);
+    if(values[FIDELITY]!==''&&!['0','1','2'].includes(values[FIDELITY]))throw Error('Invalid post-unblinding fidelity for '+id);
     rated.push({arm:source.arm,trial:source.trial,pass:GATES.every(key=>values[key]==='PASS'),
-      scores:Object.fromEntries(AXES.map(key=>[key,Number(values[key])]))});
+      scores:Object.fromEntries(AXES.map(key=>[key,values[key]===''?null:Number(values[key])]))});
   }
   if(seen.size!==12)throw Error('All 12 blind IDs must exist in score sheet');
   const arms=ARMS.map(arm=>{
     const group=rated.filter(v=>v.arm===arm);
-    const means=Object.fromEntries(AXES.map(axis=>[axis,group.length?
-      Number((group.reduce((sum,v)=>sum+v.scores[axis],0)/group.length).toFixed(2)):null]));
-    return {arm,reviewed:group.length,required:2,hard_fail:group.filter(v=>!v.pass).length,means};
+    const means=Object.fromEntries(AXES.map(axis=>{
+      const values=group.map(x=>x.scores[axis]).filter(x=>x!==null);
+      return [axis,values.length?Number((values.reduce((a,b)=>a+b,0)/values.length).toFixed(2)):null];
+    }));
+    return {arm,reviewed:group.length,fidelity_reviewed:group.filter(v=>v.scores[FIDELITY]!==null).length,required:2,hard_fail:group.filter(v=>!v.pass).length,means};
   });
-  return {reviewed:rated.length,required:12,complete:rated.length===12,
+  const visual_complete=rated.length===12;
+  const fidelity_complete=visual_complete&&rated.every(v=>v.scores[FIDELITY]!==null);
+  return {reviewed:rated.length,required:12,visual_complete,fidelity_complete,
+    complete:visual_complete&&fidelity_complete,
     caution:'Two trials per arm form an exploratory pilot, not proof of statistical superiority.',
-    arms};
+    // Never disclose arm-level results while blinded visual review is unfinished.
+    arms:visual_complete?arms:[]};
 }
