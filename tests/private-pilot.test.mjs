@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,rmSync,statSync,existsSync,readdirSync} from 'node:fs';
+import {mkdtempSync,rmSync,statSync,existsSync,readdirSync,chmodSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
@@ -17,7 +17,7 @@ test('12 distinct trial identifiers, dry run without key',()=>{
 });
 test('private output refuses in-repository and loose permissions',()=>{
   assert.throws(()=>privateDirectory(root,join(root,'generated-review'),{create:true}),/outside Git/);
-  const dir=fresh();try{assert.throws(()=>privateDirectory(root,dir),/0700/);}finally{rmSync(dir,{recursive:true,force:true});}
+  const dir=fresh();try{chmodSync(dir,0o755);assert.throws(()=>privateDirectory(root,dir),/0700/);}finally{rmSync(dir,{recursive:true,force:true});}
 });
 test('offline 12-run resume, private PNG/JSON and blind package',async()=>{
   const temp=fresh(),dir=join(temp,'private');let calls=0;
