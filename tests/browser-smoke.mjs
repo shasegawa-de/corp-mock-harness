@@ -118,7 +118,7 @@ try{
     const rendered=await img.evaluate(el=>({width:el.naturalWidth,height:el.naturalHeight,src:el.currentSrc}));
     assert.ok(rendered.width>=1000&&rendered.height>=550, id+' loaded full-sized image');
     assert.ok(Math.abs(rendered.width/rendered.height-16/9)<0.025,id+' is widescreen 16:9');
-    assert.match(rendered.src,id==='MM1'?/assets\/macbook-pair\/mm1-adopted-v5\.jpg$/:/assets\/macbook-pair\/mm2-suspended\.jpg$/);
+    assert.match(rendered.src,id==='MM1'?/assets\/macbook-pair\/mm1-adopted-v5\.jpg$/:/assets\/macbook-pair\/candidates\/mm2-float-natural-wall-v3\.jpg$/);
   }
   await macPair.click();
   assert.equal(await page.locator('#composer').evaluate(el=>el.open),true);
