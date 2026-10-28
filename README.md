@@ -22,7 +22,7 @@ GitHubのコード画面はHTMLをそのままレンダリングしません。[
 
 ### 公開版：作例の条件を変更する
 
-[**公開カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/) — 旧版の30件を保持し、MacBook Pro ×2の未生成リファレンス2件を加えた全32件の作例・プロンプトと一覧表を表示。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
+[**公開カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/) — 旧版の30件を保持し、MacBook Pro ×2の生成画像2件を加えた全32件の作例・プロンプトと一覧表を表示。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
 
 旧版を`/legacy/`に保持し、`catalog/index.html`の原本を変更せず、公開版vNextをこの原本から構成します。追加機能のソースは`catalog-next/`。公開時に必須4ファイルを同梱しますが、画像生成時に最新mainを確認する契約は変えません。**画像は元の作例です。変更後の条件による実画像は未生成・未検証です。** [実装と検証範囲](docs/PROMPT_BUILDER.md)。
 
@@ -32,7 +32,7 @@ GitHubのコード画面はHTMLをそのままレンダリングしません。[
 
 ### MacBook Pro 14インチを2台使用する構成
 
-正式な対象に **Mac + Mac（14インチ×2台）** を追加。公開カタログは32件で、MM1は**ユーザーが構図・角度差・光表現を採用方向と判断した新画像**へ差し替えました（[MM1画像](assets/macbook-pair/mm1-adopted-v5.jpg)）。MM2は従来の生成画像を維持し、引き続きレビュー待ちです（[MM2画像](assets/macbook-pair/mm2-suspended.jpg)）。MM1の旧版は[従来画像](assets/macbook-pair/mm1-grounded.jpg)として保存しています。2台の筐体形状・寸法の厳密なQAと生成時の実効プロンプト一致は未検証です。[画像の出自・品質記録](assets/macbook-pair/generation-manifest.json)。完成プロンプトは[左右配置](prompts/macbookpro14-macbookpro14/side-by-side.txt)／[床なし前後浮遊](prompts/macbookpro14-macbookpro14/suspended-depth.txt)を参照してください。2台とも開いた14インチMacで、余分な端末を加えない制約は[AGENTS.md](AGENTS.md)と[STYLE.md](STYLE.md)で定義しています。
+正式な対象に **Mac + Mac（14インチ×2台）** を追加。公開カタログは32件で、MM1は**ユーザーが構図・角度差・光表現を採用方向と判断した新画像**へ差し替えました（[MM1画像](assets/macbook-pair/mm1-adopted-v5.jpg)）。MM2は背景を修正したv3画像をレビュー用としてカタログへ反映しました（[MM2-v3画像](assets/macbook-pair/candidates/mm2-float-natural-wall-v3.jpg)）。最終承認・筐体寸法・プロンプト一致は未検証で、旧画像も[保存](assets/macbook-pair/mm2-suspended.jpg)しています。MM1の旧版は[従来画像](assets/macbook-pair/mm1-grounded.jpg)として保存しています。2台の筐体形状・寸法の厳密なQAと生成時の実効プロンプト一致は未検証です。[画像の出自・品質記録](assets/macbook-pair/generation-manifest.json)。完成プロンプトは[左右配置](prompts/macbookpro14-macbookpro14/side-by-side.txt)／[床なし前後浮遊](prompts/macbookpro14-macbookpro14/suspended-depth.txt)を参照してください。2台とも開いた14インチMacで、余分な端末を加えない制約は[AGENTS.md](AGENTS.md)と[STYLE.md](STYLE.md)で定義しています。
 
 ## 画像生成を依頼する
 
