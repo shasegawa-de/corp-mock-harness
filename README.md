@@ -22,13 +22,17 @@ GitHubのコード画面はHTMLをそのままレンダリングしません。[
 
 ### 公開版：作例の条件を変更する
 
-[**公開カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/) — 30件の作例と一覧表を維持。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
+[**公開カタログ（vNext）**](https://shasegawa-de.github.io/corp-mock-harness/) — 旧版の30件を保持し、MacBook Pro ×2の未生成リファレンス2件を加えた全32件の作例・プロンプトと一覧表を表示。**カード全体のタップ／Enter／Space**で右サイドの「プロンプト確認」モーダルを開き、条件の変更・英文全文コピーができます。画像拡大用の別モーダルはありません。PCは左端の白い固定フィルター領域で9項目を選択し、スマホではフィルターモーダルを使います。条件が一致する既存作例のみを参照表示し、新たに生成した画像として扱いません。[採用UIの判断基準](docs/DESIGN_DECISIONS.md)。
 
 旧版を`/legacy/`に保持し、`catalog/index.html`の原本を変更せず、公開版vNextをこの原本から構成します。追加機能のソースは`catalog-next/`。公開時に必須4ファイルを同梱しますが、画像生成時に最新mainを確認する契約は変えません。**画像は元の作例です。変更後の条件による実画像は未生成・未検証です。** [実装と検証範囲](docs/PROMPT_BUILDER.md)。
 
 ### 完成プロンプトをGPT Imageへ明示送信する（任意）
 
 チャット内の画像生成で指示が書き換わる場合は、GitHub Actionsから単一プロンプトをそのままGPT Image APIへ渡す経路を使えます。デフォルトは課金のないドライラン。実生成には `OPENAI_API_KEY` のRepository secret設定と別途API料金が必要です。画像は自動登録されず、人間のQA後に採用します。[実行手順](docs/GPT_IMAGE_TRANSPORT.md)。
+
+### MacBook Pro 14インチを2台使用する構成
+
+正式な対象に **Mac + Mac（14インチ×2台）** を追加。左右配置と前後に奥行き差をつけた床なし浮遊の2シーンをハーネスに登録し、公開カタログにもMM1／MM2として追加しました。**画像は未生成**のため、カードには「画像未生成」とQA未検証の注記を表示しています。完成プロンプトは[左右配置](prompts/macbookpro14-macbookpro14/side-by-side.txt)／[床なし前後浮遊](prompts/macbookpro14-macbookpro14/suspended-depth.txt)を参照してください。2台とも開いた14インチのMacであり、iPhoneや第三の端末を足さない制約は[AGENTS.md](AGENTS.md)と[STYLE.md](STYLE.md)で定義しています。
 
 ## 画像生成を依頼する
 
