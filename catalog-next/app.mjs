@@ -91,7 +91,7 @@ try{
 function initGeneratedMacPairs(){
   for(const [id,file,scene] of [
     ['MM1','mm1-adopted-v5.jpg','2台のMacBook Proを左手前と右奥に角度差をつけて配置'],
-    ['MM2','mm2-suspended.jpg','2台のMacBook Proを床なしで前後浮遊']
+    ['MM2','candidates/mm2-float-natural-wall-v3.jpg','2台のMacBook Proを床なしで前後浮遊（自然なマイクロセメント背景）']
   ]){
     const card=cards.find(item=>item.dataset.id===id);
     const img=card?.querySelector('.image-wrap img');
@@ -107,7 +107,7 @@ function initGeneratedMacPairs(){
       const status=card.querySelector('.quality');
       if(status)status.textContent=id==='MM1'?'生成済み・構図採用':'生成済み・要レビュー';
       const qa=card.querySelector('.qa');
-      if(qa)qa.textContent=id==='MM1'?'画像QA：2台の配置・角度差・光の表現はユーザーが採用方向と判断。OpenAI生成画像。筐体寸法、細部形状、元プロンプトとの厳密な一致は未検証。':'画像QA：2台の構図と画面・キーボードを目視確認したAdobe Firefly生成画像。寸法、細部の筐体再現性、元プロンプトとの厳密な一致とユーザー承認は未検証。';
+      if(qa)qa.textContent=id==='MM1'?'画像QA：2台の配置・角度差・光の表現はユーザーが採用方向と判断。OpenAI生成画像。筐体寸法、細部形状、元プロンプトとの厳密な一致は未検証。':'画像QA：MM2-v3（OpenAI画像生成）。床・台座のない浮遊構図と自然な背景の生成候補。寸法、細部の筐体再現性、生成時の実効プロンプト一致、ユーザーの最終承認は未検証。';
     });
     candidate.src=url;
   }
