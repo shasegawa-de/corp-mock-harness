@@ -1,7 +1,7 @@
 // Compact English clauses derived from AGENTS/STYLE and the configured IDs.
 // These are new prompt compositions, not approved image-generation results.
 export const labels = {
-  iphone17:'iPhone 17', macbookpro14:'MacBook Pro 14″', pair:'Mac + iPhone', environment:'環境のみ',
+  iphone17:'iPhone 17', macbookpro14:'MacBook Pro 14″', pair:'Mac + iPhone', 'mac-pair':'Mac + Mac（2台）', environment:'環境のみ',
   single:'端末1台', 'side-by-side':'左右に並べる', 'depth-staggered':'前後に配置', 'environment-only':'端末なし',
   grounded:'床置き・接地', 'on-block':'ブロック上', hover:'床上浮遊', suspended:'空中浮遊・床なし',
   upright:'立てる', 'flat-face-up':'寝かせる・画面上向き', 'tilted-supported':'支えに傾ける', 'suspended-angled':'浮かせる',
@@ -77,6 +77,14 @@ export function validateCatalog(p, devices) {
     for (const row of p[group]) if (!clauses[row.id]) throw Error(`未対応の設定: ${group}/${row.id}`);
   }
   for (const id of ['iphone17','macbookpro14']) if (!devices[id]?.physical_mm) throw Error(`端末設定がありません: ${id}`);
+  for(const row of p.showcase_presets){
+    if(row.devices.length===2){
+      const supported=JSON.stringify(row.devices)==='["macbookpro14","iphone17"]'
+        ||JSON.stringify(row.devices)==='["macbookpro14","macbookpro14"]';
+      if(!supported||!['side-by-side','depth-staggered'].includes(row.layout_id))
+        throw Error('未対応の2台構成: '+row.id);
+    }
+  }
   for(const [group,known] of [['spatial_modes',['grounded','hover','suspended','on-block']],['device_layouts',['single','side-by-side','depth-staggered','environment-only']]]){
     if(p[group].some(x=>!known.includes(x.id))||known.some(id=>!p[group].some(x=>x.id===id)))throw Error(`実装との照合が必要です: ${group}`);
   }
@@ -87,7 +95,7 @@ export function validateCatalog(p, devices) {
 
 export function choices(s, p) {
   const env = s.subject === 'environment';
-  let poses = env ? [] : s.subject === 'macbookpro14' ? [s.spatial === 'suspended' ? 'open-suspended':'open-display']
+  let poses = env ? [] : (s.subject === 'macbookpro14'||s.subject === 'mac-pair') ? [s.spatial === 'suspended' ? 'open-suspended':'open-display']
     : s.spatial === 'suspended' ? ['suspended-angled'] : s.spatial === 'hover' || s.subject === 'pair' ? ['upright']
     : ['upright','flat-face-up','tilted-supported'];
   let compositions;
@@ -103,8 +111,8 @@ export function choices(s, p) {
     if (s.spatial === 'grounded' && s.subject === 'iphone17') compositions.push('low-view');
   }
   return {
-    subject:['iphone17','macbookpro14','pair','environment'],
-    layout:env ? ['environment-only'] : s.subject === 'pair' ? ['side-by-side','depth-staggered'] : ['single'],
+    subject:['iphone17','macbookpro14','pair','mac-pair','environment'],
+    layout:env ? ['environment-only'] : ['pair','mac-pair'].includes(s.subject) ? ['side-by-side','depth-staggered'] : ['single'],
     spatial:p.spatial_modes.map(x=>x.id).filter(id=>!env || id!=='hover'), pose:poses, composition:compositions,
     surface:!env||s.spatial==='on-block'?['space']:s.spatial==='suspended'?['space','vertical-wall']:['space','vertical-wall','wall-floor-junction','wall-floor-corner','vertical-wall-and-floor','horizontal-floor'],
     environment:p.environments.map(x=>x.id).filter(id => (id!=='suspended-mineral-planes'||s.spatial==='suspended') && (id!=='carrara-marble-wide-block'||s.spatial==='on-block') && (s.surface!=='vertical-wall-and-floor'||id==='smoked-glass') && (s.spatial!=='on-block'||!['fiber-cement-panels','dark-fiber-cement'].includes(id))),
@@ -125,7 +133,7 @@ export function normalize(input, p) {
 }
 
 export function fromPreset(row) {
-  return {subject:row.devices.length===0?'environment':row.devices.length===2?'pair':row.devices[0],
+  return {subject:row.devices.length===0?'environment':row.devices.length===2?(row.devices.every(id=>id==='macbookpro14')?'mac-pair':'pair'):row.devices[0],
     layout:row.layout_id,spatial:row.spatial_mode_id,pose:row.pose_id??row.poses?.iphone17??null,
     surface:row.surface_type??'space',composition:row.composition_id,environment:row.environment_id,lighting:row.lighting_id};
 }
@@ -134,20 +142,23 @@ export function assemble(s,p,devices) {
   for(const [key,allowed] of Object.entries(choices(s,p))) {
     if (allowed.length ? !allowed.includes(s[key]) : s[key]!==null) throw Error(`組み合わせを確認してください: ${key}`);
   }
-  const env=s.subject==='environment', pair=s.subject==='pair';
-  const ids=env?[]:pair?['macbookpro14','iphone17']:[s.subject];
+  const env=s.subject==='environment', pair=s.subject==='pair',macPair=s.subject==='mac-pair';
+  const ids=env?[]:macPair?['macbookpro14','macbookpro14']:pair?['macbookpro14','iphone17']:[s.subject];
   const iphone=devices.iphone17.physical_mm, mac=devices.macbookpro14.physical_mm;
   const fragments=[{label:'写真の共通条件',text:'ONE standalone photorealistic product photograph. ONE camera view. Horizontal 16:9.'}];
-  let subject=env?'NO products or devices. Architecture only, not a macro texture swatch. Preserve actual construction scale and coherent material junctions. No screens, electronic silhouettes or product shadows.':pair?'Exactly two devices: one MacBook Pro 14-inch and one standard iPhone 17.':s.subject==='iphone17'?'Exactly one black standard iPhone 17, NOT Pro.':'Exactly one open MacBook Pro 14-inch.';
+  let subject=env?'NO products or devices. Architecture only, not a macro texture swatch. Preserve actual construction scale and coherent material junctions. No screens, electronic silhouettes or product shadows.':pair?'Exactly two devices: one MacBook Pro 14-inch and one standard iPhone 17.':s.subject==='iphone17'?'Exactly one black standard iPhone 17, NOT Pro.':macPair?'Exactly TWO devices: two open 14-inch MacBook Pro laptops, no iPhone.':'Exactly one open MacBook Pro 14-inch.';
   if(ids.includes('iphone17')) subject+=` iPhone: black flat frame, ${iphone.height}×${iphone.width}×${iphone.depth}mm body, 6.3-inch display, slim bezel, centered Dynamic Island.`;
-  if(ids.includes('macbookpro14')) subject+=` Open aluminum MacBook, ${mac.width}×${mac.depth}mm footprint, camera notch; keyboard and trackpad visible.`;
+  if(ids.includes('macbookpro14')) subject+=` ${macPair?'Each open aluminum MacBook':'Open aluminum MacBook'}, ${mac.width}×${mac.depth}mm footprint, camera notch; keyboard and trackpad visible.`;
   if(!env) subject+=' Entire displays unobstructed, featureless pure white; accurate proportions.';
   fragments.push({label:'対象・筐体・画面',text:subject});
   let pose='';
-  if(!env && s.subject!=='macbookpro14') {
+  if(!env && s.subject!=='macbookpro14' && !macPair) {
     pose=s.pose==='flat-face-up'?'Phone lies completely flat, face up.':s.pose==='tilted-supported'?'Phone leans back 20 degrees against an integrated mineral support.':s.pose==='upright'?'Phone upright.':'Phone floats unsupported, display facing camera.';
   }
   if(pair)pose+=(s.layout==='side-by-side'?' Mac left, phone right; realistic relative scale, no overlap.':' Mac behind, phone foreground; realistic scale, neither screen nor keyboard obscured.');
+  if(macPair)pose+=(s.layout==='side-by-side'
+    ?' Two open 14-inch MacBooks side-by-side, left and right, matched physical size, separate silhouettes. BOTH white screens, keyboards and trackpads completely visible.'
+    :' Two open 14-inch MacBooks at different depths, matched physical size, no screen, keyboard or trackpad obstruction. No overlap.');
   if(pose)fragments.push({label:'姿勢・並び方',text:pose.trim()});
   let space;
   if(s.spatial==='suspended')space=(env?'Floorless half-gray architecture, two vertical planes.':'Devices float weightlessly in floorless half-gray architecture, two vertical planes.')+' NO floor, horizon, floor-wall seam, ground shadow, platform or supports.';
@@ -166,6 +177,7 @@ export function assemble(s,p,devices) {
   const contract={devices:ids,layout_id:s.layout,spatial_mode_id:s.spatial,composition_id:s.composition,environment_id:s.environment,lighting_id:s.lighting};
   if(ids.length===1)contract.pose_id=s.pose;
   if(pair)contract.poses={macbookpro14:s.spatial==='suspended'?'open-suspended':'open-display',iphone17:s.pose};
+  if(macPair)contract.poses={left:s.pose,right:s.pose};
   if(env&&s.surface!=='space')contract.surface_type=s.surface;
   return {prompt,fragments,contract,words:prompt.split(/\s+/).length};
 }
