@@ -22,7 +22,7 @@ for(const group of ['mm1','mm2'])test('A/B lexicon stable and C direction change
   assert.notEqual(lexicalWords(b),lexicalWords(c));
   for(const heading of HEADINGS)assert.ok(c.split('\n').includes(heading));
   assert.match(c,/upper-left daylight/);
-  assert.ok(c.trim().split(/\\s+/).length>b.trim().split(/\\s+/).length+80,'C should not merely rephrase B');
+  assert.ok(c.trim().split(/\s+/).length>b.trim().split(/\s+/).length+80,'C should not merely rephrase B');
   assert.match(c,/Prioritize|Prioritize product/);
   assert.match(c,/microcement/);
   if(group==='mm1'){
