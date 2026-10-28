@@ -28,7 +28,9 @@ export function reviewSummary(root,outputDir){
   if(!target.exists)throw Error('Private review folder absent');
   const mapping=JSON.parse(readFileSync(join(target.directory,'mapping-private.json'),'utf8'));
   if(mapping.length!==12||new Set(mapping.map(x=>x.blind_id)).size!==12||
-     mapping.some(x=>!ARMS.includes(x.arm)||![1,2].includes(x.trial)))
+     new Set(mapping.map(x=>x.arm+':'+x.trial)).size!==12||
+     mapping.some(x=>!ARMS.includes(x.arm)||![1,2].includes(x.trial))||
+     ARMS.some(arm=>[1,2].some(trial=>!mapping.some(x=>x.arm===arm&&x.trial===trial))))
     throw Error('Invalid or incomplete identity mapping');
   const rows=csvRows(readFileSync(join(target.directory,'blind','scores.csv'),'utf8'));
   if(JSON.stringify(rows.shift())!==JSON.stringify(FIELDS))throw Error('Score columns changed');
@@ -56,6 +58,8 @@ export function reviewSummary(root,outputDir){
     return {arm,reviewed:group.length,fidelity_reviewed:group.filter(v=>v.scores[FIDELITY]!==null).length,required:2,hard_fail:group.filter(v=>!v.pass).length,means};
   });
   const visual_complete=rated.length===12;
+  if(!visual_complete&&rated.some(v=>v.scores[FIDELITY]!==null))
+    throw Error('Prompt fidelity must remain hidden until every blind visual score is complete');
   const fidelity_complete=visual_complete&&rated.every(v=>v.scores[FIDELITY]!==null);
   return {reviewed:rated.length,required:12,visual_complete,fidelity_complete,
     complete:visual_complete&&fidelity_complete,
