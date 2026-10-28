@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "generated_at": "2026-10-29",
-  "provider": "OpenAI image generation (MM1) / Adobe Firefly (MM2)",
+  "provider": "OpenAI image generation (MM1 and MM2-v3)",
   "asset_kind": "Published JPEG renditions of AI-generated product photographs",
   "review_status": "MIXED__MM1_VISUAL_DIRECTION_ACCEPTED__MM2_PENDING",
   "prompt_fidelity": "PROMPT_UNVERIFIED",
-  "notes": "MM1 visual direction received user approval; exact hardware geometry and prompt fidelity remain unverified. MM1 original generated PNG (1672×941, SHA-256: 3ed27c2064f90a1b8acad8f5c0aa39ebdf29e1750d5b8e564c024b5f440ce430) was preserved outside Git, and its 1672×941 JPEG rendition is Git-tracked at the new versioned path. Previous MM1 published image stays in git history at mm1-grounded.jpg. MM2 is unchanged and retains provisional status. Both catalog canonical prompt texts are design specifications, not evidence of exact model inputs.",
+  "notes": "MM1 visual direction accepted, exact geometry and effective prompt still unverified. MM2-v3 published as the user-requested catalog review image, not as final QA approval. Its prior active photo remains at assets/macbook-pair/mm2-suspended.jpg. The 1648×927 JPEG rendition of MM2-v3 is in Git; its generated PNG is not Git-tracked. Project prompt texts are design references, not proof of effective generator input. PROMPT_UNVERIFIED for both images.",
   "images": [
     {
       "id": "MM1",
@@ -26,13 +26,16 @@
     },
     {
       "id": "MM2",
-      "path": "assets/macbook-pair/mm2-suspended.jpg",
-      "git_blob_sha1": "9490317151b8657dc046a822c3ebc04a59d854f4",
-      "scene": "two open 14-inch laptops, separate depth, floorless floating",
-      "visual_qa": "PRELIMINARY_PASS",
+      "path": "assets/macbook-pair/candidates/mm2-float-natural-wall-v3.jpg",
+      "git_blob_sha1": "6e3581478b3bb9f06bc28a4c1ba6fa98e04a0dbc",
+      "scene": "two open 14-inch laptops independently floating without floor or podium against a matte half-gray architectural wall",
+      "visual_qa": "BACKGROUND_REVISED__PRELIMINARY_PASS__DETAIL_QA_PENDING",
       "user_approval": "PENDING",
-      "width": 2016,
-      "height": 1134
+      "width": 1648,
+      "height": 927,
+      "generator": "OpenAI image generation",
+      "catalog_publication": "USER_REQUESTED__REVIEW_IMAGE",
+      "previous_display_image": "assets/macbook-pair/mm2-suspended.jpg"
     }
   ]
 }
