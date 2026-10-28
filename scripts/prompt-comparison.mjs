@@ -2,7 +2,9 @@
 import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {validateCatalog} from '../catalog-next/engine.mjs';
-import {MODEL,SIZE,sha256,pngDimensions} from './gpt-image-transport.mjs';
+import {SIZE,sha256,pngDimensions} from './gpt-image-transport.mjs';
+// Pin the image model for this comparison; a moving alias can invalidate A/B/C controls.
+export const COMPARISON_MODEL='gpt-image-2.5-flare-2026-09-08';
 export const ARMS={
   'mm1-a':{preset:'two-macs-side-by-side',variant:'A',path:'prompts/macbookpro14-macbookpro14/side-by-side.txt'},
   'mm1-b':{preset:'two-macs-side-by-side',variant:'B',path:'prompts/experiments/mm1-b-structured.txt'},
@@ -50,7 +52,7 @@ export function prepareComparison(root,id){
   }
   const words=prompt.trim().split(/\s+/).length;
   if(words<80)throw Error('Prompt lacks essential scene detail: '+words);
-  const request={model:MODEL,prompt,n:1,size:SIZE,quality:'high',background:'opaque',output_format:'png'};
+  const request={model:COMPARISON_MODEL,prompt,n:1,size:SIZE,quality:'high',background:'opaque',output_format:'png'};
   return {id,arm,scene,request,words,prompt_sha256:sha256(prompt),
     source_hashes:Object.fromEntries(REQUIRED.map(p=>[p,sha256(source[p])]))};
 }
@@ -72,7 +74,7 @@ export async function generateComparison({root,id,key,fetcher=fetch}){
   if(dimensions.width!==1536||dimensions.height!==864)throw Error('Incorrect output dimensions');
   return {image,metadata:{arm_id:id,variant:plan.arm.variant,scene_preset:plan.arm.preset,
     source_prompt:plan.arm.path,prompt_sha256:plan.prompt_sha256,
-    source_hashes:plan.source_hashes,model:MODEL,size:SIZE,quality:'high',n:1,
+    source_hashes:plan.source_hashes,model:COMPARISON_MODEL,size:SIZE,quality:'high',n:1,
     dimensions,image_sha256:sha256(image),prompt_transport:'EXACT_REQUEST_SUBMITTED',
     effective_model_prompt:'UNVERIFIED',image_qa:'UNVERIFIED',approved:false,
     request_id:response.headers?.get?.('x-request-id')??null,
