@@ -1,0 +1,22 @@
+ONE standalone photorealistic product photograph.
+
+OUTPUT
+ONE camera view. Horizontal 16:9.
+
+SUBJECT
+Exactly TWO devices: two identical OPEN 14-inch MacBook Pro laptops floating independently in one coherent architectural scene. NO iPhone or third device. BOTH screens, black keyboards and trackpads remain completely visible and never overlap; identical 312.6×221.2mm physical footprints appear only different in scale due to perspective. Each screen is featureless pure white, with a centered camera notch and accurate rigid aluminum hinge geometry.
+
+COMPOSITION
+Use a measured depth-staggered arrangement: the Mac on frame-left is slightly farther away and elevated; the Mac on frame-right is closer and lower, with deliberately separated silhouettes.
+
+CAMERA
+Shoot from a restrained right three-quarter camera.
+
+ENVIRONMENT
+Background: two subtle half-gray microcement planes with naturally irregular nonrepeating grain.
+
+LIGHTING & ART DIRECTION
+Soft directional upper-left daylight, nuanced metallic reflections and gentle tonal depth.
+
+EXCLUSIONS
+FLOORLESS: no repeated vertical bands, artificial gradients, floor, horizon, floor-wall seam, ground shadow, platforms, wires, furniture, props, text, logos, screen UI or multiple views.

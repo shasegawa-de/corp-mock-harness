@@ -1,0 +1,22 @@
+ONE standalone photorealistic product photograph.
+
+OUTPUT
+ONE camera view. Horizontal 16:9.
+
+SUBJECT
+Exactly TWO devices: two identical 14-inch MacBook Pro laptops, both OPEN; NO iPhone or third device. Each aluminum MacBook has a 312.6×221.2mm footprint, a raised display with a centered camera notch, an unobstructed pure-white featureless screen, precise black keyboard and broad trackpad. Keep BOTH displays, keyboards and trackpads wholly visible; neither laptop may hide the other.
+
+COMPOSITION
+The left laptop is slightly turned toward camera; the right laptop faces forward, with identical real-world body size and believable perspective.
+
+CAMERA
+One restrained left three-quarter camera; coherent floor and distant matte mineral wall.
+
+ENVIRONMENT
+Arrange the two laptops side-by-side on a continuous pale half-gray microcement floor, with a clear gap between them and natural base-edge contact.
+
+LIGHTING & ART DIRECTION
+Broad soft overhead studio light, subtle reflections and natural contact shadows.
+
+EXCLUSIONS
+No desks, furniture, props, hands, logos, user interfaces, cropped devices, duplicates, collage or multiple camera views.
