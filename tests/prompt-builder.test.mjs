@@ -4,27 +4,23 @@ import {readFileSync} from 'node:fs';
 import {defaults,choices,normalize,assemble,fromPreset,validateCatalog} from '../catalog-next/engine.mjs';
 import {exampleConditions,matchingExamples} from '../catalog-next/examples.mjs';
 import {filterAxes,filterOptions,matchesTags,compositionFilterOptions} from '../catalog-next/filters.mjs';
-import {catalogChrome,flattenCatalogCards,renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
+import {catalogChrome,flattenCatalogCards,appendMacPairReferences,renderNextCatalog,versionLocalImports} from '../scripts/render-next-catalog.mjs';
 const presets=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url)));
 const devices=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url)));
 const scene=input=>normalize({...defaults,...input},presets).state;
 const catalog=readFileSync(new URL('../catalog/index.html',import.meta.url),'utf8');
 const editor=readFileSync(new URL('../catalog-next/editor.html',import.meta.url),'utf8');
-// TEMPORARY CATALOG SHAPE DIAGNOSTIC — remove after inspection
-const _cards=[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(m=>m[0]);
-console.log("MAC_CARD_SAMPLES",_cards.filter(s=>s.includes('data-device="mac"')).slice(0,2).map(s=>s.replace(/data:image\/[^"']+/g,'DATAIMAGE').slice(0,3300)));
-console.log("TABLE_ROW_SAMPLE",catalog.match(/<tbody>[\s\S]*?<tr[\s\S]*?<\/tr>/)?.[0]?.replace(/data:image\/[^"']+/g,'DATAIMAGE').slice(-1700));
-// END TEMPORARY DIAGNOSTIC
+
 
 
 test('next version preserves original cards, images, table and styling with the requested chrome changes',()=>{
   const next=renderNextCatalog(catalog,editor);
   const restored=next.replace(/<!-- composer-assets:start -->[\s\S]*?<!-- composer-assets:end -->/,'')
     .replace(/<!-- composer-editor:start -->[\s\S]*?<!-- composer-editor:end -->/,'');
-  assert.equal(restored,flattenCatalogCards(catalogChrome(catalog)));
-  assert.deepEqual([...next.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]),[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]));
-  assert.equal(next.match(/<table\b[\s\S]*?<\/table>/)[0],catalog.match(/<table\b[\s\S]*?<\/table>/)[0]);
-  assert.equal((next.match(/<article class="item"/g)??[]).length,30);
+  assert.equal(restored,appendMacPairReferences(flattenCatalogCards(catalogChrome(catalog))));
+  assert.deepEqual([...next.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].slice(0,30).map(x=>x[0]),[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]));
+  assert.ok(next.includes(catalog.match(/<tbody>([\s\S]*?)<\/tbody>/)[1]),'All 30 legacy table entries retain their original content');
+  assert.equal((next.match(/<article class="item"/g)??[]).length,32);
   assert.match(next,/id="gallery-view"/);assert.match(next,/id="table-view"/);
   assert.equal(next.match(/<style>([\s\S]*?)<\/style>/)[1],catalog.match(/<style>([\s\S]*?)<\/style>/)[1]);
   assert.doesNotMatch(next,/TXTで保存|プロンプトの内訳|選択条件のJSON|id="download"|id="contract"/);
@@ -93,7 +89,7 @@ test('vNext hides category headings and explanatory footer and uses modal-only p
   assert.ok(app.includes('visiblePrompt=unchanged?originalPrompt:result.prompt'));
   assert.ok(app.includes('navigator.clipboard.writeText(visiblePrompt)'));
   const gallery=next.split('<div id="gallery-view">')[1].split('<div class="nothing"')[0];
-  assert.equal((gallery.match(/<article class="item"/g)??[]).length,30);
+  assert.equal((gallery.match(/<article class="item"/g)??[]).length,32);
   assert.equal((gallery.match(/<section\b|class="group-sub"|class="cards"|class="section-heading"/g)??[]).length,0);
   assert.ok(gallery.includes('data-id="A"')&&gallery.includes('data-id="MR2"'));
   assert.ok(!gallery.includes('group-sub'));
@@ -159,7 +155,7 @@ test('homepage renders vNext using the same module bundle as /next/',()=>{
   assert.match(landing,/href="\.\/next\/style\.css\?v=revision-root"/);
   assert.match(landing,/src="\.\/next\/app\.mjs\?v=revision-root"/);
   assert.match(landing,/src="\.\/next\/sidebar-mode\.mjs\?v=revision-root"/);
-  assert.equal((landing.match(/<article class="item"/g)??[]).length,30);
+  assert.equal((landing.match(/<article class="item"/g)??[]).length,32);
   assert.match(landing,/<dialog id="composer"/);
   assert.match(readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8'),
     /fetch\(new URL\(`\.\/data\/\$\{name\}`,import\.meta\.url\)/);
@@ -217,6 +213,31 @@ test('flat phone camera follows support; supported tilt has credible contact',()
   assert.equal(laptop.pose,'open-display');assert.doesNotMatch(assemble(laptop,presets,devices).prompt,/Phone lies/);
 });
 
+test('Mac+Mac scenes contain exactly two open 14-inch MacBooks and no phones',()=>{
+  const rows=presets.showcase_presets.filter(row=>row.devices.length===2&&row.devices.every(x=>x==='macbookpro14'));
+  assert.equal(rows.length,2);
+  for(const row of rows){
+    const n=normalize({...defaults,...fromPreset(row)},presets);
+    assert.deepEqual(n.changes,[],row.id);
+    const r=assemble(n.state,presets,devices);
+    assert.equal(n.state.subject,'mac-pair');
+    assert.deepEqual(r.contract.devices,['macbookpro14','macbookpro14']);
+    assert.deepEqual(r.contract.poses,{left:n.state.pose,right:n.state.pose});
+    assert.match(r.prompt,/Exactly TWO devices: two open 14-inch MacBook Pro laptops, no iPhone/);
+    assert.match(r.prompt,/BOTH white screens, keyboards and trackpads completely visible|no screen, keyboard or trackpad obstruction/);
+    assert.doesNotMatch(r.prompt,/Phone lies|Phone upright|6\.3-inch display|Dynamic Island/);
+    assert.ok(r.words>=80&&r.words<=170);
+  }
+  assert.equal(scene({subject:'mac-pair',pose:'flat-face-up'}).pose,'open-display');
+  assert.deepEqual(choices(scene({subject:'mac-pair'}),presets).layout,['side-by-side','depth-staggered']);
+  const html=renderNextCatalog(catalog,editor);
+  assert.match(html,/data-id="MM1"/);
+  assert.match(html,/data-id="MM2"/);
+  assert.equal((html.match(/<article class="item"/g)??[]).length,32);
+  assert.match(html,/画像未生成 \/ NOT RENDERED|未生成・要検証/);
+  assert.doesNotMatch(catalog,/data-id="MM[12]"/);
+});
+
 test('floorless suspension adapts a floor-containing source environment without leaking floor requirements',()=>{
   const s=scene({subject:'pair',spatial:'suspended',environment:'carrara-marble-wall-floor',layout:'depth-staggered'});
   const result=assemble(s,presets,devices);
@@ -261,7 +282,7 @@ test('every selectable combination stays single-scene, within 80–170 words, wi
     }
     const r=assemble(s,presets,devices);count++;min=Math.min(min,r.words);max=Math.max(max,r.words);
     assert.ok(r.words>=80&&r.words<=170,`${r.words}: ${JSON.stringify(s)}`);
-    assert.equal(r.contract.devices.length,s.subject==='environment'?0:s.subject==='pair'?2:1);
+    assert.equal(r.contract.devices.length,s.subject==='environment'?0:['pair','mac-pair'].includes(s.subject)?2:1);
     if(s.subject==='environment')assert.doesNotMatch(r.prompt,/iPhone|MacBook|keyboard|pure white/);
     if(s.spatial==='suspended'){
       assert.match(r.prompt,/NO floor, horizon, floor-wall seam, ground shadow/);
