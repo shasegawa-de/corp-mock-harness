@@ -28,7 +28,7 @@ test('generated Mac pair photos have verified blobs and independently tracked re
   assert.equal(manifest.images.length,2);
   assert.deepEqual(manifest.images.map(x=>x.id),['MM1','MM2']);
   for(const item of manifest.images){
-    assert.match(item.path,/^assets\/macbook-pair\/(?:mm1-adopted-v5|mm2-suspended)\.jpg$/);
+    assert.equal(item.path,item.id==='MM1'?'assets/macbook-pair/mm1-adopted-v5.jpg':'assets/macbook-pair/candidates/mm2-float-natural-wall-v3.jpg');
     assert.equal(item.user_approval,item.id==='MM1'?'VISUAL_DIRECTION_ACCEPTED':'PENDING');
     const data=readFileSync(new URL('../'+item.path,import.meta.url));
     const sha=createHash('sha1').update('blob '+data.length+'\0').update(data).digest('hex');
