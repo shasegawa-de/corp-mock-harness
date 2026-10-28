@@ -72,3 +72,9 @@ Actual billable image output tokens are not predictable from the prompt's word c
 - The experiment has **not** used a live API credential or sent a paid image generation request from this chat. Existing GitHub Actions tests use mocks and dry-runs only.
 
 Security evidence: [GitHub secrets reference](https://docs.github.com/en/actions/reference/security/secrets), [workflow artifacts read access](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).
+
+## 7. Offline two-pass score aggregation
+
+After the Mac has generated all 12 PNG/JSON pairs, run `node scripts/private-pilot-cli.mjs --prepare-blind`. Review the images in the private `blind/` directory and enter PASS/FAIL for four hard gates, and 0–2 for geometry, composition, architecture and lighting in `blind/scores.csv`. **Leave `fidelity_0_2` blank during visual review.** The group assignment and variant-specific prompts must not be shown to the visual reviewers.
+
+When all 12 visual scores are complete, freeze a private copy of the score sheet, then reveal `mapping-private.json`, compare each image with its original prompt and enter `fidelity_0_2` (0–2). Run `node scripts/review-summary-cli.mjs` to obtain hard-failure counts and separately averaged axes for A/B/C by scene. Incomplete visual rounds do not print any arm-level scores. This is a descriptive pilot, not statistically proven superiority. Scores and images are neither auto-uploaded nor auto-approved.
