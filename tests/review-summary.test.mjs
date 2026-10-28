@@ -17,12 +17,21 @@ test('12 blinded scores remain private; report retains per-axis means and hard f
   try {
     const report=reviewSummary(root,dir);
     assert.equal(report.complete,true);
+    assert.equal(report.visual_complete,true);
+    assert.equal(report.fidelity_complete,true);
     assert.equal(report.reviewed,12);
     assert.equal(report.arms[0].hard_fail,1);
     assert.equal(report.arms[0].means.lighting_0_2,0);
     assert.equal(report.arms[1].hard_fail,0);
     assert.equal(report.arms[5].reviewed,2);
     const source=readFileSync(sheet,'utf8');
+    const preUnblind=source.replaceAll(',1,"some, note"',',,"some, note"');
+    writeFileSync(sheet,preUnblind);
+    const visual=reviewSummary(root,dir);
+    assert.equal(visual.visual_complete,true);
+    assert.equal(visual.fidelity_complete,false);
+    assert.equal(visual.complete,false);
+    assert.equal(visual.arms[0].means.fidelity_0_2,null);
     writeFileSync(sheet,source.replace('R01,PASS','R01,UNKNOWN'));
     assert.throws(()=>reviewSummary(root,dir),/Incomplete hard-gate/);
     writeFileSync(sheet,source.replace('R01,PASS,PASS','R01,PASS,'));
