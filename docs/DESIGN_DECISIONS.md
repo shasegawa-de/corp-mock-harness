@@ -100,3 +100,12 @@
 - カタログを超える一括生成、運用自動化、追加デバイス等は別の企画・レビューとする。
 
 関連資料: [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)（過去の経緯。vNextの古い記述が含まれる）／[PROMPT_BUILDER.md](PROMPT_BUILDER.md)（設計とテスト）／[IMAGE_GAP_AUDIT.md](IMAGE_GAP_AUDIT.md)（画像の証拠）／[tests/browser-smoke.mjs](../tests/browser-smoke.mjs)（実装検証）。
+
+## 2026-10-28 — MacBook Pro ×2 の正式追加
+
+- **採用**: 対象「Mac + Mac（2台）」を独立した対象ID `mac-pair` として追加。14インチMacBook Proを同型2台とし、両画面・両キーボード・両トラックパッドを遮らない。iPhoneや第三の端末は混入させない。
+- **構図**: 左右配置（接地）と、奥行き差を設ける床なし浮遊の2シーン。1枚16:9・1視点、両Macは常に開いた状態。
+- **ハーネス**: 必須4ファイルの `AGENTS.md` / `STYLE.md` / `configs/devices.json` / `configs/presets.json` に反映。 `catalog-next/engine.mjs` はMac + iPhoneとは異なるプロンプトを組み立てる。
+- **カタログ**: 旧版原本30件を保持したまま、公開版に `MM1` と `MM2` の2カードを追加し、全32件にする。対応する一覧行・フィルターとプロンプトモーダルにも組み込む。画像は未生成で、QAと厳密なプロンプト一致は未検証。
+- **画像の扱い**: 他のMac単体画像を流用せず、プレースホルダーに「画像未生成」を表示。将来採用する写真は別途QA・原本記録とハッシュ検証を必要とする。
+- **過去記録との区別**: この文書の「30件」は2026-10-21時点の仕様を示す。旧版 `/legacy/` は30件、公開版は32件。
