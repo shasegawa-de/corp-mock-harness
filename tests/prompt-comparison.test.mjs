@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {resolve,join} from 'node:path';
-import {ARMS,prepareComparison,generateComparison,lexicalWords,HEADINGS} from '../scripts/prompt-comparison.mjs';
+import {ARMS,prepareComparison,generateComparison,lexicalWords,HEADINGS,COMPARISON_MODEL} from '../scripts/prompt-comparison.mjs';
 const root=resolve(import.meta.dirname,'..');
 for(const id of Object.keys(ARMS))test('MM comparison prompt is locked: '+id,()=>{
   const plan=prepareComparison(root,id);
   assert.equal(plan.request.n,1);
   assert.equal(plan.request.size,'1536x864');
+  assert.equal(plan.request.model,COMPARISON_MODEL);
+  assert.equal(COMPARISON_MODEL,'gpt-image-2.5-flare-2026-09-08');
   assert.deepEqual(plan.scene.devices,['macbookpro14','macbookpro14']);
   assert.equal(plan.request.prompt,readFileSync(join(root,ARMS[id].path),'utf8'));
   assert.ok(plan.words>=80);
