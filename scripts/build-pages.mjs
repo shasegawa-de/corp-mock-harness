@@ -26,6 +26,9 @@ for(const record of approved.images){
   mkdirSync(resolve(destination,'..'),{recursive:true});
   cpSync(join(root,record.path),destination);
 }
+// Two MacBook reference photos are generated assets, not user-approved originals.
+// The manifest is published alongside JPEGs for separate provenance checks.
+cpSync(join(root,'assets/macbook-pair'),join(out,'assets/macbook-pair'),{recursive:true});
 const data=join(out,'next/data');mkdirSync(data,{recursive:true});
 for(const path of ['AGENTS.md','STYLE.md','configs/devices.json','configs/presets.json'])cpSync(join(root,path),join(data,path.split('/').at(-1)));
 writeFileSync(join(data,'source.json'),JSON.stringify({commit})+'\n');
