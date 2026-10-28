@@ -5,6 +5,10 @@ on:
     paths:
       - 'prompts/experiments/**'
       - 'scripts/prompt-comparison*.mjs'
+      - 'scripts/private-pilot*.mjs'
+      - 'scripts/review-summary*.mjs'
+      - 'tests/private-pilot.test.mjs'
+      - 'tests/review-summary.test.mjs'
       - 'tests/prompt-comparison.test.mjs'
       - '.github/workflows/mm-prompt-comparison.yml'
   workflow_dispatch:
@@ -48,7 +52,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run prompt and secure offline pilot tests
-        run: node --test tests/prompt-comparison.test.mjs tests/private-pilot.test.mjs
+        run: node --test tests/prompt-comparison.test.mjs tests/private-pilot.test.mjs tests/review-summary.test.mjs
       - name: Verify all six arms without image API
         run: |
           for arm in mm1-a mm1-b mm1-c mm2-a mm2-b mm2-c; do
