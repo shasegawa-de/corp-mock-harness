@@ -4,7 +4,8 @@ import {resolve,relative,join,isAbsolute,sep} from 'node:path';
 import {homedir} from 'node:os';
 import {randomBytes} from 'node:crypto';
 import {prepareComparison,generateComparison,ARMS} from './prompt-comparison.mjs';
-import {pngDimensions,sha256} from './gpt-image-transport.mjs';
+import {sha256} from './gpt-image-transport.mjs';
+import {verifyCompletePng} from './png-validate.mjs';
 
 export const TASKS=Object.keys(ARMS).flatMap(arm=>[1,2].map(trial=>({arm,trial,base:arm+'-trial-'+trial})));
 export const DEFAULT_PRIVATE_DIR=join(homedir(),'.corp-mock-harness-private-reviews');
@@ -33,7 +34,7 @@ export function inventory(root,dir){
     if(existsSync(pendingFile(dir,t)))throw Error('Unresolved prior paid request marker: '+t.base);
     if(existsSync(i)!==existsSync(p))throw Error('Incomplete PNG and metadata pair: '+t.base);
     if(!existsSync(i))return {...t,status:'missing',prompt_sha256:plan.prompt_sha256};
-    const m=JSON.parse(readFileSync(p,'utf8')),data=readFileSync(i),dim=pngDimensions(data);
+    const m=JSON.parse(readFileSync(p,'utf8')),data=readFileSync(i),dim=verifyCompletePng(data);
     if(m.arm_id!==t.arm||m.trial!==t.trial||m.prompt_sha256!==plan.prompt_sha256||
        m.image_sha256!==sha256(data)||m.approved!==false||dim.width!==1536||dim.height!==864)
       throw Error('Image provenance integrity failed: '+t.base);
@@ -77,6 +78,7 @@ export async function pilot({root,outputDir=DEFAULT_PRIVATE_DIR,limit=12,key,gen
     save(pendingFile(dir,t),JSON.stringify({task:t.base,prompt_sha256:t.prompt_sha256,state:'inflight_or_unknown'})+'\n');
     report('Generating '+t.base+' (one API request)');
     const {image,metadata}=await generate({root,id:t.arm,key});
+    verifyCompletePng(image); // reject truncated or corrupted network images before persisting
     metadata.trial=t.trial;
     save(imageFile(dir,t),image);
     save(metaFile(dir,t),JSON.stringify(metadata,null,2)+'\n');

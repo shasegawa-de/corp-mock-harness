@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {validateCatalog} from '../catalog-next/engine.mjs';
 import {SIZE,sha256,pngDimensions} from './gpt-image-transport.mjs';
+import {verifyCompletePng} from './png-validate.mjs';
 // Pin the image model for this comparison; a moving alias can invalidate A/B/C controls.
 export const COMPARISON_MODEL='gpt-image-2.5-flare-2026-09-08';
 export const ARMS={
@@ -70,8 +71,7 @@ export async function generateComparison({root,id,key,fetcher=fetch}){
   if(result.data?.length!==1||typeof result.data[0].b64_json!=='string')
     throw Error('Expected exactly one image');
   const image=Buffer.from(result.data[0].b64_json,'base64');
-  const dimensions=pngDimensions(image);
-  if(dimensions.width!==1536||dimensions.height!==864)throw Error('Incorrect output dimensions');
+  const dimensions=verifyCompletePng(image);
   return {image,metadata:{arm_id:id,variant:plan.arm.variant,scene_preset:plan.arm.preset,
     source_prompt:plan.arm.path,prompt_sha256:plan.prompt_sha256,
     source_hashes:plan.source_hashes,model:COMPARISON_MODEL,size:SIZE,quality:'high',n:1,

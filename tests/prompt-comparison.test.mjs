@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {resolve,join} from 'node:path';
 import {ARMS,prepareComparison,generateComparison,lexicalWords,HEADINGS,COMPARISON_MODEL} from '../scripts/prompt-comparison.mjs';
+import {mockPng} from './helpers/png-fixture.mjs';
 const root=resolve(import.meta.dirname,'..');
 for(const id of Object.keys(ARMS))test('MM comparison prompt is locked: '+id,()=>{
   const plan=prepareComparison(root,id);
@@ -39,10 +40,7 @@ for(const group of ['mm1','mm2'])test('A/B lexicon stable and C direction change
   }
 });
 test('API gets exact locked payload and never approves image automatically',async()=>{
-  const id='mm1-c',plan=prepareComparison(root,id),image=Buffer.alloc(33);
-  Buffer.from('89504e470d0a1a0a','hex').copy(image);
-  image.writeUInt32BE(13,8);image.write('IHDR',12);
-  image.writeUInt32BE(1536,16);image.writeUInt32BE(864,20);
+  const id='mm1-c',plan=prepareComparison(root,id),image=mockPng();
   let calls=0;
   const fetcher=async(url,init)=>{
     calls++;

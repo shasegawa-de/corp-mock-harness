@@ -7,9 +7,11 @@ import {spawnSync} from 'node:child_process';
 import {TASKS,privateDirectory,pilot,prepareBlind} from '../scripts/private-pilot.mjs';
 import {sha256} from '../scripts/gpt-image-transport.mjs';
 import {prepareComparison} from '../scripts/prompt-comparison.mjs';
+import {mockPng} from './helpers/png-fixture.mjs';
+import {verifyCompletePng} from '../scripts/png-validate.mjs';
 const root=resolve(import.meta.dirname,'..');
 const fresh=()=>mkdtempSync(join(tmpdir(),'corp-harness-test-'));
-const png=()=>{const bytes=Buffer.alloc(33);Buffer.from('89504e470d0a1a0a','hex').copy(bytes);bytes.writeUInt32BE(13,8);bytes.write('IHDR',12);bytes.writeUInt32BE(1536,16);bytes.writeUInt32BE(864,20);return bytes;};
+const png=()=>mockPng();
 test('12 distinct trial identifiers, dry run without key',()=>{
   assert.equal(new Set(TASKS.map(x=>x.base)).size,12);
   const p=spawnSync(process.execPath,['scripts/private-pilot-cli.mjs','--dry-run'],{cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:''}});
@@ -52,5 +54,20 @@ test('unknown paid call does not retry',async()=>{
     await assert.rejects(pilot({root,outputDir:dir,limit:1,key:'DUMMY',generate}),/remote error/);
     await assert.rejects(pilot({root,outputDir:dir,limit:1,key:'DUMMY',generate}),/Unresolved prior paid request/);
     assert.equal(calls,1);
+  }finally{rmSync(temp,{recursive:true,force:true});}
+});
+
+test('truncated and CRC-corrupted PNGs are rejected before being recorded as successful trials',async()=>{
+  const valid=mockPng();
+  assert.deepEqual(verifyCompletePng(valid),{width:1536,height:864});
+  assert.throws(()=>verifyCompletePng(valid.subarray(0,33)),/Truncated|lacks|Incomplete/);
+  const corrupt=Buffer.from(valid);corrupt[52]^=0xff;
+  assert.throws(()=>verifyCompletePng(corrupt),/CRC mismatch|decompression failed/);
+  const temp=fresh(),dir=join(temp,'private');
+  const bad=async()=>({image:valid.subarray(0,33),metadata:{}});
+  try {
+    await assert.rejects(pilot({root,outputDir:dir,limit:1,key:'DUMMY',generate:bad}),/Truncated|lacks|Incomplete/);
+    assert.ok(existsSync(join(dir,'mm1-a-trial-1.pending')));
+    assert.equal(existsSync(join(dir,'mm1-a-trial-1.png')),false);
   }finally{rmSync(temp,{recursive:true,force:true});}
 });
