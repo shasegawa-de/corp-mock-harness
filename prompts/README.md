@@ -14,6 +14,8 @@ The prompt files under `prompts/` are **independent, complete render prompts** d
 | MacBook Pro floating, NO FLOOR | [macbookpro14/suspended.txt](macbookpro14/suspended.txt) | Visual candidate |
 | MacBook Pro + iPhone floating, NO FLOOR | [macbookpro14-iphone17/suspended.txt](macbookpro14-iphone17/suspended.txt) | **User-approved art direction** |
 | MacBook Pro + iPhone, grounded | [macbookpro14-iphone17/side-by-side.txt](macbookpro14-iphone17/side-by-side.txt) | Feasible candidate |
+| **MacBook Pro ×2, side-by-side** | [macbookpro14-macbookpro14/side-by-side.txt](macbookpro14-macbookpro14/side-by-side.txt) | **Prompt only; image not generated / not QA-approved** |
+| **MacBook Pro ×2, depth-staggered, FLOORLESS** | [macbookpro14-macbookpro14/suspended-depth.txt](macbookpro14-macbookpro14/suspended-depth.txt) | **Prompt only; image not generated / not QA-approved** |
 
 **`hover`**: near-floor with visible contact surface. **`suspended`**: weightless in a **floorless** frame, no floor horizon or ground shadow. These are different scenes. Exact Apple hardware fidelity remains unverified. The original image binaries have NOT yet been committed; these are reusable text prompts and documented visual decisions. See [review history](../history/2026-10-19-approved-directions.md).
 
