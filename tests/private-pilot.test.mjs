@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,rmSync,statSync,existsSync,readdirSync,chmodSync} from 'node:fs';
+import {mkdtempSync,rmSync,statSync,existsSync,readdirSync,chmodSync,readFileSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
@@ -30,6 +30,16 @@ test('offline 12-run resume, private PNG/JSON and blind package',async()=>{
     const blind=prepareBlind(root,dir);assert.equal(blind.count,12);
     assert.equal(readdirSync(blind.blind).filter(x=>x.endsWith('.png')).length,12);
     assert.ok(existsSync(join(dir,'mapping-private.json')));
+    const manifest=readFileSync(join(blind.blind,'scene-manifest.csv'),'utf8');
+    assert.equal(manifest.trim().split('\n').length,13);
+    assert.equal((manifest.match(/,MM1,grounded/g)||[]).length,6);
+    assert.equal((manifest.match(/,MM2,floorless/g)||[]).length,6);
+    assert.doesNotMatch(manifest,/mm1-a|mm1-b|mm1-c|mm2-a|mm2-b|mm2-c|trial/);
+    const already=spawnSync(process.execPath,['scripts/private-pilot-cli.mjs','--execute','--output='+dir],
+      {cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:''}});
+    assert.equal(already.status,0,already.stderr);
+    assert.match(already.stdout,/Verified 12\/12/);
+    assert.doesNotMatch(already.stdout+already.stderr,/Temporary OpenAI project API key/);
     assert.throws(()=>prepareBlind(root,dir),/already exists/);
     const done=await pilot({root,outputDir:dir,limit:12,key:'DUMMY_NO_NETWORK',generate});assert.equal(done.generated,0);
     assert.equal(calls,12);

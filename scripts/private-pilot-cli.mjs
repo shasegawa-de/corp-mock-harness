@@ -16,14 +16,18 @@ if(blind){
   if(!existing.exists)console.log('Dry run: no images yet; 12 requests remain. API not called.');
   else {const scan=inventory(root,existing.directory);console.log(JSON.stringify({dry_run:true,complete:scan.complete,remaining:scan.remaining,trials:scan.tasks},null,2));}
 }else{
-  if(existing.exists)inventory(root,existing.directory); // Precheck before key entry
-  const key=await maskedKey();
-  try{
-    const result=await pilot({root,outputDir:dir,key,limit,report:console.log});
-    console.log('Verified '+result.complete+'/12; remaining '+result.remaining+'. No files uploaded.');
-  }catch(error){
-    console.error('Stopped: '+error.message);
-    console.error('If a .pending marker exists, reconcile provider usage manually before resubmitting.');
-    process.exitCode=1;
+  const scan=existing.exists?inventory(root,existing.directory):null;
+  if(scan?.remaining===0){
+    console.log('Verified 12/12; all trial images already exist. No API key or paid request needed.');
+  }else{
+    const key=await maskedKey();
+    try{
+      const result=await pilot({root,outputDir:dir,key,limit,report:console.log});
+      console.log('Verified '+result.complete+'/12; remaining '+result.remaining+'. No files uploaded.');
+    }catch(error){
+      console.error('Stopped: '+error.message);
+      console.error('If a .pending marker exists, reconcile provider usage manually before resubmitting.');
+      process.exitCode=1;
+    }
   }
 }
