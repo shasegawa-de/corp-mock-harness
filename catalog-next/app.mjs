@@ -31,6 +31,7 @@ try{
   initApprovedTX1();
   initApprovedTX2();
   initApprovedMR1();
+  initGeneratedMacPairs();
   for(const {card,input,originalPrompt,sourceUrl} of examples){
     // Replace the canonical image-preview button to discard its legacy
     // lightbox handler. The card itself is the single gallery entry point.
@@ -82,6 +83,35 @@ try{
   });
 }catch(error){$('composer-error').hidden=false;$('composer-error').textContent=`条件変更を読み込めません。${error.message}`;console.error(error);}
 
+
+// The Mac+Mac cards start with an explicit unrendered fallback. Activate the
+// independently generated JPEG only after it loads at a sensible 16:9 size.
+// Human aesthetic approval, exact hardware geometry and effective prompt
+// fidelity remain UNVERIFIED; this label is NOT equivalent to "approved".
+function initGeneratedMacPairs(){
+  for(const [id,file,scene] of [
+    ['MM1','mm1-grounded.jpg','2台のMacBook Proを床に横並び'],
+    ['MM2','mm2-suspended.jpg','2台のMacBook Proを床なしで前後浮遊']
+  ]){
+    const card=cards.find(item=>item.dataset.id===id);
+    const img=card?.querySelector('.image-wrap img');
+    if(!img)continue;
+    const url=new URL('../assets/macbook-pair/'+file,import.meta.url).href;
+    const candidate=new Image();
+    candidate.addEventListener('load',()=>{
+      if(candidate.naturalWidth<1000||candidate.naturalHeight<550||
+        Math.abs(candidate.naturalWidth/candidate.naturalHeight-16/9)>0.025)return;
+      img.dataset.onlineImage=url;
+      img.src=url;
+      img.alt=id+'：画像生成済み。'+scene+'。寸法・プロンプト一致は未検証';
+      const status=card.querySelector('.quality');
+      if(status)status.textContent='生成済み・要レビュー';
+      const qa=card.querySelector('.qa');
+      if(qa)qa.textContent='画像QA：構図・2台の画面とキーボードを目視確認した生成画像（Adobe Firefly）。寸法、細部の筐体再現性、元プロンプトとの厳密な一致とユーザー承認は未検証。';
+    });
+    candidate.src=url;
+  }
+}
 
 // Adopt the user-approved MR2 GPT Image original only after GitHub serves it.
 // Fail closed on 404: until the binary is published, retain the canonical
