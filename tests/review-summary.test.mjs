@@ -36,5 +36,15 @@ test('12 blinded scores remain private; report retains per-axis means and hard f
     assert.throws(()=>reviewSummary(root,dir),/Incomplete hard-gate/);
     writeFileSync(sheet,source.replace('R01,PASS,PASS','R01,PASS,'));
     assert.throws(()=>reviewSummary(root,dir),/Incomplete hard-gate/);
+    // An early prompt-fidelity rating must not reveal the A/B/C arms.
+    writeFileSync(sheet,source.replace('R01,PASS,PASS,FAIL,PASS,2,1,2,0,1,','R01,,,,,,,,,,'));
+    assert.throws(()=>reviewSummary(root,dir),/Prompt fidelity must remain hidden/);
+    // R01-R12 labels alone are not sufficient: each experimental arm/trial must occur exactly once.
+    writeFileSync(sheet,source);
+    const invalid=mapping.map(x=>({...x}));
+    invalid[11]={...invalid[11],arm:'mm1-a',trial:1};
+    writeFileSync(join(dir,'mapping-private.json'),JSON.stringify(invalid));
+    assert.throws(()=>reviewSummary(root,dir),/Invalid or incomplete identity mapping/);
+
   } finally {rmSync(dir,{recursive:true,force:true});}
 });
