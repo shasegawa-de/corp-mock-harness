@@ -40,3 +40,15 @@ If you need more runs, select the other arm/trial identifiers individually. The 
 - No Authorization on redirected requests.
 - Fixed cost-per-execution cardinality: one image request, `n=1`.
 - API model's internal prompt is not verifiable despite the submitted request SHA match.
+
+## Resumable private pilot (no key stored)
+
+Use Node 22+ from a trusted Mac checkout of the experimental branch:
+
+    node scripts/private-pilot-cli.mjs --dry-run
+    node scripts/private-pilot-cli.mjs --execute --limit=12
+    node scripts/private-pilot-cli.mjs --prepare-blind
+
+The execute command requests a temporary project API key using a masked terminal prompt. No key is accepted from argv, the environment, Git, logs or on-disk files. This differs from the older single-arm runner, which uses an environment variable. The private pilot verifies existing prompt hashes and PNG/JSON image hashes and skips already completed trial pairs. It writes an owner-only .pending marker before each API request and refuses to rerun that trial automatically following a crash or ambiguous failure. Each run makes at most 12 one-image calls, with no retries. The blind-review command requires all 12 verified images and places randomly numbered copies and an empty scores.csv in the owner-only blind folder, with arm mapping stored separately in mapping-private.json. Review images are never uploaded to the public repository.
+
+**Note:** This chat cannot inject a project API key into a user's Mac. The actual paid requests still require the owner to run the command interactively on a trusted machine. The model's private effective prompt remains uninspectable even though the exact outgoing API JSON is verified.
