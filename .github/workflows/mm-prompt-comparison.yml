@@ -42,6 +42,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: '22'
@@ -57,6 +59,15 @@ jobs:
       - name: Only allow paid execution from the reviewed main branch
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
         run: test "$GITHUB_REF" = "refs/heads/main"
+      - name: Block paid run on public repository
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
+        env:
+          REPOSITORY_PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          if [ "$REPOSITORY_PRIVATE" != "true" ]; then
+            echo "::error::Paid generation blocked: the repository is public; use the local private runner."
+            exit 1
+          fi
       - name: Generate exactly one paid unapproved image
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
         env:
@@ -70,4 +81,4 @@ jobs:
           name: mm-comparison-${{ inputs.arm }}-trial-${{ inputs.trial }}-${{ github.run_id }}
           path: ${{ runner.temp }}/mm-comparison/
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 7

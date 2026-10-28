@@ -53,6 +53,7 @@ test('API gets exact locked payload and never approves image automatically',asyn
   assert.equal(result.metadata.approved,false);
   assert.equal(result.metadata.effective_model_prompt,'UNVERIFIED');
   assert.equal(result.metadata.prompt_transport,'EXACT_REQUEST_SUBMITTED');
+  assert.equal(JSON.stringify(result.metadata).includes('dummy'),false,'API key must never enter metadata');
 });
 test('missing API key means no request',async()=>{
   let calls=0;
@@ -79,4 +80,21 @@ test('twelve independent dry-run trial IDs do not invoke the image API',()=>{
   const bad=spawnSync(process.execPath,['scripts/prompt-comparison-cli.mjs','--arm=mm1-a','--trial=3','--dry-run'],
     {cwd:root,encoding:'utf8'});
   assert.notEqual(bad.status,0);
+});
+
+test('paid run rejects output inside Git tree before any request and never logs a key',()=>{
+  const canary='TEST_CANARY_TOKEN_NO_NETWORK';
+  const run=spawnSync(process.execPath,[
+    'scripts/prompt-comparison-cli.mjs','--arm=mm1-c','--trial=1','--execute',
+    '--output='+join(root,'generated-review')
+  ],{cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:canary}});
+  assert.notEqual(run.status,0);
+  assert.match(run.stderr,/Refusing to write review files inside Git repository/);
+  assert.equal((run.stdout+run.stderr).includes(canary),false,'Secret must never be echoed');
+});
+test('public repository paid workflow has a hard stop before secret injection',()=>{
+  const workflow=readFileSync(join(root,'.github/workflows/mm-prompt-comparison.yml'),'utf8');
+  assert.match(workflow,/Block paid run on public repository/);
+  assert.match(workflow,/REPOSITORY_PRIVATE/);
+  assert.match(workflow,/persist-credentials: false/);
 });

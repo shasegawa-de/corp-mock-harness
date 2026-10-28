@@ -58,3 +58,17 @@ The manual workflow has **arm** and **trial** selectors. Each arm gets two indep
 Actual billable image output tokens are not predictable from the prompt's word count alone. Read `usage` and OpenAI's current pricing for costs; **do not assume a fixed USD amount for the 12-image pilot**. Both `gpt-image-2.5-flare` and `1536x864` are supported per the [official image generation guide](https://developers.openai.com/api/docs/guides/image-generation). Explicitly review API expense before using `execute=true` and note that `OPENAI_API_KEY` is a repository secret, not a chat credential.
 
 **Execution limitation:** This PR's workflow is not merged to default `main`. GitHub's workflow-dispatch interface requires a workflow registered on the default branch. The paid workflow cannot be launched via this draft PR alone. A local Node 22+ checkout of this experimental branch can also run one arm at a time with `--execute` after the owner supplies a local `OPENAI_API_KEY`. Neither route has been used to generate paid images here.
+
+## 6. Credential and output security — mandatory
+
+**Current repository visibility: PUBLIC.** Never commit, paste into ChatGPT, put into issue/PR text, or place in a prompt, PNG, JSON, GitHub Actions log, command-line argument or screenshot any real API key.
+
+- `--dry-run` never reads or sends an API key; integration tests use a harmless dummy string and a mocked HTTP transport.
+- The actual key is read only from `OPENAI_API_KEY` in the process environment when `--execute` is explicitly selected. The script sends it as a Bearer header over HTTPS to the fixed OpenAI API endpoint. The key is never written to output metadata.
+- The local runner places PNG/JSON in `~/.corp-mock-harness-private-reviews` by default, **outside Git**. It enforces private directory permissions (0700), files (0600), rejects any output directory inside the repository including symlink redirects, and refuses existing trial files **before** making a billable request.
+- The GitHub workflow is read-only (`permissions: contents: read`, no persisted checkout credentials), and **refuses paid execution when the repository is public**. This also protects review images and metadata: Actions artifacts in public repositories are accessible to users with read access. Switching to a private review repository or encrypted artifacts requires a separate security review; do not weaken this gate just to get results.
+- For personal local use, enter the key in a trusted terminal *without placing it directly in a shell command or shell history*, run the review from a private Node 22+ checkout, and then clear the environment variable. Never send the key to this chat.
+- Do not collect `OPENAI_API_KEY` by form, commit, URL query, CI input, PR comment, or shared document. Restrict its project permissions and spending limits within the OpenAI API dashboard.
+- The experiment has **not** used a live API credential or sent a paid image generation request from this chat. Existing GitHub Actions tests use mocks and dry-runs only.
+
+Security evidence: [GitHub secrets reference](https://docs.github.com/en/actions/reference/security/secrets), [workflow artifacts read access](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts).

@@ -60,7 +60,8 @@ export async function generateComparison({root,id,key,fetcher=fetch}){
   const body=JSON.stringify(plan.request);
   if(sha256(JSON.parse(body).prompt)!==plan.prompt_sha256)throw Error('Prompt mutated before submission');
   const response=await fetcher('https://api.openai.com/v1/images/generations',{
-    method:'POST',headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},body
+    method:'POST',headers:{Authorization:'Bearer '+key,'Content-Type':'application/json'},
+    redirect:'error',signal:AbortSignal.timeout(240000),body
   });
   if(!response.ok)throw Error('API HTTP '+response.status);
   const result=await response.json();
