@@ -2,26 +2,30 @@
   "schema_version": 1,
   "generated_at": "2026-10-28",
   "provider": "Adobe Firefly",
-  "asset_kind": "JPEG rendition of AI-generated product photograph",
+  "asset_kind": "JPEG 16:9 rendition of AI-generated product photograph",
   "review_status": "VISUAL_QA_PRELIMINARY__USER_APPROVAL_PENDING",
   "prompt_fidelity": "PROMPT_UNVERIFIED",
-  "notes": "The full-resolution source PNG from Adobe Firefly was not archived; the Git-tracked images are exported JPEG renditions. The published standalone prompts are design specifications, not proof of the provider's effective generation prompts. Actual hardware measurements and original approval remain unverified.",
+  "notes": "Exact 2016×1134 image crops from Adobe Firefly 2016×1152 PNG generation outputs, stored as JPEG renditions. Original Firefly PNG outputs are not tracked; the published standalone prompts are design specifications, not proof of the provider's effective generation input. Actual Mac hardware measurements and user approval remain unverified.",
   "images": [
     {
       "id": "MM1",
       "path": "assets/macbook-pair/mm1-grounded.jpg",
-      "git_blob_sha1": "6dcb8af3b32492e74fd10f54a309df1b90e55902",
+      "git_blob_sha1": "a4303db1cebd05788de7d3c47b8909331ca1b7d1",
       "scene": "two open 14-inch laptops, grounded on mineral floor, side by side",
       "visual_qa": "PRELIMINARY_PASS",
-      "user_approval": "PENDING"
+      "user_approval": "PENDING",
+      "width": 2016,
+      "height": 1134
     },
     {
       "id": "MM2",
       "path": "assets/macbook-pair/mm2-suspended.jpg",
-      "git_blob_sha1": "7f47038045ffaa466250e75685d1d3b99837b5b1",
+      "git_blob_sha1": "9490317151b8657dc046a822c3ebc04a59d854f4",
       "scene": "two open 14-inch laptops, separate depth, floorless floating",
       "visual_qa": "PRELIMINARY_PASS",
-      "user_approval": "PENDING"
+      "user_approval": "PENDING",
+      "width": 2016,
+      "height": 1134
     }
   ]
 }
