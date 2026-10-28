@@ -1,6 +1,6 @@
 # Two-Mac layout regeneration — review candidates (2026-10-28)
 
-These images are **review candidates, not user-approved**. The currently published MM1/MM2 catalog cards are not replaced by candidates. Original assets remain at `assets/macbook-pair/mm1-grounded.jpg` and `mm2-suspended.jpg`.
+This directory retains review history, including rejected versions. **MM2-v3 now appears on the published catalog MM2 card at the user's request, but final visual QA and accurate MacBook geometry remain unapproved.** The live MM1 photo is `assets/macbook-pair/mm1-adopted-v5.jpg`. Earlier MM1/MM2 photos remain at `assets/macbook-pair/mm1-grounded.jpg` and `mm2-suspended.jpg`.
 
 | ID | Candidate | Layout / background | Review status |
 | --- | --- | --- | --- |
@@ -8,7 +8,7 @@ These images are **review candidates, not user-approved**. The currently publish
 | MM1 v3 | [mm1-natural-microcement-v3.jpg](mm1-natural-microcement-v3.jpg) | Foreground-left and rear-right laptops, seamless natural mineral floor/wall, BUT overly even and flat illumination | Background reference only; **not approved** as final art direction |
 | **MM1 v4 (current candidate)** | **[mm1-directional-light-v4.jpg](mm1-directional-light-v4.jpg)** | Same two Macs and natural wall/floor; diagonal soft daylight from upper left, more dimensional contrast and grounded shadows | **NEW UNAPPROVED CANDIDATE** — light improved over v3; user and exact hardware QA pending |
 | MM2 v2 | [mm2-offset-float-v2.jpg](mm2-offset-float-v2.jpg) | Staggered pair, repeated linear wall texture | **REJECTED by user — background distorted / unnatural**. Retained only as rejection evidence; do not publish or substitute into the catalog |
-| **MM2 v3 (current candidate)** | **[mm2-float-natural-wall-v3.jpg](mm2-float-natural-wall-v3.jpg)** | Lower-left foreground Mac and higher-right Mac; two open white screens, keyboards and trackpads visible; consistent subdued half-gray microcement vertical wall backdrop, no floor, horizontal horizon, ground shadow or support | **NEW UNAPPROVED CANDIDATE**. Background defect visually corrected. Hardware geometry, prompt fidelity and user selection remain unverified |
+| **MM2 v3 (current candidate)** | **[mm2-float-natural-wall-v3.jpg](mm2-float-natural-wall-v3.jpg)** | Lower-left foreground Mac and higher-right Mac; two open white screens, keyboards and trackpads visible; consistent subdued half-gray microcement vertical wall backdrop, no floor, horizontal horizon, ground shadow or support | **PUBLISHED AS REVIEW IMAGE**. Background visually improved; hardware geometry, prompt fidelity and final user QA are still unverified |
 
 ### Generation and QA notes
 
