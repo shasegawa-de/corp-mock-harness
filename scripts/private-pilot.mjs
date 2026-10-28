@@ -101,6 +101,10 @@ export function prepareBlind(root,outputDir){
   const mapping=shuffled.map((t,i)=>({blind_id:'R'+String(i+1).padStart(2,'0'),arm:t.arm,trial:t.trial,image_sha256:t.image_sha256}));
   for(let i=0;i<shuffled.length;i++)copyFileSync(imageFile(target.directory,shuffled[i]),join(blind,mapping[i].blind_id+'.png'),constants.COPYFILE_EXCL);
   save(join(target.directory,'mapping-private.json'),JSON.stringify(mapping,null,2)+'\n');
+  // Reviewers must know MM1 (grounded) versus MM2 (floorless), but not A/B/C or trial.
+  const publicSceneManifest=['blind_id,scene,required_spatial_mode',
+    ...mapping.map(x=>x.blind_id+','+(x.arm.startsWith('mm1-')?'MM1,grounded':'MM2,floorless'))];
+  save(join(blind,'scene-manifest.csv'),publicSceneManifest.join('\n')+'\n');
   const headings=['blind_id','hard_devices','hard_screens','hard_spatial','hard_one_view','geometry_0_2','composition_0_2','architecture_0_2','lighting_0_2','fidelity_0_2','notes'];
   const csv=[headings.join(','),...mapping.map(x=>x.blind_id+','+','.repeat(headings.length-2))].join('\n')+'\n';
   save(join(blind,'scores.csv'),csv);
