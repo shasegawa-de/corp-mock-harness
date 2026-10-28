@@ -1,41 +1,20 @@
-name: MM1/MM2 A-B-C prompt comparison
+name: MM1/MM2 A-B-C prompt comparison (safe preflight)
 
 on:
   pull_request:
     paths:
+      - 'AGENTS.md'
+      - 'STYLE.md'
+      - 'configs/**'
       - 'prompts/experiments/**'
       - 'scripts/prompt-comparison*.mjs'
       - 'scripts/private-pilot*.mjs'
       - 'scripts/review-summary*.mjs'
+      - 'tests/prompt-comparison.test.mjs'
       - 'tests/private-pilot.test.mjs'
       - 'tests/review-summary.test.mjs'
-      - 'tests/prompt-comparison.test.mjs'
       - '.github/workflows/mm-prompt-comparison.yml'
   workflow_dispatch:
-    inputs:
-      arm:
-        description: 'One fixed experiment arm'
-        required: true
-        type: choice
-        options:
-          - mm1-a
-          - mm1-b
-          - mm1-c
-          - mm2-a
-          - mm2-b
-          - mm2-c
-      trial:
-        description: 'Independent replicate for this arm'
-        required: true
-        type: choice
-        options:
-          - '1'
-          - '2'
-      execute:
-        description: 'Generate ONE paid image; false is free dry-run'
-        required: true
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -51,38 +30,12 @@ jobs:
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: '22'
-      - name: Run prompt and secure offline pilot tests
+      - name: Run prompt and offline security tests
         run: node --test tests/prompt-comparison.test.mjs tests/private-pilot.test.mjs tests/review-summary.test.mjs
-      - name: Verify all six arms without image API
+      - name: Verify twelve dry-run descriptions without image API
         run: |
           for arm in mm1-a mm1-b mm1-c mm2-a mm2-b mm2-c; do
             for trial in 1 2; do
               node scripts/prompt-comparison-cli.mjs --arm="$arm" --trial="$trial" --dry-run
             done
           done
-      - name: Only allow paid execution from the reviewed main branch
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
-        run: test "$GITHUB_REF" = "refs/heads/main"
-      - name: Block paid run on public repository
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
-        env:
-          REPOSITORY_PRIVATE: ${{ github.event.repository.private }}
-        run: |
-          if [ "$REPOSITORY_PRIVATE" != "true" ]; then
-            echo "::error::Paid generation blocked: the repository is public; use the local private runner."
-            exit 1
-          fi
-      - name: Generate exactly one paid unapproved image
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
-        env:
-          ARM: ${{ inputs.arm }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: node scripts/prompt-comparison-cli.mjs --arm="$ARM" --trial="${{ inputs.trial }}" --execute --output="$RUNNER_TEMP/mm-comparison"
-      - name: Keep result for human QA
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: mm-comparison-${{ inputs.arm }}-trial-${{ inputs.trial }}-${{ github.run_id }}
-          path: ${{ runner.temp }}/mm-comparison/
-          if-no-files-found: error
-          retention-days: 7

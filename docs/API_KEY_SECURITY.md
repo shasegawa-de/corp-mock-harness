@@ -2,39 +2,31 @@
 
 **Do not store any real `OPENAI_API_KEY` in this repository, its history, issues, PRs, prompts, screenshots, review artifacts, or ChatGPT.**
 
-GitHub repo `shasegawa-de/corp-mock-harness` is public. A public Actions artifact is readable by anyone with repository read access. Therefore the experimental workflow intentionally blocks `execute=true` on public repos, even if a GitHub Actions secret is configured.
+GitHub repo `shasegawa-de/corp-mock-harness` is public. A public Actions artifact is readable by anyone with repository read access. Therefore the experimental GitHub Actions workflow has **no paid execution path, no API credential reference and no artifact upload**. It runs preflight tests only.
 
 ## Approved execution surfaces
-1. Use a trusted local checkout and environment variable supplied interactively to the running process; avoid terminal-history commands containing the literal key. Local output defaults to `~/.corp-mock-harness-private-reviews` and is rejected if the path resolves into the git checkout. The directory must have restrictive `0700` permissions; PNG and JSON are `0600`.
-2. Alternatively, run in a separately reviewed **private** repository/Actions environment with a repository or environment Secret and protected approvals. Do not simply merge the public workflow and enable artifact upload.
+1. Use the trusted local interactive pilot script. Enter a temporary key only in its masked terminal prompt; never export or paste the secret into a shell command, CLI argument, environment file or GitHub interface. Local output defaults to `~/.corp-mock-harness-private-reviews` and is rejected if the path resolves into the git checkout. The directory must have restrictive `0700` permissions; PNG and JSON are `0600`.
+2. A separately reviewed private execution environment may be built later, but is not part of this public repository's experiment. Do not enable cloud artifact upload by relaxing this rule.
 3. Keep the key for a restricted OpenAI API project with spending controls. Rotate it if disclosure is suspected.
 
 Every image request is a single `n=1` call with a fixed prompt file. The key is injected only as the HTTPS Authorization header, never as request prompt, query parameter, CLI argument, output path or metadata. No automatic retry on errors. Forbid redirects to protect Authorization.
 
-## Safe local launch example
+## Safe local launch
 
-From the repository root with a verified Node 22+ environment:
+From a verified Node 22+ checkout of this experimental branch, use these commands without supplying credentials in argv, history or environment:
 
 ```bash
-# Use an interactive hidden-input shell prompt (the API key will not appear in shell history).
-read -rsp 'Temporary OpenAI API key: ' OPENAI_API_KEY; echo
-export OPENAI_API_KEY
-
-node --test tests/prompt-comparison.test.mjs
-node scripts/prompt-comparison-cli.mjs --arm=mm1-a --trial=1 --dry-run
-# Billable: explicitly opt in to one image request:
-node scripts/prompt-comparison-cli.mjs --arm=mm1-a --trial=1 --execute
-
-unset OPENAI_API_KEY
+node scripts/private-pilot-cli.mjs --dry-run
+node scripts/private-pilot-cli.mjs --execute --limit=12
+node scripts/private-pilot-cli.mjs --prepare-blind
+node scripts/review-summary-cli.mjs
 ```
 
-`read -rsp` is shown for Bash. On macOS zsh use the corresponding secure interactive read syntax or switch temporarily to Bash. Avoid `set -x`, screenshots, shell transcript capture, `env` dumps and `echo $OPENAI_API_KEY`.
-
-If you need more runs, select the other arm/trial identifiers individually. The local runner refuses overwriting existing trial outputs before an API request. Review images are never auto-approved or uploaded to the public repo.
+Only `--execute` requests the temporary API key, using a masked terminal prompt. No key is saved to disk. The older single-arm CLI now intentionally refuses paid execution; it is for free prompt preflight only.
 
 ## Testable safety invariants
 
-- No paid work on PR events, public repos or default dry-run.
+- No paid work in GitHub Actions at all; no secret interpolation or result artifact uploads.
 - No secret values in logs or result JSON.
 - No output files under git-controlled paths.
 - No Authorization on redirected requests.
@@ -49,6 +41,6 @@ Use Node 22+ from a trusted Mac checkout of the experimental branch:
     node scripts/private-pilot-cli.mjs --execute --limit=12
     node scripts/private-pilot-cli.mjs --prepare-blind
 
-The execute command requests a temporary project API key using a masked terminal prompt. No key is accepted from argv, the environment, Git, logs or on-disk files. This differs from the older single-arm runner, which uses an environment variable. The private pilot verifies existing prompt hashes and PNG/JSON image hashes and skips already completed trial pairs. It writes an owner-only .pending marker before each API request and refuses to rerun that trial automatically following a crash or ambiguous failure. Each run makes at most 12 one-image calls, with no retries. The blind-review command requires all 12 verified images and places randomly numbered copies and an empty scores.csv in the owner-only blind folder, with arm mapping stored separately in mapping-private.json. Review images are never uploaded to the public repository.
+The execute command requests a temporary project API key using a masked terminal prompt. No key is accepted from argv, the environment, Git, logs or on-disk files. The older single-arm CLI is dry-run only. The private pilot verifies existing prompt hashes and PNG/JSON image hashes and skips already completed trial pairs. It writes an owner-only .pending marker before each API request and refuses to rerun that trial automatically following a crash or ambiguous failure. Each run makes at most 12 one-image calls, with no retries. The blind-review command requires all 12 verified images and places randomly numbered copies and an empty scores.csv in the owner-only blind folder, with arm mapping stored separately in mapping-private.json. Review images are never uploaded to the public repository.
 
 **Note:** This chat cannot inject a project API key into a user's Mac. The actual paid requests still require the owner to run the command interactively on a trusted machine. The model's private effective prompt remains uninspectable even though the exact outgoing API JSON is verified.

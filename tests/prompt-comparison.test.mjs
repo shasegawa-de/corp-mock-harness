@@ -84,19 +84,16 @@ test('twelve independent dry-run trial IDs do not invoke the image API',()=>{
   assert.notEqual(bad.status,0);
 });
 
-test('paid run rejects output inside Git tree before any request and never logs a key',()=>{
-  const canary='TEST_CANARY_TOKEN_NO_NETWORK';
-  const run=spawnSync(process.execPath,[
-    'scripts/prompt-comparison-cli.mjs','--arm=mm1-c','--trial=1','--execute',
-    '--output='+join(root,'generated-review')
-  ],{cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:canary}});
-  assert.notEqual(run.status,0);
-  assert.match(run.stderr,/Refusing to write review files inside Git repository/);
-  assert.equal((run.stdout+run.stderr).includes(canary),false,'Secret must never be echoed');
+test('the public-safe command refuses paid execution without reading any credential',()=>{
+  const canary='DUMMY_CREDENTIAL_MUST_NOT_APPEAR';
+  const result=spawnSync(process.execPath,['scripts/prompt-comparison-cli.mjs','--arm=mm1-a','--trial=1','--execute'],
+    {cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:canary}});
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/Paid execution is disabled here/);
+  assert.equal((result.stdout+result.stderr).includes(canary),false);
 });
-test('public repository paid workflow has a hard stop before secret injection',()=>{
+test('the public GitHub workflow contains no paid path, secret injection or artifact export',()=>{
   const workflow=readFileSync(join(root,'.github/workflows/mm-prompt-comparison.yml'),'utf8');
-  assert.match(workflow,/Block paid run on public repository/);
-  assert.match(workflow,/REPOSITORY_PRIVATE/);
   assert.match(workflow,/persist-credentials: false/);
+  assert.doesNotMatch(workflow,/OPENAI_API_KEY|secrets\\.|--execute|upload-artifact|actions\/upload-artifact/);
 });
