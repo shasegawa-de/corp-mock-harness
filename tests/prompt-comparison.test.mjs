@@ -19,7 +19,7 @@ for(const group of ['mm1','mm2'])test('A/B lexicon stable and C direction change
   const c=prepareComparison(root,group+'-c').request.prompt;
   assert.equal(lexicalWords(a),lexicalWords(b));
   assert.notEqual(lexicalWords(b),lexicalWords(c));
-  for(const heading of HEADINGS)assert.ok(c.split('\\n').includes(heading));
+  for(const heading of HEADINGS)assert.ok(c.split('\n').includes(heading));
   assert.match(c,/upper-left daylight/);
 });
 test('API gets exact locked payload and never approves image automatically',async()=>{

@@ -20,6 +20,6 @@ if(!execute){
   mkdirSync(dest,{recursive:true});
   const suffix=process.env.GITHUB_RUN_ATTEMPT?'-'+process.env.GITHUB_RUN_ATTEMPT:'';
   writeFileSync(join(dest,id+suffix+'.png'),image,{flag:'wx'});
-  writeFileSync(join(dest,id+suffix+'.json'),JSON.stringify(metadata,null,2)+'\\n',{flag:'wx'});
+  writeFileSync(join(dest,id+suffix+'.json'),JSON.stringify(metadata,null,2)+'\n',{flag:'wx'});
   console.log('UNAPPROVED comparison image saved: '+id+' sha256='+metadata.image_sha256);
 }

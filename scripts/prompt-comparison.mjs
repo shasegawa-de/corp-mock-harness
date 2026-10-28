@@ -14,8 +14,8 @@ export const ARMS={
 export const REQUIRED=['AGENTS.md','STYLE.md','configs/devices.json','configs/presets.json'];
 export const HEADINGS=["OUTPUT","SUBJECT","COMPOSITION","CAMERA","ENVIRONMENT","LIGHTING & ART DIRECTION","EXCLUSIONS"];
 export function lexicalWords(prompt){
-  return prompt.split('\\n').filter(line=>!HEADINGS.includes(line.trim()))
-    .join(' ').toLowerCase().match(/[\\p{L}\\p{N}]+/gu).sort().join('|');
+  return prompt.split('\n').filter(line=>!HEADINGS.includes(line.trim()))
+    .join(' ').toLowerCase().match(/[\p{L}\p{N}]+/gu).sort().join('|');
 }
 export function prepareComparison(root,id){
   const arm=ARMS[id];
@@ -37,7 +37,7 @@ export function prepareComparison(root,id){
     !presets.environments.some(x=>x.id===scene.environment_id)||
     !presets.lighting.some(x=>x.id===scene.lighting_id))
     throw Error('Invalid MM scene contract');
-  if(!/^prompts\\/(?:experiments|macbookpro14-macbookpro14)\\/[\\w-]+\\.txt$/.test(arm.path))
+  if(!/^prompts\/(?:experiments|macbookpro14-macbookpro14)\/[\w-]+\.txt$/.test(arm.path))
     throw Error('Unsafe prompt path');
   const prompt=readFileSync(join(root,arm.path),'utf8');
   if(!prompt.startsWith('ONE standalone photorealistic product photograph.')||
@@ -45,10 +45,10 @@ export function prepareComparison(root,id){
     !prompt.includes('Exactly TWO devices:')||!prompt.includes('NO iPhone or third device.'))
     throw Error('Incomplete comparison prompt');
   if(arm.variant!=='A'){
-    const lines=prompt.split('\\n');
+    const lines=prompt.split('\n');
     for(const heading of HEADINGS)if(!lines.includes(heading))throw Error('Missing heading '+heading);
   }
-  const words=prompt.trim().split(/\\s+/).length;
+  const words=prompt.trim().split(/\s+/).length;
   if(words<80||words>170)throw Error('Prompt word count outside 80–170: '+words);
   const request={model:MODEL,prompt,n:1,size:SIZE,quality:'high',background:'opaque',output_format:'png'};
   return {id,arm,scene,request,words,prompt_sha256:sha256(prompt),
