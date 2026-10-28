@@ -9,6 +9,8 @@ on:
       - 'prompts/experiments/**'
       - 'scripts/prompt-comparison*.mjs'
       - 'scripts/private-pilot*.mjs'
+      - 'scripts/png-validate.mjs'
+      - 'tests/helpers/png-fixture.mjs'
       - 'scripts/review-summary*.mjs'
       - 'tests/prompt-comparison.test.mjs'
       - 'tests/private-pilot.test.mjs'

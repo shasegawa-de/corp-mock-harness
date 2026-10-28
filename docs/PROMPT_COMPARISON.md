@@ -84,3 +84,7 @@ When all 12 visual scores are complete, freeze a private copy of the score sheet
 For the A/B/C pilot, all arms now use the explicit supported snapshot `gpt-image-2.5-flare-2026-09-08` instead of the moving alias. The shared architectural-image workflow retains its own model setting; the experiment does not modify that production module. This change occurred before any paid trial was run. The results therefore cannot be mislabelled as the current unpinned model.
 
 The score aggregator verifies that each of the 12 distinct `arm + trial` pairs is represented once and refuses prompt-fidelity scoring until the visual review is complete. Do not reveal the privately stored identity mapping to image reviewers before recording all 12 blind visual scores.
+
+## 9. PNG integrity at the API boundary
+
+For every paid output, the comparator and private pilot now validate the actual PNG signature, dimensions, ordered IHDR/IDAT/IEND chunks, all chunk CRC-32 values and the compressed image data. A truncated HTTP/base64 response or corrupted PNG is rejected **before** it is recorded as a successful trial. The private pilot leaves its `.pending` marker on any uncertain failure, so it never silently retries a possibly charged request. The resume scanner performs the same integrity checks against saved PNG bytes and SHA-256 metadata. Unit tests use syntactically complete offline fixture images, not fake 33-byte PNG headers. This check protects file integrity; it does **not** establish image aesthetics, hardware accuracy, or model-internal prompt fidelity.
