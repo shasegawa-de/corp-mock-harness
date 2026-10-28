@@ -1,10 +1,17 @@
 # Two-Mac layout regeneration — review candidates (2026-10-28)
 
-These two images are **unapproved review candidates**. They do not replace the current published MM1/MM2 cards or change the approved/quality status. The original Git-tracked images remain at `assets/macbook-pair/mm1-grounded.jpg` and `mm2-suspended.jpg`.
+These images are **review candidates, not user-approved**. The currently published MM1/MM2 catalog cards are not replaced by candidates. Original assets remain at `assets/macbook-pair/mm1-grounded.jpg` and `mm2-suspended.jpg`.
 
-| ID | Candidate file | Layout change | Review status |
+| ID | Candidate | Layout / background | Review status |
 | --- | --- | --- | --- |
-| MM1 | [mm1-diagonal-depth-v2.jpg](mm1-diagonal-depth-v2.jpg) | One 14-inch Mac foreground-left, another behind-right; clear blank screens, distinct scale and depth; both directly on mineral ground | Provisional visual candidate; geometry/user approval unverified |
-| MM2 | [mm2-offset-float-v2.jpg](mm2-offset-float-v2.jpg) | One 14-inch Mac lower-left foreground and one higher-right background; neither obscures the other's screen/keyboard; entirely vertical wall backdrop | Provisional visual candidate; geometry/user approval unverified |
+| MM1 | [mm1-diagonal-depth-v2.jpg](mm1-diagonal-depth-v2.jpg) | Foreground-left Mac, second behind-right, grounded on mineral floor | Provisional; user approval and hardware geometry unverified |
+| MM2 v2 | [mm2-offset-float-v2.jpg](mm2-offset-float-v2.jpg) | Staggered pair, repeated linear wall texture | **REJECTED by user — background distorted / unnatural**. Retained only as rejection evidence; do not publish or substitute into the catalog |
+| **MM2 v3 (current candidate)** | **[mm2-float-natural-wall-v3.jpg](mm2-float-natural-wall-v3.jpg)** | Lower-left foreground Mac and higher-right Mac; two open white screens, keyboards and trackpads visible; consistent subdued half-gray microcement vertical wall backdrop, no floor, horizontal horizon, ground shadow or support | **NEW UNAPPROVED CANDIDATE**. Background defect visually corrected. Hardware geometry, prompt fidelity and user selection remain unverified |
 
-Both are independent images generated with Adobe Firefly then cropped to **2688 × 1512 pixels (exact 16:9)** and stored here as JPEG renditions. The original generator PNG files are not stored in Git. **PROMPT_UNVERIFIED**: do not claim that the exact project prompt files were passed unchanged to the image generation engine. Final user selection and detailed hardware QA are pending. Keeping original catalog images intact avoids silently replacing review targets.
+### Generation and QA notes
+
+- MM2 v2 had mechanically repeated vertical bands. It did not satisfy the architectural realism criterion for the background. A visually reasonable device layout alone is not sufficient for approval.
+- MM2 v3 is an independent AI-generated revision: precisely **1648 × 927 px (16:9)**. `mm2-float-natural-wall-v3.jpg` is a JPEG rendition transferred from the new generated PNG; the original generated PNG is not committed to this repo.
+- MM1 v2 and MM2 v2 are Adobe Firefly JPEG renditions of **2688 × 1512** crops. Do not confuse v3's tool/output provenance with those older assets.
+- `PROMPT_UNVERIFIED`: we cannot attest that the tool's effective input exactly matched the canonical text in `prompts/macbookpro14-macbookpro14/`. User approval is still pending.
+- **MM2 acceptance criteria:** exactly two individually open MacBook Pro 14-inch devices, entire blank white screens + both keyboards/trackpads visible, purposeful separated height/depth placement, NO floor / floor-wall joint / ground shadow / support, credible large-scale matte architectural wall surface without repetitive wallpaper-like seams, distortions, or excessive decorative lighting.
