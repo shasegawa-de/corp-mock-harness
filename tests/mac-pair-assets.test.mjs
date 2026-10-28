@@ -22,14 +22,14 @@ function jpegDimensions(bytes){
   }
   throw Error('JPEG dimensions not found');
 }
-test('generated Mac pair photos are tracked unaltered and remain explicitly unapproved',()=>{
-  assert.equal(manifest.review_status,'VISUAL_QA_PRELIMINARY__USER_APPROVAL_PENDING');
+test('generated Mac pair photos have verified blobs and independently tracked review statuses',()=>{
+  assert.equal(manifest.review_status,'MIXED__MM1_VISUAL_DIRECTION_ACCEPTED__MM2_PENDING');
   assert.equal(manifest.prompt_fidelity,'PROMPT_UNVERIFIED');
   assert.equal(manifest.images.length,2);
   assert.deepEqual(manifest.images.map(x=>x.id),['MM1','MM2']);
   for(const item of manifest.images){
-    assert.match(item.path,/^assets\/macbook-pair\/mm[12]-(grounded|suspended)\.jpg$/);
-    assert.equal(item.user_approval,'PENDING');
+    assert.match(item.path,/^assets\/macbook-pair\/(?:mm1-adopted-v5|mm2-suspended)\.jpg$/);
+    assert.equal(item.user_approval,item.id==='MM1'?'VISUAL_DIRECTION_ACCEPTED':'PENDING');
     const data=readFileSync(new URL('../'+item.path,import.meta.url));
     const sha=createHash('sha1').update('blob '+data.length+'\0').update(data).digest('hex');
     assert.equal(sha,item.git_blob_sha1,item.id+' binary must exactly match its registered Git blob');

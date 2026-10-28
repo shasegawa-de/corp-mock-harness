@@ -90,7 +90,7 @@ try{
 // fidelity remain UNVERIFIED; this label is NOT equivalent to "approved".
 function initGeneratedMacPairs(){
   for(const [id,file,scene] of [
-    ['MM1','mm1-grounded.jpg','2台のMacBook Proを床に横並び'],
+    ['MM1','mm1-adopted-v5.jpg','2台のMacBook Proを左手前と右奥に角度差をつけて配置'],
     ['MM2','mm2-suspended.jpg','2台のMacBook Proを床なしで前後浮遊']
   ]){
     const card=cards.find(item=>item.dataset.id===id);
@@ -105,9 +105,9 @@ function initGeneratedMacPairs(){
       img.src=url;
       img.alt=id+'：画像生成済み。'+scene+'。寸法・プロンプト一致は未検証';
       const status=card.querySelector('.quality');
-      if(status)status.textContent='生成済み・要レビュー';
+      if(status)status.textContent=id==='MM1'?'生成済み・構図採用':'生成済み・要レビュー';
       const qa=card.querySelector('.qa');
-      if(qa)qa.textContent='画像QA：構図・2台の画面とキーボードを目視確認した生成画像（Adobe Firefly）。寸法、細部の筐体再現性、元プロンプトとの厳密な一致とユーザー承認は未検証。';
+      if(qa)qa.textContent=id==='MM1'?'画像QA：2台の配置・角度差・光の表現はユーザーが採用方向と判断。OpenAI生成画像。筐体寸法、細部形状、元プロンプトとの厳密な一致は未検証。':'画像QA：2台の構図と画面・キーボードを目視確認したAdobe Firefly生成画像。寸法、細部の筐体再現性、元プロンプトとの厳密な一致とユーザー承認は未検証。';
     });
     candidate.src=url;
   }

@@ -32,7 +32,7 @@ GitHubのコード画面はHTMLをそのままレンダリングしません。[
 
 ### MacBook Pro 14インチを2台使用する構成
 
-正式な対象に **Mac + Mac（14インチ×2台）** を追加。左右配置と前後に奥行き差をつけた床なし浮遊の2シーンをハーネスに登録し、公開カタログにもMM1／MM2として追加しました。**2枚とも生成画像を登録済み**です。MM1は床に接地した左右配置、MM2は床なしの前後浮遊です。カタログには「生成済み・要レビュー」と明示し、ユーザー承認・筐体寸法精度・生成時の実効プロンプト一致は未検証として扱います。画像はAdobe Fireflyで生成後、2016×1134pxの16:9 JPEGとしてGitに記録しました。[画像原本に関する記録](assets/macbook-pair/generation-manifest.json)／[MM1画像](assets/macbook-pair/mm1-grounded.jpg)／[MM2画像](assets/macbook-pair/mm2-suspended.jpg)。完成プロンプトは[左右配置](prompts/macbookpro14-macbookpro14/side-by-side.txt)／[床なし前後浮遊](prompts/macbookpro14-macbookpro14/suspended-depth.txt)を参照してください。2台とも開いた14インチのMacであり、iPhoneや第三の端末を足さない制約は[AGENTS.md](AGENTS.md)と[STYLE.md](STYLE.md)で定義しています。
+正式な対象に **Mac + Mac（14インチ×2台）** を追加。公開カタログは32件で、MM1は**ユーザーが構図・角度差・光表現を採用方向と判断した新画像**へ差し替えました（[MM1画像](assets/macbook-pair/mm1-adopted-v5.jpg)）。MM2は従来の生成画像を維持し、引き続きレビュー待ちです（[MM2画像](assets/macbook-pair/mm2-suspended.jpg)）。MM1の旧版は[従来画像](assets/macbook-pair/mm1-grounded.jpg)として保存しています。2台の筐体形状・寸法の厳密なQAと生成時の実効プロンプト一致は未検証です。[画像の出自・品質記録](assets/macbook-pair/generation-manifest.json)。完成プロンプトは[左右配置](prompts/macbookpro14-macbookpro14/side-by-side.txt)／[床なし前後浮遊](prompts/macbookpro14-macbookpro14/suspended-depth.txt)を参照してください。2台とも開いた14インチMacで、余分な端末を加えない制約は[AGENTS.md](AGENTS.md)と[STYLE.md](STYLE.md)で定義しています。
 
 ## 画像生成を依頼する
 

@@ -22,3 +22,11 @@ These images are **review candidates, not user-approved**. The currently publish
 - MM1 v2 and MM2 v2 are Adobe Firefly JPEG renditions of **2688 × 1512** crops. Do not confuse v3's tool/output provenance with those older assets.
 - `PROMPT_UNVERIFIED`: we cannot attest that the tool's effective input exactly matched the canonical text in `prompts/macbookpro14-macbookpro14/`. User approval is still pending.
 - **MM2 acceptance criteria:** exactly two individually open MacBook Pro 14-inch devices, entire blank white screens + both keyboards/trackpads visible, purposeful separated height/depth placement, NO floor / floor-wall joint / ground shadow / support, credible large-scale matte architectural wall surface without repetitive wallpaper-like seams, distortions, or excessive decorative lighting.
+
+## MM1 v5 — visual direction accepted, published in catalog
+
+- **Current displayed photo**: [mm1-adopted-v5.jpg](../mm1-adopted-v5.jpg). Original image was independently generated with OpenAI image generation. The user accepted the visual direction after iterative adjustments to laptop angles, directional sunlight and removal of foliage shadows.
+- **Published**: The vNext MM1 card loads the versioned JPEG; the previous original [mm1-grounded.jpg](../mm1-grounded.jpg) remains intact. Earlier v2-v4 files remain review history.
+- **Image provenance**: Original PNG 1672×941; its SHA-256 is `3ed27c2064f90a1b8acad8f5c0aa39ebdf29e1750d5b8e564c024b5f440ce430`. The Git-tracked image is a 1672×941 JPEG rendition; **do not claim it is the original PNG**. See [manifest](../generation-manifest.json).
+- **Approval scope**: Only composition, varied laptop orientation and lighting received informal visual acceptance. True device dimensions, product-specific geometry and exact effective text sent to the generation engine remain unverified. `PROMPT_UNVERIFIED`.
+- **MM2 remains pending**. No MM2 image or catalog status changed.

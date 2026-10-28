@@ -1,21 +1,28 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28",
-  "provider": "Adobe Firefly",
-  "asset_kind": "JPEG 16:9 rendition of AI-generated product photograph",
-  "review_status": "VISUAL_QA_PRELIMINARY__USER_APPROVAL_PENDING",
+  "generated_at": "2026-10-29",
+  "provider": "OpenAI image generation (MM1) / Adobe Firefly (MM2)",
+  "asset_kind": "Published JPEG renditions of AI-generated product photographs",
+  "review_status": "MIXED__MM1_VISUAL_DIRECTION_ACCEPTED__MM2_PENDING",
   "prompt_fidelity": "PROMPT_UNVERIFIED",
-  "notes": "Exact 2016×1134 image crops from Adobe Firefly 2016×1152 PNG generation outputs, stored as JPEG renditions. Original Firefly PNG outputs are not tracked; the published standalone prompts are design specifications, not proof of the provider's effective generation input. Actual Mac hardware measurements and user approval remain unverified.",
+  "notes": "MM1 visual direction received user approval; exact hardware geometry and prompt fidelity remain unverified. MM1 original generated PNG (1672×941, SHA-256: 3ed27c2064f90a1b8acad8f5c0aa39ebdf29e1750d5b8e564c024b5f440ce430) was preserved outside Git, and its 1672×941 JPEG rendition is Git-tracked at the new versioned path. Previous MM1 published image stays in git history at mm1-grounded.jpg. MM2 is unchanged and retains provisional status. Both catalog canonical prompt texts are design specifications, not evidence of exact model inputs.",
   "images": [
     {
       "id": "MM1",
-      "path": "assets/macbook-pair/mm1-grounded.jpg",
-      "git_blob_sha1": "a4303db1cebd05788de7d3c47b8909331ca1b7d1",
-      "scene": "two open 14-inch laptops, grounded on mineral floor, side by side",
-      "visual_qa": "PRELIMINARY_PASS",
-      "user_approval": "PENDING",
-      "width": 2016,
-      "height": 1134
+      "path": "assets/macbook-pair/mm1-adopted-v5.jpg",
+      "git_blob_sha1": "766a9023f758f6be328e80172429ef12b549ac09",
+      "scene": "two open 14-inch laptops, foreground left and rear right, slightly different camera-facing angles, directly grounded on mineral surface, diagonal light without foliage",
+      "visual_qa": "COMPOSITION_AND_LIGHTING_ACCEPTED__DETAIL_QA_PENDING",
+      "user_approval": "VISUAL_DIRECTION_ACCEPTED",
+      "width": 1672,
+      "height": 941,
+      "generator": "OpenAI image generation",
+      "original_png_sha256": "3ed27c2064f90a1b8acad8f5c0aa39ebdf29e1750d5b8e564c024b5f440ce430",
+      "original_png_dimensions": [
+        1672,
+        941
+      ],
+      "source_note": "User said image looks good; this is approval of visual direction, not verified product measurements, image source prompt fidelity, or hardware minutiae."
     },
     {
       "id": "MM2",

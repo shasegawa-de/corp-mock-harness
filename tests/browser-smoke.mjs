@@ -110,7 +110,7 @@ try{
     return image?.complete&&image?.naturalWidth>=1000&&image.dataset.onlineImage?.includes('/assets/macbook-pair/')
       &&card.querySelector('.quality')?.textContent.includes('生成済み');
   }));
-  assert.match(await macPair.locator('.quality').innerText(),/生成済み・要レビュー/);
+  assert.match(await macPair.locator('.quality').innerText(),/生成済み・構図採用/);
   assert.match(await macPair.locator('img').getAttribute('alt'),/画像生成済み/);
   assert.match(await page.locator('#gallery-view article.item[data-id="MM2"] .quality').innerText(),/生成済み・要レビュー/);
   for(const id of ['MM1','MM2']){
@@ -118,7 +118,7 @@ try{
     const rendered=await img.evaluate(el=>({width:el.naturalWidth,height:el.naturalHeight,src:el.currentSrc}));
     assert.ok(rendered.width>=1000&&rendered.height>=550, id+' loaded full-sized image');
     assert.ok(Math.abs(rendered.width/rendered.height-16/9)<0.025,id+' is widescreen 16:9');
-    assert.match(rendered.src,/assets\/macbook-pair\/mm[12]-(?:grounded|suspended)\.jpg$/);
+    assert.match(rendered.src,id==='MM1'?/assets\/macbook-pair\/mm1-adopted-v5\.jpg$/:/assets\/macbook-pair\/mm2-suspended\.jpg$/);
   }
   await macPair.click();
   assert.equal(await page.locator('#composer').evaluate(el=>el.open),true);
