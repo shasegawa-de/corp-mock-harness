@@ -15,6 +15,7 @@ on:
       - 'scripts/render-next-catalog.mjs'
       - 'tests/prompt-builder.test.mjs'
       - 'tests/browser-smoke.mjs'
+      - 'tests/mac-pair-assets.test.mjs'
       - 'scripts/gpt-image-transport.mjs'
       - 'scripts/generate-gpt-image.mjs'
       - 'tests/gpt-image-transport.test.mjs'
@@ -59,7 +60,7 @@ jobs:
             git push origin HEAD:main
           fi
       - name: Check prompt combinations
-        run: node --test tests/prompt-builder.test.mjs tests/gpt-image-transport.test.mjs tests/approved-assets.test.mjs
+        run: node --test tests/prompt-builder.test.mjs tests/gpt-image-transport.test.mjs tests/approved-assets.test.mjs tests/mac-pair-assets.test.mjs
       - name: Dry-run all four locked GPT Image prompts without API calls
         run: |
           for SCENE in surface-microcement-wall-floor surface-fiber-cement-wall surface-carrara-marble surface-graphite-marble; do
