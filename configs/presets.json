@@ -1,93 +1,531 @@
 {
   "environments": [
-    {"id":"microcement-seamless","detail":"A continuous matte microcement floor and backdrop, nearly invisible corner line, organic granular mineral surface. No marble."},
-    {"id":"fiber-cement-panels","detail":"Two flat fiber-cement panels forming one crisp architectural seam, low contrast fibers, pale half-gray. No freestanding blocks."},
-    {"id":"diatomaceous-plaster","detail":"Matte gray diatomaceous-earth plaster wall with delicate trowel texture and mineral floor, two intersecting planes only."},
-    {"id":"board-formed-concrete","detail":"Dark gray cast-in-place board-formed concrete wall, subtle straight formwork seams, matte gray floor."},
-    {"id":"slate-layer","detail":"Charcoal slate with restrained linear layered grain, one simple plane meeting a pale gray floor."},
-    {"id":"brushed-steel","detail":"Quiet brushed stainless steel wall, subtle horizontal grain, neutral matte gray floor, no decorative hardware."},
-    {"id":"smoked-glass","detail":"Smoked gray glass partition integrated into the background, subtle translucent reflection, gray seamless floor, no extra props."},
-    {"id":"plaster-corner","detail":"Pale gray polished plaster corner with a sharp right-angle intersection and non-reflective warm-neutral gray floor."},
-    {"id":"graphite-gradient","detail":"Near-seamless graphite cyclorama with extremely subtle tonal falloff and matte gray floor, no additional geometry."},
-    {"id":"fine-concrete","detail":"Finely sandblasted light concrete wall with discreet porosity and faint horizontal joint, matte gray floor."},
-    {"id":"mineral-white","detail":"Off-white mineral rendered wall and fog-gray floor with minute imperfections, two planes only."},
-    {"id":"dark-fiber-cement","detail":"Half-gray and charcoal fiber cement planar intersection, fibrous texture visible only in light, no freestanding solids."},
-    {"id":"suspended-mineral-planes","detail":"Floorless gray architectural airspace. Two simple integrated VERTICAL matte microcement or fiber-cement planes with gentle tonal separation and discreet joints; no floor, no horizontal horizon or ground-shadow. Soft architectural depth with no supports or props."},
-    {"id":"carrara-marble-wall-floor","detail":"Honed pale white/light-gray Carrara marble wall slabs connected to a matching mineral marble floor at architectural scale; delicate fine gray veins, subtle joints and satin low-reflection finish. Restrained half-gray palette, not bold dramatic veining or a material macro crop."},
-    {"id":"graphite-marble-wall-floor","detail":"Honed charcoal-to-graphite marble wall with sparse fine pale-gray natural veining and continuous slightly lighter matte graphite floor. Restrained low-key studio reflections and a real wall-floor connection; no harsh mirror polish."},
-    {"id":"carrara-marble-wide-block","detail":"Exactly one large wide table-sized solid monolithic honed pale Carrara marble plinth with subtle believable gray veins continuous across top and sides, in a half-gray mineral wall/floor studio. It is a functional product exhibition support, not a desk or several decorative cubes."}
+    {
+      "id": "microcement-seamless",
+      "detail": "A continuous matte microcement floor and backdrop, nearly invisible corner line, organic granular mineral surface. No marble."
+    },
+    {
+      "id": "fiber-cement-panels",
+      "detail": "Two flat fiber-cement panels forming one crisp architectural seam, low contrast fibers, pale half-gray. No freestanding blocks."
+    },
+    {
+      "id": "diatomaceous-plaster",
+      "detail": "Matte gray diatomaceous-earth plaster wall with delicate trowel texture and mineral floor, two intersecting planes only."
+    },
+    {
+      "id": "board-formed-concrete",
+      "detail": "Dark gray cast-in-place board-formed concrete wall, subtle straight formwork seams, matte gray floor."
+    },
+    {
+      "id": "slate-layer",
+      "detail": "Charcoal slate with restrained linear layered grain, one simple plane meeting a pale gray floor."
+    },
+    {
+      "id": "brushed-steel",
+      "detail": "Quiet brushed stainless steel wall, subtle horizontal grain, neutral matte gray floor, no decorative hardware."
+    },
+    {
+      "id": "smoked-glass",
+      "detail": "Smoked gray glass partition integrated into the background, subtle translucent reflection, gray seamless floor, no extra props."
+    },
+    {
+      "id": "plaster-corner",
+      "detail": "Pale gray polished plaster corner with a sharp right-angle intersection and non-reflective warm-neutral gray floor."
+    },
+    {
+      "id": "graphite-gradient",
+      "detail": "Near-seamless graphite cyclorama with extremely subtle tonal falloff and matte gray floor, no additional geometry."
+    },
+    {
+      "id": "fine-concrete",
+      "detail": "Finely sandblasted light concrete wall with discreet porosity and faint horizontal joint, matte gray floor."
+    },
+    {
+      "id": "mineral-white",
+      "detail": "Off-white mineral rendered wall and fog-gray floor with minute imperfections, two planes only."
+    },
+    {
+      "id": "dark-fiber-cement",
+      "detail": "Half-gray and charcoal fiber cement planar intersection, fibrous texture visible only in light, no freestanding solids."
+    },
+    {
+      "id": "suspended-mineral-planes",
+      "detail": "Floorless gray architectural airspace. Two simple integrated VERTICAL matte microcement or fiber-cement planes with gentle tonal separation and discreet joints; no floor, no horizontal horizon or ground-shadow. Soft architectural depth with no supports or props."
+    },
+    {
+      "id": "carrara-marble-wall-floor",
+      "detail": "Honed pale white/light-gray Carrara marble wall slabs connected to a matching mineral marble floor at architectural scale; delicate fine gray veins, subtle joints and satin low-reflection finish. Restrained half-gray palette, not bold dramatic veining or a material macro crop."
+    },
+    {
+      "id": "graphite-marble-wall-floor",
+      "detail": "Honed charcoal-to-graphite marble wall with sparse fine pale-gray natural veining and continuous slightly lighter matte graphite floor. Restrained low-key studio reflections and a real wall-floor connection; no harsh mirror polish."
+    },
+    {
+      "id": "carrara-marble-wide-block",
+      "detail": "Exactly one large wide table-sized solid monolithic honed pale Carrara marble plinth with subtle believable gray veins continuous across top and sides, in a half-gray mineral wall/floor studio. It is a functional product exhibition support, not a desk or several decorative cubes."
+    }
   ],
   "compositions": [
-    {"id":"frontal-centered","detail":"Camera square-on at the screen, symmetric centered hero, eye level. Leave generous horizontal negative space."},
-    {"id":"three-quarter-left","detail":"Three-quarter view from viewer's left, device gently rotated 12 to 18 degrees around the vertical axis; all screen corners visible."},
-    {"id":"three-quarter-right","detail":"Three-quarter view from viewer's right, gentle 12 to 18 degree yaw; entire white screen clearly visible."},
-    {"id":"low-view","detail":"Lower camera height with modest upward perspective, device remains undistorted and screen readable, centered in canvas."},
-    {"id":"subtle-tilt-left","detail":"Device floating in mid-air with a restrained 10 degree counter-clockwise roll, front display facing viewer."},
-    {"id":"subtle-tilt-right","detail":"Device floating in mid-air with a restrained 10 degree clockwise roll, front display facing viewer."},
-    {"id":"asymmetric-negative-space","detail":"Device slightly left of visual center (within central 40%), generous intentional negative space on right, front display completely visible."},
-    {"id":"near-floor-hover","detail":"Device hovers subtly above the floor without stands, camera near floor height, a single soft contact shadow below."},
-    {"id":"graphic-planes","detail":"Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."},
-    {"id":"display-on-block","detail":"Near eye-level product photography with a single rectilinear mineral display block or integrated platform as the intentional support. Screen and correct device geometry fully visible; do not aim the camera downward or create a top-down view."},
-    {"id":"iphone-oblique-floor","detail":"Single standard iPhone 17 lying flat, face-up on mineral floor. Elevated OBLIQUE camera 40–50 degrees above supporting plane, offset from device lower edge; entire white screen visible. The face must NOT become an invisible sliver. This is an intentional screen-visibility exception to the retired general high-view composition, never a 90-degree bird's-eye view."},
-    {"id":"iphone-oblique-block","detail":"Single standard iPhone 17 lying flat, face-up on a table-sized (large planar top) monolithic mineral plinth. Camera deliberately elevated to 40–55 degrees above the block top and aimed across the front display; retain screen visibility, realistic device thickness and support top/side. No vertical 90-degree overhead."},
-    {"id":"iphone-tilted-supported","detail":"Single standard iPhone 17 leaning back ~20 degrees from vertical on a wide single mineral block, supported by a subtle integrated raised facet of that SAME block. Camera adjusts to a modestly elevated oblique front-three-quarter viewpoint matched to the screen, all corners visible."},
-    {"id":"iphone-suspended-angled","detail":"Single standard iPhone 17 unsupported in floorless gray architectural airspace, ~15-degree three-quarter yaw and ~10-degree roll while keeping all white-screen corners visible; coherent one-camera photograph, no ground shadow."},
-    {"id":"iphone-tilted-floor","detail":"Exactly one standard iPhone rests leaning with its bottom long edge touching the mineral floor and its upper rear edge leaning against an integrated architectural wall; camera shifts to a modestly raised front-three-quarter view facing white screen. Real contact at two points, no extra prop, no unsupported floating."},
-    {"id":"empty-stage","detail":"ONE architectural studio frame with open negative space ready for hypothetical later product placement, but with no product visible. Material planes and light are the sole subject."},
-    {"id":"floor-plane-emphasis","detail":"EMPTY architecture, no devices, wide horizontal mineral FLOOR dominates roughly 80–85 percent of landscape frame; low oblique camera looking across the finished floor, distant wall only a narrow top strip; not an overhead flat lay or macro texture swatch."}
+    {
+      "id": "frontal-centered",
+      "detail": "Camera square-on at the screen, symmetric centered hero, eye level. Leave generous horizontal negative space."
+    },
+    {
+      "id": "three-quarter-left",
+      "detail": "Three-quarter view from viewer's left, device gently rotated 12 to 18 degrees around the vertical axis; all screen corners visible."
+    },
+    {
+      "id": "three-quarter-right",
+      "detail": "Three-quarter view from viewer's right, gentle 12 to 18 degree yaw; entire white screen clearly visible."
+    },
+    {
+      "id": "low-view",
+      "detail": "Lower camera height with modest upward perspective, device remains undistorted and screen readable, centered in canvas."
+    },
+    {
+      "id": "subtle-tilt-left",
+      "detail": "Device floating in mid-air with a restrained 10 degree counter-clockwise roll, front display facing viewer."
+    },
+    {
+      "id": "subtle-tilt-right",
+      "detail": "Device floating in mid-air with a restrained 10 degree clockwise roll, front display facing viewer."
+    },
+    {
+      "id": "asymmetric-negative-space",
+      "detail": "Device slightly left of visual center (within central 40%), generous intentional negative space on right, front display completely visible."
+    },
+    {
+      "id": "near-floor-hover",
+      "detail": "Device hovers subtly above the floor without stands, camera near floor height, a single soft contact shadow below."
+    },
+    {
+      "id": "graphic-planes",
+      "detail": "Camera frames one strong orthogonal architectural seam behind device, device centered and in clear front focus, no additional props."
+    },
+    {
+      "id": "display-on-block",
+      "detail": "Near eye-level product photography with a single rectilinear mineral display block or integrated platform as the intentional support. Screen and correct device geometry fully visible; do not aim the camera downward or create a top-down view."
+    },
+    {
+      "id": "iphone-oblique-floor",
+      "detail": "Single standard iPhone 17 lying flat, face-up on mineral floor. Elevated OBLIQUE camera 40–50 degrees above supporting plane, offset from device lower edge; entire white screen visible. The face must NOT become an invisible sliver. This is an intentional screen-visibility exception to the retired general high-view composition, never a 90-degree bird's-eye view."
+    },
+    {
+      "id": "iphone-oblique-block",
+      "detail": "Single standard iPhone 17 lying flat, face-up on a table-sized (large planar top) monolithic mineral plinth. Camera deliberately elevated to 40–55 degrees above the block top and aimed across the front display; retain screen visibility, realistic device thickness and support top/side. No vertical 90-degree overhead."
+    },
+    {
+      "id": "iphone-tilted-supported",
+      "detail": "Single standard iPhone 17 leaning back ~20 degrees from vertical on a wide single mineral block, supported by a subtle integrated raised facet of that SAME block. Camera adjusts to a modestly elevated oblique front-three-quarter viewpoint matched to the screen, all corners visible."
+    },
+    {
+      "id": "iphone-suspended-angled",
+      "detail": "Single standard iPhone 17 unsupported in floorless gray architectural airspace, ~15-degree three-quarter yaw and ~10-degree roll while keeping all white-screen corners visible; coherent one-camera photograph, no ground shadow."
+    },
+    {
+      "id": "iphone-tilted-floor",
+      "detail": "Exactly one standard iPhone rests leaning with its bottom long edge touching the mineral floor and its upper rear edge leaning against an integrated architectural wall; camera shifts to a modestly raised front-three-quarter view facing white screen. Real contact at two points, no extra prop, no unsupported floating."
+    },
+    {
+      "id": "empty-stage",
+      "detail": "ONE architectural studio frame with open negative space ready for hypothetical later product placement, but with no product visible. Material planes and light are the sole subject."
+    },
+    {
+      "id": "floor-plane-emphasis",
+      "detail": "EMPTY architecture, no devices, wide horizontal mineral FLOOR dominates roughly 80–85 percent of landscape frame; low oblique camera looking across the finished floor, distant wall only a narrow top strip; not an overhead flat lay or macro texture swatch."
+    }
   ],
   "lighting": [
-    {"id":"broad-softbox","detail":"Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."},
-    {"id":"left-grazing","detail":"Low-angle soft grazing light from frame-left reveals mineral surface texture, controlled gentle shadow."},
-    {"id":"right-grazing","detail":"Soft raking light from frame-right illuminates textured architecture and produces faint cast shadow."},
-    {"id":"soft-overhead","detail":"Large diffused overhead source, restrained tonal gradients, no harsh or theatrical light beams."},
-    {"id":"top-left-daylight","detail":"Soft top-left daylight through invisible high window, mild diagonal light transition rather than repeated hard beams."},
-    {"id":"top-right-daylight","detail":"Soft top-right daylight with broad gentle penumbra and diffused highlights on device glass."},
-    {"id":"low-key","detail":"Soft low-key studio lighting on charcoal background, sufficient light to keep product contours readable."},
-    {"id":"high-key","detail":"Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."}
+    {
+      "id": "broad-softbox",
+      "detail": "Large frontal diffused studio softbox creates gradual metallic edge highlights and delicate soft shadows."
+    },
+    {
+      "id": "left-grazing",
+      "detail": "Low-angle soft grazing light from frame-left reveals mineral surface texture, controlled gentle shadow."
+    },
+    {
+      "id": "right-grazing",
+      "detail": "Soft raking light from frame-right illuminates textured architecture and produces faint cast shadow."
+    },
+    {
+      "id": "soft-overhead",
+      "detail": "Large diffused overhead source, restrained tonal gradients, no harsh or theatrical light beams."
+    },
+    {
+      "id": "top-left-daylight",
+      "detail": "Soft top-left daylight through invisible high window, mild diagonal light transition rather than repeated hard beams."
+    },
+    {
+      "id": "top-right-daylight",
+      "detail": "Soft top-right daylight with broad gentle penumbra and diffused highlights on device glass."
+    },
+    {
+      "id": "low-key",
+      "detail": "Soft low-key studio lighting on charcoal background, sufficient light to keep product contours readable."
+    },
+    {
+      "id": "high-key",
+      "detail": "Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."
+    }
   ],
   "default_scenes": [
-    {"composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox","layout_id":"single","spatial_mode_id":"grounded","pose_id":"upright"},
-    {"composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","layout_id":"single","spatial_mode_id":"grounded","pose_id":"upright"},
-    {"composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","layout_id":"single","spatial_mode_id":"on-block","pose_id":"upright"},
-    {"composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead","layout_id":"single","spatial_mode_id":"grounded","pose_id":"upright"}
+    {
+      "composition_id": "frontal-centered",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "broad-softbox",
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "pose_id": "upright"
+    },
+    {
+      "composition_id": "three-quarter-left",
+      "environment_id": "fiber-cement-panels",
+      "lighting_id": "left-grazing",
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "pose_id": "upright"
+    },
+    {
+      "composition_id": "display-on-block",
+      "environment_id": "fine-concrete",
+      "lighting_id": "broad-softbox",
+      "layout_id": "single",
+      "spatial_mode_id": "on-block",
+      "pose_id": "upright"
+    },
+    {
+      "composition_id": "asymmetric-negative-space",
+      "environment_id": "smoked-glass",
+      "lighting_id": "soft-overhead",
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "pose_id": "upright"
+    }
   ],
   "device_layouts": [
-    {"id":"single","device_count":1,"detail":"Exactly one device, the chosen model only; one camera view and one photograph. Never invent a second phone or laptop."},
-    {"id":"side-by-side","device_count":2,"detail":"Exactly one 14-inch MacBook Pro on frame-left and one standard iPhone 17 on frame-right. Screens completely visible; Mac keyboard and trackpad visible. No overlap or product duplication."},
-    {"id":"depth-staggered","device_count":2,"detail":"Exactly one open MacBook Pro slightly behind and one standard iPhone 17 in the foreground, with measurable depth offset, intact silhouettes and neither white screen nor keyboard obscured."},
-    {"id":"environment-only","device_count":0,"detail":"A single empty architectural studio photograph, with no products or devices. Study environmental structure, materials and light only."}
+    {
+      "id": "single",
+      "device_count": 1,
+      "detail": "Exactly one device, the chosen model only; one camera view and one photograph. Never invent a second phone or laptop."
+    },
+    {
+      "id": "side-by-side",
+      "device_count": 2,
+      "detail": "Exactly two specified devices positioned left and right, with an unobstructed view of BOTH screens. Supported pairs: one 14-inch MacBook Pro plus one standard iPhone 17, OR two identically sized open 14-inch MacBook Pros. Each Mac keyboard and trackpad must remain visible; no extra devices or overlap."
+    },
+    {
+      "id": "depth-staggered",
+      "device_count": 2,
+      "detail": "Exactly two specified devices with a controlled depth offset: a rear and a front device. Supported pairs: Mac + iPhone, or TWO open 14-inch MacBook Pros. Entire screens and each Mac keyboard/trackpad remain visible; maintain equal hardware scale for two Macs, no overlap or product duplication."
+    },
+    {
+      "id": "environment-only",
+      "device_count": 0,
+      "detail": "A single empty architectural studio photograph, with no products or devices. Study environmental structure, materials and light only."
+    }
   ],
   "spatial_modes": [
-    {"id":"grounded","detail":"Devices plausibly rest on a continuous matte mineral floor; delicate contact shadows; no desks, supports, furniture, plinths or props."},
-    {"id":"hover","detail":"Devices hover just above a visible mineral floor. A faint, localized separated shadow indicates small elevation. Floor remains visible; never use this mode for suspended or floorless requests."},
-    {"id":"suspended","detail":"Devices float weightlessly in mid-air within the crop. NO visible floor, floor-wall junction, horizon, ground contact, ground reflection or cast shadow on the floor. Background depth comes from quiet vertical architectural planes, graded half-gray tones and controlled reflections on the products; no props or supporting structures."},
-    {"id":"on-block","detail":"Device rests on one or two intentional solid monolithic matte gray mineral display plinths, never decorative blocks. For iPhone `flat-face-up`, plinth top is TABLE-SIZED: broad continuous horizontal surface extending generously around the entire phone (~80–140 cm across), visually a simple large concrete slab/volume, but NOT a legged table or wooden desk. For `tilted-supported`, allow a subtle integrated backrest facet as part of same block; require physically credible support and contact shadows. No furniture, decor, props or unrelated blocks."}
+    {
+      "id": "grounded",
+      "detail": "Devices plausibly rest on a continuous matte mineral floor; delicate contact shadows; no desks, supports, furniture, plinths or props."
+    },
+    {
+      "id": "hover",
+      "detail": "Devices hover just above a visible mineral floor. A faint, localized separated shadow indicates small elevation. Floor remains visible; never use this mode for suspended or floorless requests."
+    },
+    {
+      "id": "suspended",
+      "detail": "Devices float weightlessly in mid-air within the crop. NO visible floor, floor-wall junction, horizon, ground contact, ground reflection or cast shadow on the floor. Background depth comes from quiet vertical architectural planes, graded half-gray tones and controlled reflections on the products; no props or supporting structures."
+    },
+    {
+      "id": "on-block",
+      "detail": "Device rests on one or two intentional solid monolithic matte gray mineral display plinths, never decorative blocks. For iPhone `flat-face-up`, plinth top is TABLE-SIZED: broad continuous horizontal surface extending generously around the entire phone (~80–140 cm across), visually a simple large concrete slab/volume, but NOT a legged table or wooden desk. For `tilted-supported`, allow a subtle integrated backrest facet as part of same block; require physically credible support and contact shadows. No furniture, decor, props or unrelated blocks."
+    }
   ],
   "showcase_presets": [
-    {"id":"iphone-front-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/a.txt","pose_id":"upright"},
-    {"id":"iphone-angled-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"three-quarter-left","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/iphone17/b.txt","pose_id":"upright"},
-    {"id":"iphone-smoked-glass-experiment","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"asymmetric-negative-space","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/d.txt","pose_id":"upright"},
-    {"id":"mac-suspended-reference","devices":["macbookpro14"],"layout_id":"single","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14/suspended.txt","pose_id":"open-suspended"},
-    {"id":"pair-suspended-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"suspended","composition_id":"three-quarter-left","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/suspended.txt","poses":{"macbookpro14":"open-suspended","iphone17":"suspended-angled"}},
-    {"id":"iphone-block-reference","devices":["iphone17"],"layout_id":"single","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block.txt","pose_id":"upright"},
-    {"id":"mac-floor-reference","devices":["macbookpro14"],"layout_id":"single","spatial_mode_id":"grounded","composition_id":"frontal-centered","environment_id":"microcement-seamless","lighting_id":"soft-overhead","reference_prompt":"prompts/macbookpro14/on-floor.txt","pose_id":"open-display"},
-    {"id":"pair-block-reference","devices":["macbookpro14","iphone17"],"layout_id":"side-by-side","spatial_mode_id":"on-block","composition_id":"display-on-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/macbookpro14-iphone17/on-blocks.txt","poses":{"macbookpro14":"open-display","iphone17":"upright"}},
-    {"id":"iphone-floor-flat","devices":["iphone17"],"layout_id":"single","pose_id":"flat-face-up","spatial_mode_id":"grounded","composition_id":"iphone-oblique-floor","environment_id":"microcement-seamless","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/on-floor-flat.txt"},
-    {"id":"iphone-block-flat","devices":["iphone17"],"layout_id":"single","pose_id":"flat-face-up","spatial_mode_id":"on-block","composition_id":"iphone-oblique-block","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-flat.txt"},
-    {"id":"iphone-block-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"on-block","composition_id":"iphone-tilted-supported","environment_id":"fine-concrete","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/on-block-tilted.txt"},
-    {"id":"iphone-suspended","devices":["iphone17"],"layout_id":"single","pose_id":"suspended-angled","spatial_mode_id":"suspended","composition_id":"iphone-suspended-angled","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/iphone17/suspended.txt"},
-    {"id":"iphone-floor-tilted","devices":["iphone17"],"layout_id":"single","pose_id":"tilted-supported","spatial_mode_id":"grounded","composition_id":"iphone-tilted-floor","environment_id":"plaster-corner","lighting_id":"soft-overhead","reference_prompt":"prompts/iphone17/on-floor-tilted.txt"},
-    {"id":"env-microcement-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/microcement-soft.txt"},
-    {"id":"env-fiber-corner-left","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/environment/fiber-corner-left.txt"},
-    {"id":"env-wide-block-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"on-block","composition_id":"empty-stage","environment_id":"fine-concrete","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/wide-block-soft.txt"},
-    {"id":"env-smoked-glass-soft","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/environment/smoked-glass-soft.txt"},
-    {"id":"env-charcoal-lowkey","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/environment/charcoal-lowkey.txt"},
-    {"id":"env-suspended-vertical","devices":[],"layout_id":"environment-only","spatial_mode_id":"suspended","composition_id":"empty-stage","environment_id":"suspended-mineral-planes","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/suspended-vertical.txt"},
-    {"id":"env-carrara-marble-block","devices":[],"layout_id":"environment-only","spatial_mode_id":"on-block","composition_id":"empty-stage","environment_id":"carrara-marble-wide-block","lighting_id":"broad-softbox","reference_prompt":"prompts/environment/carrara-marble-display-block.txt"}
+    {
+      "id": "iphone-front-reference",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "composition_id": "frontal-centered",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/iphone17/a.txt",
+      "pose_id": "upright"
+    },
+    {
+      "id": "iphone-angled-reference",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "composition_id": "three-quarter-left",
+      "environment_id": "fiber-cement-panels",
+      "lighting_id": "left-grazing",
+      "reference_prompt": "prompts/iphone17/b.txt",
+      "pose_id": "upright"
+    },
+    {
+      "id": "iphone-smoked-glass-experiment",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "composition_id": "asymmetric-negative-space",
+      "environment_id": "smoked-glass",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/d.txt",
+      "pose_id": "upright"
+    },
+    {
+      "id": "mac-suspended-reference",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "suspended",
+      "composition_id": "three-quarter-left",
+      "environment_id": "suspended-mineral-planes",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/macbookpro14/suspended.txt",
+      "pose_id": "open-suspended"
+    },
+    {
+      "id": "pair-suspended-reference",
+      "devices": [
+        "macbookpro14",
+        "iphone17"
+      ],
+      "layout_id": "side-by-side",
+      "spatial_mode_id": "suspended",
+      "composition_id": "three-quarter-left",
+      "environment_id": "suspended-mineral-planes",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/macbookpro14-iphone17/suspended.txt",
+      "poses": {
+        "macbookpro14": "open-suspended",
+        "iphone17": "suspended-angled"
+      }
+    },
+    {
+      "id": "iphone-block-reference",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "on-block",
+      "composition_id": "display-on-block",
+      "environment_id": "fine-concrete",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/iphone17/on-block.txt",
+      "pose_id": "upright"
+    },
+    {
+      "id": "mac-floor-reference",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "spatial_mode_id": "grounded",
+      "composition_id": "frontal-centered",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/macbookpro14/on-floor.txt",
+      "pose_id": "open-display"
+    },
+    {
+      "id": "pair-block-reference",
+      "devices": [
+        "macbookpro14",
+        "iphone17"
+      ],
+      "layout_id": "side-by-side",
+      "spatial_mode_id": "on-block",
+      "composition_id": "display-on-block",
+      "environment_id": "fine-concrete",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/macbookpro14-iphone17/on-blocks.txt",
+      "poses": {
+        "macbookpro14": "open-display",
+        "iphone17": "upright"
+      }
+    },
+    {
+      "id": "iphone-floor-flat",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "pose_id": "flat-face-up",
+      "spatial_mode_id": "grounded",
+      "composition_id": "iphone-oblique-floor",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/on-floor-flat.txt"
+    },
+    {
+      "id": "iphone-block-flat",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "pose_id": "flat-face-up",
+      "spatial_mode_id": "on-block",
+      "composition_id": "iphone-oblique-block",
+      "environment_id": "fine-concrete",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/iphone17/on-block-flat.txt"
+    },
+    {
+      "id": "iphone-block-tilted",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "pose_id": "tilted-supported",
+      "spatial_mode_id": "on-block",
+      "composition_id": "iphone-tilted-supported",
+      "environment_id": "fine-concrete",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/iphone17/on-block-tilted.txt"
+    },
+    {
+      "id": "iphone-suspended",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "pose_id": "suspended-angled",
+      "spatial_mode_id": "suspended",
+      "composition_id": "iphone-suspended-angled",
+      "environment_id": "suspended-mineral-planes",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/iphone17/suspended.txt"
+    },
+    {
+      "id": "iphone-floor-tilted",
+      "devices": [
+        "iphone17"
+      ],
+      "layout_id": "single",
+      "pose_id": "tilted-supported",
+      "spatial_mode_id": "grounded",
+      "composition_id": "iphone-tilted-floor",
+      "environment_id": "plaster-corner",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/on-floor-tilted.txt"
+    },
+    {
+      "id": "env-microcement-soft",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/environment/microcement-soft.txt"
+    },
+    {
+      "id": "env-fiber-corner-left",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "fiber-cement-panels",
+      "lighting_id": "left-grazing",
+      "reference_prompt": "prompts/environment/fiber-corner-left.txt"
+    },
+    {
+      "id": "env-wide-block-soft",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "on-block",
+      "composition_id": "empty-stage",
+      "environment_id": "fine-concrete",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/environment/wide-block-soft.txt"
+    },
+    {
+      "id": "env-smoked-glass-soft",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "smoked-glass",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/environment/smoked-glass-soft.txt"
+    },
+    {
+      "id": "env-charcoal-lowkey",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "dark-fiber-cement",
+      "lighting_id": "low-key",
+      "reference_prompt": "prompts/environment/charcoal-lowkey.txt"
+    },
+    {
+      "id": "env-suspended-vertical",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "suspended",
+      "composition_id": "empty-stage",
+      "environment_id": "suspended-mineral-planes",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/environment/suspended-vertical.txt"
+    },
+    {
+      "id": "env-carrara-marble-block",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "on-block",
+      "composition_id": "empty-stage",
+      "environment_id": "carrara-marble-wide-block",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/environment/carrara-marble-display-block.txt"
+    },
+    {
+      "id": "two-macs-side-by-side",
+      "devices": [
+        "macbookpro14",
+        "macbookpro14"
+      ],
+      "layout_id": "side-by-side",
+      "spatial_mode_id": "grounded",
+      "composition_id": "three-quarter-left",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/macbookpro14-macbookpro14/side-by-side.txt",
+      "pose_id": "open-display"
+    },
+    {
+      "id": "two-macs-depth-staggered",
+      "devices": [
+        "macbookpro14",
+        "macbookpro14"
+      ],
+      "layout_id": "depth-staggered",
+      "spatial_mode_id": "suspended",
+      "composition_id": "three-quarter-right",
+      "environment_id": "suspended-mineral-planes",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/macbookpro14-macbookpro14/suspended-depth.txt",
+      "pose_id": "open-suspended"
+    }
   ],
   "retired_compositions": [
-    {"id":"high-view","reason":"Discontinued by art direction, never select or generate.","replaced_by":"display-on-block"}
+    {
+      "id": "high-view",
+      "reason": "Discontinued by art direction, never select or generate.",
+      "replaced_by": "display-on-block"
+    }
   ],
   "device_pose_rules": {
     "iphone17": [
@@ -120,13 +558,93 @@
     ]
   },
   "surface_studies": [
-    {"id":"surface-microcement-wall-floor","surface_type":"wall-floor-junction","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"microcement-seamless","lighting_id":"broad-softbox","reference_prompt":"prompts/architectural-surfaces/microcement-wall-floor.txt"},
-    {"id":"surface-fiber-cement-wall","surface_type":"vertical-wall","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"fiber-cement-panels","lighting_id":"left-grazing","reference_prompt":"prompts/architectural-surfaces/fiber-cement-wall-panels.txt"},
-    {"id":"surface-smoked-glass-mineral","surface_type":"vertical-wall-and-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"smoked-glass","lighting_id":"soft-overhead","reference_prompt":"prompts/architectural-surfaces/smoked-glass-and-mineral.txt"},
-    {"id":"surface-charcoal-wall-floor","surface_type":"wall-floor-corner","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"dark-fiber-cement","lighting_id":"low-key","reference_prompt":"prompts/architectural-surfaces/charcoal-wall-floor.txt"},
-    {"id":"surface-microcement-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"microcement-seamless","lighting_id":"left-grazing","reference_prompt":"prompts/architectural-surfaces/microcement-floor-plane.txt"},
-    {"id":"surface-sandblasted-floor","surface_type":"horizontal-floor","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"floor-plane-emphasis","environment_id":"fine-concrete","lighting_id":"right-grazing","reference_prompt":"prompts/architectural-surfaces/sandblasted-concrete-floor.txt"},
-    {"id":"surface-carrara-marble","surface_type":"wall-floor-junction","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"carrara-marble-wall-floor","lighting_id":"broad-softbox","reference_prompt":"prompts/architectural-surfaces/carrara-marble-wall-floor.txt"},
-    {"id":"surface-graphite-marble","surface_type":"wall-floor-corner","devices":[],"layout_id":"environment-only","spatial_mode_id":"grounded","composition_id":"empty-stage","environment_id":"graphite-marble-wall-floor","lighting_id":"low-key","reference_prompt":"prompts/architectural-surfaces/graphite-marble-wall-floor.txt"}
+    {
+      "id": "surface-microcement-wall-floor",
+      "surface_type": "wall-floor-junction",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/architectural-surfaces/microcement-wall-floor.txt"
+    },
+    {
+      "id": "surface-fiber-cement-wall",
+      "surface_type": "vertical-wall",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "fiber-cement-panels",
+      "lighting_id": "left-grazing",
+      "reference_prompt": "prompts/architectural-surfaces/fiber-cement-wall-panels.txt"
+    },
+    {
+      "id": "surface-smoked-glass-mineral",
+      "surface_type": "vertical-wall-and-floor",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "smoked-glass",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/architectural-surfaces/smoked-glass-and-mineral.txt"
+    },
+    {
+      "id": "surface-charcoal-wall-floor",
+      "surface_type": "wall-floor-corner",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "dark-fiber-cement",
+      "lighting_id": "low-key",
+      "reference_prompt": "prompts/architectural-surfaces/charcoal-wall-floor.txt"
+    },
+    {
+      "id": "surface-microcement-floor",
+      "surface_type": "horizontal-floor",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "floor-plane-emphasis",
+      "environment_id": "microcement-seamless",
+      "lighting_id": "left-grazing",
+      "reference_prompt": "prompts/architectural-surfaces/microcement-floor-plane.txt"
+    },
+    {
+      "id": "surface-sandblasted-floor",
+      "surface_type": "horizontal-floor",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "floor-plane-emphasis",
+      "environment_id": "fine-concrete",
+      "lighting_id": "right-grazing",
+      "reference_prompt": "prompts/architectural-surfaces/sandblasted-concrete-floor.txt"
+    },
+    {
+      "id": "surface-carrara-marble",
+      "surface_type": "wall-floor-junction",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "carrara-marble-wall-floor",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/architectural-surfaces/carrara-marble-wall-floor.txt"
+    },
+    {
+      "id": "surface-graphite-marble",
+      "surface_type": "wall-floor-corner",
+      "devices": [],
+      "layout_id": "environment-only",
+      "spatial_mode_id": "grounded",
+      "composition_id": "empty-stage",
+      "environment_id": "graphite-marble-wall-floor",
+      "lighting_id": "low-key",
+      "reference_prompt": "prompts/architectural-surfaces/graphite-marble-wall-floor.txt"
+    }
   ]
 }
