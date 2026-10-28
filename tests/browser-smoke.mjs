@@ -28,7 +28,7 @@ const errors=[];
 page.on('pageerror',error=>errors.push(error.message));
 try{
   await page.goto(url,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===30);
+  await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===32);
   await page.waitForTimeout(250);
   const headingTypography=await page.locator('header h1').evaluate(el=>({
     font:getComputedStyle(el).fontFamily,
@@ -98,10 +98,19 @@ try{
   assert.match(cardHeading.font,/Outfit/i,'Latin glyphs in card titles use Outfit');
   assert.equal(cardHeading.weight,'700');
   const interactiveCards=page.locator('#gallery-view article.item[role="button"][tabindex="0"]');
-  assert.equal(await interactiveCards.count(),30,'All 30 cards are direct prompt-modal targets');
+  assert.equal(await interactiveCards.count(),32,'All 32 cards are direct prompt-modal targets');
   assert.equal(await page.locator('#gallery-view .compose-entry button').count(),0,'Redundant gallery CTA removed');
   assert.equal(await page.locator('#gallery-view [data-image]').count(),0,'No legacy zoom buttons remain');
   assert.equal(await page.locator('#preview').count(),0,'Legacy preview dialog removed');
+  const macPair=page.locator('#gallery-view article.item[data-id="MM1"]');
+  assert.equal(await macPair.count(),1,'Two MacBook scene appears in the catalog');
+  assert.match(await macPair.locator('.quality').innerText(),/未生成/);
+  assert.match(await macPair.locator('img').getAttribute('alt'),/画像未生成/);
+  await macPair.click();
+  assert.equal(await page.locator('#composer').evaluate(el=>el.open),true);
+  assert.match(await page.locator('#composer-prompt').innerText(),/two identical 14-inch MacBook Pro laptops/);
+  await page.locator('#composer-close').click();
+  assert.equal(await page.locator('#gallery-view article.item[data-id="MM2"]').count(),1);
   const firstCard=interactiveCards.first();
   const firstId=await firstCard.getAttribute('data-id');
   const composer=page.locator('#composer');
@@ -222,6 +231,10 @@ try{
   }
   const cameraGroup=drawer.locator('[data-filter-axis="composition"]');
   assert.equal(await cameraGroup.locator('button').count(),7,'Camera filter initially offers six editor-compatible choices plus All');
+  await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'Mac + Mac（2台）'}).click();
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),2,'Mac+Mac subject shows two ungenerated cards');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),2);
+  await drawer.locator('#reset-filters').click();
   await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17'}).click();
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
@@ -254,13 +267,13 @@ try{
   await clear.click();
   assert.equal(await cameraGroup.locator('button').count(),7,'Clear restores six default camera choices');
   assert.equal(await clear.isDisabled(),true,'Clear returns to disabled after reset');
-  assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
-  assert.equal(await page.locator('#count').innerText(),'30 / 30');
-  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),30);
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),32);
+  assert.equal(await page.locator('#count').innerText(),'32 / 32');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),32);
   await drawer.locator('[data-filter-axis="quality"] button[data-value]:not([data-value=""])').first().click();
   assert.notEqual(await page.locator('#quality-filter').inputValue(),await page.locator('#quality-filter option').first().getAttribute('value'),'Quality facet must drive the existing catalog filter');
   await drawer.locator('#reset-filters').click();
-  assert.equal(await page.locator('#gallery-view article.item:visible').count(),30);
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),32);
   await page.setViewportSize({width:390,height:844});
   const mobileHeader=await page.locator('body > header').evaluate(header=>({
     padLeft:parseFloat(getComputedStyle(header).paddingLeft),
@@ -301,10 +314,10 @@ try{
   homepage.on('pageerror',error=>homeErrors.push(error.message));
   const homeResponse=await homepage.goto(new URL('/',url).href,{waitUntil:'domcontentloaded'});
   assert.equal(homeResponse.status(),200);
-  await homepage.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item[role="button"]').length===30);
+  await homepage.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item[role="button"]').length===32);
   assert.equal(await homepage.locator('#composer-error').isHidden(),true,'Home page must load module-relative configuration');
   assert.equal(await homepage.locator('header h1').innerText(),'PROMPT & VISUAL CATALOG');
-  assert.equal(await homepage.locator('#gallery-view article.item').count(),30);
+  assert.equal(await homepage.locator('#gallery-view article.item').count(),32);
   assert.equal(await homepage.locator('.catalog-sidebar .filter-drawer').evaluate(el=>el.open),true);
   await homepage.locator('#gallery-view article.item').first().click();
   assert.equal(await homepage.locator('#composer').evaluate(el=>el.open),true,'Root gallery card opens the prompt editor');
@@ -321,5 +334,5 @@ try{
   assert.equal(await legacy.locator('#composer').count(),0,'Archived catalog remains the original, without vNext modal');
   await legacy.close();
   assert.deepEqual(errors,[],'No unhandled page errors');
-  console.log('PASS: 30 cards; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
+  console.log('PASS: 32 cards including two unrendered Mac+Mac variants; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
 }finally{await browser.close();server.close();}
