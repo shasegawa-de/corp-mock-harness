@@ -5,7 +5,7 @@ import {resolve,extname,sep} from 'node:path';
 import {chromium} from 'playwright-core';
 
 const root=resolve(import.meta.dirname,'../_site');
-const mime={'.html':'text/html; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'};
+const mime={'.html':'text/html; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg'};
 const server=createServer((request,response)=>{
   try{
     let name=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
@@ -104,8 +104,22 @@ try{
   assert.equal(await page.locator('#preview').count(),0,'Legacy preview dialog removed');
   const macPair=page.locator('#gallery-view article.item[data-id="MM1"]');
   assert.equal(await macPair.count(),1,'Two MacBook scene appears in the catalog');
-  assert.match(await macPair.locator('.quality').innerText(),/未生成/);
-  assert.match(await macPair.locator('img').getAttribute('alt'),/画像未生成/);
+  await page.waitForFunction(()=>['MM1','MM2'].every(id=>{
+    const card=document.querySelector('#gallery-view article.item[data-id="'+id+'"]');
+    const image=card?.querySelector('img');
+    return image?.complete&&image?.naturalWidth>=1000&&image.dataset.onlineImage?.includes('/assets/macbook-pair/')
+      &&card.querySelector('.quality')?.textContent.includes('生成済み');
+  }));
+  assert.match(await macPair.locator('.quality').innerText(),/生成済み・要レビュー/);
+  assert.match(await macPair.locator('img').getAttribute('alt'),/画像生成済み/);
+  assert.match(await page.locator('#gallery-view article.item[data-id="MM2"] .quality').innerText(),/生成済み・要レビュー/);
+  for(const id of ['MM1','MM2']){
+    const img=page.locator('#gallery-view article.item[data-id="'+id+'"] img');
+    const rendered=await img.evaluate(el=>({width:el.naturalWidth,height:el.naturalHeight,src:el.currentSrc}));
+    assert.ok(rendered.width>=1000&&rendered.height>=550, id+' loaded full-sized image');
+    assert.ok(Math.abs(rendered.width/rendered.height-16/9)<0.025,id+' is widescreen 16:9');
+    assert.match(rendered.src,/assets\/macbook-pair\/mm[12]-(?:grounded|suspended)\.jpg$/);
+  }
   await macPair.click();
   assert.equal(await page.locator('#composer').evaluate(el=>el.open),true);
   assert.match(await page.locator('#composer-prompt').innerText(),/two identical 14-inch MacBook Pro laptops/);
@@ -318,6 +332,9 @@ try{
   assert.equal(await homepage.locator('#composer-error').isHidden(),true,'Home page must load module-relative configuration');
   assert.equal(await homepage.locator('header h1').innerText(),'PROMPT & VISUAL CATALOG');
   assert.equal(await homepage.locator('#gallery-view article.item').count(),32);
+  await homepage.waitForFunction(()=>['MM1','MM2'].every(id=>
+    document.querySelector('#gallery-view article.item[data-id="'+id+'"] .quality')?.textContent.includes('生成済み')
+  ),{timeout:10000});
   assert.equal(await homepage.locator('.catalog-sidebar .filter-drawer').evaluate(el=>el.open),true);
   await homepage.locator('#gallery-view article.item').first().click();
   assert.equal(await homepage.locator('#composer').evaluate(el=>el.open),true,'Root gallery card opens the prompt editor');
