@@ -351,5 +351,5 @@ try{
   assert.equal(await legacy.locator('#composer').count(),0,'Archived catalog remains the original, without vNext modal');
   await legacy.close();
   assert.deepEqual(errors,[],'No unhandled page errors');
-  console.log('PASS: 32 cards including two unrendered Mac+Mac variants; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
+  console.log('PASS: 32 cards including two published Mac+Mac review images; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
 }finally{await browser.close();server.close();}
