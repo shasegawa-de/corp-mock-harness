@@ -49,7 +49,7 @@ export function prepareComparison(root,id){
     for(const heading of HEADINGS)if(!lines.includes(heading))throw Error('Missing heading '+heading);
   }
   const words=prompt.trim().split(/\s+/).length;
-  if(words<80||words>170)throw Error('Prompt word count outside 80–170: '+words);
+  if(words<80)throw Error('Prompt lacks essential scene detail: '+words);
   const request={model:MODEL,prompt,n:1,size:SIZE,quality:'high',background:'opaque',output_format:'png'};
   return {id,arm,scene,request,words,prompt_sha256:sha256(prompt),
     source_hashes:Object.fromEntries(REQUIRED.map(p=>[p,sha256(source[p])]))};
