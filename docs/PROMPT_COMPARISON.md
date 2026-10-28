@@ -77,7 +77,7 @@ Security evidence: [GitHub secrets reference](https://docs.github.com/en/actions
 
 After the Mac has generated all 12 PNG/JSON pairs, run `node scripts/private-pilot-cli.mjs --prepare-blind`. Review the images in the private `blind/` directory and enter PASS/FAIL for four hard gates, and 0–2 for geometry, composition, architecture and lighting in `blind/scores.csv`. **Leave `fidelity_0_2` blank during visual review.** The group assignment and variant-specific prompts must not be shown to the visual reviewers.
 
-When all 12 visual scores are complete, freeze a private copy of the score sheet, then reveal `mapping-private.json`, compare each image with its original prompt and enter `fidelity_0_2` (0–2). Run `node scripts/review-summary-cli.mjs` to obtain hard-failure counts and separately averaged axes for A/B/C by scene. Incomplete visual rounds do not print any arm-level scores. This is a descriptive pilot, not statistically proven superiority. Scores and images are neither auto-uploaded nor auto-approved.
+When all 12 visual scores are complete, run `node scripts/review-summary-cli.mjs --seal-visual` to seal the scores and record a private fingerprint. Then reveal `mapping-private.json`, compare each image with its original prompt and enter `fidelity_0_2` (0–2). Run `node scripts/review-summary-cli.mjs` to obtain hard-failure counts and separately averaged axes for A/B/C by scene. Incomplete visual rounds do not print any arm-level scores. This is a descriptive pilot, not statistically proven superiority. Scores and images are neither auto-uploaded nor auto-approved.
 
 ## 8. Fixed model and review-integrity controls
 
@@ -88,3 +88,7 @@ The score aggregator verifies that each of the 12 distinct `arm + trial` pairs i
 ## 9. PNG integrity at the API boundary
 
 For every paid output, the comparator and private pilot now validate the actual PNG signature, dimensions, ordered IHDR/IDAT/IEND chunks, all chunk CRC-32 values and the compressed image data. A truncated HTTP/base64 response or corrupted PNG is rejected **before** it is recorded as a successful trial. The private pilot leaves its `.pending` marker on any uncertain failure, so it never silently retries a possibly charged request. The resume scanner performs the same integrity checks against saved PNG bytes and SHA-256 metadata. Unit tests use syntactically complete offline fixture images, not fake 33-byte PNG headers. This check protects file integrity; it does **not** establish image aesthetics, hardware accuracy, or model-internal prompt fidelity.
+
+## 10. Visual score seal before revealing prompt variants
+
+The review aggregator does not expose per-arm results until an explicit visual score seal is created with `node scripts/review-summary-cli.mjs --seal-visual`. Sealing requires all 12 blinded hard-gate and G/C/E/L scores, with every prompt-fidelity cell still blank. A private SHA-256 fingerprint of the visual scores and a seal record are saved outside Git. After that, reviewers may reveal A/B/C and fill P scores. If any G/C/E/L, hard gate or visual note is modified after sealing, aggregation rejects the file; P remains editable. This provides an audit trail and prevents accidental early unblinding through the summary CLI (not a defense against someone deliberately opening the private identity map directly).

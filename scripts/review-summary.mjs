@@ -1,5 +1,6 @@
 // Summarize human ratings; never read raw images, credentials, or upload review data.
-import {readFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {join} from 'node:path';
 import {privateDirectory} from './private-pilot.mjs';
 export const FIELDS=['blind_id','hard_devices','hard_screens','hard_spatial','hard_one_view','geometry_0_2','composition_0_2','architecture_0_2','lighting_0_2','fidelity_0_2','notes'];
@@ -23,6 +24,31 @@ function csvRows(src){
   if(row.length||cell){row.push(cell);rows.push(row);}
   return rows;
 }
+const VISUAL_COLUMNS=['blind_id',...GATES,...VISUAL_AXES,'notes'];
+function fingerprintVisualScores(rows){
+  const values=rows.map(row=>{
+    if(row.length!==FIELDS.length)throw Error('Malformed score sheet');
+    return Object.fromEntries(FIELDS.map((field,i)=>[field,row[i].trim()]));
+  });
+  values.sort((a,b)=>a.blind_id.localeCompare(b.blind_id));
+  return createHash('sha256').update(JSON.stringify(values.map(v=>VISUAL_COLUMNS.map(k=>v[k])))).digest('hex');
+}
+export function sealVisualScores(root,outputDir){
+  const target=privateDirectory(root,outputDir);
+  if(!target.exists)throw Error('Private review folder absent');
+  const seal=join(target.directory,'blind','visual-seal.json');
+  if(existsSync(seal))throw Error('Blind visual review has already been sealed');
+  const result=reviewSummary(root,outputDir);
+  if(!result.visual_complete)throw Error('All 12 blind visual scores are required before sealing');
+  const rows=csvRows(readFileSync(join(target.directory,'blind','scores.csv'),'utf8'));
+  if(rows.slice(1).some(row=>row[FIELDS.indexOf(FIDELITY)].trim()!==''))
+    throw Error('Fidelity scores must be blank before unblinding');
+  const fingerprint=fingerprintVisualScores(rows.slice(1));
+  writeFileSync(seal,JSON.stringify({visual_sha256:fingerprint,record_count:12,sealed_at:new Date().toISOString()},null,2)+'\n',
+    {flag:'wx',mode:0o600});
+  return {sealed:true,records:12,visual_sha256:fingerprint};
+}
+
 export function reviewSummary(root,outputDir){
   const target=privateDirectory(root,outputDir);
   if(!target.exists)throw Error('Private review folder absent');
@@ -61,9 +87,16 @@ export function reviewSummary(root,outputDir){
   if(!visual_complete&&rated.some(v=>v.scores[FIDELITY]!==null))
     throw Error('Prompt fidelity must remain hidden until every blind visual score is complete');
   const fidelity_complete=visual_complete&&rated.every(v=>v.scores[FIDELITY]!==null);
-  return {reviewed:rated.length,required:12,visual_complete,fidelity_complete,
-    complete:visual_complete&&fidelity_complete,
+  const sealFile=join(target.directory,'blind','visual-seal.json');
+  const sealed=existsSync(sealFile);
+  if(sealed){
+    const seal=JSON.parse(readFileSync(sealFile,'utf8'));
+    if(seal.record_count!==12||seal.visual_sha256!==fingerprintVisualScores(rows))
+      throw Error('Sealed visual review has been modified after unblinding');
+  }
+  return {reviewed:rated.length,required:12,visual_complete,fidelity_complete,sealed,
+    complete:sealed&&visual_complete&&fidelity_complete,
     caution:'Two trials per arm form an exploratory pilot, not proof of statistical superiority.',
-    // Never disclose arm-level results while blinded visual review is unfinished.
-    arms:visual_complete?arms:[]};
+    // No arm-level results before the blind review has been explicitly sealed.
+    arms:sealed&&visual_complete?arms:[]};
 }
