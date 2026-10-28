@@ -20,6 +20,13 @@ on:
           - mm2-a
           - mm2-b
           - mm2-c
+      trial:
+        description: 'Independent replicate for this arm'
+        required: true
+        type: choice
+        options:
+          - '1'
+          - '2'
       execute:
         description: 'Generate ONE paid image; false is free dry-run'
         required: true
@@ -43,7 +50,9 @@ jobs:
       - name: Verify all six arms without image API
         run: |
           for arm in mm1-a mm1-b mm1-c mm2-a mm2-b mm2-c; do
-            node scripts/prompt-comparison-cli.mjs --arm="$arm" --dry-run
+            for trial in 1 2; do
+              node scripts/prompt-comparison-cli.mjs --arm="$arm" --trial="$trial" --dry-run
+            done
           done
       - name: Only allow paid execution from the reviewed main branch
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
@@ -53,12 +62,12 @@ jobs:
         env:
           ARM: ${{ inputs.arm }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: node scripts/prompt-comparison-cli.mjs --arm="$ARM" --execute --output="$RUNNER_TEMP/mm-comparison"
+        run: node scripts/prompt-comparison-cli.mjs --arm="$ARM" --trial="${{ inputs.trial }}" --execute --output="$RUNNER_TEMP/mm-comparison"
       - name: Keep result for human QA
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.execute }}
         uses: actions/upload-artifact@v4
         with:
-          name: mm-comparison-${{ inputs.arm }}-${{ github.run_id }}
+          name: mm-comparison-${{ inputs.arm }}-trial-${{ inputs.trial }}-${{ github.run_id }}
           path: ${{ runner.temp }}/mm-comparison/
           if-no-files-found: error
           retention-days: 14

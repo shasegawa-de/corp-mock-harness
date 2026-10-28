@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
 import {resolve,join} from 'node:path';
 import {ARMS,prepareComparison,generateComparison,lexicalWords,HEADINGS} from '../scripts/prompt-comparison.mjs';
 const root=resolve(import.meta.dirname,'..');
@@ -59,3 +60,23 @@ test('missing API key means no request',async()=>{
   assert.equal(calls,0);
 });
 test('invalid experiment ID rejected',()=>assert.throws(()=>prepareComparison(root,'../mm1-a')));
+
+test('twelve independent dry-run trial IDs do not invoke the image API',()=>{
+  const ids=Object.keys(ARMS);
+  const seen=new Set();
+  for(const id of ids)for(const trial of [1,2]){
+    const result=spawnSync(process.execPath,
+      ['scripts/prompt-comparison-cli.mjs','--arm='+id,'--trial='+trial,'--dry-run'],
+      {cwd:root,encoding:'utf8',env:{...process.env,OPENAI_API_KEY:''}});
+    assert.equal(result.status,0,result.stderr);
+    const report=JSON.parse(result.stdout);
+    assert.equal(report.api_requested,false);
+    assert.equal(report.trial,trial);
+    assert.equal(report.arm,id);
+    seen.add(report.arm+':'+report.trial);
+  }
+  assert.equal(seen.size,12);
+  const bad=spawnSync(process.execPath,['scripts/prompt-comparison-cli.mjs','--arm=mm1-a','--trial=3','--dry-run'],
+    {cwd:root,encoding:'utf8'});
+  assert.notEqual(bad.status,0);
+});
