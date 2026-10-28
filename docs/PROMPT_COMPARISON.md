@@ -28,7 +28,7 @@ A = exact current catalog fixture (unaltered). B = seven headings, same lexical 
 
 ## 3. Constant settings and interpretation
 
-Same model `gpt-image-2.5-flare`, `1536x864`, `quality=high`, `n=1`, independent single-scene image API call per trial. Record prompt SHA-256 and verify the outgoing JSON carries the exact fixture. Because model-internal preprocessing is not exposed, `prompt_transport=EXACT_REQUEST_SUBMITTED` **does not mean** `effective_model_prompt=MATCH`; it remains `UNVERIFIED`.
+Same model `gpt-image-2.5-flare-2026-09-08`, `1536x864`, `quality=high`, `n=1`, independent single-scene image API call per trial. Record prompt SHA-256 and verify the outgoing JSON carries the exact fixture. Because model-internal preprocessing is not exposed, `prompt_transport=EXACT_REQUEST_SUBMITTED` **does not mean** `effective_model_prompt=MATCH`; it remains `UNVERIFIED`.
 
 Randomize the 12 outputs for blind assessment. Score these six axes separately on 0=fail, 1=partial, 2=pass: (1) exactly two open Macs, white complete screens and no extra device; (2) both keyboards/trackpads, plausible aluminum body and hinges; (3) placement, relative scale and camera; (4) ground contact and shadows for MM1 / strictly no floor or implied ground for MM2; (5) physically coherent nonrepetitive mineral architecture; (6) light direction, sculptural reflections and photographic dimensionality. Device-count or spatial-mode failure remains a **hard failure** regardless of aesthetic score. Geometry in exact millimeters cannot be certified from the render alone.
 
@@ -55,7 +55,7 @@ The manual workflow has **arm** and **trial** selectors. Each arm gets two indep
 
 **Do not unblind scores during review.** Download all 12 images and their JSON records, conceal filenames and labels, randomize their viewing order, and evaluate them using [MM image QA form](MM_IMAGE_QA.md). Reveal the arm identities only after all scores are saved. Two images per arm is a pilot, not statistically convincing evidence of a quality advantage. Hard constraints are evaluated as vetoes, not averaged away.
 
-Actual billable image output tokens are not predictable from the prompt's word count alone. Read `usage` and OpenAI's current pricing for costs; **do not assume a fixed USD amount for the 12-image pilot**. Both `gpt-image-2.5-flare` and `1536x864` are supported per the [official image generation guide](https://developers.openai.com/api/docs/guides/image-generation). Explicitly review API expense before using `execute=true` and note that `OPENAI_API_KEY` is a repository secret, not a chat credential.
+Actual billable image output tokens are not predictable from the prompt's word count alone. Read `usage` and OpenAI's current pricing for costs; **do not assume a fixed USD amount for the 12-image pilot**. Both `gpt-image-2.5-flare-2026-09-08` and `1536x864` are supported per the [official image generation guide](https://developers.openai.com/api/docs/guides/image-generation). Explicitly review API expense before using `execute=true` and note that `OPENAI_API_KEY` is a repository secret, not a chat credential.
 
 **Execution limitation:** This PR's workflow is not merged to default `main`. GitHub's workflow-dispatch interface requires a workflow registered on the default branch. The paid workflow cannot be launched via this draft PR alone. A local Node 22+ checkout of this experimental branch can also run one arm at a time with `--execute` after the owner supplies a local `OPENAI_API_KEY`. Neither route has been used to generate paid images here.
 
@@ -78,3 +78,9 @@ Security evidence: [GitHub secrets reference](https://docs.github.com/en/actions
 After the Mac has generated all 12 PNG/JSON pairs, run `node scripts/private-pilot-cli.mjs --prepare-blind`. Review the images in the private `blind/` directory and enter PASS/FAIL for four hard gates, and 0–2 for geometry, composition, architecture and lighting in `blind/scores.csv`. **Leave `fidelity_0_2` blank during visual review.** The group assignment and variant-specific prompts must not be shown to the visual reviewers.
 
 When all 12 visual scores are complete, freeze a private copy of the score sheet, then reveal `mapping-private.json`, compare each image with its original prompt and enter `fidelity_0_2` (0–2). Run `node scripts/review-summary-cli.mjs` to obtain hard-failure counts and separately averaged axes for A/B/C by scene. Incomplete visual rounds do not print any arm-level scores. This is a descriptive pilot, not statistically proven superiority. Scores and images are neither auto-uploaded nor auto-approved.
+
+## 8. Fixed model and review-integrity controls
+
+For the A/B/C pilot, all arms now use the explicit supported snapshot `gpt-image-2.5-flare-2026-09-08` instead of the moving alias. The shared architectural-image workflow retains its own model setting; the experiment does not modify that production module. This change occurred before any paid trial was run. The results therefore cannot be mislabelled as the current unpinned model.
+
+The score aggregator verifies that each of the 12 distinct `arm + trial` pairs is represented once and refuses prompt-fidelity scoring until the visual review is complete. Do not reveal the privately stored identity mapping to image reviewers before recording all 12 blind visual scores.
