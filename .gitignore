@@ -19,3 +19,7 @@
 assets/private/
 exports/
 _site/
+
+# Defence-in-depth: no review output should be committed
+generated-review/
+.corp-mock-harness-private-reviews/

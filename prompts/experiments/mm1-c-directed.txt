@@ -1,0 +1,22 @@
+ONE standalone photorealistic product photograph.
+
+OUTPUT
+ONE camera view. Horizontal 16:9. Produce a single coherent premium architectural product photograph, not a collage or alternate views. The composition must remain usable as a clean mockup with generous breathing room.
+
+SUBJECT
+Exactly TWO devices: two identical 14-inch MacBook Pro laptops, both OPEN; NO iPhone or third device. Each aluminum body has the same physical 312.6×221.2mm footprint, a believable thin unibody, rigid hinge, centered camera notch, proportionate black keyboard and broad integrated trackpad. Keep BOTH entire displays, keyboards and trackpads unobstructed. Screens are uniformly pure white, without any UI, marks or reflections obscuring the white area. Maintain credible perspective, matching physical size and natural scale.
+
+COMPOSITION
+Keep the two laptops side-by-side, left and right, separated by a visible gap; both bases rest directly on the floor. The left laptop turns subtly toward the camera, while the right is more frontal. Allow slight natural differences in yaw and opening angle rather than matching them mechanically. Do not turn the scene into an overlapping stack or change the two-device count. Maintain readable silhouettes, balanced asymmetry and negative space.
+
+CAMERA
+Use one restrained left three-quarter photographic viewpoint with sufficient elevation to see both full screens and both keyboard-and-trackpad surfaces. Avoid dramatic wide-angle distortion, exaggerated foreshortening, impossible body thickness or cropping. Preserve a believable common horizon and architectural scale.
+
+ENVIRONMENT
+A continuous pale half-gray matte microcement floor meets a quiet distant microcement wall at one physically plausible architectural junction. Subtle irregular mineral grain and fine trowel variation should read at room scale, not like a close-up material sample. Keep the wall and floor coherent in perspective, texture density and illumination. Avoid repeated vertical stripes, tiled wallpaper patterns, exaggerated seams and artificial dark background gradients.
+
+LIGHTING & ART DIRECTION
+Soft directional upper-left daylight enters, with restrained but perceptible directional contrast. Shape both aluminum bodies with natural satin reflections and gentle tonal transitions; produce physically plausible contact shadows attached to each laptop base. Preserve dimensionality and photographic interest without theatrical beams or harsh specular glare. Do not flatten the lighting merely to make the background more uniform. Prioritize product visibility and geometry first, contact realism second, then architectural naturalness and expressive but controlled light.
+
+EXCLUSIONS
+No third device, iPhone, floor plinth, desk, furniture, woodgrain, decorative props, hands, people, plants, foliage shadows, coffee, logos, readable text, display UI, repeated wall bands, severe gradients, collage or multiple camera views.

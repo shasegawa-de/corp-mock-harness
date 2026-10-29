@@ -1,0 +1,43 @@
+name: MM1/MM2 A-B-C prompt comparison (safe preflight)
+
+on:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'STYLE.md'
+      - 'configs/**'
+      - 'prompts/experiments/**'
+      - 'scripts/prompt-comparison*.mjs'
+      - 'scripts/private-pilot*.mjs'
+      - 'scripts/png-validate.mjs'
+      - 'tests/helpers/png-fixture.mjs'
+      - 'scripts/review-summary*.mjs'
+      - 'tests/prompt-comparison.test.mjs'
+      - 'tests/private-pilot.test.mjs'
+      - 'tests/review-summary.test.mjs'
+      - '.github/workflows/mm-prompt-comparison.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Run prompt and offline security tests
+        run: node --test tests/prompt-comparison.test.mjs tests/private-pilot.test.mjs tests/review-summary.test.mjs
+      - name: Verify twelve dry-run descriptions without image API
+        run: |
+          for arm in mm1-a mm1-b mm1-c mm2-a mm2-b mm2-c; do
+            for trial in 1 2; do
+              node scripts/prompt-comparison-cli.mjs --arm="$arm" --trial="$trial" --dry-run
+            done
+          done

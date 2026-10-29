@@ -1,0 +1,22 @@
+ONE standalone photorealistic product photograph.
+
+OUTPUT
+ONE camera view. Horizontal 16:9. Produce one complete architectural product photograph of a weightless two-device scene, not a collage, rendered display mockup or multiple camera angles. Leave intentional negative space around the independently floating laptops.
+
+SUBJECT
+Exactly TWO devices: two identical OPEN 14-inch MacBook Pro laptops floating separately; NO iPhone or third device. Both have faithful 312.6×221.2mm real-world base footprints, rigid thin aluminum bodies, physically credible hinges and centered camera notches. The keyboards, broad trackpads and entire displays of BOTH Macs remain completely visible. Displays are featureless pure white, with no UI, typography, colored gradients or strong screen reflections. Their underlying hardware proportions must match; apparent size difference may come only from perspective.
+
+COMPOSITION
+Use the reference depth-staggered scene contract: the left Mac is farther back and slightly higher; the right Mac is closer and lower. Their open screens, keyboard decks and silhouettes must never overlap. Give the two devices natural but distinct orientations without mechanically parallel screen planes, while retaining the left-rear/right-front relationship and one coherent camera perspective. Avoid symmetrical, evenly spaced product-grid styling.
+
+CAMERA
+A restrained right three-quarter photographic camera angle, positioned to reveal both white screens and all input surfaces. Use believable perspective and optical depth rather than extreme wide-angle deformation. Keep both whole laptops inside the 16:9 crop, including corners, hinges and trackpads.
+
+ENVIRONMENT
+A floorless architectural backdrop of one or two broad vertical matte half-gray microcement planes. Use realistic, finely irregular mineral texture with subtle variation in scale and tone, consistent with large installed wall surfaces. Plane boundaries, if visible, must be physically credible and nonrepetitive; an understated soft tonal transition creates depth. Never fabricate a floor, horizon, wall-floor intersection or display support. Avoid wallpaper-like vertical striping and conspicuous repeating patterns.
+
+LIGHTING & ART DIRECTION
+Soft directional upper-left daylight shapes the aluminum with restrained satin highlights and an elegant range of mid-gray tonal values. Preserve natural three-dimensional form and visual hierarchy while avoiding artificial spotlight falloff or harsh theatrical rays. The wall must remain quiet without making the products flat, muddy or indistinguishable. Allow light on each Mac and gentle local atmospheric separation, but absolutely no projected ground shadow or implied floor beneath them. Prioritize device visibility and floorless physical logic over decorative lighting.
+
+EXCLUSIONS
+NO floor, floor-wall seam, horizon, ground shadow, platform, stand, suspension wire, third laptop, phone, repeated vertical bands, tiled wall texture, artificial dark gradient, furniture, wood, props, people, plants, logos, readable text, UI, cropped screen, overlapping laptop, collage or multiple views.
