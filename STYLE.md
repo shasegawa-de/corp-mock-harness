@@ -29,5 +29,11 @@ Successful directions have copy-ready prompts in `prompts/` and optional metadat
 
 - **One image = one model:** `repeated-grid` allows six instances all `iphone17` OR six instances all `iphone17pro`. No mixed models, size, finishes or generations within a photograph. The Pro variant is selectable only in this mode; dimensions follow the separate device specs.
 - **Screen-facing direction:** all phones lie with their FRONT DISPLAYS facing UP toward camera, blank pure-white; no back/camera bump/brand logo sides. The six smartphones use one model, same orientation and lens.
-- **Rhythm:** exactly two rows of three, **second row translated sideways ~35% of a device width** to create a staggered pattern. Preserve regular in-row pitch and parallel alignment, not a strict regular chessboard. Peripheral crop only; central screens complete.
+- **Rhythm:** exactly two rows of three, **second row either ALIGNED at 0% or shifted EXACTLY 50% of a device width, according to `layout_id`** to create a staggered pattern. Preserve regular in-row pitch and parallel alignment, not a strict regular chessboard. Peripheral crop only; central screens complete.
 - **Cameras:** high oblique 58–68°, normal 40–50° or lower 24–32°; all are SINGLE coherent cameras, never a 90° vertical flat lay. No claim of machine-verifiable hardware accuracy from image generation alone.
+
+## 2026-11-12 — two explicit repetition layouts
+
+- `repeated-grid`: **no offset (0%)**. Two rows of three identical face-up devices with columns precisely aligned.
+- `repeated-grid-half-offset`: **EXACTLY 50% of the handset body width** horizontal displacement of row two, not 35%, one-third, or half the gap between columns. All device models, sizes, rotations, screen-up orientation, white screens and within-row spacing remain identical. No mixed models.
+- The `row_offset_ratio` in the generated Scene Contract is 0 or 0.5. ImageGen output alone cannot guarantee this geometric measurement. For a pixel-exact approved preview use deterministic compositing of identical handset cutouts, preserving the measured projected width. Distinguish layout-proof composites from independently generated photo renders.

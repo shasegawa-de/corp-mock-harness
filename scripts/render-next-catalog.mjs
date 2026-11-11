@@ -130,25 +130,25 @@ const experimentalScenes=[
   },
   {
     "id": "EX05",
-    "title": "iPhone 17反復・アイボリー／千鳥・高角度",
+    "title": "iPhone 17反復・ずれなし／整列0％",
     "type": "iphone",
     "scene": "iphone-grid-ivory-diagonal",
     "composition": "iphone-tile-steep-oblique",
     "material": "warm-ivory-seamless",
     "light": "soft-overhead",
     "source": "prompts/iphone17/repeated-ivory-diagonal.txt",
-    "note": "6台とも画面側を上にした同系統の白画面・千鳥配置。iPhone 17の実機精度と俯瞰角は未検証。"
+    "note": "同一の生成端末切り抜き6枚を整列合成。行の横ずれ0px（0％）は配置値で確認。iPhoneの厳密な機種形状・フォトリアリズムは未承認。"
   },
   {
     "id": "EX06",
-    "title": "iPhone 17反復・グレー／千鳥・高角度",
+    "title": "iPhone 17反復・ずれあり／半台50％",
     "type": "iphone",
-    "scene": "iphone-grid-lightgray-diagonal",
+    "scene": "iphone-grid-ivory-diagonal-half-offset",
     "composition": "iphone-tile-steep-oblique",
-    "material": "pale-gray-seamless",
-    "light": "high-key",
-    "source": "prompts/iphone17/repeated-lightgray-diagonal.txt",
-    "note": "6台とも前面白画面で、行の横ずらしを表現。機種の一致精度と俯瞰角は未検証。"
+    "material": "warm-ivory-seamless",
+    "light": "soft-overhead",
+    "source": "prompts/iphone17/repeated-ivory-diagonal-half-offset.txt",
+    "note": "同じ生成端末切り抜き6枚を千鳥合成。表示筐体幅212pxに対し2行目を106px横移動＝正確に50％。生成AIによる端末形状再現の精度は未承認。"
   },
   {
     "id": "EX07",

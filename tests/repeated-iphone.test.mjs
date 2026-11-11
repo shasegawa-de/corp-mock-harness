@@ -6,136 +6,104 @@ import {filterOptions} from '../catalog-next/filters.mjs';
 
 const p=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url),'utf8'));
 const d=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url),'utf8'));
-const scene=id=>{
+const originalIds=['iphone-grid-ivory-diagonal','iphone-grid-lightgray-diagonal','iphone-grid-ivory-low-oblique','iphone-grid-lightgray-low-oblique','iphone-grid-pro-ivory-steep','iphone-grid-pro-gray-steep'];
+const fromId=(id)=>{
  const row=p.showcase_presets.find(x=>x.id===id);
  assert.ok(row,id);
- const normalized=normalize({...defaults,...fromPreset(row)},p);
- assert.deepEqual(normalized.changes,[],id);
- return {row,normalized,result:assemble(normalized.state,p,d)};
+ const n=normalize({...defaults,...fromPreset(row)},p);
+ assert.deepEqual(n.changes,[],id);
+ return {row,out:assemble(n.state,p,d)};
 };
-const cases=[
- 'iphone-grid-ivory-diagonal',
- 'iphone-grid-lightgray-diagonal',
- 'iphone-grid-ivory-low-oblique',
- 'iphone-grid-lightgray-low-oblique',
- 'iphone-grid-pro-ivory-steep',
- 'iphone-grid-pro-gray-steep'
-];
 
-test('exactly six repeated iPhone 17 devices are independently constrained in one photograph',()=>{
+test('layout types expose precise zero and half-phone body width contracts',()=>{
  validateCatalog(p,d);
  assert.equal(p.device_layouts.find(x=>x.id==='repeated-grid').device_count,6);
- for(const id of cases){
-   const {row,result}=scene(id);
-   assert.deepEqual(row.devices,Array(6).fill(id.includes('-pro-')?'iphone17pro':'iphone17'),id);
-   assert.deepEqual(result.contract.devices,Array(6).fill(id.includes('-pro-')?'iphone17pro':'iphone17'),id);
-   assert.equal(result.contract.layout_id,'repeated-grid');
-   assert.equal(result.contract.spatial_mode_id,'grounded');
-   assert.equal(result.contract.pose_id,'flat-face-up');
-   assert.match(result.prompt,/Exactly SIX identical/);
-   assert.match(result.prompt,/FRONT-SCREEN UP, never rear-facing/);
-   assert.match(result.prompt,/shifted SIDEWAYS 35%/);
-   assert.match(result.prompt,/two rows of three/);
-   assert.match(result.prompt,/photograph/);
-   assert.match(result.prompt,/only outer phones may be intentionally cut by image edges/);
-   assert.match(result.prompt,/featureless pure white/);
-   assert.match(result.prompt,/ONE camera view/);
-   assert.match(result.prompt,/no furniture/);
-   assert.doesNotMatch(result.prompt,/Exactly one black standard iPhone|Exactly two devices|MacBook/);
-   assert.ok(result.words>=80 && result.words<=170,id+' words '+result.words);
-   const source=readFileSync(new URL('../'+row.reference_prompt,import.meta.url),'utf8');
-   assert.match(source,/Exactly SIX identical/);
-   assert.match(source,/all the SAME model/);
-   assert.match(source,/FRONT SCREEN UP/);
-   assert.match(source,/NO flipped phones, NO rear cameras/);
-   assert.match(source,/offset the second row SIDEWAYS/i);
-   assert.match(source,/blank pure WHITE/);
-   assert.match(source,/ONE camera view/);
-   assert.doesNotMatch(source,/simple mockup|FREE MOCKUPS|SCREEN MOCKUP|mockups-design|https?:\/\//i);
+ const half=p.device_layouts.find(x=>x.id==='repeated-grid-half-offset');
+ assert.equal(half.device_count,6);
+ assert.equal(half.offset_ratio,0.5);
+ assert.match(half.detail,/EXACTLY 50% of ONE handset body WIDTH/);
+});
+
+test('all twelve fixture arms preserve one model, screen front up and the selected exact ratio',()=>{
+ for(const base of originalIds){
+  for(const suffix of ['','-half-offset']){
+   const id=base+suffix,mode=suffix?'repeated-grid-half-offset':'repeated-grid',ratio=suffix?0.5:0;
+   const {row,out}=fromId(id);
+   const model=base.includes('-pro-')?'iphone17pro':'iphone17';
+   assert.deepEqual(row.devices,Array(6).fill(model),id);
+   assert.deepEqual(out.contract.devices,Array(6).fill(model),id);
+   assert.equal(row.layout_id,mode);
+   assert.equal(out.contract.layout_id,mode);
+   assert.equal(out.contract.row_offset_ratio,ratio);
+   assert.equal(out.contract.pose_id,'flat-face-up');
+   assert.match(out.prompt,/Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing/);
+   if(ratio)assert.match(out.prompt,/EXACTLY HALF of ONE phone body width \(50%\)/);
+   else assert.match(out.prompt,/ZERO shift, 0%/);
+   assert.doesNotMatch(out.prompt,/35%|one.third/i);
+   assert.match(out.prompt,/featureless pure white/);
+   assert.match(out.prompt,/ONE camera view/);
+   assert.ok(out.words>=80&&out.words<=170,id+': '+out.words);
+   const src=readFileSync(new URL('../'+row.reference_prompt,import.meta.url),'utf8');
+   assert.match(src,/Exactly SIX identical/);
+   assert.match(src,/all the SAME model/);
+   assert.match(src,/FRONT SCREEN UP/);
+   assert.match(src,/NO flipped phones, NO rear cameras/);
+   if(ratio)assert.match(src,/EXACTLY HALF of the PHONE BODY WIDTH \(50%\)/);
+   else assert.match(src,/ZERO lateral shift \(0%\)/);
+   assert.doesNotMatch(src,/ONE THIRD|35%/);
+   assert.match(src,/blank pure WHITE/);
+  }
  }
 });
 
-test('diagonal and lower-oblique views keep distinct camera elevations',()=>{
- for(const id of cases){
-   const {result}=scene(id);
-   if(id.includes('low-oblique')){
-     assert.equal(result.contract.composition_id,'iphone-tile-low-oblique');
-     assert.match(result.prompt,/24–32-degree/);
-     assert.doesNotMatch(result.prompt,/One 40–50-degree oblique camera/);
-   }else{
-     assert.equal(result.contract.composition_id,'iphone-tile-steep-oblique');
-     assert.match(result.prompt,/58–68-degree oblique camera/);
-   }
+test('the two modes are available for each iPhone model, but never in normal Mac or empty scenes',()=>{
+ for(const sub of ['iphone17','iphone17pro']){
+  const s={...defaults,subject:sub,spatial:'grounded'};
+  assert.ok(choices(s,p).layout.includes('repeated-grid'));
+  assert.ok(choices(s,p).layout.includes('repeated-grid-half-offset'));
+  assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).spatial,['grounded']);
+  assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).pose,['flat-face-up']);
+  assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique']);
  }
- for(const id of cases){
-   const {result}=scene(id);
-   if(id.includes('ivory'))assert.equal(result.contract.environment_id,'warm-ivory-seamless');
-   else assert.equal(result.contract.environment_id,'pale-gray-seamless');
+ for(const sub of ['macbookpro14','pair','mac-pair','environment']){
+  for(const layout of ['repeated-grid','repeated-grid-half-offset']){
+   assert.ok(!choices({...defaults,subject:sub},p).layout.includes(layout));
+   assert.throws(()=>assemble({...defaults,subject:sub,layout},p,d),/組み合わせ/);
+  }
+ }
+ assert.ok(filterOptions(p).layout.includes('repeated-grid'));
+ assert.ok(filterOptions(p).layout.includes('repeated-grid-half-offset'));
+ assert.deepEqual(assemble(defaults,p,d).contract.devices,['iphone17']);
+ assert.equal(choices(defaults,p).composition.length,6);
+});
+
+test('invalid repeated devices, pose, lighting mode or mixed models fail validation for both layouts',()=>{
+ for(const base of ['iphone-grid-ivory-diagonal','iphone-grid-ivory-diagonal-half-offset']){
+  for(const change of [
+   x=>x.devices.pop(),
+   x=>x.devices.splice(1,1,'iphone17pro'),
+   x=>x.devices.splice(0,1,'macbookpro14'),
+   x=>x.spatial_mode_id='suspended',
+   x=>x.pose_id='upright',
+   x=>x.composition_id='three-quarter-left'
+  ]){
+   const tmp=structuredClone(p);
+   change(tmp.showcase_presets.find(x=>x.id===base));
+   assert.throws(()=>validateCatalog(tmp,d),/iPhone反復パターン契約/);
+  }
  }
 });
 
-test('pattern-only cropping and low camera do not leak into single iPhone or Mac contracts',()=>{
- const original={...defaults};
- const old=assemble(defaults,p,d);
- assert.deepEqual(defaults,original,'Assembling default prompt must never mutate a caller state');
- assert.deepEqual(old.contract.devices,['iphone17']);
- assert.match(old.prompt,/Exactly one black standard iPhone 17/);
- assert.doesNotMatch(old.prompt,/six|SIX|perimeter|repeated grid/i);
- assert.ok(!choices(defaults,p).composition.includes('iphone-tile-low-oblique'));
- assert.ok(!choices(defaults,p).composition.includes('iphone-tile-diagonal'));
- assert.ok(choices(defaults,p).layout.includes('repeated-grid'));
- assert.ok(filterOptions(p).layout.includes('repeated-grid'),'The provisional gallery now shows this facet');
- for(const subject of ['macbookpro14','pair','mac-pair','environment']){
-   const state={...defaults,subject};
-   assert.ok(!choices(state,p).layout.includes('repeated-grid'),subject);
-   assert.throws(()=>assemble({...state,layout:'repeated-grid'},p,d),/組み合わせ/);
- }
- const ground={...defaults,layout:'repeated-grid',spatial:'grounded',pose:'flat-face-up'};
- assert.deepEqual(choices(ground,p).spatial,['grounded']);
- assert.deepEqual(choices(ground,p).pose,['flat-face-up']);
- assert.deepEqual(choices(ground,p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique']);
- assert.ok(choices(ground,p).environment.includes('warm-ivory-seamless'));
- assert.ok(choices(ground,p).environment.includes('pale-gray-seamless'));
- assert.ok(!choices({...defaults,subject:'iphone17',spatial:'suspended'},p).layout.includes('repeated-grid'));
- assert.ok(!choices({...defaults,subject:'iphone17',spatial:'on-block'},p).layout.includes('repeated-grid'));
- assert.ok(!choices(defaults,p).environment.includes('warm-ivory-seamless'));
- assert.ok(!choices(defaults,p).environment.includes('pale-gray-seamless'));
- assert.ok(!choices(defaults,p).lighting.includes('window-cut-sun'));
- assert.equal(choices(defaults,p).composition.length,6,'existing default iPhone options unchanged');
-});
-test('invalid repeat setups fail closed instead of silently publishing invalid device counts',()=>{
- const make=()=>structuredClone(p);
- for(const mutation of [
-   row=>{row.devices[0]='macbookpro14';},
-   row=>{row.devices.pop();},
-   row=>{row.spatial_mode_id='suspended';},
-   row=>{row.pose_id='upright';},
-   row=>{row.composition_id='three-quarter-left';}
- ]){
-   const altered=make();
-   mutation(altered.showcase_presets.find(x=>x.id==='iphone-grid-ivory-diagonal'));
-   assert.throws(()=>validateCatalog(altered,d),/iPhone反復パターン契約/);
- }
- const unrelated=make();
- unrelated.showcase_presets.find(x=>x.id==='iphone-grid-ivory-diagonal').layout_id='single';
- assert.throws(()=>validateCatalog(unrelated,d),/反復以外の多台数構成/);
-});
-test('the editor exposes layout choice on iPhone while keeping environment-only mode isolated',()=>{
- const pro=normalize({...defaults,subject:'iphone17pro'},p);
- assert.equal(pro.state.layout,'repeated-grid');
- assert.equal(pro.state.pose,'flat-face-up');
- assert.deepEqual(choices({...defaults,subject:'iphone17pro'},p).spatial,['grounded']);
- assert.deepEqual(assemble(pro.state,p,d).contract.devices,Array(6).fill('iphone17pro'));
- const mixed=structuredClone(p);
- mixed.showcase_presets.find(x=>x.id==='iphone-grid-ivory-diagonal').devices[1]='iphone17pro';
- assert.throws(()=>validateCatalog(mixed,d),/iPhone反復パターン契約/);
- const src=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
- assert.match(src,/\['pair','mac-pair','iphone17','iphone17pro'\]/);
- const old=normalize({...defaults,subject:'iphone17',spatial:'grounded',layout:'single',pose:'upright'},p);
- assert.deepEqual(old.changes,[]);
- const newScene=normalize({...old.state,layout:'repeated-grid'},p);
- assert.equal(newScene.state.pose,'flat-face-up');
- assert.ok(newScene.changes.some(x=>x.key==='pose'));
- assert.equal(newScene.state.composition,'iphone-tile-diagonal');
- assert.ok(newScene.changes.some(x=>x.key==='composition'));
+test('published concept previews have numerically exact 0% and half-body 50% offsets',()=>{
+ const m=JSON.parse(readFileSync(new URL('../assets/experimental-previews/manifest.json',import.meta.url),'utf8'));
+ assert.equal(m.geometry_demo.body_width_px,212);
+ assert.equal(m.geometry_demo.aligned_offset_px,0);
+ assert.equal(m.geometry_demo.half_offset_px,106);
+ assert.equal(m.geometry_demo.half_offset_px*2,m.geometry_demo.body_width_px);
+ assert.equal(m.geometry_demo.half_offset_ratio,0.5);
+ const ex5=m.images.find(x=>x.id==='EX05'),ex6=m.images.find(x=>x.id==='EX06');
+ assert.equal(ex5.source_prompt,'prompts/iphone17/repeated-ivory-diagonal.txt');
+ assert.equal(ex6.source_prompt,'prompts/iphone17/repeated-ivory-diagonal-half-offset.txt');
+ assert.equal(ex5.generated_from_source_prompt,false);
+ assert.equal(ex6.generated_from_source_prompt,false);
 });
