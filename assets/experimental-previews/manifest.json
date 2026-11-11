@@ -1,7 +1,7 @@
 {
   "status": "provisional-unapproved",
   "date": "2026-11-12",
-  "source": "EX09 is new chat-generated iPhone close-up visual concept, NOT direct API execution of its fixture prompt. EX05/EX06 remain legacy compositing demonstrations, of which EX06 horizontal 50%-width shift fails the current vertical 50%-body-length requirement. The eight other previews are historical candidates, all unapproved.",
+  "source": "EX09 has been replaced with the latest chat-generated near-16:9 iPhone close-up visual concept (1672×941 PNG source, JPEG-encoded for catalog), NOT direct API execution of its fixture prompt. EX05/EX06 remain legacy compositing demonstrations, of which EX06 horizontal 50%-width shift fails the current vertical 50%-body-length requirement. The eight other previews are historical candidates, all unapproved.",
   "approved": false,
   "security": "No API credentials or user-provided reference image files committed.",
   "disclaimer": "Visual direction only. iPhone count and some laptop visibility requirements fail; each card discloses this.",
@@ -86,12 +86,22 @@
       "source_prompt": "prompts/iphone17/repeated-ivory-detail-vertical-half-offset.txt",
       "generated_from_source_prompt": false,
       "quality": "unapproved",
-      "review_note": "生成画像によるアートディレクション見本。近接斜め俯瞰、白画面、薄い筐体、広い余白を確認。列方向50％ずれの実測、実機ボタン・端子の正確性、16:9比率（本素材は4:3）は未達・未検証。",
-      "image_origin": "ChatGPT-generated 1448x1086 4:3 conceptual still, JPEG preview; NOT directly generated using scene fixture",
-      "actual_aspect_ratio": "4:3",
+      "review_note": "今回生成した16:9横長の近接斜め俯瞰プレビュー（1672×941px）。薄い筐体、白画面、広い余白の方向性確認用。縦列の筐体長50％ずれ・実機のボタン／端子寸法・登録プロンプトとの一致は未検証。",
+      "image_origin": "ChatGPT ImageGen 1672×941 PNG generated in conversation; JPEG-encoded for catalog, not an individual fixture/API render",
+      "actual_aspect_ratio": "16:9 (1672×941 px; approximately 1.777:1)",
       "specified_aspect_ratio": "16:9",
       "geometric_50_percent_verification": "UNVERIFIED",
-      "physical_device_accuracy": "UNVERIFIED"
+      "physical_device_accuracy": "UNVERIFIED",
+      "source_dimensions_px": {
+        "width": 1672,
+        "height": 941
+      },
+      "image_dimensions_px": {
+        "width": 1672,
+        "height": 941
+      },
+      "source_format": "image/png",
+      "catalog_format": "image/jpeg"
     }
   ],
   "geometry_demo": {
