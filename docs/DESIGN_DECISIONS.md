@@ -183,3 +183,9 @@
 - [決定] Three selective camera heights: elevated 58–68°, ordinary 40–50°, low 24–32°. One camera image, not six independent renders. High camera is oblique, not strict top-down.
 - [暫定] Reworked preview EX05/EX06 are image-generation concepts, **not** outputs of the exact committed presets and not geometric certifications. EX07/EX08 remain previous rejected previews until their individual re-render.
 - [前提修正] Apple sources for iPhone 17 and iPhone 17 Pro measurements: https://www.apple.com/jp/iphone-17/specs/ and https://www.apple.com/jp/iphone-17-pro/specs/.
+
+## 2026-11-12 — explicit aligned and 50%-staggered layouts (supersedes prior 35%)
+
+- [前提修正] Prior ~35% stagger contract is superseded. Two separate selectable layouts: `repeated-grid` = exactly 0% horizontal row offset (column alignment); `repeated-grid-half-offset` = exactly 50% of the **projected handset body width** row offset. Not 50% of the column pitch or blank gap.
+- [決定] Same phone model for all six, all FRONT SCREEN UP, all blank white, two rows of three, identical rotation and physical scale. Both layout modes available for iPhone 17 and 17 Pro, all registered studio environments and camera heights.
+- [暫定] Two geometry-demo EX05/EX06 image composites made from the *same* generated phone silhouette rather than separate model calls. In the 1536×864 local composition the apparent handset body width was 212 px; offsets were exactly 0 and 106 px. This verifies raster placement only, **not actual iPhone hardware fidelity, lighting quality or GPT Image prompt-following**. Source references and exact prompt fixtures remain separate.

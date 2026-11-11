@@ -180,15 +180,15 @@
     },
     {
       "id": "iphone-tile-diagonal",
-      "detail": "ONE 40–50° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 40–50° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     },
     {
       "id": "iphone-tile-low-oblique",
-      "detail": "ONE 24–32° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 24–32° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     },
     {
       "id": "iphone-tile-steep-oblique",
-      "detail": "ONE 58–68° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 58–68° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     }
   ],
   "lighting": [
@@ -291,7 +291,13 @@
     {
       "id": "repeated-grid",
       "device_count": 6,
-      "detail": "SIX smartphones of one and the SAME model per image: all iPhone 17 standard OR all iPhone 17 Pro. All six FRONT SCREEN facing UP, no back-of-phone views. Two staggered rows of three, second row offset laterally 30–45% of one phone width; repeat angle, size and lighting. Intentional crop only at the frame perimeter. This is one image, not a collage."
+      "detail": "Exactly SIX phones all the SAME iPhone model, front-screen-up, with a 2×3 ALIGNED grid: rows share precisely the SAME three column positions, ZERO horizontal displacement (0%). One camera and one matte studio support. Edge cropping only."
+    },
+    {
+      "id": "repeated-grid-half-offset",
+      "device_count": 6,
+      "offset_ratio": 0.5,
+      "detail": "Exactly SIX phones all the SAME iPhone model, front-screen-up, in two rows of three. The SECOND row moves horizontally by EXACTLY 50% of ONE handset body WIDTH relative to the first (a half-body stagger). Same size, angle, in-row pitch and studio light. No arbitrary 35% drift; edge cropping only."
     }
   ],
   "spatial_modes": [
@@ -751,6 +757,114 @@
       "composition_id": "iphone-tile-steep-oblique",
       "lighting_id": "high-key",
       "reference_prompt": "prompts/iphone17pro/repeated-gray-steep.txt"
+    },
+    {
+      "id": "iphone-grid-ivory-diagonal-half-offset",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/repeated-ivory-diagonal-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-lightgray-diagonal-half-offset",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17/repeated-lightgray-diagonal-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-ivory-low-oblique-half-offset",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-low-oblique",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/repeated-ivory-low-oblique-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-lightgray-low-oblique-half-offset",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-low-oblique",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17/repeated-lightgray-low-oblique-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-pro-ivory-steep-half-offset",
+      "devices": [
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17pro/repeated-ivory-steep-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-pro-gray-steep-half-offset",
+      "devices": [
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17pro/repeated-gray-steep-half-offset.txt"
     }
   ],
   "retired_compositions": [
