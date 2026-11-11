@@ -17,7 +17,9 @@ const cases=[
  'iphone-grid-ivory-diagonal',
  'iphone-grid-lightgray-diagonal',
  'iphone-grid-ivory-low-oblique',
- 'iphone-grid-lightgray-low-oblique'
+ 'iphone-grid-lightgray-low-oblique',
+ 'iphone-grid-pro-ivory-steep',
+ 'iphone-grid-pro-gray-steep'
 ];
 
 test('exactly six repeated iPhone 17 devices are independently constrained in one photograph',()=>{
@@ -25,14 +27,16 @@ test('exactly six repeated iPhone 17 devices are independently constrained in on
  assert.equal(p.device_layouts.find(x=>x.id==='repeated-grid').device_count,6);
  for(const id of cases){
    const {row,result}=scene(id);
-   assert.deepEqual(row.devices,Array(6).fill('iphone17'),id);
-   assert.deepEqual(result.contract.devices,Array(6).fill('iphone17'),id);
+   assert.deepEqual(row.devices,Array(6).fill(id.includes('-pro-')?'iphone17pro':'iphone17'),id);
+   assert.deepEqual(result.contract.devices,Array(6).fill(id.includes('-pro-')?'iphone17pro':'iphone17'),id);
    assert.equal(result.contract.layout_id,'repeated-grid');
    assert.equal(result.contract.spatial_mode_id,'grounded');
    assert.equal(result.contract.pose_id,'flat-face-up');
-   assert.match(result.prompt,/Exactly SIX identical black standard iPhone 17 handsets/);
-   assert.match(result.prompt,/regular diagonal 2-by-3 grid/);
-   assert.match(result.prompt,/single photograph/);
+   assert.match(result.prompt,/Exactly SIX identical/);
+   assert.match(result.prompt,/FRONT-SCREEN UP, never rear-facing/);
+   assert.match(result.prompt,/shifted SIDEWAYS 35%/);
+   assert.match(result.prompt,/two rows of three/);
+   assert.match(result.prompt,/photograph/);
    assert.match(result.prompt,/only outer phones may be intentionally cut by image edges/);
    assert.match(result.prompt,/featureless pure white/);
    assert.match(result.prompt,/ONE camera view/);
@@ -40,8 +44,12 @@ test('exactly six repeated iPhone 17 devices are independently constrained in on
    assert.doesNotMatch(result.prompt,/Exactly one black standard iPhone|Exactly two devices|MacBook/);
    assert.ok(result.words>=80 && result.words<=170,id+' words '+result.words);
    const source=readFileSync(new URL('../'+row.reference_prompt,import.meta.url),'utf8');
-   assert.match(source,/Exactly SIX identical standard black iPhone 17/);
-   assert.match(source,/pure-white blank screens/);
+   assert.match(source,/Exactly SIX identical/);
+   assert.match(source,/all the SAME model/);
+   assert.match(source,/FRONT SCREEN UP/);
+   assert.match(source,/NO flipped phones, NO rear cameras/);
+   assert.match(source,/offset the second row SIDEWAYS/i);
+   assert.match(source,/blank pure WHITE/);
    assert.match(source,/ONE camera view/);
    assert.doesNotMatch(source,/simple mockup|FREE MOCKUPS|SCREEN MOCKUP|mockups-design|https?:\/\//i);
  }
@@ -55,8 +63,8 @@ test('diagonal and lower-oblique views keep distinct camera elevations',()=>{
      assert.match(result.prompt,/24–32-degree/);
      assert.doesNotMatch(result.prompt,/One 40–50-degree oblique camera/);
    }else{
-     assert.equal(result.contract.composition_id,'iphone-tile-diagonal');
-     assert.match(result.prompt,/40–50-degree oblique camera/);
+     assert.equal(result.contract.composition_id,'iphone-tile-steep-oblique');
+     assert.match(result.prompt,/58–68-degree oblique camera/);
    }
  }
  for(const id of cases){
@@ -85,7 +93,7 @@ test('pattern-only cropping and low camera do not leak into single iPhone or Mac
  const ground={...defaults,layout:'repeated-grid',spatial:'grounded',pose:'flat-face-up'};
  assert.deepEqual(choices(ground,p).spatial,['grounded']);
  assert.deepEqual(choices(ground,p).pose,['flat-face-up']);
- assert.deepEqual(choices(ground,p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique']);
+ assert.deepEqual(choices(ground,p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique']);
  assert.ok(choices(ground,p).environment.includes('warm-ivory-seamless'));
  assert.ok(choices(ground,p).environment.includes('pale-gray-seamless'));
  assert.ok(!choices({...defaults,subject:'iphone17',spatial:'suspended'},p).layout.includes('repeated-grid'));
@@ -113,8 +121,16 @@ test('invalid repeat setups fail closed instead of silently publishing invalid d
  assert.throws(()=>validateCatalog(unrelated,d),/反復以外の多台数構成/);
 });
 test('the editor exposes layout choice on iPhone while keeping environment-only mode isolated',()=>{
+ const pro=normalize({...defaults,subject:'iphone17pro'},p);
+ assert.equal(pro.state.layout,'repeated-grid');
+ assert.equal(pro.state.pose,'flat-face-up');
+ assert.deepEqual(choices({...defaults,subject:'iphone17pro'},p).spatial,['grounded']);
+ assert.deepEqual(assemble(pro.state,p,d).contract.devices,Array(6).fill('iphone17pro'));
+ const mixed=structuredClone(p);
+ mixed.showcase_presets.find(x=>x.id==='iphone-grid-ivory-diagonal').devices[1]='iphone17pro';
+ assert.throws(()=>validateCatalog(mixed,d),/iPhone反復パターン契約/);
  const src=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
- assert.match(src,/\['pair','mac-pair','iphone17'\]/);
+ assert.match(src,/\['pair','mac-pair','iphone17','iphone17pro'\]/);
  const old=normalize({...defaults,subject:'iphone17',spatial:'grounded',layout:'single',pose:'upright'},p);
  assert.deepEqual(old.changes,[]);
  const newScene=normalize({...old.state,layout:'repeated-grid'},p);

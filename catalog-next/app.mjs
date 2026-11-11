@@ -212,7 +212,7 @@ function render(){
     if([...select.options].map(el=>el.value).join('|')!==ids.join('|'))select.replaceChildren(...ids.map(id=>new Option(labels[id]??id,id)));
     select.value=state[key]??'';
   }
-  $('layout-field').hidden=!['pair','mac-pair','iphone17'].includes(state.subject);$('pose-field').hidden=state.subject==='environment';$('surface-field').hidden=state.subject!=='environment';
+  $('layout-field').hidden=!['pair','mac-pair','iphone17','iphone17pro'].includes(state.subject);$('pose-field').hidden=state.subject==='environment';$('surface-field').hidden=state.subject!=='environment';
   $('adjustments').textContent=normalized.changes.map(change=>`${fieldLabels[change.key]}を「${labels[change.to]??'対象外'}」に変更`).join('。');
   result=assemble(state,presets,devices);
   if(result.words<80||result.words>170)throw Error('語数が規定範囲外です');

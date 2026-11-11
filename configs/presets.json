@@ -79,6 +79,18 @@
     {
       "id": "pale-gray-seamless",
       "detail": "A cool neutral very light-gray seamless matte photographic surface with soft believable contact shadows, no corners, texture pattern, props or architecture. Available only for repeated iPhone grid."
+    },
+    {
+      "id": "warm-grain-plaster",
+      "detail": "Warm off-white greige matte mineral plaster studio, minute real-scale granular texture and sculptural window light, subtle physical irregularities."
+    },
+    {
+      "id": "white-cyclorama",
+      "detail": "Professional near-white seamless photographic infinity-cove (shirohori), no horizon or visible corner, gentle high-key tonal separation."
+    },
+    {
+      "id": "walnut-support-studio",
+      "detail": "One substantial premium solid-walnut table or tall monolithic walnut display block; stable flat supporting top, physical contact shadows, true wood grain and no chairs or props."
     }
   ],
   "compositions": [
@@ -160,19 +172,23 @@
     },
     {
       "id": "mac-chair-elevated",
-      "detail": "A close elevated three-quarter editorial camera 30–40 degrees above the walnut chair seat; one open laptop rests directly on the seat, while part of the chair's curved back structure remains recognizable; whole white screen, keyboard and trackpad visible."
+      "detail": "Elevated 30–40-degree editorial camera showing one open MacBook entirely on a broad premium solid-walnut tabletop, no chairs."
     },
     {
       "id": "mac-chair-front",
-      "detail": "A quiet front-left three-quarter editorial view at a moderate 20–28 degree elevation over the chair seat; retain the natural shape of the chair, fully readable white laptop display, keyboard and trackpad and a coherent sense of scale."
+      "detail": "TRUE LOW-ANGLE UPWARD camera BELOW the top of a tall solid-walnut display block, looking up at an open MacBook screen; show laptop underside and block front. No overhang, no chair."
     },
     {
       "id": "iphone-tile-diagonal",
-      "detail": "One oblique camera elevated 40–50 degrees above the floor. Six identical face-up iPhone 17 devices align in a clean evenly pitched two-by-three diagonal array; same rotation and scale, with outer devices intentionally cropped by frame edges. Center devices remain fully readable."
+      "detail": "ONE 40–50° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     },
     {
       "id": "iphone-tile-low-oblique",
-      "detail": "One LOWER three-quarter oblique camera elevated 24–32 degrees above the support surface, emphasizing true side-frame thickness while still showing complete white central screens. Six phones repeat in an evenly spaced diagonal grid, with cropped perimeter devices only; no eye-level disappearing screens."
+      "detail": "ONE 24–32° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+    },
+    {
+      "id": "iphone-tile-steep-oblique",
+      "detail": "ONE 58–68° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Offset the second row sideways by about 35% of one phone width; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     }
   ],
   "lighting": [
@@ -210,7 +226,11 @@
     },
     {
       "id": "window-cut-sun",
-      "detail": "Single directional warm daylight source filtered through an unseen window creates a few coherent angular sun patches across the chair and aluminum keyboard deck, with believable hard-edged shadows and controlled screen glare."
+      "detail": "Coherent warm window light with large soft-edged shaped highlights and shadows on walnut tabletop, not on white screen."
+    },
+    {
+      "id": "sculpted-window-light",
+      "detail": "Directional window sunlight creates coherent sculpted diagonal shadows over warm fine-grain plaster, preserving a legible blank screen."
     }
   ],
   "default_scenes": [
@@ -271,7 +291,7 @@
     {
       "id": "repeated-grid",
       "device_count": 6,
-      "detail": "Exactly six identical black standard iPhone 17 handsets in a diagonal repeated editorial pattern on ONE seamless studio surface. One camera and one illumination setup. Central phones fully visible; intentional cropping is permitted only where outer phones intersect the image boundary. No mixed models, layout panels or collages."
+      "detail": "SIX smartphones of one and the SAME model per image: all iPhone 17 standard OR all iPhone 17 Pro. All six FRONT SCREEN facing UP, no back-of-phone views. Two staggered rows of three, second row offset laterally 30–45% of one phone width; repeat angle, size and lighting. Intentional crop only at the frame perimeter. This is one image, not a collage."
     }
   ],
   "spatial_modes": [
@@ -293,7 +313,7 @@
     },
     {
       "id": "furniture-supported",
-      "detail": "Exactly ONE OPEN MacBook Pro is stably supported directly by the seat of ONE walnut wooden chair; realistic wood contact and shadows. This is the only case that permits furniture and visible woodgrain. No extra chairs, desks, people, props, floating, mineral plinths or other devices."
+      "detail": "Exactly one MacBook Pro supported on one premium solid walnut table or solid wood display block. NO chairs, plants, props, people or extra devices. Realistic full base contact and shadows."
     }
   ],
   "showcase_presets": [
@@ -581,8 +601,8 @@
       "pose_id": "open-display",
       "spatial_mode_id": "grounded",
       "composition_id": "mac-elevated-three-quarter",
-      "environment_id": "offwhite-seamless-studio",
-      "lighting_id": "high-key",
+      "environment_id": "warm-grain-plaster",
+      "lighting_id": "sculpted-window-light",
       "reference_prompt": "prompts/macbookpro14/editorial-offwhite-high-oblique.txt"
     },
     {
@@ -594,8 +614,8 @@
       "pose_id": "open-display",
       "spatial_mode_id": "grounded",
       "composition_id": "mac-low-side-profile",
-      "environment_id": "offwhite-seamless-studio",
-      "lighting_id": "broad-softbox",
+      "environment_id": "white-cyclorama",
+      "lighting_id": "high-key",
       "reference_prompt": "prompts/macbookpro14/editorial-offwhite-low-side.txt"
     },
     {
@@ -607,7 +627,7 @@
       "pose_id": "open-display",
       "spatial_mode_id": "furniture-supported",
       "composition_id": "mac-chair-elevated",
-      "environment_id": "walnut-chair-interior",
+      "environment_id": "walnut-support-studio",
       "lighting_id": "window-cut-sun",
       "reference_prompt": "prompts/macbookpro14/editorial-walnut-chair-sun.txt"
     },
@@ -620,7 +640,7 @@
       "pose_id": "open-display",
       "spatial_mode_id": "furniture-supported",
       "composition_id": "mac-chair-front",
-      "environment_id": "walnut-chair-interior",
+      "environment_id": "walnut-support-studio",
       "lighting_id": "top-left-daylight",
       "reference_prompt": "prompts/macbookpro14/editorial-walnut-chair-soft.txt"
     },
@@ -638,7 +658,7 @@
       "spatial_mode_id": "grounded",
       "pose_id": "flat-face-up",
       "environment_id": "warm-ivory-seamless",
-      "composition_id": "iphone-tile-diagonal",
+      "composition_id": "iphone-tile-steep-oblique",
       "lighting_id": "soft-overhead",
       "reference_prompt": "prompts/iphone17/repeated-ivory-diagonal.txt"
     },
@@ -656,7 +676,7 @@
       "spatial_mode_id": "grounded",
       "pose_id": "flat-face-up",
       "environment_id": "pale-gray-seamless",
-      "composition_id": "iphone-tile-diagonal",
+      "composition_id": "iphone-tile-steep-oblique",
       "lighting_id": "high-key",
       "reference_prompt": "prompts/iphone17/repeated-lightgray-diagonal.txt"
     },
@@ -695,6 +715,42 @@
       "composition_id": "iphone-tile-low-oblique",
       "lighting_id": "high-key",
       "reference_prompt": "prompts/iphone17/repeated-lightgray-low-oblique.txt"
+    },
+    {
+      "id": "iphone-grid-pro-ivory-steep",
+      "devices": [
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17pro/repeated-ivory-steep.txt"
+    },
+    {
+      "id": "iphone-grid-pro-gray-steep",
+      "devices": [
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro",
+        "iphone17pro"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-steep-oblique",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17pro/repeated-gray-steep.txt"
     }
   ],
   "retired_compositions": [

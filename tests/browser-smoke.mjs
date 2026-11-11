@@ -275,7 +275,7 @@ try{
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),2,'Mac+Mac subject shows two ungenerated cards');
   assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),2);
   await drawer.locator('#reset-filters').click();
-  await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17'}).click();
+  await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17',exact:true}).click();
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
   assert.equal(categoryVisible,13,'iPhone 17 filter includes nine originals and four provisional patterns');
