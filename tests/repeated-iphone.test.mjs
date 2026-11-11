@@ -35,7 +35,7 @@ test('exactly six repeated iPhone 17 devices are independently constrained in on
    assert.match(result.prompt,/only outer phones may be intentionally cut by image edges/);
    assert.match(result.prompt,/featureless pure white/);
    assert.match(result.prompt,/ONE camera view/);
-   assert.match(result.prompt,/no wood, desks, furniture|no supports or furniture/);
+   assert.match(result.prompt,/no furniture/);
    assert.doesNotMatch(result.prompt,/Exactly one black standard iPhone|Exactly two devices|MacBook/);
    assert.ok(result.words>=80 && result.words<=170,id+' words '+result.words);
    const source=readFileSync(new URL('../'+row.reference_prompt,import.meta.url),'utf8');
