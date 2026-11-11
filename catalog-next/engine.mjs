@@ -171,7 +171,7 @@ export function assemble(s,p,devices) {
     if (allowed.length ? !allowed.includes(s[key]) : s[key]!==null) throw Error(`組み合わせを確認してください: ${key}`);
   }
   const env=s.subject==='environment', pair=s.subject==='pair',macPair=s.subject==='mac-pair';
-  const repeat=['iphone17','iphone17pro'].includes(s.subject)&&s.layout==='repeated-grid';
+  const repeat=['iphone17','iphone17pro'].includes(s.subject)&&['repeated-grid','repeated-grid-half-offset'].includes(s.layout);
   const ids=env?[]:repeat?Array(6).fill(s.subject):macPair?['macbookpro14','macbookpro14']:pair?['macbookpro14','iphone17']:[s.subject];
   const iphone=(s.subject==='iphone17pro'?devices.iphone17pro:devices.iphone17).physical_mm, mac=devices.macbookpro14.physical_mm;
   const fragments=[{label:'写真の共通条件',text:'ONE standalone photorealistic product photograph. ONE camera view. Horizontal 16:9.'}];
