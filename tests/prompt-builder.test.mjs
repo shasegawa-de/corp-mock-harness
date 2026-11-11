@@ -282,7 +282,7 @@ test('every selectable combination stays single-scene, within 80–170 words, wi
     }
     const r=assemble(s,presets,devices);count++;min=Math.min(min,r.words);max=Math.max(max,r.words);
     assert.ok(r.words>=80&&r.words<=170,`${r.words}: ${JSON.stringify(s)}`);
-    assert.equal(r.contract.devices.length,s.subject==='environment'?0:['pair','mac-pair'].includes(s.subject)?2:1);
+    assert.equal(r.contract.devices.length,s.subject==='environment'?0:s.layout==='repeated-grid'?6:['pair','mac-pair'].includes(s.subject)?2:1);
     if(s.subject==='environment')assert.doesNotMatch(r.prompt,/iPhone|MacBook|keyboard|pure white/);
     if(s.spatial==='suspended'){
       assert.match(r.prompt,/NO floor, horizon, floor-wall seam, ground shadow/);

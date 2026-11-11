@@ -71,6 +71,14 @@
     {
       "id": "walnut-chair-interior",
       "detail": "One finely crafted natural walnut wooden chair, with a believable flat seat and visible joined curved backrest, set within a minimal deep warm-brown architectural interior. The chair is the ONLY furniture and functions as a stable laptop support; wood grain has realistic physical scale."
+    },
+    {
+      "id": "warm-ivory-seamless",
+      "detail": "A single uninterrupted warm ivory to pale cream matte photographic surface, paper-smooth with very low texture, no visible corner, furniture, typography or props. Available only for repeated iPhone grid."
+    },
+    {
+      "id": "pale-gray-seamless",
+      "detail": "A cool neutral very light-gray seamless matte photographic surface with soft believable contact shadows, no corners, texture pattern, props or architecture. Available only for repeated iPhone grid."
     }
   ],
   "compositions": [
@@ -157,6 +165,14 @@
     {
       "id": "mac-chair-front",
       "detail": "A quiet front-left three-quarter editorial view at a moderate 20–28 degree elevation over the chair seat; retain the natural shape of the chair, fully readable white laptop display, keyboard and trackpad and a coherent sense of scale."
+    },
+    {
+      "id": "iphone-tile-diagonal",
+      "detail": "One oblique camera elevated 40–50 degrees above the floor. Six identical face-up iPhone 17 devices align in a clean evenly pitched two-by-three diagonal array; same rotation and scale, with outer devices intentionally cropped by frame edges. Center devices remain fully readable."
+    },
+    {
+      "id": "iphone-tile-low-oblique",
+      "detail": "One LOWER three-quarter oblique camera elevated 24–32 degrees above the support surface, emphasizing true side-frame thickness while still showing complete white central screens. Six phones repeat in an evenly spaced diagonal grid, with cropped perimeter devices only; no eye-level disappearing screens."
     }
   ],
   "lighting": [
@@ -251,6 +267,11 @@
       "id": "environment-only",
       "device_count": 0,
       "detail": "A single empty architectural studio photograph, with no products or devices. Study environmental structure, materials and light only."
+    },
+    {
+      "id": "repeated-grid",
+      "device_count": 6,
+      "detail": "Exactly six identical black standard iPhone 17 handsets in a diagonal repeated editorial pattern on ONE seamless studio surface. One camera and one illumination setup. Central phones fully visible; intentional cropping is permitted only where outer phones intersect the image boundary. No mixed models, layout panels or collages."
     }
   ],
   "spatial_modes": [
@@ -602,6 +623,78 @@
       "environment_id": "walnut-chair-interior",
       "lighting_id": "top-left-daylight",
       "reference_prompt": "prompts/macbookpro14/editorial-walnut-chair-soft.txt"
+    },
+    {
+      "id": "iphone-grid-ivory-diagonal",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-diagonal",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/repeated-ivory-diagonal.txt"
+    },
+    {
+      "id": "iphone-grid-lightgray-diagonal",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-diagonal",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17/repeated-lightgray-diagonal.txt"
+    },
+    {
+      "id": "iphone-grid-ivory-low-oblique",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-low-oblique",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/repeated-ivory-low-oblique.txt"
+    },
+    {
+      "id": "iphone-grid-lightgray-low-oblique",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "pale-gray-seamless",
+      "composition_id": "iphone-tile-low-oblique",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/iphone17/repeated-lightgray-low-oblique.txt"
     }
   ],
   "retired_compositions": [
