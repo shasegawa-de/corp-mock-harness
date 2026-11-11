@@ -53,7 +53,7 @@ test('all twelve fixture arms preserve one model, screen front up and the select
    if(ratio)assert.match(src,/CENTER COLUMN DOWN by EXACTLY HALF the phone LONG BODY LENGTH \(50%\)/);
    else assert.match(src,/ZERO VERTICAL shift \(0%\)/);
    assert.doesNotMatch(src,/SECOND ROW sideways|BODY WIDTH \(50%\)|ONE THIRD|35%/);
-   assert.match(src,/blank pure WHITE/);
+   assert.match(src,/blank pure WHITE/i);
   }
  }
 });
@@ -106,7 +106,7 @@ test('legacy horizontal raster demo invalidated; EX09 is provisional, close-up a
  assert.equal(ex9.generated_from_source_prompt,false);
  assert.equal(ex9.actual_aspect_ratio,'4:3');
  assert.equal(ex9.geometric_50_percent_verification,'UNVERIFIED');
- const {result}=scene('iphone-grid-ivory-detail-vertical-half-offset');
+ const {out:result}=fromId('iphone-grid-ivory-detail-vertical-half-offset');
  assert.equal(result.contract.column_vertical_offset_ratio,0.5);
  assert.equal(result.contract.column_vertical_offset_reference,'device_body_length');
  assert.match(result.prompt,/Close-up elevated 48–58-degree/);

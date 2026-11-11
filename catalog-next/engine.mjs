@@ -184,8 +184,8 @@ export function assemble(s,p,devices) {
   fragments.push({label:'対象・筐体・画面',text:subject});
   let pose='';
   if(repeat)pose=s.layout==='repeated-grid-half-offset'
-    ?'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, in THREE VERTICAL COLUMNS of TWO. Each column has equal VERTICAL pitch and same device rotation. Shift CENTER COLUMN DOWN vertically EXACTLY HALF of ONE phone LONG BODY LENGTH (50%). Left and right columns align. No horizontal displacement of rows.'
-    :'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, in THREE VERTICAL COLUMNS of TWO. Equal vertical pitch in every column, and all columns vertically ALIGNED (ZERO vertical offset, 0%). Keep horizontal column spacing consistent.';
+    ?'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, THREE VERTICAL COLUMNS of TWO, equal vertical pitch. Shift CENTER COLUMN DOWN vertically EXACTLY HALF of ONE phone LONG BODY LENGTH (50%); outer columns align. No horizontal row shift.'
+    :'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, THREE VERTICAL COLUMNS of TWO, equal vertical pitch. All columns vertically ALIGNED, ZERO vertical offset, 0%. Keep column spacing regular.';
   else if(!env && s.subject!=='macbookpro14' && !macPair) {
     pose=s.pose==='flat-face-up'?'Phone lies completely flat, face up.':s.pose==='tilted-supported'?'Phone leans back 20 degrees against an integrated mineral support.':s.pose==='upright'?'Phone upright.':'Phone floats unsupported, display facing camera.';
   }
