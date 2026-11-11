@@ -129,7 +129,10 @@ try{
   await page.locator('#gallery-view article.item[data-id="A"]').click();
   assert.equal(await page.locator('#subject').inputValue(),'iphone17');
   assert.equal(await page.locator('#layout-field').isVisible(),true);
+  await page.locator('#layout').selectOption('repeated-grid-half-offset');
+  assert.match(await page.locator('#composer-prompt').textContent(),/EXACTLY HALF of ONE phone body width \(50%\)/);
   await page.locator('#layout').selectOption('repeated-grid');
+  assert.match(await page.locator('#composer-prompt').textContent(),/ZERO shift, 0%/);
   assert.equal(await page.locator('#pose').inputValue(),'flat-face-up');
   await page.locator('#composition').selectOption('iphone-tile-low-oblique');
   await page.locator('#environment').selectOption('pale-gray-seamless');
