@@ -86,69 +86,69 @@ export function appendMacPairReferences(catalog){
 const experimentalScenes=[
   {
     "id": "EX01",
-    "title": "MacBook・白グレー／斜め上",
+    "title": "MacBook・ウォームグレー／微細粒子と光",
     "type": "mac",
     "scene": "mac-offwhite-high-oblique",
     "composition": "mac-elevated-three-quarter",
-    "material": "offwhite-seamless-studio",
-    "light": "high-key",
+    "material": "warm-grain-plaster",
+    "light": "sculpted-window-light",
     "source": "prompts/macbookpro14/editorial-offwhite-high-oblique.txt",
-    "note": "構図イメージを表示。3/4アングルの完全性・画面の形状精度は未検証。"
+    "note": "暖色微細粒子と斜光を方向性として確認。実機寸法・光学精度は未検証。"
   },
   {
     "id": "EX02",
-    "title": "MacBook・白グレー／低い側面",
+    "title": "MacBook・シロホリ／低い側面",
     "type": "mac",
     "scene": "mac-offwhite-low-side",
     "composition": "mac-low-side-profile",
-    "material": "offwhite-seamless-studio",
-    "light": "broad-softbox",
+    "material": "white-cyclorama",
+    "light": "high-key",
     "source": "prompts/macbookpro14/editorial-offwhite-low-side.txt",
-    "note": "低い視点の構図例。キーボードとトラックパッドの視認性が仕様未達。"
+    "note": "床壁の境目のない白ホリ空間。キーボード視認性と厳密な撮影角は未検証。"
   },
   {
     "id": "EX03",
-    "title": "MacBook・ウォルナットチェア／斜光",
+    "title": "MacBook・無垢ウォルナットテーブル",
     "type": "mac",
     "scene": "mac-walnut-chair-sun",
     "composition": "mac-chair-elevated",
-    "material": "walnut-chair-interior",
+    "material": "walnut-support-studio",
     "light": "window-cut-sun",
     "source": "prompts/macbookpro14/editorial-walnut-chair-sun.txt",
-    "note": "木材・窓光の方向性確認。実機形状や光の物理精度は未検証。"
+    "note": "椅子ではなく厚い木製天板。木材と光の方向性は確認、実機形状は未検証。"
   },
   {
     "id": "EX04",
-    "title": "MacBook・ウォルナットチェア／自然光",
+    "title": "MacBook・木製台座／下から見上げ",
     "type": "mac",
     "scene": "mac-walnut-chair-soft",
     "composition": "mac-chair-front",
-    "material": "walnut-chair-interior",
+    "material": "walnut-support-studio",
     "light": "top-left-daylight",
     "source": "prompts/macbookpro14/editorial-walnut-chair-soft.txt",
-    "note": "正面寄り木製チェアの方向性確認。キーボード視認性は仕様未達。"
+    "note": "台座上面より低い見上げ構図は表現。植物が混入し、筐体の支持が不自然なため画像QA不合格。"
   },
   {
     "id": "EX05",
-    "title": "iPhone反復・アイボリー／斜め",
+    "title": "iPhone 17反復・アイボリー／千鳥・高角度",
     "type": "iphone",
     "scene": "iphone-grid-ivory-diagonal",
-    "composition": "iphone-tile-diagonal",
+    "composition": "iphone-tile-steep-oblique",
     "material": "warm-ivory-seamless",
     "light": "soft-overhead",
     "source": "prompts/iphone17/repeated-ivory-diagonal.txt",
-    "note": "4台程度が視認される方向性プレビュー。指定の6台とは一致せず要再生成。"
+    "note": "6台とも画面側を上にした同系統の白画面・千鳥配置。iPhone 17の実機精度と俯瞰角は未検証。"
   },
   {
     "id": "EX06",
-    "title": "iPhone反復・グレー／斜め",
+    "title": "iPhone 17反復・グレー／千鳥・高角度",
     "type": "iphone",
     "scene": "iphone-grid-lightgray-diagonal",
-    "composition": "iphone-tile-diagonal",
+    "composition": "iphone-tile-steep-oblique",
     "material": "pale-gray-seamless",
     "light": "high-key",
     "source": "prompts/iphone17/repeated-lightgray-diagonal.txt",
-    "note": "反復配置と背景の概念プレビュー。6台の台数契約は未達。"
+    "note": "6台とも前面白画面で、行の横ずらしを表現。機種の一致精度と俯瞰角は未検証。"
   },
   {
     "id": "EX07",
