@@ -2,7 +2,7 @@
 // These are new prompt compositions, not approved image-generation results.
 export const labels = {
   iphone17:'iPhone 17', iphone17pro:'iPhone 17 Pro（反復のみ）', macbookpro14:'MacBook Pro 14″', pair:'Mac + iPhone', 'mac-pair':'Mac + Mac（2台）', environment:'環境のみ',
-  single:'端末1台', 'side-by-side':'左右に並べる', 'depth-staggered':'前後に配置', 'environment-only':'端末なし', 'repeated-grid':'iPhone 6台・整列（0％）', 'repeated-grid-half-offset':'iPhone 6台・半台ずらし（50％）',
+  single:'端末1台', 'side-by-side':'左右に並べる', 'depth-staggered':'前後に配置', 'environment-only':'端末なし', 'repeated-grid':'iPhone 6台・縦列整列（0％）', 'repeated-grid-half-offset':'iPhone 6台・縦列千鳥（長辺50％）',
   grounded:'床置き・接地', 'on-block':'ブロック上', hover:'床上浮遊', suspended:'空中浮遊・床なし', 'furniture-supported':'高級木製テーブル・台座',
   upright:'立てる', 'flat-face-up':'寝かせる・画面上向き', 'tilted-supported':'支えに傾ける', 'suspended-angled':'浮かせる',
   'open-display':'開いた状態', 'open-suspended':'開いた状態で浮遊',
@@ -11,7 +11,7 @@ export const labels = {
   'near-floor-hover':'床に近い浮遊', 'graphic-planes':'建築の目地を見せる', 'display-on-block':'展示ブロック・正面寄り',
   'iphone-oblique-floor':'床に寝かせる・斜め上40〜50°', 'iphone-oblique-block':'台に寝かせる・斜め上40〜55°',
   'iphone-tilted-supported':'台で傾ける・画面に合わせる', 'iphone-tilted-floor':'壁で支える・画面に合わせる',
-  'iphone-suspended-angled':'浮遊・旋回15°／ロール10°', 'iphone-tile-diagonal':'iPhone反復・斜め俯瞰', 'iphone-tile-low-oblique':'iPhone反復・低い斜め視点', 'iphone-tile-steep-oblique':'iPhone反復・高い斜め俯瞰', 'mac-elevated-three-quarter':'Mac・高めの斜め視点', 'mac-low-side-profile':'Mac・低い側面視点',
+  'iphone-suspended-angled':'浮遊・旋回15°／ロール10°', 'iphone-tile-diagonal':'iPhone反復・斜め俯瞰', 'iphone-tile-low-oblique':'iPhone反復・低い斜め視点', 'iphone-tile-steep-oblique':'iPhone反復・高い斜め俯瞰', 'iphone-tile-detail-closeup':'iPhone反復・ディテール接写', 'mac-elevated-three-quarter':'Mac・高めの斜め視点', 'mac-low-side-profile':'Mac・低い側面視点',
   'mac-chair-elevated':'厚い木製テーブル・斜め上', 'mac-chair-front':'高い木製台座・見上げ', 'empty-stage':'空間全体', 'floor-plane-emphasis':'床面主体・80〜85%',
   'microcement-seamless':'マイクロセメント', 'fiber-cement-panels':'繊維セメント', 'diatomaceous-plaster':'珪藻土プラスター',
   'board-formed-concrete':'型枠コンクリート', 'slate-layer':'チャコールスレート', 'brushed-steel':'ヘアライン金属',
@@ -85,9 +85,10 @@ const camera = {
   'mac-low-side-profile':'Low 15–22-degree side three-quarter camera retaining full screen, keyboard and trackpad, no nearly invisible keyboard.',
   'mac-chair-elevated':'Elevated 30–40-degree editorial camera over a thick solid-walnut tabletop; entire blank screen, keyboard and trackpad visible.',
   'mac-chair-front':'TRUE UPWARD LOW ANGLE: camera BELOW top of tall solid-walnut BLOCK, looking UP at laptop screen, seeing underside and strong physical contact; not a shallow side view.',
-  'iphone-tile-diagonal':'One 40–50-degree oblique camera over six identical screen-up phones; obey selected 0% or exact 50% row layout.',
-  'iphone-tile-low-oblique':'Low 24–32-degree oblique camera, six identical screen-up phones; obey selected 0% or exact 50% row layout.',
-  'iphone-tile-steep-oblique':'High 58–68-degree oblique camera, six identical screen-up phones; obey selected 0% or exact 50% row layout.',
+  'iphone-tile-diagonal':'One 40–50-degree oblique camera over six identical screen-up phones; honor 3 vertical columns and the selected 0%/50% vertical center-column offset.',
+  'iphone-tile-low-oblique':'Low 24–32-degree oblique camera, six identical screen-up phones; honor 3 vertical columns and the selected 0%/50% vertical center-column offset.',
+  'iphone-tile-steep-oblique':'High 58–68-degree oblique camera, six identical screen-up phones; honor 3 vertical columns and the selected 0%/50% vertical center-column offset.',
+  'iphone-tile-detail-closeup':'Close-up elevated 48–58-degree diagonal-oblique view of thin accurate phones, dominant central handset, generous margins and peripheral crop; obey 3-column vertical stagger exactly.',
 };
 
 export function validateCatalog(p, devices) {
@@ -96,7 +97,7 @@ export function validateCatalog(p, devices) {
   }
   for (const id of ['iphone17','iphone17pro','macbookpro14']) if (!devices[id]?.physical_mm) throw Error(`端末設定がありません: ${id}`);
   for(const row of p.showcase_presets){
-    if(['repeated-grid','repeated-grid-half-offset'].includes(row.layout_id) && (row.devices.length!==6||!['iphone17','iphone17pro'].includes(row.devices[0])||!row.devices.every(x=>x===row.devices[0])||row.pose_id!=='flat-face-up'||row.spatial_mode_id!=='grounded'||!['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique'].includes(row.composition_id)))
+    if(['repeated-grid','repeated-grid-half-offset'].includes(row.layout_id) && (row.devices.length!==6||!['iphone17','iphone17pro'].includes(row.devices[0])||!row.devices.every(x=>x===row.devices[0])||row.pose_id!=='flat-face-up'||row.spatial_mode_id!=='grounded'||!['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique','iphone-tile-detail-closeup'].includes(row.composition_id)))
       throw Error('iPhone反復パターン契約の不一致: '+row.id);
     if(row.devices.length>2 && !['repeated-grid','repeated-grid-half-offset'].includes(row.layout_id))throw Error('反復以外の多台数構成は未対応: '+row.id);
     if(row.spatial_mode_id==='furniture-supported' && (row.devices.length!==1||row.devices[0]!=='macbookpro14'||row.environment_id!=='walnut-support-studio'||row.layout_id!=='single'))
@@ -124,7 +125,7 @@ export function choices(s, p) {
     : ['upright','flat-face-up','tilted-supported'];
   let compositions;
   if (env) compositions = s.surface === 'horizontal-floor' ? ['floor-plane-emphasis'] : ['empty-stage'];
-  else if (repeat) compositions=['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique'];
+  else if (repeat) compositions=['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique','iphone-tile-detail-closeup'];
   else if (s.spatial === 'furniture-supported') compositions=['mac-chair-elevated','mac-chair-front'];
   else if (s.pose === 'flat-face-up') compositions = [s.spatial === 'on-block' ? 'iphone-oblique-block':'iphone-oblique-floor'];
   else if (s.pose === 'tilted-supported') compositions = [s.spatial === 'on-block' ? 'iphone-tilted-supported':'iphone-tilted-floor'];
@@ -178,13 +179,13 @@ export function assemble(s,p,devices) {
   let subject=env?'NO products or devices. Architecture only, not a macro texture swatch. Preserve actual construction scale and coherent material junctions. No screens, electronic silhouettes or product shadows.':pair?'Exactly two devices: one MacBook Pro 14-inch and one standard iPhone 17.':repeat?(s.subject==='iphone17pro'?'Exactly SIX identical iPhone 17 Pro handsets, NOT standard, repeated within one photograph.':'Exactly SIX identical black standard iPhone 17 handsets, NOT Pro, repeated within a single photograph.'):s.subject==='iphone17'?'Exactly one black standard iPhone 17, NOT Pro.':macPair?'Exactly TWO devices: two open 14-inch MacBook Pro laptops, no iPhone.':'Exactly one open MacBook Pro 14-inch.';
   if(ids.includes('iphone17')||ids.includes('iphone17pro')) subject+=` ${repeat?'Each iPhone':'iPhone'}: ${s.subject==='iphone17pro'?'silver aluminum unibody frame':'black flat frame'}, ${iphone.height}×${iphone.width}×${iphone.depth}mm body, 6.3-inch display, slim bezel, centered Dynamic Island.`;
   if(ids.includes('macbookpro14')) subject+=` ${macPair?'Each open aluminum MacBook':'Open aluminum MacBook'}, ${mac.width}×${mac.depth}mm footprint, camera notch; ${s.composition==='mac-chair-front'?'true low upward view from below wood block top, keyboard partly hidden by perspective':'keyboard and trackpad visible'}.`;
-  if(repeat) subject+=' All centrally positioned displays entirely visible and featureless pure white; only outer phones may be intentionally cut by image edges. Matched real-world size.';
+  if(repeat) subject+=' Central displays featureless pure white; perimeter phones may crop beyond frame. Accurate relative sizes.';
   else if(!env) subject+=' Entire displays unobstructed, featureless pure white; accurate proportions.';
   fragments.push({label:'対象・筐体・画面',text:subject});
   let pose='';
   if(repeat)pose=s.layout==='repeated-grid-half-offset'
-    ?'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing. Two rows of three, second row horizontally shifted EXACTLY HALF of ONE phone body width (50%). Match device orientation, scale and within-row pitch.'
-    :'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing. Two rows of three, each column perfectly ALIGNED across rows (ZERO shift, 0%). Match device orientation, scale and pitch.';
+    ?'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, THREE VERTICAL COLUMNS of TWO, equal vertical pitch. Shift CENTER COLUMN DOWN vertically EXACTLY HALF of ONE phone LONG BODY LENGTH (50%); outer columns align. No horizontal row shift.'
+    :'Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing, THREE VERTICAL COLUMNS of TWO, equal vertical pitch. All columns vertically ALIGNED, ZERO vertical offset, 0%. Keep column spacing regular.';
   else if(!env && s.subject!=='macbookpro14' && !macPair) {
     pose=s.pose==='flat-face-up'?'Phone lies completely flat, face up.':s.pose==='tilted-supported'?'Phone leans back 20 degrees against an integrated mineral support.':s.pose==='upright'?'Phone upright.':'Phone floats unsupported, display facing camera.';
   }
@@ -208,14 +209,14 @@ export function assemble(s,p,devices) {
   fragments.push({label:'配置・建築空間',text:space},{label:'構図・カメラ',text:camera[s.composition]},
     {label:'素材',text:material[s.environment]},{label:'照明',text:light[s.lighting]});
   fragments.push({label:'除外条件',text:repeat
-    ?'Only six matching phones; no mixed devices, props, human hands, logos, UI, text, independent panels, collage or multiple views.'
+    ?'Six matching phones only; no UI, text, logos, people, props or split views.'
     :s.spatial==='furniture-supported'
     ?'Only one substantial solid walnut support; NO chair, plants, people, props, logos, text, UI, collage or multiple views.'
     :'Restrained half-gray tones, no wood, desks, furniture, props, people, logos, text, UI, collage or multiple views.'});
   const prompt=fragments.map(x=>x.text).join(' ');
   const contract={devices:ids,layout_id:s.layout,spatial_mode_id:s.spatial,composition_id:s.composition,environment_id:s.environment,lighting_id:s.lighting};
   if(ids.length===1||repeat)contract.pose_id=s.pose;
-  if(repeat)contract.row_offset_ratio=s.layout==='repeated-grid-half-offset'?0.5:0;
+  if(repeat){contract.column_vertical_offset_ratio=s.layout==='repeated-grid-half-offset'?0.5:0;contract.column_vertical_offset_reference='device_body_length';contract.column_vertical_offset_target='center';}
   if(pair)contract.poses={macbookpro14:s.spatial==='suspended'?'open-suspended':'open-display',iphone17:s.pose};
   if(macPair)contract.poses={left:s.pose,right:s.pose};
   if(env&&s.surface!=='space')contract.surface_type=s.surface;

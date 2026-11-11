@@ -1,7 +1,7 @@
 {
   "status": "provisional-unapproved",
   "date": "2026-11-12",
-  "source": "EX05/EX06 are deterministic same-sprite layout demonstration composites of a generated handset (212px projected body width); others are unapproved visual concept image generations/crops. None is a direct API generation of the registered fixture prompt.",
+  "source": "EX09 is new chat-generated iPhone close-up visual concept, NOT direct API execution of its fixture prompt. EX05/EX06 remain legacy compositing demonstrations, of which EX06 horizontal 50%-width shift fails the current vertical 50%-body-length requirement. The eight other previews are historical candidates, all unapproved.",
   "approved": false,
   "security": "No API credentials or user-provided reference image files committed.",
   "disclaimer": "Visual direction only. iPhone count and some laptop visibility requirements fail; each card discloses this.",
@@ -58,9 +58,9 @@
       "source_prompt": "prompts/iphone17/repeated-ivory-diagonal-half-offset.txt",
       "generated_from_source_prompt": false,
       "quality": "unapproved",
-      "review_note": "同じ生成端末切り抜き6枚を千鳥合成。表示筐体幅212pxに対し2行目を106px横移動＝正確に50％。生成AIによる端末形状再現の精度は未承認。",
+      "review_note": "旧仕様の横方向50％ずれで合成した画像。現行の『隣接列を縦方向に長辺50％ずらす』仕様には不適合。仮検証・未承認。",
       "image_origin": "deterministic-aligned-or-half-offset-composite-from-generated-phone",
-      "visual_direction": "same cutout, exactly 50% row offset"
+      "visual_direction": "OBSOLETE horizontal row shift - does not meet vertical column stagger contract"
     },
     {
       "id": "EX07",
@@ -79,6 +79,19 @@
       "quality": "unapproved",
       "review_note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。",
       "image_origin": "original-composite-board-crop"
+    },
+    {
+      "id": "EX09",
+      "asset": "assets/experimental-previews/exp-mock-09.jpg",
+      "source_prompt": "prompts/iphone17/repeated-ivory-detail-vertical-half-offset.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "生成画像によるアートディレクション見本。近接斜め俯瞰、白画面、薄い筐体、広い余白を確認。列方向50％ずれの実測、実機ボタン・端子の正確性、16:9比率（本素材は4:3）は未達・未検証。",
+      "image_origin": "ChatGPT-generated 1448x1086 4:3 conceptual still, JPEG preview; NOT directly generated using scene fixture",
+      "actual_aspect_ratio": "4:3",
+      "specified_aspect_ratio": "16:9",
+      "geometric_50_percent_verification": "UNVERIFIED",
+      "physical_device_accuracy": "UNVERIFIED"
     }
   ],
   "geometry_demo": {
@@ -91,6 +104,9 @@
     "half_offset_px": 106,
     "half_offset_ratio": 0.5,
     "background": "warm ivory",
-    "dimension_note": "Same model pixels are cloned in both versions; this controls composition not hardware accuracy."
+    "dimension_note": "Same model pixels are cloned in both versions; this controls composition not hardware accuracy.",
+    "status": "SUPERSEDED_DO_NOT_USE_FOR_CURRENT_VERTICAL_COLUMN_CONTRACT",
+    "actual_axis": "horizontal_translation_of_second_row",
+    "note": "Old raster geometry proved horizontal width offset; not valid evidence for vertical half-length stagger. Retained only as historical invalidated measurement."
   }
 }

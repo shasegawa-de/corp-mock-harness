@@ -15,13 +15,15 @@ const fromId=(id)=>{
  return {row,out:assemble(n.state,p,d)};
 };
 
-test('layout types expose precise zero and half-phone body width contracts',()=>{
+test('layout types expose aligned columns and vertical half-length stagger',()=>{
  validateCatalog(p,d);
  assert.equal(p.device_layouts.find(x=>x.id==='repeated-grid').device_count,6);
  const half=p.device_layouts.find(x=>x.id==='repeated-grid-half-offset');
  assert.equal(half.device_count,6);
- assert.equal(half.offset_ratio,0.5);
- assert.match(half.detail,/EXACTLY 50% of ONE handset body WIDTH/);
+ assert.equal(half.column_vertical_offset_ratio,0.5);
+ assert.equal(half.column_vertical_offset_reference,'device_body_length');
+ assert.ok(!('offset_ratio' in half));
+ assert.match(half.detail,/CENTER COLUMN DOWN vertically by EXACTLY HALF of ONE handset LONG BODY LENGTH \(50%\)/);
 });
 
 test('all twelve fixture arms preserve one model, screen front up and the selected exact ratio',()=>{
@@ -34,11 +36,11 @@ test('all twelve fixture arms preserve one model, screen front up and the select
    assert.deepEqual(out.contract.devices,Array(6).fill(model),id);
    assert.equal(row.layout_id,mode);
    assert.equal(out.contract.layout_id,mode);
-   assert.equal(out.contract.row_offset_ratio,ratio);
+   assert.equal(out.contract.column_vertical_offset_ratio,ratio);
    assert.equal(out.contract.pose_id,'flat-face-up');
    assert.match(out.prompt,/Six SAME-MODEL phones FRONT-SCREEN UP, never rear-facing/);
-   if(ratio)assert.match(out.prompt,/EXACTLY HALF of ONE phone body width \(50%\)/);
-   else assert.match(out.prompt,/ZERO shift, 0%/);
+   if(ratio)assert.match(out.prompt,/CENTER COLUMN DOWN vertically EXACTLY HALF of ONE phone LONG BODY LENGTH \(50%\)/);
+   else assert.match(out.prompt,/ZERO vertical offset, 0%/);
    assert.doesNotMatch(out.prompt,/35%|one.third/i);
    assert.match(out.prompt,/featureless pure white/);
    assert.match(out.prompt,/ONE camera view/);
@@ -48,10 +50,10 @@ test('all twelve fixture arms preserve one model, screen front up and the select
    assert.match(src,/all the SAME model/);
    assert.match(src,/FRONT SCREEN UP/);
    assert.match(src,/NO flipped phones, NO rear cameras/);
-   if(ratio)assert.match(src,/EXACTLY HALF of the PHONE BODY WIDTH \(50%\)/);
-   else assert.match(src,/ZERO lateral shift \(0%\)/);
-   assert.doesNotMatch(src,/ONE THIRD|35%/);
-   assert.match(src,/blank pure WHITE/);
+   if(ratio)assert.match(src,/CENTER COLUMN DOWN by EXACTLY HALF the phone LONG BODY LENGTH \(50%\)/);
+   else assert.match(src,/ZERO VERTICAL shift \(0%\)/);
+   assert.doesNotMatch(src,/SECOND ROW sideways|BODY WIDTH \(50%\)|ONE THIRD|35%/);
+   assert.match(src,/blank pure WHITE/i);
   }
  }
 });
@@ -63,7 +65,7 @@ test('the two modes are available for each iPhone model, but never in normal Mac
   assert.ok(choices(s,p).layout.includes('repeated-grid-half-offset'));
   assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).spatial,['grounded']);
   assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).pose,['flat-face-up']);
-  assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique']);
+  assert.deepEqual(choices({...s,layout:'repeated-grid-half-offset'},p).composition,['iphone-tile-diagonal','iphone-tile-low-oblique','iphone-tile-steep-oblique','iphone-tile-detail-closeup']);
  }
  for(const sub of ['macbookpro14','pair','mac-pair','environment']){
   for(const layout of ['repeated-grid','repeated-grid-half-offset']){
@@ -94,16 +96,23 @@ test('invalid repeated devices, pose, lighting mode or mixed models fail validat
  }
 });
 
-test('published concept previews have numerically exact 0% and half-body 50% offsets',()=>{
+test('legacy horizontal raster demo invalidated; EX09 is provisional, close-up and vertical length-based',()=>{
  const m=JSON.parse(readFileSync(new URL('../assets/experimental-previews/manifest.json',import.meta.url),'utf8'));
- assert.equal(m.geometry_demo.body_width_px,212);
- assert.equal(m.geometry_demo.aligned_offset_px,0);
- assert.equal(m.geometry_demo.half_offset_px,106);
- assert.equal(m.geometry_demo.half_offset_px*2,m.geometry_demo.body_width_px);
- assert.equal(m.geometry_demo.half_offset_ratio,0.5);
- const ex5=m.images.find(x=>x.id==='EX05'),ex6=m.images.find(x=>x.id==='EX06');
- assert.equal(ex5.source_prompt,'prompts/iphone17/repeated-ivory-diagonal.txt');
- assert.equal(ex6.source_prompt,'prompts/iphone17/repeated-ivory-diagonal-half-offset.txt');
- assert.equal(ex5.generated_from_source_prompt,false);
- assert.equal(ex6.generated_from_source_prompt,false);
+ assert.equal(m.geometry_demo.status,'SUPERSEDED_DO_NOT_USE_FOR_CURRENT_VERTICAL_COLUMN_CONTRACT');
+ assert.equal(m.geometry_demo.actual_axis,'horizontal_translation_of_second_row');
+ const ex6=m.images.find(x=>x.id==='EX06'),ex9=m.images.find(x=>x.id==='EX09');
+ assert.match(ex6.review_note,/仕様には不適合/);
+ assert.equal(ex9.quality,'unapproved');
+ assert.equal(ex9.generated_from_source_prompt,false);
+ assert.equal(ex9.actual_aspect_ratio,'4:3');
+ assert.equal(ex9.geometric_50_percent_verification,'UNVERIFIED');
+ const {out:result}=fromId('iphone-grid-ivory-detail-vertical-half-offset');
+ assert.equal(result.contract.column_vertical_offset_ratio,0.5);
+ assert.equal(result.contract.column_vertical_offset_reference,'device_body_length');
+ assert.match(result.prompt,/Close-up elevated 48–58-degree/);
+ assert.ok(result.words>=80&&result.words<=170);
+ const source=readFileSync(new URL('../'+ex9.source_prompt,import.meta.url),'utf8');
+ assert.match(source,/THREE evenly spaced VERTICAL columns of TWO phones/);
+ assert.match(source,/CENTER COLUMN DOWN by EXACTLY HALF/);
+ assert.match(source,/NEVER shift rows sideways/);
 });

@@ -20,7 +20,7 @@ test('next version preserves original cards, images, table and styling with the 
   assert.equal(restored,appendExperimentalPreviews(appendMacPairReferences(flattenCatalogCards(catalogChrome(catalog)))));
   assert.deepEqual([...next.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].slice(0,30).map(x=>x[0]),[...catalog.matchAll(/<article class="item"[\s\S]*?<\/article>/g)].map(x=>x[0]));
   assert.ok(next.includes(catalog.match(/<tbody>([\s\S]*?)<\/tbody>/)[1]),'All 30 legacy table entries retain their original content');
-  assert.equal((next.match(/<article class="item"/g)??[]).length,40);
+  assert.equal((next.match(/<article class="item"/g)??[]).length,41);
   assert.match(next,/id="gallery-view"/);assert.match(next,/id="table-view"/);
   assert.equal(next.match(/<style>([\s\S]*?)<\/style>/)[1],catalog.match(/<style>([\s\S]*?)<\/style>/)[1]);
   assert.doesNotMatch(next,/TXTで保存|プロンプトの内訳|選択条件のJSON|id="download"|id="contract"/);
@@ -89,7 +89,7 @@ test('vNext hides category headings and explanatory footer and uses modal-only p
   assert.ok(app.includes('visiblePrompt=unchanged?originalPrompt:result.prompt'));
   assert.ok(app.includes('navigator.clipboard.writeText(visiblePrompt)'));
   const gallery=next.split('<div id="gallery-view">')[1].split('<div class="nothing"')[0];
-  assert.equal((gallery.match(/<article class="item"/g)??[]).length,40);
+  assert.equal((gallery.match(/<article class="item"/g)??[]).length,41);
   assert.equal((gallery.match(/<section\b|class="group-sub"|class="cards"|class="section-heading"/g)??[]).length,0);
   assert.ok(gallery.includes('data-id="A"')&&gallery.includes('data-id="MR2"'));
   assert.ok(!gallery.includes('group-sub'));
@@ -156,7 +156,7 @@ test('homepage renders vNext using the same module bundle as /next/',()=>{
   assert.match(landing,/href="\.\/next\/style\.css\?v=revision-root"/);
   assert.match(landing,/src="\.\/next\/app\.mjs\?v=revision-root"/);
   assert.match(landing,/src="\.\/next\/sidebar-mode\.mjs\?v=revision-root"/);
-  assert.equal((landing.match(/<article class="item"/g)??[]).length,40);
+  assert.equal((landing.match(/<article class="item"/g)??[]).length,41);
   assert.match(landing,/<dialog id="composer"/);
   assert.match(readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8'),
     /fetch\(new URL\(`\.\/data\/\$\{name\}`,import\.meta\.url\)/);
@@ -234,7 +234,7 @@ test('Mac+Mac scenes contain exactly two open 14-inch MacBooks and no phones',()
   const html=renderNextCatalog(catalog,editor);
   assert.match(html,/data-id="MM1"/);
   assert.match(html,/data-id="MM2"/);
-  assert.equal((html.match(/<article class="item"/g)??[]).length,40);
+  assert.equal((html.match(/<article class="item"/g)??[]).length,41);
   assert.match(html,/画像未生成 \/ NOT RENDERED|未生成・要検証/);
   assert.doesNotMatch(catalog,/data-id="MM[12]"/);
 });
