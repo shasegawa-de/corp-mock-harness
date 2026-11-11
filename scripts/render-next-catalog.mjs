@@ -177,7 +177,7 @@ export function appendExperimentalPreviews(catalog,imageBase='../'){
   const articles=experimentalScenes.map((row,i)=>{
     const prompt=readFileSync(new URL('../'+row.source,import.meta.url),'utf8').trim();
     if(!prompt.startsWith('ONE standalone photorealistic product photograph. ONE camera view. Horizontal 16:9.'))throw Error('Experimental prompt missing single-camera contract: '+row.id);
-    const words=prompt.split(/\\s+/).length;
+    const words=prompt.split(/\s+/).length;
     if(words<80||words>170)throw Error('Experimental prompt exceeds current editor guard: '+row.id);
     const file='exp-mock-'+String(i+1).padStart(2,'0')+'.jpg';
     const src=imageBase+'assets/experimental-previews/'+file;
