@@ -20,5 +20,16 @@
     "source": "https://www.apple.com/jp/macbook-pro/specs/",
     "description": "One 14-inch MacBook Pro open laptop per requested MacBook; for mac-pair scenes, exactly TWO identical open laptops, realistic 312.6:221.2 footprint proportions, accurate thin rigid aluminum unibody, space black or silver finish, centered camera notch at the upper display edge, precisely proportioned black keyboard with a large trackpad. The entire active display is pure white with no UI. Show its screen and base simultaneously; no logo or wordmark.",
     "negative": "No additional laptop beyond the explicitly requested count; a two-Mac scene requires exactly TWO matching open 14-inch MacBook Pros, no oversized 16-inch proportions, no detached keyboard, no incorrect keyboard layout, no screensaver or icons, no logos, no hands, no people."
+  },
+  "iphone17pro": {
+    "label": "Apple iPhone 17 Pro",
+    "physical_mm": {
+      "height": 150,
+      "width": 71.9,
+      "depth": 8.75
+    },
+    "source": "https://www.apple.com/jp/iphone-17-pro/specs/",
+    "description": "iPhone 17 Pro, authentic 150.0×71.9×8.75mm body and distinct Pro finish; 6.3-inch Dynamic Island. Pure featureless white screen, no branding or UI.",
+    "negative": "No old home-button or notch-era hardware, incorrect body width, mixed rear/front views without explicit instruction or extra devices."
   }
 }
