@@ -167,3 +167,10 @@
 - **Compatibility:** repeated-grid is only for `iphone17` + `grounded` + `flat-face-up`. No Mac, mixed pair, furniture, elevated plinth, suspended mode, extra objects or collages; no adoption into 32-card gallery without separate image QA.
 - **UI boundary:** repeated-grid is offered within the iPhone prompt editor, not as a gallery filter while no corresponding approved/published imagery exists. Selecting a pattern must not display a single-iPhone card as a supposedly matching output.
 - **State:** experimental prompt presets/fixtures and UI choice only. No API generation, image approval, main merge or published card changes. Generated mock quality, precise device repetition and camera match remain unverified.
+
+## 2026-11-12 — provisional generated previews published for eight new directions
+
+- The owner explicitly requested temporary generated pictures in the catalog. Added EX01–EX08 to the vNext gallery and table. Existing 32 entries are preserved byte-for-byte; all new entries are visually marked **仮検証・未承認**.
+- Source: one newly generated ChatGPT ImageGen conceptual **eight-panel board** was cropped into individual low-resolution preview assets. The prompt fixtures for EX01–EX08 were **NOT** individually used to generate these images. The board is **not** an approved photo QA run, and images are not evidence of prompt fidelity.
+- Noncompliance: EX02/EX04 insufficient keyboard visibility. EX05/EX06 show around four phones, not six. EX07/EX08 show one phone, not the required six repeated. These failures remain visible in each image QA caption; do not relabel as PASS or replace canonical fixtures.
+- Publication condition: image files live under `assets/experimental-previews/`, deliberately separate from `assets/macbook-pair` and approved `assets/architectural-surfaces`. No key, original user reference or service credential in repo. Image transport used separately managed transfer service and GitHub blobs; future re-generation is pending.

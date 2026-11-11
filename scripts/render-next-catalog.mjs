@@ -82,11 +82,129 @@ export function appendMacPairReferences(catalog){
   return catalog.replace(galleryEnd,articles+galleryEnd).replace('</tbody>',rows+'</tbody>');
 }
 
+
+const experimentalScenes=[
+  {
+    "id": "EX01",
+    "title": "MacBook・白グレー／斜め上",
+    "type": "mac",
+    "scene": "mac-offwhite-high-oblique",
+    "composition": "mac-elevated-three-quarter",
+    "material": "offwhite-seamless-studio",
+    "light": "high-key",
+    "source": "prompts/macbookpro14/editorial-offwhite-high-oblique.txt",
+    "note": "構図イメージを表示。3/4アングルの完全性・画面の形状精度は未検証。"
+  },
+  {
+    "id": "EX02",
+    "title": "MacBook・白グレー／低い側面",
+    "type": "mac",
+    "scene": "mac-offwhite-low-side",
+    "composition": "mac-low-side-profile",
+    "material": "offwhite-seamless-studio",
+    "light": "broad-softbox",
+    "source": "prompts/macbookpro14/editorial-offwhite-low-side.txt",
+    "note": "低い視点の構図例。キーボードとトラックパッドの視認性が仕様未達。"
+  },
+  {
+    "id": "EX03",
+    "title": "MacBook・ウォルナットチェア／斜光",
+    "type": "mac",
+    "scene": "mac-walnut-chair-sun",
+    "composition": "mac-chair-elevated",
+    "material": "walnut-chair-interior",
+    "light": "window-cut-sun",
+    "source": "prompts/macbookpro14/editorial-walnut-chair-sun.txt",
+    "note": "木材・窓光の方向性確認。実機形状や光の物理精度は未検証。"
+  },
+  {
+    "id": "EX04",
+    "title": "MacBook・ウォルナットチェア／自然光",
+    "type": "mac",
+    "scene": "mac-walnut-chair-soft",
+    "composition": "mac-chair-front",
+    "material": "walnut-chair-interior",
+    "light": "top-left-daylight",
+    "source": "prompts/macbookpro14/editorial-walnut-chair-soft.txt",
+    "note": "正面寄り木製チェアの方向性確認。キーボード視認性は仕様未達。"
+  },
+  {
+    "id": "EX05",
+    "title": "iPhone反復・アイボリー／斜め",
+    "type": "iphone",
+    "scene": "iphone-grid-ivory-diagonal",
+    "composition": "iphone-tile-diagonal",
+    "material": "warm-ivory-seamless",
+    "light": "soft-overhead",
+    "source": "prompts/iphone17/repeated-ivory-diagonal.txt",
+    "note": "4台程度が視認される方向性プレビュー。指定の6台とは一致せず要再生成。"
+  },
+  {
+    "id": "EX06",
+    "title": "iPhone反復・グレー／斜め",
+    "type": "iphone",
+    "scene": "iphone-grid-lightgray-diagonal",
+    "composition": "iphone-tile-diagonal",
+    "material": "pale-gray-seamless",
+    "light": "high-key",
+    "source": "prompts/iphone17/repeated-lightgray-diagonal.txt",
+    "note": "反復配置と背景の概念プレビュー。6台の台数契約は未達。"
+  },
+  {
+    "id": "EX07",
+    "title": "iPhone反復・アイボリー／低い視点",
+    "type": "iphone",
+    "scene": "iphone-grid-ivory-low-oblique",
+    "composition": "iphone-tile-low-oblique",
+    "material": "warm-ivory-seamless",
+    "light": "soft-overhead",
+    "source": "prompts/iphone17/repeated-ivory-low-oblique.txt",
+    "note": "単体iPhoneの低角度プレビュー。6台反復条件は未達のため構図未承認。"
+  },
+  {
+    "id": "EX08",
+    "title": "iPhone反復・グレー／低い視点",
+    "type": "iphone",
+    "scene": "iphone-grid-lightgray-low-oblique",
+    "composition": "iphone-tile-low-oblique",
+    "material": "pale-gray-seamless",
+    "light": "high-key",
+    "source": "prompts/iphone17/repeated-lightgray-low-oblique.txt",
+    "note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。"
+  }
+];
+export function appendExperimentalPreviews(catalog,imageBase='../'){
+  const articles=experimentalScenes.map((row,i)=>{
+    const prompt=readFileSync(new URL('../'+row.source,import.meta.url),'utf8').trim();
+    if(!prompt.startsWith('ONE standalone photorealistic product photograph. ONE camera view. Horizontal 16:9.'))throw Error('Experimental prompt missing single-camera contract: '+row.id);
+    const words=prompt.split(/\\s+/).length;
+    if(words<80||words>170)throw Error('Experimental prompt exceeds current editor guard: '+row.id);
+    const file='exp-mock-'+String(i+1).padStart(2,'0')+'.jpg';
+    const src=imageBase+'assets/experimental-previews/'+file;
+    const url='https://github.com/shasegawa-de/corp-mock-harness/blob/main/'+row.source;
+    const search=htmlEscape([row.id,row.title,row.type,row.composition,row.material,row.light,row.note].join(' ').toLowerCase());
+    return [
+      '<article class="item" data-device="'+row.type+'" data-id="'+row.id+'" data-mode="'+(row.type==='mac'&&i>1?'furniture-supported':'grounded')+'" data-status="candidate" data-preview="experimental" data-search="'+search+'">',
+      '<button aria-label="'+htmlEscape(row.title)+'の仮検証画像" class="image-wrap" data-image="'+row.id+'" type="button"><img src="'+src+'" alt="'+htmlEscape(row.title)+'：AI生成の方向性プレビュー、要件適合・画像QA未承認" loading="lazy" decoding="async" width="400" height="300"></button>',
+      '<div class="card-body"><div class="minor"><span>'+row.id+' / '+(row.type==='mac'?'MacBook Pro 14':'iPhone 17')+'</span><span class="quality provisional">仮検証・未承認</span></div>',
+      '<h3>'+htmlEscape(row.title)+'</h3><p>新規シーンの方向性プレビュー。契約条件と生成画像は未照合。</p>',
+      '<dl class="settings"><dt>構図</dt><dd>'+row.composition+'</dd><dt>背景</dt><dd>'+row.material+'</dd><dt>照明</dt><dd>'+row.light+'</dd></dl>',
+      '<div class="qa"><strong>画像QA</strong> '+htmlEscape(row.note)+' この画像は個別の定義プロンプトから生成した結果ではありません。</div>',
+      '<details><summary>プロンプト全文 <span>'+words+' words</span></summary><pre>'+htmlEscape(prompt)+'</pre><div class="prompt-actions"><button class="copy" data-copy="'+row.id+'" type="button">全文をコピー</button><a href="'+url+'" rel="noopener noreferrer" target="_blank">GitHubのプロンプト ↗</a></div></details></div>',
+      '</article>'
+    ].join('\\n');
+  }).join('');
+  const rows=experimentalScenes.map(row=>'<tr data-device="'+row.type+'" data-mode="'+(row.type==='mac'&&['EX03','EX04'].includes(row.id)?'furniture-supported':'grounded')+'" data-status="candidate" data-search="'+htmlEscape(row.title+' '+row.composition+' '+row.material)+'"><td>'+row.id+'</td><td>'+htmlEscape(row.title)+'</td><td>'+(row.type==='mac'?'MacBook Pro 14':'iPhone 17')+'</td><td>'+row.composition+'</td><td>'+row.material+'</td><td>仮検証・未承認</td><td><button data-jump="'+row.id+'" type="button">詳細</button></td></tr>').join('');
+  const galleryEnd='</div><div class="nothing" id="nothing">';
+  if(catalog.split(galleryEnd).length!==2||catalog.split('</tbody>').length!==2)throw Error('Cannot append experimental scene cards');
+  return catalog.replace(galleryEnd,articles+galleryEnd).replace('</tbody>',rows+'</tbody>');
+}
+
 // Cards, images, table, shared styles and the existing scripts are reused.
 export function renderNextCatalog(catalog,editor,version='local',assetBase='./'){
   if(!catalog.includes('</head>')||!catalog.includes('</main>'))throw Error('Catalog insertion points are missing');
   const revision=encodeURIComponent(version);
-  return appendMacPairReferences(flattenCatalogCards(catalogChrome(catalog))).replace('</head>',`<!-- composer-assets:start --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap"><link rel="stylesheet" href="${assetBase}style.css?v=${revision}"><link rel="stylesheet" href="${assetBase}left-sidebar.css?v=${revision}"><script type="module" src="${assetBase}app.mjs?v=${revision}"></script><script type="module" src="${assetBase}sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
+  return appendExperimentalPreviews(appendMacPairReferences(flattenCatalogCards(catalogChrome(catalog))),assetBase==='./'?'../':'./').replace('</head>',`<!-- composer-assets:start --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&amp;display=swap"><link rel="stylesheet" href="${assetBase}style.css?v=${revision}"><link rel="stylesheet" href="${assetBase}left-sidebar.css?v=${revision}"><script type="module" src="${assetBase}app.mjs?v=${revision}"></script><script type="module" src="${assetBase}sidebar-mode.mjs?v=${revision}"></script><!-- composer-assets:end --></head>`)
     .replace('</main>',`<!-- composer-editor:start -->${editor}<!-- composer-editor:end --></main>`);
 }
 

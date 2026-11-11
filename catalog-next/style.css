@@ -142,3 +142,7 @@ body.filter-drawer-open{overflow:hidden}
 #gallery-view article.item{cursor:pointer}
 #gallery-view article.item:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 #gallery-view .image-wrap::after{content:none!important}
+
+/* Temporary AI scene previews: source images stay visibly unapproved. */
+#gallery-view article.item[data-preview="experimental"] .image-wrap img{object-fit:contain;background:#e7e8e7}
+#gallery-view article.item[data-preview="experimental"] .quality.provisional{font-weight:700}

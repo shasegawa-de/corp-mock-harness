@@ -76,7 +76,7 @@ test('pattern-only cropping and low camera do not leak into single iPhone or Mac
  assert.ok(!choices(defaults,p).composition.includes('iphone-tile-low-oblique'));
  assert.ok(!choices(defaults,p).composition.includes('iphone-tile-diagonal'));
  assert.ok(choices(defaults,p).layout.includes('repeated-grid'));
- assert.ok(!filterOptions(p).layout.includes('repeated-grid'),'No unpublished gallery filter');
+ assert.ok(filterOptions(p).layout.includes('repeated-grid'),'The provisional gallery now shows this facet');
  for(const subject of ['macbookpro14','pair','mac-pair','environment']){
    const state={...defaults,subject};
    assert.ok(!choices(state,p).layout.includes('repeated-grid'),subject);

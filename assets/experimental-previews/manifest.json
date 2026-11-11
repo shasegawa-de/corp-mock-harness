@@ -1,0 +1,74 @@
+{
+  "status": "provisional-nonconformant",
+  "date": "2026-11-12",
+  "source": "ChatGPT ImageGen generated eight-panel board; individual visual crops, JPEG transfer/re-encode. Not GPT Image API runs of preset prompts.",
+  "approved": false,
+  "security": "No API credentials or user-provided reference image files committed.",
+  "disclaimer": "Visual direction only. iPhone count and some laptop visibility requirements fail; each card discloses this.",
+  "images": [
+    {
+      "id": "EX01",
+      "asset": "assets/experimental-previews/exp-mock-01.jpg",
+      "source_prompt": "prompts/macbookpro14/editorial-offwhite-high-oblique.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "構図イメージを表示。3/4アングルの完全性・画面の形状精度は未検証。"
+    },
+    {
+      "id": "EX02",
+      "asset": "assets/experimental-previews/exp-mock-02.jpg",
+      "source_prompt": "prompts/macbookpro14/editorial-offwhite-low-side.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "低い視点の構図例。キーボードとトラックパッドの視認性が仕様未達。"
+    },
+    {
+      "id": "EX03",
+      "asset": "assets/experimental-previews/exp-mock-03.jpg",
+      "source_prompt": "prompts/macbookpro14/editorial-walnut-chair-sun.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "木材・窓光の方向性確認。実機形状や光の物理精度は未検証。"
+    },
+    {
+      "id": "EX04",
+      "asset": "assets/experimental-previews/exp-mock-04.jpg",
+      "source_prompt": "prompts/macbookpro14/editorial-walnut-chair-soft.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "正面寄り木製チェアの方向性確認。キーボード視認性は仕様未達。"
+    },
+    {
+      "id": "EX05",
+      "asset": "assets/experimental-previews/exp-mock-05.jpg",
+      "source_prompt": "prompts/iphone17/repeated-ivory-diagonal.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "4台程度が視認される方向性プレビュー。指定の6台とは一致せず要再生成。"
+    },
+    {
+      "id": "EX06",
+      "asset": "assets/experimental-previews/exp-mock-06.jpg",
+      "source_prompt": "prompts/iphone17/repeated-lightgray-diagonal.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "反復配置と背景の概念プレビュー。6台の台数契約は未達。"
+    },
+    {
+      "id": "EX07",
+      "asset": "assets/experimental-previews/exp-mock-07.jpg",
+      "source_prompt": "prompts/iphone17/repeated-ivory-low-oblique.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "単体iPhoneの低角度プレビュー。6台反復条件は未達のため構図未承認。"
+    },
+    {
+      "id": "EX08",
+      "asset": "assets/experimental-previews/exp-mock-08.jpg",
+      "source_prompt": "prompts/iphone17/repeated-lightgray-low-oblique.txt",
+      "generated_from_source_prompt": false,
+      "quality": "unapproved",
+      "review_note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。"
+    }
+  ]
+}
