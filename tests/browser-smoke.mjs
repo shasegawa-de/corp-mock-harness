@@ -28,7 +28,7 @@ const errors=[];
 page.on('pageerror',error=>errors.push(error.message));
 try{
   await page.goto(url,{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===40);
+  await page.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item').length===41);
   await page.waitForTimeout(250);
   const headingTypography=await page.locator('header h1').evaluate(el=>({
     font:getComputedStyle(el).fontFamily,
@@ -98,7 +98,7 @@ try{
   assert.match(cardHeading.font,/Outfit/i,'Latin glyphs in card titles use Outfit');
   assert.equal(cardHeading.weight,'700');
   const interactiveCards=page.locator('#gallery-view article.item[role="button"][tabindex="0"]');
-  assert.equal(await interactiveCards.count(),40,'All 40 cards are direct prompt-modal targets');
+  assert.equal(await interactiveCards.count(),41,'All 41 cards are direct prompt-modal targets');
   assert.equal(await page.locator('#gallery-view .compose-entry button').count(),0,'Redundant gallery CTA removed');
   assert.equal(await page.locator('#gallery-view [data-image]').count(),0,'No legacy zoom buttons remain');
   assert.equal(await page.locator('#preview').count(),0,'Legacy preview dialog removed');
@@ -130,9 +130,9 @@ try{
   assert.equal(await page.locator('#subject').inputValue(),'iphone17');
   assert.equal(await page.locator('#layout-field').isVisible(),true);
   await page.locator('#layout').selectOption('repeated-grid-half-offset');
-  assert.match(await page.locator('#composer-prompt').textContent(),/EXACTLY HALF of ONE phone body width \(50%\)/);
+  assert.match(await page.locator('#composer-prompt').textContent(),/CENTER COLUMN DOWN vertically EXACTLY HALF of ONE phone LONG BODY LENGTH \(50%\)/);
   await page.locator('#layout').selectOption('repeated-grid');
-  assert.match(await page.locator('#composer-prompt').textContent(),/ZERO shift, 0%/);
+  assert.match(await page.locator('#composer-prompt').textContent(),/ZERO vertical offset, 0%/);
   assert.equal(await page.locator('#pose').inputValue(),'flat-face-up');
   await page.locator('#composition').selectOption('iphone-tile-low-oblique');
   await page.locator('#environment').selectOption('pale-gray-seamless');
@@ -144,8 +144,8 @@ try{
   await page.locator('#composer-close').click();
 
   // Eight supplemental candidates are explicit provisional outputs, not approved images.
-  assert.equal(await page.locator('#gallery-view article.item[data-preview="experimental"]').count(),8);
-  for(const id of ['EX01','EX02','EX03','EX04','EX05','EX06','EX07','EX08']){
+  assert.equal(await page.locator('#gallery-view article.item[data-preview="experimental"]').count(),9);
+  for(const id of ['EX01','EX02','EX03','EX04','EX05','EX06','EX07','EX08','EX09']){
     const card=page.locator('#gallery-view article.item[data-id="'+id+'"]');
     assert.match(await card.locator('.quality').innerText(),/仮検証・未承認/);
     assert.ok((await card.locator('.qa').innerText()).includes('この画像は個別の定義プロンプトから生成した結果ではありません。'),id+' cannot be misrepresented as tested output');
@@ -281,7 +281,7 @@ try{
   await drawer.locator('[data-filter-axis="subject"]').getByRole('radio',{name:'iPhone 17',exact:true}).click();
   await page.waitForFunction(()=>[...document.querySelectorAll('#gallery-view article.item')].filter(el=>getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden'&&el.getClientRects().length>0).length<30);
   const categoryVisible=await page.locator('#gallery-view article.item:visible').count();
-  assert.equal(categoryVisible,13,'iPhone 17 filter includes nine originals and four provisional patterns');
+  assert.equal(categoryVisible,14,'iPhone 17 filter includes nine originals and four provisional patterns');
   assert.equal(await clear.isEnabled(),true,'Clear becomes available after a selection');
   await drawer.locator('[data-filter-axis="spatial"]').getByRole('radio',{name:'ブロック上'}).click();
   const blockVisible=await page.locator('#gallery-view article.item:visible').count();
@@ -310,13 +310,13 @@ try{
   await clear.click();
   assert.equal(await cameraGroup.locator('button').count(),7,'Clear restores six default camera choices');
   assert.equal(await clear.isDisabled(),true,'Clear returns to disabled after reset');
-  assert.equal(await page.locator('#gallery-view article.item:visible').count(),40);
-  assert.equal(await page.locator('#count').innerText(),'40 / 40');
-  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),40);
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),41);
+  assert.equal(await page.locator('#count').innerText(),'41 / 41');
+  assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),41);
   await drawer.locator('[data-filter-axis="quality"] button[data-value]:not([data-value=""])').first().click();
   assert.notEqual(await page.locator('#quality-filter').inputValue(),await page.locator('#quality-filter option').first().getAttribute('value'),'Quality facet must drive the existing catalog filter');
   await drawer.locator('#reset-filters').click();
-  assert.equal(await page.locator('#gallery-view article.item:visible').count(),40);
+  assert.equal(await page.locator('#gallery-view article.item:visible').count(),41);
   await page.setViewportSize({width:390,height:844});
   const mobileHeader=await page.locator('body > header').evaluate(header=>({
     padLeft:parseFloat(getComputedStyle(header).paddingLeft),
@@ -357,10 +357,10 @@ try{
   homepage.on('pageerror',error=>homeErrors.push(error.message));
   const homeResponse=await homepage.goto(new URL('/',url).href,{waitUntil:'domcontentloaded'});
   assert.equal(homeResponse.status(),200);
-  await homepage.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item[role="button"]').length===40);
+  await homepage.waitForFunction(()=>document.querySelectorAll('#gallery-view article.item[role="button"]').length===41);
   assert.equal(await homepage.locator('#composer-error').isHidden(),true,'Home page must load module-relative configuration');
   assert.equal(await homepage.locator('header h1').innerText(),'PROMPT & VISUAL CATALOG');
-  assert.equal(await homepage.locator('#gallery-view article.item').count(),40);
+  assert.equal(await homepage.locator('#gallery-view article.item').count(),41);
   await homepage.waitForFunction(()=>['MM1','MM2'].every(id=>
     document.querySelector('#gallery-view article.item[data-id="'+id+'"] .quality')?.textContent.includes('生成済み')
   ),{timeout:10000});
@@ -380,5 +380,5 @@ try{
   assert.equal(await legacy.locator('#composer').count(),0,'Archived catalog remains the original, without vNext modal');
   await legacy.close();
   assert.deepEqual(errors,[],'No unhandled page errors');
-  console.log('PASS: 40 cards including two published Mac+Mac review images; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
+  console.log('PASS: 41 cards including two published Mac+Mac review images; full-height flush-left unboxed filter region; nine facets; mobile modal; resize; composer; approved image assets.');
 }finally{await browser.close();server.close();}
