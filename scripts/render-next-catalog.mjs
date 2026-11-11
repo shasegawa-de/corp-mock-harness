@@ -203,7 +203,7 @@ export function appendExperimentalPreviews(catalog,imageBase='../'){
       '<div class="qa"><strong>画像QA</strong> '+htmlEscape(row.note)+' この画像は個別の定義プロンプトから生成した結果ではありません。</div>',
       '<details><summary>プロンプト全文 <span>'+words+' words</span></summary><pre>'+htmlEscape(prompt)+'</pre><div class="prompt-actions"><button class="copy" data-copy="'+row.id+'" type="button">全文をコピー</button><a href="'+url+'" rel="noopener noreferrer" target="_blank">GitHubのプロンプト ↗</a></div></details></div>',
       '</article>'
-    ].join('\\n');
+    ].join('\n');
   }).join('');
   const rows=experimentalScenes.map(row=>'<tr data-device="'+row.type+'" data-mode="'+(row.type==='mac'&&['EX03','EX04'].includes(row.id)?'furniture-supported':'grounded')+'" data-status="candidate" data-search="'+htmlEscape(row.title+' '+row.composition+' '+row.material)+'"><td>'+row.id+'</td><td>'+htmlEscape(row.title)+'</td><td>'+(row.type==='mac'?'MacBook Pro 14':'iPhone 17')+'</td><td>'+row.composition+'</td><td>'+row.material+'</td><td>仮検証・未承認</td><td><button data-jump="'+row.id+'" type="button">詳細</button></td></tr>').join('');
   const galleryEnd='</div><div class="nothing" id="nothing">';
