@@ -141,14 +141,14 @@ const experimentalScenes=[
   },
   {
     "id": "EX06",
-    "title": "iPhone 17反復・ずれあり／半台50％",
+    "title": "iPhone反復・旧横ずれプレビュー（要修正）",
     "type": "iphone",
     "scene": "iphone-grid-ivory-diagonal-half-offset",
     "composition": "iphone-tile-steep-oblique",
     "material": "warm-ivory-seamless",
     "light": "soft-overhead",
     "source": "prompts/iphone17/repeated-ivory-diagonal-half-offset.txt",
-    "note": "同じ生成端末切り抜き6枚を千鳥合成。表示筐体幅212pxに対し2行目を106px横移動＝正確に50％。生成AIによる端末形状再現の精度は未承認。"
+    "note": "旧仕様の横方向50％ずれで合成した画像。現行の『隣接列を縦方向に長辺50％ずらす』仕様には不適合。仮検証・未承認。"
   },
   {
     "id": "EX07",
@@ -171,6 +171,17 @@ const experimentalScenes=[
     "light": "high-key",
     "source": "prompts/iphone17/repeated-lightgray-low-oblique.txt",
     "note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。"
+  },
+  {
+    "id": "EX09",
+    "title": "iPhone 17反復・縦列千鳥／ディテール接写",
+    "type": "iphone",
+    "scene": "iphone-grid-ivory-detail-vertical-half-offset",
+    "composition": "iphone-tile-detail-closeup",
+    "material": "warm-ivory-seamless",
+    "light": "soft-overhead",
+    "source": "prompts/iphone17/repeated-ivory-detail-vertical-half-offset.txt",
+    "note": "生成画像によるアートディレクション見本。近接斜め俯瞰、白画面、薄い筐体、広い余白を確認。列方向50％ずれの実測、実機ボタン・端子の正確性、16:9比率（本素材は4:3）は未達・未検証。"
   }
 ];
 export function appendExperimentalPreviews(catalog,imageBase='../'){

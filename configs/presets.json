@@ -180,15 +180,19 @@
     },
     {
       "id": "iphone-tile-diagonal",
-      "detail": "ONE 40–50° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 40–50° elevated diagonal-oblique camera over SIX identical face-up phones in three VERTICAL columns of two. Constant in-column vertical pitch and regular horizontal column spacing. The selected layout sets vertical phase of the center column to 0% or EXACTLY 50% of the handset LONG BODY LENGTH; NEVER horizontal row shift. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     },
     {
       "id": "iphone-tile-low-oblique",
-      "detail": "ONE 24–32° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 24–32° elevated diagonal-oblique camera over SIX identical face-up phones in three VERTICAL columns of two. Constant in-column vertical pitch and regular horizontal column spacing. The selected layout sets vertical phase of the center column to 0% or EXACTLY 50% of the handset LONG BODY LENGTH; NEVER horizontal row shift. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
     },
     {
       "id": "iphone-tile-steep-oblique",
-      "detail": "ONE 58–68° elevated diagonal-oblique camera over SIX identical face-up phones, 2 rows × 3 columns. Row alignment follows the selected repeated layout: either 0% or EXACTLY one-half handset body width (50%) offset; same model/size/orientation and precise regular within-row spacing. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+      "detail": "ONE 58–68° elevated diagonal-oblique camera over SIX identical face-up phones in three VERTICAL columns of two. Constant in-column vertical pitch and regular horizontal column spacing. The selected layout sets vertical phase of the center column to 0% or EXACTLY 50% of the handset LONG BODY LENGTH; NEVER horizontal row shift. All central screens fully visible and WHITE. Intentional perimeter crop only; never show phone backs."
+    },
+    {
+      "id": "iphone-tile-detail-closeup",
+      "detail": "One premium close-up elevated 48–58-degree diagonal-oblique product camera, full-screen central handset dominant, nearby identical devices cropped by the canvas edges. Physically thin metallic frame with correct button-side/USB-C/speaker detailing, generous margins and warm subtly textured mineral surface; honor 3-column vertical phase geometry, no unnatural thickness."
     }
   ],
   "lighting": [
@@ -291,13 +295,14 @@
     {
       "id": "repeated-grid",
       "device_count": 6,
-      "detail": "Exactly SIX phones all the SAME iPhone model, front-screen-up, with a 2×3 ALIGNED grid: rows share precisely the SAME three column positions, ZERO horizontal displacement (0%). One camera and one matte studio support. Edge cropping only."
+      "detail": "Exactly SIX identical front-screen-up phones in THREE evenly spaced VERTICAL COLUMNS of TWO phones each. Fixed vertical pitch inside every column; corresponding phones align at identical vertical heights: ZERO vertical column offset (0%). Column x-positions stay uniformly spaced; perimeter cropping permitted. One camera and coherent surface."
     },
     {
       "id": "repeated-grid-half-offset",
       "device_count": 6,
-      "offset_ratio": 0.5,
-      "detail": "Exactly SIX phones all the SAME iPhone model, front-screen-up, in two rows of three. The SECOND row moves horizontally by EXACTLY 50% of ONE handset body WIDTH relative to the first (a half-body stagger). Same size, angle, in-row pitch and studio light. No arbitrary 35% drift; edge cropping only."
+      "detail": "Exactly SIX identical front-screen-up phones in THREE evenly spaced VERTICAL COLUMNS of TWO phones each. Vertical phone-to-phone pitch is equal within every column. Shift the CENTER COLUMN DOWN vertically by EXACTLY HALF of ONE handset LONG BODY LENGTH (50%); left/right columns share equal vertical phase. Do NOT move any column sideways or shift a horizontal row; body LENGTH is the reference, NOT body width or grid gap. Image-edge crop allowed.",
+      "column_vertical_offset_ratio": 0.5,
+      "column_vertical_offset_reference": "device_body_length"
     }
   ],
   "spatial_modes": [
@@ -865,6 +870,24 @@
       "composition_id": "iphone-tile-steep-oblique",
       "lighting_id": "high-key",
       "reference_prompt": "prompts/iphone17pro/repeated-gray-steep-half-offset.txt"
+    },
+    {
+      "id": "iphone-grid-ivory-detail-vertical-half-offset",
+      "devices": [
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17",
+        "iphone17"
+      ],
+      "layout_id": "repeated-grid-half-offset",
+      "spatial_mode_id": "grounded",
+      "pose_id": "flat-face-up",
+      "environment_id": "warm-ivory-seamless",
+      "composition_id": "iphone-tile-detail-closeup",
+      "lighting_id": "soft-overhead",
+      "reference_prompt": "prompts/iphone17/repeated-ivory-detail-vertical-half-offset.txt"
     }
   ],
   "retired_compositions": [
