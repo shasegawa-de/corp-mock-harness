@@ -150,3 +150,27 @@
 - **判断**: 床・台座のない浮遊構図と、反復模様を抑えた自然なハーフグレー壁面を採用候補として提示。掲載指示は**最終画像QAの承認ではない**ため「生成済み・要レビュー」を維持。
 - **品質・出自**: 1648×927px、OpenAI画像生成のJPEG版。Mac筐体寸法の精査、モデルの実効プロンプト一致、ユーザーによる最終採否は未検証（`PROMPT_UNVERIFIED`）。画像マニフェストにバイナリのGit blobハッシュを記録。
 - **変更範囲**: vNextのみ表示変更。旧`catalog/index.html`と旧画像は保持し、32件のカード・フィルター・モーダルの回帰をテストする。
+
+## 2026-11-11 — editorial mock directions (proposal only)
+
+- **Proposed:** Four new independently selectable single-Mac scenes. Two use an off-white / pale fog-gray seamless studio and controlled **high-oblique** / **low-side** camera directions. Two use **one walnut wooden chair** as the actual laptop support, with either directional window sunlight or calmer top-left daylight.
+- **Narrow exception:** Existing blanket prohibition on furniture/wood remains the default. Only the new `furniture-supported` spatial mode permits exactly one wooden chair. It is allowed only for one open MacBook Pro 14; never for iPhone, paired devices or environment-only scenes. Floor-grounded, plinth and floorless contracts remain unchanged.
+- **Camera:** New Mac-specific oblique camera IDs preserve full white screen, keyboard, and trackpad; this does not restore the retired generic top-down/high-view composition. Product geometry and one 16:9 camera remain mandatory.
+- **References:** Based on six user-supplied visual examples, interpreted only for broad art-direction cues (off-white stage, high/low camera, walnut furniture, sunlight). Screen UI/logotypes seen in examples are deliberately excluded. User examples are not committed to the public GitHub repository; no third-party imagery is copied.
+- **Status:** Configuration, isolated prompt fixtures and verification only. Not an approved image set. The current 32 published cards, their files, base photographs and UI remain unchanged. New images must be generated and visually reviewed before any gallery publication.
+
+## 2026-11-11 — iPhone repeated diagonal pattern (proposal only)
+
+- **Proposed:** add an explicit `repeated-grid` layout for exactly **six identical standard iPhone 17** instances in a regular diagonal 2×3 arrangement in ONE coherent 16:9 photograph, one camera and one lighting setup. This is a pattern/motif, not a split-screen, board of separately rendered views or a new device family.
+- **Four directions:** warm ivory / neutral pale gray × elevated oblique (40–50°) / **lower oblique (24–32°)**. The lower camera addresses the newly supplied under-side perspective reference, prioritizing device side-frame depth without losing central-screen visibility.
+- **Narrow exceptions:** normally images must have 0/1/2 devices and every screen fully visible; ONLY in repeated-grid can six otherwise identical handsets appear, with cropping of **perimeter** handsets at the frame edge. All central screens remain wholly visible, featureless pure white. Default single-phone flat 40–55° view remains unchanged. The photos' visible marketing UI/logos are **not copied**, and user reference images remain outside the public repository.
+- **Compatibility:** repeated-grid is only for `iphone17` + `grounded` + `flat-face-up`. No Mac, mixed pair, furniture, elevated plinth, suspended mode, extra objects or collages; no adoption into 32-card gallery without separate image QA.
+- **UI boundary:** repeated-grid is offered within the iPhone prompt editor, not as a gallery filter while no corresponding approved/published imagery exists. Selecting a pattern must not display a single-iPhone card as a supposedly matching output.
+- **State:** experimental prompt presets/fixtures and UI choice only. No API generation, image approval, main merge or published card changes. Generated mock quality, precise device repetition and camera match remain unverified.
+
+## 2026-11-12 — provisional generated previews published for eight new directions
+
+- The owner explicitly requested temporary generated pictures in the catalog. Added EX01–EX08 to the vNext gallery and table. Existing 32 entries are preserved byte-for-byte; all new entries are visually marked **仮検証・未承認**.
+- Source: one newly generated ChatGPT ImageGen conceptual **eight-panel board** was cropped into individual low-resolution preview assets. The prompt fixtures for EX01–EX08 were **NOT** individually used to generate these images. The board is **not** an approved photo QA run, and images are not evidence of prompt fidelity.
+- Noncompliance: EX02/EX04 insufficient keyboard visibility. EX05/EX06 show around four phones, not six. EX07/EX08 show one phone, not the required six repeated. These failures remain visible in each image QA caption; do not relabel as PASS or replace canonical fixtures.
+- Publication condition: image files live under `assets/experimental-previews/`, deliberately separate from `assets/macbook-pair` and approved `assets/architectural-surfaces`. No key, original user reference or service credential in repo. Image transport used separately managed transfer service and GitHub blobs; future re-generation is pending.

@@ -21,7 +21,7 @@ export function filterOptions(presets,qualityOptions=[]){
   const unique=ids=>[...new Set(ids)];
   return {
     subject:choices(defaults,presets).subject,
-    layout:presets.device_layouts.map(x=>x.id),
+    layout:presets.device_layouts.map(x=>x.id), // Repeated-grid now has clearly labeled provisional cards
     spatial:presets.spatial_modes.map(x=>x.id),
     pose:unique([...presets.device_pose_rules.iphone17,...presets.device_pose_rules.macbookpro14].map(x=>x.id)),
     surface:choices({...defaults,subject:'environment',spatial:'grounded'},presets).surface,

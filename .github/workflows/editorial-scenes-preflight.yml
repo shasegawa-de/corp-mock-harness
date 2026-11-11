@@ -1,0 +1,44 @@
+name: Editorial scene expansion — PR preflight
+on:
+  pull_request:
+    paths:
+      - 'configs/presets.json'
+      - 'catalog-next/engine.mjs'
+      - 'STYLE.md'
+      - 'AGENTS.md'
+      - 'prompts/macbookpro14/editorial-*'
+      - 'prompts/iphone17/repeated-*'
+      - 'tests/repeated-iphone.test.mjs'
+      - 'assets/experimental-previews/**'
+      - 'scripts/render-next-catalog.mjs'
+      - 'scripts/build-pages.mjs'
+      - 'catalog-next/style.css'
+      - 'catalog-next/filters.mjs'
+      - 'tests/experimental-catalog.test.mjs'
+      - 'tests/browser-smoke.mjs'
+      - 'tests/editorial-scenes.test.mjs'
+      - 'tests/prompt-builder.test.mjs'
+      - '.github/workflows/editorial-scenes-preflight.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Check scene contracts and existing 32-card regression
+        run: node --test tests/editorial-scenes.test.mjs tests/repeated-iphone.test.mjs tests/experimental-catalog.test.mjs tests/prompt-builder.test.mjs
+      - name: Validate transport without API calls
+        run: node --test tests/gpt-image-transport.test.mjs tests/approved-assets.test.mjs tests/mac-pair-assets.test.mjs
+      - name: Build catalog locally without publishing
+        run: node scripts/build-pages.mjs
+      - name: Install browser smoke-test driver
+        run: npm install --no-save --no-package-lock playwright-core@1.56.1
+      - name: Browser smoke for filters and prompt editor
+        run: node tests/browser-smoke.mjs
