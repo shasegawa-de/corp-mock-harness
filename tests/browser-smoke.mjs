@@ -145,7 +145,7 @@ try{
   for(const id of ['EX01','EX02','EX03','EX04','EX05','EX06','EX07','EX08']){
     const card=page.locator('#gallery-view article.item[data-id="'+id+'"]');
     assert.match(await card.locator('.quality').innerText(),/仮検証・未承認/);
-    assert.ok((await card.locator('.qa').innerText()).includes('未'));
+    assert.ok((await card.locator('.qa').innerText()).includes('この画像は個別の定義プロンプトから生成した結果ではありません。'),id+' cannot be misrepresented as tested output');
     const img=card.locator('img');
     await img.evaluate(el=>el.decode());
     assert.ok((await img.evaluate(el=>el.naturalWidth))>=350,id+' preview image unavailable');
