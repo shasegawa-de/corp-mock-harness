@@ -65,3 +65,19 @@ test('EX09 replacement image is near-16:9 at 1672×941 and still unapproved',()=
  assert.ok(card.includes('height="225"'));
  assert.match(card,/仮検証・未承認/);
 });
+
+test('experimental card HTML uses real line breaks, never literal backslash-n text',()=>{
+ const escapedNewline=String.fromCharCode(92)+'n';
+ for(const [base] of [['./'],['./next/']]){
+  const html=renderNextCatalog(catalog,editor,'newline-regression',base);
+  for(const id of ['EX01','EX02','EX03','EX04','EX05','EX06','EX07','EX08','EX09']){
+   const offset=html.indexOf('data-id="'+id+'"');
+   assert.ok(offset>0,'missing '+id);
+   const end=html.indexOf('</article>',offset);
+   assert.ok(end>offset,'missing closing article '+id);
+   const card=html.slice(offset,end);
+   assert.ok(!card.includes(escapedNewline),id+' contains literal backslash-n');
+   assert.ok(card.includes('</button>\n<div class="card-body">'),id+' should contain a real newline between tags');
+  }
+ }
+});
