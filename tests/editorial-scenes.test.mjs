@@ -67,6 +67,8 @@ test('only a single Mac may choose wood-chair mode, never paired devices, phones
   assert.ok(choices(mac,presets).lighting.includes('window-cut-sun'));
   assert.ok(!choices({...mac,spatial:'grounded'},presets).environment.includes('walnut-chair-interior'));
   assert.ok(!choices({...mac,spatial:'grounded'},presets).lighting.includes('window-cut-sun'));
+  assert.ok(!choices({...mac,spatial:'suspended'},presets).environment.includes('offwhite-seamless-studio'),
+    'A floor-based studio must not leak into a floorless scene');
   const wrong=structuredClone(presets);
   wrong.showcase_presets.find(x=>x.id==='mac-walnut-chair-sun').devices=['iphone17'];
   assert.throws(()=>validateCatalog(wrong,devices),/木製チェアの配置はMac単体のみ/);

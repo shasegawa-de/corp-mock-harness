@@ -129,7 +129,7 @@ export function choices(s, p) {
     layout:env ? ['environment-only'] : ['pair','mac-pair'].includes(s.subject) ? ['side-by-side','depth-staggered'] : ['single'],
     spatial:p.spatial_modes.map(x=>x.id).filter(id=>(!env||id!=='hover')&&(id!=='furniture-supported'||s.subject==='macbookpro14')), pose:poses, composition:compositions,
     surface:!env||s.spatial==='on-block'?['space']:s.spatial==='suspended'?['space','vertical-wall']:['space','vertical-wall','wall-floor-junction','wall-floor-corner','vertical-wall-and-floor','horizontal-floor'],
-    environment:p.environments.map(x=>x.id).filter(id => (s.spatial==='furniture-supported'?id==='walnut-chair-interior':id!=='walnut-chair-interior') && (id!=='suspended-mineral-planes'||s.spatial==='suspended') && (id!=='carrara-marble-wide-block'||s.spatial==='on-block') && (s.surface!=='vertical-wall-and-floor'||id==='smoked-glass') && (s.spatial!=='on-block'||!['fiber-cement-panels','dark-fiber-cement'].includes(id))),
+    environment:p.environments.map(x=>x.id).filter(id => (s.spatial==='furniture-supported'?id==='walnut-chair-interior':id!=='walnut-chair-interior') && (id!=='offwhite-seamless-studio'||s.spatial!=='suspended') && (id!=='suspended-mineral-planes'||s.spatial==='suspended') && (id!=='carrara-marble-wide-block'||s.spatial==='on-block') && (s.surface!=='vertical-wall-and-floor'||id==='smoked-glass') && (s.spatial!=='on-block'||!['fiber-cement-panels','dark-fiber-cement'].includes(id))),
     lighting:p.lighting.map(x=>x.id).filter(id=>s.spatial==='furniture-supported'?['window-cut-sun','top-left-daylight','soft-overhead'].includes(id):id!=='window-cut-sun')
   };
 }

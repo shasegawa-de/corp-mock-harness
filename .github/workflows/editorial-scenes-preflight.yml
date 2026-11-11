@@ -27,3 +27,9 @@ jobs:
         run: node --test tests/editorial-scenes.test.mjs tests/prompt-builder.test.mjs
       - name: Validate transport without API calls
         run: node --test tests/gpt-image-transport.test.mjs tests/approved-assets.test.mjs tests/mac-pair-assets.test.mjs
+      - name: Build catalog locally without publishing
+        run: node scripts/build-pages.mjs
+      - name: Install browser smoke-test driver
+        run: npm install --no-save --no-package-lock playwright-core@1.56.1
+      - name: Browser smoke for filters and prompt editor
+        run: node tests/browser-smoke.mjs
