@@ -191,7 +191,7 @@ export function appendExperimentalPreviews(catalog,imageBase='../'){
     const words=prompt.split(/\s+/).length;
     if(words<80||words>170)throw Error('Experimental prompt exceeds current editor guard: '+row.id);
     const file='exp-mock-'+String(i+1).padStart(2,'0')+'.jpg';
-    const src=imageBase+'assets/experimental-previews/'+file;
+    const src=imageBase+'assets/experimental-previews/'+file+(row.id==='EX09'?'?v=92bb93e7':'');
     const url='https://github.com/shasegawa-de/corp-mock-harness/blob/main/'+row.source;
     const search=htmlEscape([row.id,row.title,row.type,row.composition,row.material,row.light,row.note].join(' ').toLowerCase());
     return [
