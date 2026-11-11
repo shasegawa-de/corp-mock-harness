@@ -66,7 +66,9 @@ test('diagonal and lower-oblique views keep distinct camera elevations',()=>{
 });
 
 test('pattern-only cropping and low camera do not leak into single iPhone or Mac contracts',()=>{
+ const original={...defaults};
  const old=assemble(defaults,p,d);
+ assert.deepEqual(defaults,original,'Assembling default prompt must never mutate a caller state');
  assert.deepEqual(old.contract.devices,['iphone17']);
  assert.match(old.prompt,/Exactly one black standard iPhone 17/);
  assert.doesNotMatch(old.prompt,/six|SIX|perimeter|repeated grid/i);
@@ -110,7 +112,7 @@ test('invalid repeat setups fail closed instead of silently publishing invalid d
 });
 test('the editor exposes layout choice on iPhone while keeping environment-only mode isolated',()=>{
  const src=readFileSync(new URL('../catalog-next/app.mjs',import.meta.url),'utf8');
- assert.match(src,/\\['pair','mac-pair','iphone17'\\]/);
+ assert.match(src,/\['pair','mac-pair','iphone17'\]/);
  const old=normalize({...defaults,subject:'iphone17',spatial:'grounded',layout:'single',pose:'upright'},p);
  assert.deepEqual(old.changes,[]);
  const newScene=normalize({...old.state,layout:'repeated-grid'},p);

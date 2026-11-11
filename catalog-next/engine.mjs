@@ -177,9 +177,9 @@ export function assemble(s,p,devices) {
   else if(!env) subject+=' Entire displays unobstructed, featureless pure white; accurate proportions.';
   fragments.push({label:'対象・筐体・画面',text:subject});
   let pose='';
-  if(repeat)pose='Six phones lie flat face-up in a regular diagonal 2-by-3 grid, evenly spaced with identical rotation. ONE camera perspective, coherent parallel edges; a few outer phones meet the frame boundary.';
+  if(repeat)pose='Six phones lie flat face-up in a regular diagonal 2-by-3 grid, evenly spaced with identical rotation.';
   else if(!env && s.subject!=='macbookpro14' && !macPair) {
-    pose=s.pose='flat-face-up'?'Phone lies completely flat, face up.':s.pose==='tilted-supported'?'Phone leans back 20 degrees against an integrated mineral support.':s.pose==='upright'?'Phone upright.':'Phone floats unsupported, display facing camera.';
+    pose=s.pose==='flat-face-up'?'Phone lies completely flat, face up.':s.pose==='tilted-supported'?'Phone leans back 20 degrees against an integrated mineral support.':s.pose==='upright'?'Phone upright.':'Phone floats unsupported, display facing camera.';
   }
   if(pair)pose+=(s.layout==='side-by-side'?' Mac left, phone right; realistic relative scale, no overlap.':' Mac behind, phone foreground; realistic scale, neither screen nor keyboard obscured.');
   if(macPair)pose+=(s.layout==='side-by-side'
@@ -187,7 +187,7 @@ export function assemble(s,p,devices) {
     :' Two open 14-inch MacBooks at different depths, matched physical size, no screen, keyboard or trackpad obstruction. No overlap.');
   if(pose)fragments.push({label:'姿勢・並び方',text:pose.trim()});
   let space;
-  if(repeat)space='All six phones rest on ONE seamless matte studio surface; uniform physical contact, consistent soft shadows, no supports or furniture.';
+  if(repeat)space='Six phones share one matte studio surface; consistent contact shadows, no furniture.';
   else if(s.spatial==='furniture-supported') space='One open MacBook rests flat and stably on the seat of ONE walnut wooden chair, visible natural wood contact and shadows; chair back visible in a sparse warm-brown room, no floor contact implied.';
   else if(s.spatial==='suspended')space=(env?'Floorless half-gray architecture, two vertical planes.':'Devices float weightlessly in floorless half-gray architecture, two vertical planes.')+' NO floor, horizon, floor-wall seam, ground shadow, platform or supports.';
   else if(s.spatial==='on-block') space=env?'Empty half-gray architectural stage with one broad 80–140cm-wide mineral monolith and continuous floor.':s.pose==='flat-face-up'?'Rest on one broad 80–140cm-wide mineral monolith, natural contact shadows.':s.pose==='tilted-supported'?'Rest on one broad mineral block with an integrated backrest, stable contact and gentle shadows.':'Rest on functional mineral exhibition blocks, stable contact and gentle shadows.';
