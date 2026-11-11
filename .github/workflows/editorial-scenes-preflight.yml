@@ -1,0 +1,29 @@
+name: Editorial scene expansion — PR preflight
+on:
+  pull_request:
+    paths:
+      - 'configs/presets.json'
+      - 'catalog-next/engine.mjs'
+      - 'STYLE.md'
+      - 'AGENTS.md'
+      - 'prompts/macbookpro14/editorial-*'
+      - 'tests/editorial-scenes.test.mjs'
+      - 'tests/prompt-builder.test.mjs'
+      - '.github/workflows/editorial-scenes-preflight.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Check scene contracts and existing 32-card regression
+        run: node --test tests/editorial-scenes.test.mjs tests/prompt-builder.test.mjs
+      - name: Validate transport without API calls
+        run: node --test tests/gpt-image-transport.test.mjs tests/approved-assets.test.mjs tests/mac-pair-assets.test.mjs
