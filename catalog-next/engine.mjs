@@ -179,7 +179,7 @@ export function assemble(s,p,devices) {
   let subject=env?'NO products or devices. Architecture only, not a macro texture swatch. Preserve actual construction scale and coherent material junctions. No screens, electronic silhouettes or product shadows.':pair?'Exactly two devices: one MacBook Pro 14-inch and one standard iPhone 17.':repeat?(s.subject==='iphone17pro'?'Exactly SIX identical iPhone 17 Pro handsets, NOT standard, repeated within one photograph.':'Exactly SIX identical black standard iPhone 17 handsets, NOT Pro, repeated within a single photograph.'):s.subject==='iphone17'?'Exactly one black standard iPhone 17, NOT Pro.':macPair?'Exactly TWO devices: two open 14-inch MacBook Pro laptops, no iPhone.':'Exactly one open MacBook Pro 14-inch.';
   if(ids.includes('iphone17')||ids.includes('iphone17pro')) subject+=` ${repeat?'Each iPhone':'iPhone'}: ${s.subject==='iphone17pro'?'silver aluminum unibody frame':'black flat frame'}, ${iphone.height}×${iphone.width}×${iphone.depth}mm body, 6.3-inch display, slim bezel, centered Dynamic Island.`;
   if(ids.includes('macbookpro14')) subject+=` ${macPair?'Each open aluminum MacBook':'Open aluminum MacBook'}, ${mac.width}×${mac.depth}mm footprint, camera notch; ${s.composition==='mac-chair-front'?'true low upward view from below wood block top, keyboard partly hidden by perspective':'keyboard and trackpad visible'}.`;
-  if(repeat) subject+=' All centrally positioned displays entirely visible and featureless pure white; only outer phones may be intentionally cut by image edges. Matched real-world size.';
+  if(repeat) subject+=' Central displays featureless pure white; perimeter phones may crop beyond frame. Accurate relative sizes.';
   else if(!env) subject+=' Entire displays unobstructed, featureless pure white; accurate proportions.';
   fragments.push({label:'対象・筐体・画面',text:subject});
   let pose='';
@@ -209,7 +209,7 @@ export function assemble(s,p,devices) {
   fragments.push({label:'配置・建築空間',text:space},{label:'構図・カメラ',text:camera[s.composition]},
     {label:'素材',text:material[s.environment]},{label:'照明',text:light[s.lighting]});
   fragments.push({label:'除外条件',text:repeat
-    ?'Only six matching phones; no mixed devices, props, human hands, logos, UI, text, independent panels, collage or multiple views.'
+    ?'Six matching phones only; no UI, text, logos, people, props or split views.'
     :s.spatial==='furniture-supported'
     ?'Only one substantial solid walnut support; NO chair, plants, people, props, logos, text, UI, collage or multiple views.'
     :'Restrained half-gray tones, no wood, desks, furniture, props, people, logos, text, UI, collage or multiple views.'});
