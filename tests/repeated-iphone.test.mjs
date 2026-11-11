@@ -104,7 +104,7 @@ test('legacy horizontal raster demo invalidated; EX09 is provisional, close-up a
  assert.match(ex6.review_note,/仕様には不適合/);
  assert.equal(ex9.quality,'unapproved');
  assert.equal(ex9.generated_from_source_prompt,false);
- assert.equal(ex9.actual_aspect_ratio,'4:3');
+ assert.match(ex9.actual_aspect_ratio,/^16:9 \(1672×941 px/);
  assert.equal(ex9.geometric_50_percent_verification,'UNVERIFIED');
  const {out:result}=fromId('iphone-grid-ivory-detail-vertical-half-offset');
  assert.equal(result.contract.column_vertical_offset_ratio,0.5);
