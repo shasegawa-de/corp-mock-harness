@@ -98,7 +98,7 @@ try{
   assert.match(cardHeading.font,/Outfit/i,'Latin glyphs in card titles use Outfit');
   assert.equal(cardHeading.weight,'700');
   const interactiveCards=page.locator('#gallery-view article.item[role="button"][tabindex="0"]');
-  assert.equal(await interactiveCards.count(),40,'All 32 cards are direct prompt-modal targets');
+  assert.equal(await interactiveCards.count(),40,'All 40 cards are direct prompt-modal targets');
   assert.equal(await page.locator('#gallery-view .compose-entry button').count(),0,'Redundant gallery CTA removed');
   assert.equal(await page.locator('#gallery-view [data-image]').count(),0,'No legacy zoom buttons remain');
   assert.equal(await page.locator('#preview').count(),0,'Legacy preview dialog removed');
@@ -307,7 +307,7 @@ try{
   assert.equal(await cameraGroup.locator('button').count(),7,'Clear restores six default camera choices');
   assert.equal(await clear.isDisabled(),true,'Clear returns to disabled after reset');
   assert.equal(await page.locator('#gallery-view article.item:visible').count(),40);
-  assert.equal(await page.locator('#count').innerText(),'32 / 32');
+  assert.equal(await page.locator('#count').innerText(),'40 / 40');
   assert.equal(await page.locator('.table tbody tr:not([data-next-hidden="true"])').count(),40);
   await drawer.locator('[data-filter-axis="quality"] button[data-value]:not([data-value=""])').first().click();
   assert.notEqual(await page.locator('#quality-filter').inputValue(),await page.locator('#quality-filter option').first().getAttribute('value'),'Quality facet must drive the existing catalog filter');
