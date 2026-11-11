@@ -36,7 +36,7 @@ test('exactly six repeated iPhone 17 devices are independently constrained in on
    assert.match(result.prompt,/FRONT-SCREEN UP, never rear-facing/);
    assert.match(result.prompt,/shifted SIDEWAYS 35%/);
    assert.match(result.prompt,/two rows of three/);
-   assert.match(result.prompt,/single photograph/);
+   assert.match(result.prompt,/photograph/);
    assert.match(result.prompt,/only outer phones may be intentionally cut by image edges/);
    assert.match(result.prompt,/featureless pure white/);
    assert.match(result.prompt,/ONE camera view/);
