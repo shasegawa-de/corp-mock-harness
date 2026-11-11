@@ -63,6 +63,14 @@
     {
       "id": "carrara-marble-wide-block",
       "detail": "Exactly one large wide table-sized solid monolithic honed pale Carrara marble plinth with subtle believable gray veins continuous across top and sides, in a half-gray mineral wall/floor studio. It is a functional product exhibition support, not a desk or several decorative cubes."
+    },
+    {
+      "id": "offwhite-seamless-studio",
+      "detail": "A luminous off-white to pale fog-gray seamless photographic studio with matte floor and an extremely quiet continuous backdrop; soft tonal separation and genuine room-scale depth. No furniture or decorative plinths."
+    },
+    {
+      "id": "walnut-chair-interior",
+      "detail": "One finely crafted natural walnut wooden chair, with a believable flat seat and visible joined curved backrest, set within a minimal deep warm-brown architectural interior. The chair is the ONLY furniture and functions as a stable laptop support; wood grain has realistic physical scale."
     }
   ],
   "compositions": [
@@ -133,6 +141,22 @@
     {
       "id": "floor-plane-emphasis",
       "detail": "EMPTY architecture, no devices, wide horizontal mineral FLOOR dominates roughly 80–85 percent of landscape frame; low oblique camera looking across the finished floor, distant wall only a narrow top strip; not an overhead flat lay or macro texture swatch."
+    },
+    {
+      "id": "mac-elevated-three-quarter",
+      "detail": "One open MacBook Pro on a studio floor seen from an intentionally elevated left three-quarter camera 30–40 degrees above its base. Show the full white screen, keyboard and trackpad with plausible perspective; never vertical bird's-eye."
+    },
+    {
+      "id": "mac-low-side-profile",
+      "detail": "One open MacBook Pro from a deliberately low side three-quarter camera, approximately 15–22 degrees above its base, with a clean long horizontal body silhouette while still revealing the complete white screen, entire keyboard and broad trackpad."
+    },
+    {
+      "id": "mac-chair-elevated",
+      "detail": "A close elevated three-quarter editorial camera 30–40 degrees above the walnut chair seat; one open laptop rests directly on the seat, while part of the chair's curved back structure remains recognizable; whole white screen, keyboard and trackpad visible."
+    },
+    {
+      "id": "mac-chair-front",
+      "detail": "A quiet front-left three-quarter editorial view at a moderate 20–28 degree elevation over the chair seat; retain the natural shape of the chair, fully readable white laptop display, keyboard and trackpad and a coherent sense of scale."
     }
   ],
   "lighting": [
@@ -167,6 +191,10 @@
     {
       "id": "high-key",
       "detail": "Airy high-key studio lighting with off-white wall and pale gray tones, preserve contrast around white screen."
+    },
+    {
+      "id": "window-cut-sun",
+      "detail": "Single directional warm daylight source filtered through an unseen window creates a few coherent angular sun patches across the chair and aluminum keyboard deck, with believable hard-edged shadows and controlled screen glare."
     }
   ],
   "default_scenes": [
@@ -241,6 +269,10 @@
     {
       "id": "on-block",
       "detail": "Device rests on one or two intentional solid monolithic matte gray mineral display plinths, never decorative blocks. For iPhone `flat-face-up`, plinth top is TABLE-SIZED: broad continuous horizontal surface extending generously around the entire phone (~80–140 cm across), visually a simple large concrete slab/volume, but NOT a legged table or wooden desk. For `tilted-supported`, allow a subtle integrated backrest facet as part of same block; require physically credible support and contact shadows. No furniture, decor, props or unrelated blocks."
+    },
+    {
+      "id": "furniture-supported",
+      "detail": "Exactly ONE OPEN MacBook Pro is stably supported directly by the seat of ONE walnut wooden chair; realistic wood contact and shadows. This is the only case that permits furniture and visible woodgrain. No extra chairs, desks, people, props, floating, mineral plinths or other devices."
     }
   ],
   "showcase_presets": [
@@ -518,6 +550,58 @@
       "lighting_id": "broad-softbox",
       "reference_prompt": "prompts/macbookpro14-macbookpro14/suspended-depth.txt",
       "pose_id": "open-suspended"
+    },
+    {
+      "id": "mac-offwhite-high-oblique",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "pose_id": "open-display",
+      "spatial_mode_id": "grounded",
+      "composition_id": "mac-elevated-three-quarter",
+      "environment_id": "offwhite-seamless-studio",
+      "lighting_id": "high-key",
+      "reference_prompt": "prompts/macbookpro14/editorial-offwhite-high-oblique.txt"
+    },
+    {
+      "id": "mac-offwhite-low-side",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "pose_id": "open-display",
+      "spatial_mode_id": "grounded",
+      "composition_id": "mac-low-side-profile",
+      "environment_id": "offwhite-seamless-studio",
+      "lighting_id": "broad-softbox",
+      "reference_prompt": "prompts/macbookpro14/editorial-offwhite-low-side.txt"
+    },
+    {
+      "id": "mac-walnut-chair-sun",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "pose_id": "open-display",
+      "spatial_mode_id": "furniture-supported",
+      "composition_id": "mac-chair-elevated",
+      "environment_id": "walnut-chair-interior",
+      "lighting_id": "window-cut-sun",
+      "reference_prompt": "prompts/macbookpro14/editorial-walnut-chair-sun.txt"
+    },
+    {
+      "id": "mac-walnut-chair-soft",
+      "devices": [
+        "macbookpro14"
+      ],
+      "layout_id": "single",
+      "pose_id": "open-display",
+      "spatial_mode_id": "furniture-supported",
+      "composition_id": "mac-chair-front",
+      "environment_id": "walnut-chair-interior",
+      "lighting_id": "top-left-daylight",
+      "reference_prompt": "prompts/macbookpro14/editorial-walnut-chair-soft.txt"
     }
   ],
   "retired_compositions": [

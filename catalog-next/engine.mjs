@@ -3,7 +3,7 @@
 export const labels = {
   iphone17:'iPhone 17', macbookpro14:'MacBook Pro 14″', pair:'Mac + iPhone', 'mac-pair':'Mac + Mac（2台）', environment:'環境のみ',
   single:'端末1台', 'side-by-side':'左右に並べる', 'depth-staggered':'前後に配置', 'environment-only':'端末なし',
-  grounded:'床置き・接地', 'on-block':'ブロック上', hover:'床上浮遊', suspended:'空中浮遊・床なし',
+  grounded:'床置き・接地', 'on-block':'ブロック上', hover:'床上浮遊', suspended:'空中浮遊・床なし', 'furniture-supported':'木製チェア上',
   upright:'立てる', 'flat-face-up':'寝かせる・画面上向き', 'tilted-supported':'支えに傾ける', 'suspended-angled':'浮かせる',
   'open-display':'開いた状態', 'open-suspended':'開いた状態で浮遊',
   'frontal-centered':'正面・中央', 'three-quarter-left':'左斜め', 'three-quarter-right':'右斜め', 'low-view':'低い視点',
@@ -11,16 +11,18 @@ export const labels = {
   'near-floor-hover':'床に近い浮遊', 'graphic-planes':'建築の目地を見せる', 'display-on-block':'展示ブロック・正面寄り',
   'iphone-oblique-floor':'床に寝かせる・斜め上40〜50°', 'iphone-oblique-block':'台に寝かせる・斜め上40〜55°',
   'iphone-tilted-supported':'台で傾ける・画面に合わせる', 'iphone-tilted-floor':'壁で支える・画面に合わせる',
-  'iphone-suspended-angled':'浮遊・旋回15°／ロール10°', 'empty-stage':'空間全体', 'floor-plane-emphasis':'床面主体・80〜85%',
+  'iphone-suspended-angled':'浮遊・旋回15°／ロール10°', 'mac-elevated-three-quarter':'Mac・高めの斜め視点', 'mac-low-side-profile':'Mac・低い側面視点',
+  'mac-chair-elevated':'チェア・斜め上から', 'mac-chair-front':'チェア・正面寄り', 'empty-stage':'空間全体', 'floor-plane-emphasis':'床面主体・80〜85%',
   'microcement-seamless':'マイクロセメント', 'fiber-cement-panels':'繊維セメント', 'diatomaceous-plaster':'珪藻土プラスター',
   'board-formed-concrete':'型枠コンクリート', 'slate-layer':'チャコールスレート', 'brushed-steel':'ヘアライン金属',
   'smoked-glass':'スモークガラス', 'plaster-corner':'プラスターの角', 'graphite-gradient':'グラファイト階調',
   'fine-concrete':'細粒コンクリート', 'mineral-white':'オフホワイト鉱物壁', 'dark-fiber-cement':'ダーク繊維セメント',
   'suspended-mineral-planes':'浮遊用・縦の鉱物壁', 'carrara-marble-wall-floor':'白系大理石',
   'graphite-marble-wall-floor':'グラファイト大理石', 'carrara-marble-wide-block':'白系大理石のワイドブロック',
+  'offwhite-seamless-studio':'白〜ライトグレーのシームレス空間', 'walnut-chair-interior':'ウォルナットチェアの室内',
   'broad-softbox':'正面の大きな拡散光', 'left-grazing':'左からの柔らかい斜光', 'right-grazing':'右からの柔らかい斜光',
   'soft-overhead':'上からの拡散光', 'top-left-daylight':'左上からの自然光', 'top-right-daylight':'右上からの自然光',
-  'low-key':'ローキー', 'high-key':'ハイキー', space:'空間全体', 'vertical-wall':'壁面主体',
+  'low-key':'ローキー', 'high-key':'ハイキー', 'window-cut-sun':'窓からの輪郭のある自然光', space:'空間全体', 'vertical-wall':'壁面主体',
   'wall-floor-junction':'壁と床の接合', 'wall-floor-corner':'壁の角と床', 'vertical-wall-and-floor':'ガラス・壁・床', 'horizontal-floor':'床面主体'
 };
 export const defaults = {subject:'iphone17', layout:'single', spatial:'grounded', pose:'upright', surface:'space', composition:'frontal-centered', environment:'microcement-seamless', lighting:'broad-softbox'};
@@ -40,7 +42,9 @@ const material = {
   'suspended-mineral-planes':'Two vertical matte mineral planes, subtle joints and gentle tonal depth.',
   'carrara-marble-wall-floor':'Honed pale Carrara marble with thin natural gray veins and continuous slab-scale joints.',
   'graphite-marble-wall-floor':'Honed graphite marble with sparse thin pale veins and restrained satin reflections.',
-  'carrara-marble-wide-block':'Honed pale Carrara marble; delicate veins continue across the broad block top and sides.'
+  'carrara-marble-wide-block':'Honed pale Carrara marble; delicate veins continue across the broad block top and sides.',
+  'offwhite-seamless-studio':'Luminous off-white and pale fog-gray seamless studio, matte floor and clean backdrop, softly graded real spatial depth.',
+  'walnut-chair-interior':'ONE solid walnut wood chair with physically scaled warm grain and curved joined backrest in a sparse warm-brown architectural room.'
 };
 const light = {
   'broad-softbox':'Broad frontal diffused softbox, gentle gradients and delicate soft shadows.',
@@ -50,7 +54,8 @@ const light = {
   'top-left-daylight':'Soft top-left daylight, broad penumbra and restrained reflections.',
   'top-right-daylight':'Soft top-right daylight, broad penumbra and restrained reflections.',
   'low-key':'Soft low-key studio light; all material boundaries remain legible.',
-  'high-key':'Airy high-key diffusion; preserve contours against pale neutral architecture.'
+  'high-key':'Airy high-key diffusion; preserve contours against pale neutral architecture.',
+  'window-cut-sun':'Single-window directional warm sunlight with coherent geometric sun patches on wood and keyboard, readable screen without glare.'
 };
 const camera = {
   'frontal-centered':'Centered, symmetric near-eye-level camera with generous horizontal negative space.',
@@ -69,7 +74,11 @@ const camera = {
   'iphone-tilted-floor':'Raised front-three-quarter camera aligned to the leaning screen; all corners visible.',
   'iphone-suspended-angled':'Front-facing camera; 15-degree yaw and 10-degree roll, all screen corners visible.',
   'empty-stage':'One architectural camera view; spacious uncluttered central negative space.',
-  'floor-plane-emphasis':'Low oblique architectural camera; floor fills 80–85%, distant wall only a narrow band.'
+  'floor-plane-emphasis':'Low oblique architectural camera; floor fills 80–85%, distant wall only a narrow band.',
+  'mac-elevated-three-quarter':'Elevated 30–40-degree left three-quarter camera, both screen and full keyboard/trackpad readable, never overhead.',
+  'mac-low-side-profile':'Low 15–22-degree side three-quarter camera retaining full screen, keyboard and trackpad, no nearly invisible keyboard.',
+  'mac-chair-elevated':'Elevated 30–40-degree three-quarter view over chair seat; retain chair back and whole open laptop in one view.',
+  'mac-chair-front':'Moderate 20–28-degree front-left three-quarter chair view; show whole open laptop and believable seat contact.'
 };
 
 export function validateCatalog(p, devices) {
@@ -78,6 +87,8 @@ export function validateCatalog(p, devices) {
   }
   for (const id of ['iphone17','macbookpro14']) if (!devices[id]?.physical_mm) throw Error(`端末設定がありません: ${id}`);
   for(const row of p.showcase_presets){
+    if(row.spatial_mode_id==='furniture-supported' && (row.devices.length!==1||row.devices[0]!=='macbookpro14'||row.environment_id!=='walnut-chair-interior'||row.layout_id!=='single'))
+      throw Error('木製チェアの配置はMac単体のみ: '+row.id);
     if(row.devices.length===2){
       const supported=JSON.stringify(row.devices)==='["macbookpro14","iphone17"]'
         ||JSON.stringify(row.devices)==='["macbookpro14","macbookpro14"]';
@@ -85,7 +96,7 @@ export function validateCatalog(p, devices) {
         throw Error('未対応の2台構成: '+row.id);
     }
   }
-  for(const [group,known] of [['spatial_modes',['grounded','hover','suspended','on-block']],['device_layouts',['single','side-by-side','depth-staggered','environment-only']]]){
+  for(const [group,known] of [['spatial_modes',['grounded','hover','suspended','on-block','furniture-supported']],['device_layouts',['single','side-by-side','depth-staggered','environment-only']]]){
     if(p[group].some(x=>!known.includes(x.id))||known.some(id=>!p[group].some(x=>x.id===id)))throw Error(`実装との照合が必要です: ${group}`);
   }
   for(const [id,known] of [['iphone17',['upright','flat-face-up','tilted-supported','suspended-angled']],['macbookpro14',['open-display','open-suspended']]]){
@@ -100,6 +111,7 @@ export function choices(s, p) {
     : ['upright','flat-face-up','tilted-supported'];
   let compositions;
   if (env) compositions = s.surface === 'horizontal-floor' ? ['floor-plane-emphasis'] : ['empty-stage'];
+  else if (s.spatial === 'furniture-supported') compositions=['mac-chair-elevated','mac-chair-front'];
   else if (s.pose === 'flat-face-up') compositions = [s.spatial === 'on-block' ? 'iphone-oblique-block':'iphone-oblique-floor'];
   else if (s.pose === 'tilted-supported') compositions = [s.spatial === 'on-block' ? 'iphone-tilted-supported':'iphone-tilted-floor'];
   else {
@@ -109,14 +121,16 @@ export function choices(s, p) {
     if (s.spatial === 'suspended') compositions.push('subtle-tilt-left','subtle-tilt-right');
     if (s.spatial === 'suspended' && s.subject === 'iphone17') compositions.unshift('iphone-suspended-angled');
     if (s.spatial === 'grounded' && s.subject === 'iphone17') compositions.push('low-view');
+    if (s.subject === 'macbookpro14' && ['grounded','on-block'].includes(s.spatial))
+      compositions.push('mac-elevated-three-quarter','mac-low-side-profile');
   }
   return {
     subject:['iphone17','macbookpro14','pair','mac-pair','environment'],
     layout:env ? ['environment-only'] : ['pair','mac-pair'].includes(s.subject) ? ['side-by-side','depth-staggered'] : ['single'],
-    spatial:p.spatial_modes.map(x=>x.id).filter(id=>!env || id!=='hover'), pose:poses, composition:compositions,
+    spatial:p.spatial_modes.map(x=>x.id).filter(id=>(!env||id!=='hover')&&(id!=='furniture-supported'||s.subject==='macbookpro14')), pose:poses, composition:compositions,
     surface:!env||s.spatial==='on-block'?['space']:s.spatial==='suspended'?['space','vertical-wall']:['space','vertical-wall','wall-floor-junction','wall-floor-corner','vertical-wall-and-floor','horizontal-floor'],
-    environment:p.environments.map(x=>x.id).filter(id => (id!=='suspended-mineral-planes'||s.spatial==='suspended') && (id!=='carrara-marble-wide-block'||s.spatial==='on-block') && (s.surface!=='vertical-wall-and-floor'||id==='smoked-glass') && (s.spatial!=='on-block'||!['fiber-cement-panels','dark-fiber-cement'].includes(id))),
-    lighting:p.lighting.map(x=>x.id)
+    environment:p.environments.map(x=>x.id).filter(id => (s.spatial==='furniture-supported'?id==='walnut-chair-interior':id!=='walnut-chair-interior') && (id!=='suspended-mineral-planes'||s.spatial==='suspended') && (id!=='carrara-marble-wide-block'||s.spatial==='on-block') && (s.surface!=='vertical-wall-and-floor'||id==='smoked-glass') && (s.spatial!=='on-block'||!['fiber-cement-panels','dark-fiber-cement'].includes(id))),
+    lighting:p.lighting.map(x=>x.id).filter(id=>s.spatial==='furniture-supported'?['window-cut-sun','top-left-daylight','soft-overhead'].includes(id):id!=='window-cut-sun')
   };
 }
 
@@ -161,7 +175,8 @@ export function assemble(s,p,devices) {
     :' Two open 14-inch MacBooks at different depths, matched physical size, no screen, keyboard or trackpad obstruction. No overlap.');
   if(pose)fragments.push({label:'姿勢・並び方',text:pose.trim()});
   let space;
-  if(s.spatial==='suspended')space=(env?'Floorless half-gray architecture, two vertical planes.':'Devices float weightlessly in floorless half-gray architecture, two vertical planes.')+' NO floor, horizon, floor-wall seam, ground shadow, platform or supports.';
+  if(s.spatial==='furniture-supported') space='One open MacBook rests flat and stably on the seat of ONE walnut wooden chair, visible natural wood contact and shadows; chair back visible in a sparse warm-brown room, no floor contact implied.';
+  else if(s.spatial==='suspended')space=(env?'Floorless half-gray architecture, two vertical planes.':'Devices float weightlessly in floorless half-gray architecture, two vertical planes.')+' NO floor, horizon, floor-wall seam, ground shadow, platform or supports.';
   else if(s.spatial==='on-block') space=env?'Empty half-gray architectural stage with one broad 80–140cm-wide mineral monolith and continuous floor.':s.pose==='flat-face-up'?'Rest on one broad 80–140cm-wide mineral monolith, natural contact shadows.':s.pose==='tilted-supported'?'Rest on one broad mineral block with an integrated backrest, stable contact and gentle shadows.':'Rest on functional mineral exhibition blocks, stable contact and gentle shadows.';
   else if(s.spatial==='hover')space='Hover slightly above a visible mineral floor; faint separated shadows, no supports.';
   else space=env?({
@@ -172,7 +187,9 @@ export function assemble(s,p,devices) {
   if(s.pose==='tilted-supported'&&s.spatial==='grounded')space+=' Bottom edge contacts floor, upper back touches wall.';
   fragments.push({label:'配置・建築空間',text:space},{label:'構図・カメラ',text:camera[s.composition]},
     {label:'素材',text:material[s.environment]},{label:'照明',text:light[s.lighting]});
-  fragments.push({label:'除外条件',text:'Restrained half-gray tones, no wood, desks, furniture, props, people, logos, text, UI, collage or multiple views.'});
+  fragments.push({label:'除外条件',text:s.spatial==='furniture-supported'
+    ?'Only one wooden chair allowed; no other furniture, desk, props, people, plants, logos, text, UI, collage or multiple views.'
+    :'Restrained half-gray tones, no wood, desks, furniture, props, people, logos, text, UI, collage or multiple views.'});
   const prompt=fragments.map(x=>x.text).join(' ');
   const contract={devices:ids,layout_id:s.layout,spatial_mode_id:s.spatial,composition_id:s.composition,environment_id:s.environment,lighting_id:s.lighting};
   if(ids.length===1)contract.pose_id=s.pose;
