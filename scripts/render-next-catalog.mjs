@@ -181,7 +181,7 @@ const experimentalScenes=[
     "material": "warm-ivory-seamless",
     "light": "soft-overhead",
     "source": "prompts/iphone17/repeated-ivory-detail-vertical-half-offset.txt",
-    "note": "生成画像によるアートディレクション見本。近接斜め俯瞰、白画面、薄い筐体、広い余白を確認。列方向50％ずれの実測、実機ボタン・端子の正確性、16:9比率（本素材は4:3）は未達・未検証。"
+    "note": "今回生成した16:9横長の近接斜め俯瞰プレビュー（1672×941px）。薄い筐体、白画面、広い余白の方向性確認用。縦列の筐体長50％ずれ・実機のボタン／端子寸法・登録プロンプトとの一致は未検証。"
   }
 ];
 export function appendExperimentalPreviews(catalog,imageBase='../'){
@@ -196,7 +196,7 @@ export function appendExperimentalPreviews(catalog,imageBase='../'){
     const search=htmlEscape([row.id,row.title,row.type,row.composition,row.material,row.light,row.note].join(' ').toLowerCase());
     return [
       '<article class="item" data-device="'+row.type+'" data-id="'+row.id+'" data-mode="'+(row.type==='mac'&&i>1?'furniture-supported':'grounded')+'" data-status="candidate" data-preview="experimental" data-search="'+search+'">',
-      '<button aria-label="'+htmlEscape(row.title)+'の仮検証画像" class="image-wrap" data-image="'+row.id+'" type="button"><img src="'+src+'" alt="'+htmlEscape(row.title)+'：AI生成の方向性プレビュー、要件適合・画像QA未承認" loading="lazy" decoding="async" width="400" height="300"></button>',
+      '<button aria-label="'+htmlEscape(row.title)+'の仮検証画像" class="image-wrap" data-image="'+row.id+'" type="button"><img src="'+src+'" alt="'+htmlEscape(row.title)+'：AI生成の方向性プレビュー、要件適合・画像QA未承認" loading="lazy" decoding="async" width="400" height="'+(row.id==='EX09'?'225':'300')+'"></button>',
       '<div class="card-body"><div class="minor"><span>'+row.id+' / '+(row.type==='mac'?'MacBook Pro 14':'iPhone 17')+'</span><span class="quality provisional">仮検証・未承認</span></div>',
       '<h3>'+htmlEscape(row.title)+'</h3><p>新規シーンの方向性プレビュー。契約条件と生成画像は未照合。</p>',
       '<dl class="settings"><dt>構図</dt><dd>'+row.composition+'</dd><dt>背景</dt><dd>'+row.material+'</dd><dt>照明</dt><dd>'+row.light+'</dd></dl>',

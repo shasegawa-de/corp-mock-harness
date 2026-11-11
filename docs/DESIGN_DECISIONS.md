@@ -197,3 +197,9 @@
 - [決定] Same phone model across all instances, blank white front screens UP, physically thin rigid frame, generous horizontal/vertical margins, oblique single-camera imaging, edge cropping accepted without squeezing all devices into frame.
 - [暫定] Added `iphone-tile-detail-closeup`, one explicit fixture `repeated-ivory-detail-vertical-half-offset.txt`, and **EX09** provisional catalog still supplied through ChatGPT ImageGen. The source is 1448×1086 (4:3), while target fixture is 16:9. Exact vertical 50% placement, hardware detail and camera angle are **UNVERIFIED**; this image is neither direct fixture execution nor QA approval.
 - [未決] Pixel-exact physical column offset and full 16:9 photo require a separate deterministic placement or reviewed render. No API cost or secret involved in this registration.
+
+## 2026-11-12 — EX09 16:9 preview replacement
+
+- [決定] Replaced only EX09's provisional catalog JPEG using the new user-selected ChatGPT-generated 1672×941 PNG, preserving its original composition. JPEG encoding is for gallery delivery; output retains 1672×941 dimensions (approximately 16:9).
+- [決定] The card's stale 4:3 warning is removed; 16:9 preview metadata and natural preview aspect ratio are updated. All other eight provisional images and 32 reviewed images remain untouched.
+- [未確認] Accurate vertical 50% long-body offset, iPhone hardware details, and prompt-to-image fidelity are still **unverified**. The image remains **仮検証・未承認**. This replacement was not an API execution of the committed fixture.
