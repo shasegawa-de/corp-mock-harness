@@ -174,3 +174,12 @@
 - Source: one newly generated ChatGPT ImageGen conceptual **eight-panel board** was cropped into individual low-resolution preview assets. The prompt fixtures for EX01–EX08 were **NOT** individually used to generate these images. The board is **not** an approved photo QA run, and images are not evidence of prompt fidelity.
 - Noncompliance: EX02/EX04 insufficient keyboard visibility. EX05/EX06 show around four phones, not six. EX07/EX08 show one phone, not the required six repeated. These failures remain visible in each image QA caption; do not relabel as PASS or replace canonical fixtures.
 - Publication condition: image files live under `assets/experimental-previews/`, deliberately separate from `assets/macbook-pair` and approved `assets/architectural-surfaces`. No key, original user reference or service credential in repo. Image transport used separately managed transfer service and GitHub blobs; future re-generation is pending.
+
+## 2026-11-12 — corrected same-model staggered repetition (supersedes mixed-model test)
+
+- [決定] Six face-up smartphones per image **all one model**: six standard iPhone 17 OR six iPhone 17 Pro. Each variant is independently selectable; **no mixed-model repetition**. The earlier alternating 3+3 proposal was explicitly rejected.
+- [決定] All six front displays face camera and remain blank pure-white, including edge-cropped phone portions. No rear face/rear camera in a repetition shot.
+- [決定] Two rows of three, the second row translated horizontally by ~35% of phone width, keeping precise within-row spacing; distinctive stagger/rhythm rather than a symmetric rectangular matrix.
+- [決定] Three selective camera heights: elevated 58–68°, ordinary 40–50°, low 24–32°. One camera image, not six independent renders. High camera is oblique, not strict top-down.
+- [暫定] Reworked preview EX05/EX06 are image-generation concepts, **not** outputs of the exact committed presets and not geometric certifications. EX07/EX08 remain previous rejected previews until their individual re-render.
+- [前提修正] Apple sources for iPhone 17 and iPhone 17 Pro measurements: https://www.apple.com/jp/iphone-17/specs/ and https://www.apple.com/jp/iphone-17-pro/specs/.
