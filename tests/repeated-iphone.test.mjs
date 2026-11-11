@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {defaults,fromPreset,normalize,choices,assemble,validateCatalog} from '../catalog-next/engine.mjs';
+import {filterOptions} from '../catalog-next/filters.mjs';
 
 const p=JSON.parse(readFileSync(new URL('../configs/presets.json',import.meta.url),'utf8'));
 const d=JSON.parse(readFileSync(new URL('../configs/devices.json',import.meta.url),'utf8'));
@@ -75,6 +76,7 @@ test('pattern-only cropping and low camera do not leak into single iPhone or Mac
  assert.ok(!choices(defaults,p).composition.includes('iphone-tile-low-oblique'));
  assert.ok(!choices(defaults,p).composition.includes('iphone-tile-diagonal'));
  assert.ok(choices(defaults,p).layout.includes('repeated-grid'));
+ assert.ok(!filterOptions(p).layout.includes('repeated-grid'),'No unpublished gallery filter');
  for(const subject of ['macbookpro14','pair','mac-pair','environment']){
    const state={...defaults,subject};
    assert.ok(!choices(state,p).layout.includes('repeated-grid'),subject);

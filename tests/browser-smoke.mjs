@@ -125,6 +125,21 @@ try{
   assert.match(await page.locator('#composer-prompt').innerText(),/two identical 14-inch MacBook Pro laptops/);
   await page.locator('#composer-close').click();
   assert.equal(await page.locator('#gallery-view article.item[data-id="MM2"]').count(),1);
+  // New six-phone repeated pattern is editor-only until a photograph is reviewed and published.
+  await page.locator('#gallery-view article.item[data-id="A"]').click();
+  assert.equal(await page.locator('#subject').inputValue(),'iphone17');
+  assert.equal(await page.locator('#layout-field').isVisible(),true);
+  await page.locator('#layout').selectOption('repeated-grid');
+  assert.equal(await page.locator('#pose').inputValue(),'flat-face-up');
+  await page.locator('#composition').selectOption('iphone-tile-low-oblique');
+  await page.locator('#environment').selectOption('pale-gray-seamless');
+  const tiledPrompt=await page.locator('#composer-prompt').textContent();
+  assert.match(tiledPrompt,/Exactly SIX identical black standard iPhone 17 handsets/);
+  assert.match(tiledPrompt,/24–32-degree/);
+  assert.match(tiledPrompt,/featureless pure white/);
+  assert.equal(await page.locator('#example-empty').isVisible(),true,'Do not show existing single-phone cards as pattern examples');
+  await page.locator('#composer-close').click();
+
   const firstCard=interactiveCards.first();
   const firstId=await firstCard.getAttribute('data-id');
   const composer=page.locator('#composer');

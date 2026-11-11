@@ -121,7 +121,8 @@ test('catalog tags provide the eight original editor choice sets and extra quali
   assert.deepEqual(compositionFilterOptions({subject:'iphone17',spatial:'on-block',pose:'flat-face-up'},presets),['iphone-oblique-block']);
   assert.deepEqual(compositionFilterOptions({subject:'iphone17',spatial:'grounded',pose:'flat-face-up'},presets),['iphone-oblique-floor']);
   assert.deepEqual(options.lighting,presets.lighting.map(x=>x.id));
-  assert.deepEqual(options.layout,presets.device_layouts.map(x=>x.id));
+  assert.deepEqual(options.layout,presets.device_layouts.map(x=>x.id).filter(id=>id!=='repeated-grid'));
+  assert.ok(!options.layout.includes('repeated-grid'),'Unpublished pattern layout must not appear as an empty gallery filter');
   assert.ok(options.surface.includes('horizontal-floor'));
   assert.ok(options.pose.includes('flat-face-up'));
   assert.equal(matchesTags({subject:'iphone17',environment:'fiber-cement-panels'}, {subject:'iphone17',environment:'fiber-cement-panels'}),true);
