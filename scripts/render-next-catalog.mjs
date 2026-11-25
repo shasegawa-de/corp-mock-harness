@@ -129,28 +129,6 @@ const experimentalScenes=[
     "note": "台座上面より低い見上げ構図は表現。植物が混入し、筐体の支持が不自然なため画像QA不合格。"
   },
   {
-    "id": "EX07",
-    "title": "iPhone反復・アイボリー／低い視点",
-    "type": "iphone",
-    "scene": "iphone-grid-ivory-low-oblique",
-    "composition": "iphone-tile-low-oblique",
-    "material": "warm-ivory-seamless",
-    "light": "soft-overhead",
-    "source": "prompts/iphone17/repeated-ivory-low-oblique.txt",
-    "note": "単体iPhoneの低角度プレビュー。6台反復条件は未達のため構図未承認。"
-  },
-  {
-    "id": "EX08",
-    "title": "iPhone反復・グレー／低い視点",
-    "type": "iphone",
-    "scene": "iphone-grid-lightgray-low-oblique",
-    "composition": "iphone-tile-low-oblique",
-    "material": "pale-gray-seamless",
-    "light": "high-key",
-    "source": "prompts/iphone17/repeated-lightgray-low-oblique.txt",
-    "note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。"
-  },
-  {
     "id": "EX09",
     "title": "iPhone 17反復・縦列千鳥／ディテール接写",
     "type": "iphone",

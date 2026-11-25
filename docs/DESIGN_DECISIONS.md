@@ -210,3 +210,8 @@
 - [決定] Preserve the `repeated-grid` (aligned 0%) and `repeated-grid-half-offset` (vertical long-body 50%) **prompt-builder modes** and all their validated scene fixtures. Removing rejected output examples must not delete reusable generation options.
 - [決定] Preserve existing 32 reviewed cards and the other seven provisional previews (EX01–04, EX07–09), for a new total **39 cards**. Preview image lookup must use the stable card ID rather than list index, so deletion never silently swaps images.
 - [再検討] The old EX05/EX06 binaries and historical invalidated horizontal geometry data remain solely for source provenance and are **not** published catalog examples; delete archived source files only on a separate explicit request.
+
+## 2026-11-25 — Remove remaining rejected low-angle iPhone repeat examples
+
+- [決定] Remove EX07「iPhone反復・アイボリー／低い視点」 and EX08「iPhone反復・グレー／低い視点」 from the active gallery, table and manifest. Both were single-phone previews rather than the requested repeated-device scenes.
+- [決定] Preserve all reusable prompt presets, including low-oblique composition and both repetition layouts, and retain historical assets/QA records for traceability. Keep EX09 and EX01–EX04 unchanged. Total 37 cards (32 existing + 5 provisional).

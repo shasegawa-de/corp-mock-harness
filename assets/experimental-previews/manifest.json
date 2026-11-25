@@ -1,7 +1,7 @@
 {
   "status": "provisional-unapproved",
   "date": "2026-11-12",
-  "source": "EX05 (aligned 0%) and EX06 (obsolete horizontal offset) were removed from the public catalog on 2026-11-25 at the user's request. Their discarded original preview files remain in repository history for traceability, not as catalog entries. EX09 is the current user-selected 1672×941 near-16:9 close-up, not direct API execution of its fixture prompt. Other entries remain provisional and unapproved.",
+  "source": "EX05–EX08 were removed from the public catalog on 2026-11-25 at the user's request. EX07/EX08 failed the repeated-device count. Retired preview assets and historical QA records are retained for traceability only. EX09 is the current user-selected near-16:9 close-up, not direct API execution of its fixture prompt. All active experimental entries remain provisional and unapproved.",
   "approved": false,
   "security": "No API credentials or user-provided reference image files committed.",
   "disclaimer": "Visual direction only. iPhone count and some laptop visibility requirements fail; each card discloses this.",
@@ -41,24 +41,6 @@
       "quality": "unapproved",
       "review_note": "台座上面より低い見上げ構図は表現。植物が混入し、筐体の支持が不自然なため画像QA不合格。",
       "image_origin": "individual-concept-imagegen"
-    },
-    {
-      "id": "EX07",
-      "asset": "assets/experimental-previews/exp-mock-07.jpg",
-      "source_prompt": "prompts/iphone17/repeated-ivory-low-oblique.txt",
-      "generated_from_source_prompt": false,
-      "quality": "unapproved",
-      "review_note": "単体iPhoneの低角度プレビュー。6台反復条件は未達のため構図未承認。",
-      "image_origin": "original-composite-board-crop"
-    },
-    {
-      "id": "EX08",
-      "asset": "assets/experimental-previews/exp-mock-08.jpg",
-      "source_prompt": "prompts/iphone17/repeated-lightgray-low-oblique.txt",
-      "generated_from_source_prompt": false,
-      "quality": "unapproved",
-      "review_note": "単体iPhoneの側面・低角度プレビュー。6台反復条件は未達。",
-      "image_origin": "original-composite-board-crop"
     },
     {
       "id": "EX09",
