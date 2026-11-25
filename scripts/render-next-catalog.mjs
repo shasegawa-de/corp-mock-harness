@@ -129,28 +129,6 @@ const experimentalScenes=[
     "note": "台座上面より低い見上げ構図は表現。植物が混入し、筐体の支持が不自然なため画像QA不合格。"
   },
   {
-    "id": "EX05",
-    "title": "iPhone 17反復・ずれなし／整列0％",
-    "type": "iphone",
-    "scene": "iphone-grid-ivory-diagonal",
-    "composition": "iphone-tile-steep-oblique",
-    "material": "warm-ivory-seamless",
-    "light": "soft-overhead",
-    "source": "prompts/iphone17/repeated-ivory-diagonal.txt",
-    "note": "同一の生成端末切り抜き6枚を整列合成。行の横ずれ0px（0％）は配置値で確認。iPhoneの厳密な機種形状・フォトリアリズムは未承認。"
-  },
-  {
-    "id": "EX06",
-    "title": "iPhone反復・旧横ずれプレビュー（要修正）",
-    "type": "iphone",
-    "scene": "iphone-grid-ivory-diagonal-half-offset",
-    "composition": "iphone-tile-steep-oblique",
-    "material": "warm-ivory-seamless",
-    "light": "soft-overhead",
-    "source": "prompts/iphone17/repeated-ivory-diagonal-half-offset.txt",
-    "note": "旧仕様の横方向50％ずれで合成した画像。現行の『隣接列を縦方向に長辺50％ずらす』仕様には不適合。仮検証・未承認。"
-  },
-  {
     "id": "EX07",
     "title": "iPhone反復・アイボリー／低い視点",
     "type": "iphone",
@@ -190,7 +168,7 @@ export function appendExperimentalPreviews(catalog,imageBase='../'){
     if(!prompt.startsWith('ONE standalone photorealistic product photograph. ONE camera view. Horizontal 16:9.'))throw Error('Experimental prompt missing single-camera contract: '+row.id);
     const words=prompt.split(/\s+/).length;
     if(words<80||words>170)throw Error('Experimental prompt exceeds current editor guard: '+row.id);
-    const file='exp-mock-'+String(i+1).padStart(2,'0')+'.jpg';
+    const file='exp-mock-'+row.id.slice(2)+'.jpg'; // Stable ID: removing a card must never reassign other preview images
     const src=imageBase+'assets/experimental-previews/'+file+(row.id==='EX09'?'?v=92bb93e7':'');
     const url='https://github.com/shasegawa-de/corp-mock-harness/blob/main/'+row.source;
     const search=htmlEscape([row.id,row.title,row.type,row.composition,row.material,row.light,row.note].join(' ').toLowerCase());

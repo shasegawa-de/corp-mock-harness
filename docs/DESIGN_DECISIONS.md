@@ -203,3 +203,10 @@
 - [決定] Replaced only EX09's provisional catalog JPEG using the new user-selected ChatGPT-generated 1672×941 PNG, preserving its original composition. JPEG encoding is for gallery delivery; output retains 1672×941 dimensions (approximately 16:9).
 - [決定] The card's stale 4:3 warning is removed; 16:9 preview metadata and natural preview aspect ratio are updated. All other eight provisional images and 32 reviewed images remain untouched.
 - [未確認] Accurate vertical 50% long-body offset, iPhone hardware details, and prompt-to-image fidelity are still **unverified**. The image remains **仮検証・未承認**. This replacement was not an API execution of the committed fixture.
+
+## 2026-11-25 — Remove two obsolete repeated-layout output examples from catalog
+
+- [決定] Remove **EX05「iPhone 17反復・ずれなし／整列0％」** and **EX06「iPhone反復・旧横ずれプレビュー（要修正）」** from the public catalog gallery, table and active image manifest at the user's request.
+- [決定] Preserve the `repeated-grid` (aligned 0%) and `repeated-grid-half-offset` (vertical long-body 50%) **prompt-builder modes** and all their validated scene fixtures. Removing rejected output examples must not delete reusable generation options.
+- [決定] Preserve existing 32 reviewed cards and the other seven provisional previews (EX01–04, EX07–09), for a new total **39 cards**. Preview image lookup must use the stable card ID rather than list index, so deletion never silently swaps images.
+- [再検討] The old EX05/EX06 binaries and historical invalidated horizontal geometry data remain solely for source provenance and are **not** published catalog examples; delete archived source files only on a separate explicit request.
