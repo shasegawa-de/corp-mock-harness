@@ -30,20 +30,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      artifact_name: ${{ steps.artifact.outputs.name }}
     steps:
       - name: Check out canonical catalog
         uses: actions/checkout@v6
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
       - name: Set up Node.js
         uses: actions/setup-node@v7.1.0
         with:
@@ -72,10 +67,44 @@ jobs:
         run: npm install --no-save --no-package-lock playwright-core@1.56.1
       - name: Smoke test filters and composer in Chrome
         run: node tests/browser-smoke.mjs
+      - name: Name the artifact for this build attempt
+        id: artifact
+        run: echo "name=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
       - name: Upload catalog
         uses: actions/upload-pages-artifact@v4
         with:
+          name: ${{ steps.artifact.outputs.name }}
           path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Wait for the uploaded artifact to be visible
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_NAME: ${{ needs.build.outputs.artifact_name }}
+        run: |
+          endpoint="repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts"
+          for attempt in {1..12}; do
+            if gh api --method GET "$endpoint" -f name="$ARTIFACT_NAME" --jq '.total_count' | grep -qx 1; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Artifact $ARTIFACT_NAME is not uniquely visible to GitHub Actions." >&2
+          exit 1
       - name: Deploy catalog
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ needs.build.outputs.artifact_name }}
