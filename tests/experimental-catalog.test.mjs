@@ -5,9 +5,9 @@ import {renderNextCatalog} from '../scripts/render-next-catalog.mjs';
 const manifest=JSON.parse(readFileSync(new URL('../assets/experimental-previews/manifest.json',import.meta.url),'utf8'));
 const catalog=readFileSync(new URL('../catalog/index.html',import.meta.url),'utf8');
 const editor=readFileSync(new URL('../catalog-next/editor.html',import.meta.url),'utf8');
-test('seven unapproved raster previews exist and are not misrepresented as tested prompt output',()=>{
+test('five unapproved raster previews exist and are not misrepresented as tested prompt output',()=>{
  assert.equal(manifest.approved,false);
- assert.equal(manifest.images.length,7);
+ assert.equal(manifest.images.length,5);
  for(const row of manifest.images){
   const bytes=readFileSync(new URL('../'+row.asset,import.meta.url));
   assert.ok(bytes.length>1000,row.asset);
@@ -17,13 +17,13 @@ test('seven unapproved raster previews exist and are not misrepresented as teste
   assert.equal(row.quality,'unapproved',row.id);
  }
 });
-test('canonical 30+2 catalog preserved; seven supplementary previews visible on both routes',()=>{
+test('canonical 30+2 catalog preserved; five supplementary previews visible on both routes',()=>{
  for(const [base,prefix] of [['./','../'],['./next/','./']]){
   const html=renderNextCatalog(catalog,editor,'preflight',base);
-  assert.equal((html.match(/<article class="item"/g)||[]).length,39);
-  assert.equal((html.match(/data-preview="experimental"/g)||[]).length,7);
-  assert.equal((html.match(/class="quality provisional">仮検証・未承認/g)||[]).length,7);
-  for(const id of ['EX05','EX06']){
+  assert.equal((html.match(/<article class="item"/g)||[]).length,37);
+  assert.equal((html.match(/data-preview="experimental"/g)||[]).length,5);
+  assert.equal((html.match(/class="quality provisional">仮検証・未承認/g)||[]).length,5);
+  for(const id of ['EX05','EX06','EX07','EX08']){
    assert.doesNotMatch(html,new RegExp('data-id="'+id+'"'),'Removed examples must not remain in gallery or table');
    assert.ok(!manifest.images.some(row=>row.id===id),'Removed examples must not be active manifest entries');
   }
@@ -74,7 +74,7 @@ test('experimental card HTML uses real line breaks, never literal backslash-n te
  const escapedNewline=String.fromCharCode(92)+'n';
  for(const [base] of [['./'],['./next/']]){
   const html=renderNextCatalog(catalog,editor,'newline-regression',base);
-  for(const id of ['EX01','EX02','EX03','EX04','EX07','EX08','EX09']){
+  for(const id of ['EX01','EX02','EX03','EX04','EX09']){
    const offset=html.indexOf('data-id="'+id+'"');
    assert.ok(offset>0,'missing '+id);
    const end=html.indexOf('</article>',offset);

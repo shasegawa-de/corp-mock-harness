@@ -101,7 +101,7 @@ test('legacy horizontal raster demo invalidated; EX09 is provisional, close-up a
  assert.equal(m.geometry_demo.status,'SUPERSEDED_DO_NOT_USE_FOR_CURRENT_VERTICAL_COLUMN_CONTRACT');
  assert.equal(m.geometry_demo.actual_axis,'horizontal_translation_of_second_row');
  const ex9=m.images.find(x=>x.id==='EX09');
- for(const retired of ['EX05','EX06'])assert.ok(!m.images.some(row=>row.id===retired),'Retired example must not be in active catalog manifest');
+ for(const retired of ['EX05','EX06','EX07','EX08'])assert.ok(!m.images.some(row=>row.id===retired),'Retired example must not be in active catalog manifest');
  assert.equal(ex9.quality,'unapproved');
  assert.equal(ex9.generated_from_source_prompt,false);
  assert.match(ex9.actual_aspect_ratio,/^16:9 \(1672×941 px/);
